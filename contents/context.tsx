@@ -17,7 +17,6 @@ export const getStyle = () => {
 
 const Context = () => {
   const [isHide, setIsHide] = useState(true)
-
   const [initial, setInitial] = useState(false)
 
   const onBadgeClick = () => {
