@@ -1,0 +1,42 @@
+.extensions-wisher-overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &[host-initial="true"] {
+    background-color: #6d4c8c;
+  }
+
+  &--hide[host-initial="true"] {
+    animation: hide-overlay 200ms forwards;
+  }
+
+  &--show[host-initial="true"] {
+    animation: show-overlay 200ms forwards;
+  }
+}
+
+@keyframes hide-overlay {
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes show-overlay {
+  0% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}

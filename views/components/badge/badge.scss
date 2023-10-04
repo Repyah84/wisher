@@ -1,0 +1,23 @@
+.extensions-wisher-badge {
+  --extensions-wisher-badge-size: 64px;
+
+  position: absolute;
+
+  display: inline-flex;
+
+  padding: 10px;
+
+  left: calc(var(--extensions-wisher-badge-size) * -1);
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: var(--extensions-wisher-badge-size);
+  height: var(--extensions-wisher-badge-size);
+
+  border-radius: 16px 0 0 16px;
+
+  background-color: var(--extensions-wisher-primary);
+
+  cursor: pointer;
+}

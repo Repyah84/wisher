@@ -1,6 +1,8 @@
 import cssText from "data-text:~/contents/context.scss"
 import type { PlasmoCSConfig } from "plasmo"
+import { useState } from "react"
 
+import { OverLay } from "~views/components/overlay/overlay"
 import { Wisher } from "~views/wisher"
 
 export const config: PlasmoCSConfig = {
@@ -13,6 +15,23 @@ export const getStyle = () => {
   return style
 }
 
-const Context = () => <Wisher />
+const Context = () => {
+  const [isHide, setIsHide] = useState(true)
+
+  const [initial, setInitial] = useState(false)
+
+  const onBadgeClick = () => {
+    setIsHide(!isHide)
+    setInitial(true)
+  }
+
+  return (
+    <div className="extensions-washer-host">
+      <OverLay onClickFn={onBadgeClick} isHide={isHide} initial={initial} />
+
+      <Wisher isHide={isHide} onClickFn={onBadgeClick} />
+    </div>
+  )
+}
 
 export default Context

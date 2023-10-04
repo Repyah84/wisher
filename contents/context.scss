@@ -1,2 +1,9 @@
+@use "./content-base.scss";
+
 @use "../views/wisher.scss";
-@use "../views/pages/home/home-page.scss";
+@use "../views/pages/pages.scss";
+@use "../views/components/components.scss";
+
+.extensions-washer-host {
+  --extensions-wisher-primary: #9025f1;
+}
