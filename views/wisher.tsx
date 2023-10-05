@@ -3,6 +3,7 @@ import { MemoryRouter } from "react-router-dom"
 import { WisherRoutes } from "~routes/wisher.router"
 
 import { Badge } from "./components/badge/badge"
+import { Footer } from "./components/footer/footer"
 import { Header } from "./components/header/header"
 
 interface Props {
@@ -23,6 +24,8 @@ export const Wisher = ({ isHide, onClickFn }: Props) => {
       <MemoryRouter>
         <WisherRoutes />
       </MemoryRouter>
+
+      <Footer />
     </div>
   )
 }

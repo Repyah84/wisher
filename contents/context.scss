@@ -6,4 +6,10 @@
 
 .extensions-washer-host {
   --extensions-wisher-primary: #9025f1;
+
+  --extensions-wisher-bac: hsl(287, 25%, 39%);
+
+  * {
+    box-sizing: border-box;
+  }
 }

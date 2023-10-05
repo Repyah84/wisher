@@ -6,16 +6,20 @@
   right: 0;
   bottom: 0;
 
+  display: none;
+
   &[host-initial="true"] {
-    background-color: #6d4c8c;
+    display: block;
+
+    background-color: var(--extensions-wisher-bac);
   }
 
   &--hide[host-initial="true"] {
-    animation: hide-overlay 200ms forwards;
+    animation: hide-overlay 200ms forwards ease-in-out;
   }
 
   &--show[host-initial="true"] {
-    animation: show-overlay 200ms forwards;
+    animation: show-overlay 200ms forwards ease-in-out;
   }
 }
 
