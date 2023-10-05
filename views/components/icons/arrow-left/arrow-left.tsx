@@ -1,19 +1,19 @@
 import type { IconProps } from "../icon-props.type"
 import { IconWrapper } from "../icon-wrapper/icon-wrapper"
 
-export const CrossSvgIcon = ({ width = 24 }: IconProps) => (
+export const ArrowLeftSvgIcon = ({ width = 32 }: IconProps) => (
   <IconWrapper width={width}>
-    {" "}
     <svg
       className="__extensions-wisher-svg__"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
-      viewBox="0 0 24 24">
+      viewBox="0 0 48 48">
       <path
-        fill="#666"
-        fillRule="evenodd"
-        d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"
-        clipRule="evenodd"
+        stroke="#000"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        d="M35 24H13M22 15l-9 9 9 9"
       />
     </svg>
   </IconWrapper>
