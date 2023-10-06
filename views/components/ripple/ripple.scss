@@ -1,21 +1,15 @@
-.extensions-wisher-ripple-wrapper {
-  position: relative;
-
-  overflow: hidden;
-
-  height: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .extensions-wisher-ripple {
   position: absolute;
+
   border-radius: 50%;
+
   background: var(--extensions-wisher-bac);
+
   transform: scale(0);
-  animation: ripple-animation 500ms linear;
+
+  animation: ripple-animation 500ms ease-out;
+
+  pointer-events: none;
 }
 
 @keyframes ripple-animation {

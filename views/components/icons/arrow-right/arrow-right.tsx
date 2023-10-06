@@ -9,10 +9,10 @@ export const ArrowRightSvgIcon = ({ width = 32 }: IconProps) => (
       fill="none"
       viewBox="0 0 48 48">
       <path
-        stroke="#000"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="1.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
         d="M13 24h22M26 15l9 9-9 9"
       />
     </svg>

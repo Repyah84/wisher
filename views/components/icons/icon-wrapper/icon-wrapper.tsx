@@ -8,7 +8,7 @@ interface Props {
 export const IconWrapper = ({ width, children }: Props) => (
   <div
     style={{
-      display: "inline-block",
+      display: "inline-flex",
       maxWidth: `${width}px`
     }}>
     {children}

@@ -9,9 +9,10 @@ import { Header } from "./components/header/header"
 interface Props {
   isHide: boolean
   onClickFn: () => void
+  onWisherCloseFn: () => void
 }
 
-export const Wisher = ({ isHide, onClickFn }: Props) => {
+export const Wisher = ({ isHide, onClickFn, onWisherCloseFn }: Props) => {
   return (
     <div
       className={`${
@@ -19,7 +20,7 @@ export const Wisher = ({ isHide, onClickFn }: Props) => {
       } extensions-wisher`}>
       <Badge onClickFn={onClickFn} />
 
-      <Header />
+      <Header onClickFn={onWisherCloseFn} />
 
       <MemoryRouter>
         <WisherRoutes />

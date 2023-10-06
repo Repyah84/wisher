@@ -1,0 +1,50 @@
+.extensions-wisher-button {
+  position: relative;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+
+  margin: 0;
+  padding: 0;
+
+  background: none;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  &--default {
+    padding: 8px 16px;
+
+    border-radius: 10px;
+  }
+
+  &--icon {
+    padding: 8px;
+
+    border-radius: 50%;
+  }
+
+  &--icon#{&}-color--default {
+    color: #000;
+  }
+
+  &--default#{&}-color--default {
+    color: var(--extensions-wisher-primary);
+
+    box-shadow: 0 0 0 2px inset hsla(0, 0%, 0%, 0.12);
+  }
+
+  &--icon#{&}-color--primary {
+    color: var(--extensions-wisher-primary);
+  }
+
+  &--default#{&}-color--primary {
+    background-color: var(--extensions-wisher-primary);
+
+    color: white;
+  }
+}

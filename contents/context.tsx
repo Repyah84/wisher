@@ -24,11 +24,19 @@ const Context = () => {
     setInitial(true)
   }
 
+  const onWisherClose = () => {
+    setIsHide(true)
+  }
+
   return (
     <div className="extensions-washer-host">
-      <OverLay onClickFn={onBadgeClick} isHide={isHide} initial={initial} />
+      <OverLay onClickFn={onWisherClose} isHide={isHide} initial={initial} />
 
-      <Wisher isHide={isHide} onClickFn={onBadgeClick} />
+      <Wisher
+        isHide={isHide}
+        onClickFn={onBadgeClick}
+        onWisherCloseFn={onWisherClose}
+      />
     </div>
   )
 }

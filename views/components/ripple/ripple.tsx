@@ -1,49 +1,63 @@
-import { useRef, useState, type ReactNode } from "react"
+import { useEffect, useState } from "react"
 
 interface Props {
-  children: ReactNode
+  host: React.MutableRefObject<any>
 }
 
-export const Ripple = ({ children }: Props) => {
-  const refRippleWrap = useRef(null)
+interface Ripple {
+  id: number
+  x: number
+  y: number
+  width: number
+  height: number
+}
 
-  const onRippleClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    event.stopPropagation()
+export const Ripple = ({ host }: Props) => {
+  const [ripples, setRipples] = useState<Ripple[]>([])
 
+  const handleEvent = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     requestAnimationFrame(() => {
-      if (refRippleWrap === null) {
-        return
-      }
-
-      const rect = refRippleWrap.current.getBoundingClientRect()
-      const ripple = document.createElement("span")
+      const rect = host.current.getBoundingClientRect()
 
       const size = Math.max(rect.width, rect.height)
+
       const x = event.clientX - rect.left - size / 2
       const y = event.clientY - rect.top - size / 2
+      const width = size
+      const height = size
 
-      ripple.style.width = ripple.style.height = size + "px"
-      ripple.style.left = x + "px"
-      ripple.style.top = y + "px"
+      const id = Date.now()
 
-      ripple.classList.add("extensions-wisher-ripple")
+      const newRipple: Ripple = { id, x, y, width, height }
 
-      refRippleWrap.current.appendChild(ripple)
-
-      ripple.addEventListener("animationend", () => {
-        ripple.remove()
-      })
+      setRipples((ripples) => [...ripples, newRipple])
     })
   }
 
-  return (
-    <div
-      ref={refRippleWrap}
-      onClick={(e) => onRippleClick(e)}
-      className="extensions-wisher-ripple-wrapper">
-      {children}
-    </div>
-  )
+  const rippleAnimationAnd = (rippleId: number) => {
+    setRipples((ripples) => ripples.filter(({ id }) => id !== rippleId))
+  }
+
+  useEffect(() => {
+    if (host.current) {
+      host.current.addEventListener("click", handleEvent)
+
+      return () => {
+        host.current.removeEventListener("click", handleEvent)
+      }
+    }
+  }, [host])
+
+  return ripples.map((ripple) => (
+    <span
+      onAnimationEnd={() => rippleAnimationAnd(ripple.id)}
+      key={ripple.id}
+      className="extensions-wisher-ripple"
+      style={{
+        left: `${ripple.x}px`,
+        top: `${ripple.y}px`,
+        width: `${ripple.width}px`,
+        height: `${ripple.height}px`
+      }}></span>
+  ))
 }
