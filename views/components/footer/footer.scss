@@ -1,5 +1,11 @@
 .extensions-wisher-footer {
-  display: grid;
+  overflow: hidden;
 
+  height: 56px;
+
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
+
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
 }

@@ -22,7 +22,7 @@ export const Button = ({
   return (
     <button
       ref={hostRef}
-      className={`extensions-wisher-button extensions-wisher-button--${btnType} extensions-wisher-button-color--${btnColor}`}
+      className={`__extensions-wisher-btn__ extensions-wisher-btn--${btnType} extensions-wisher-btn-color--${btnColor}`}
       disabled={disable}
       onClick={onClickFn}>
       {children}

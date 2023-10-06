@@ -1,19 +1,20 @@
+import { ButtonNav } from "../button-nav/button-nav"
 import { AddSvgIcon } from "../icons/add/add"
 import { HeartSvgIcon } from "../icons/heart/heart"
 import { OptionsSvgIcon } from "../icons/options/options"
 
 export const Footer = () => (
   <div className="extensions-wisher-footer">
-    <button>
+    <ButtonNav link="/wisher/wishes">
       <HeartSvgIcon />
-    </button>
+    </ButtonNav>
 
-    <button>
+    <ButtonNav link="/login">
       <AddSvgIcon />
-    </button>
+    </ButtonNav>
 
-    <button>
+    <ButtonNav link="/login">
       <OptionsSvgIcon />
-    </button>
+    </ButtonNav>
   </div>
 )

@@ -1,9 +1,13 @@
 import cssText from "data-text:~/contents/context.scss"
 import type { PlasmoCSConfig } from "plasmo"
-import { useState } from "react"
+import { Provider } from "react-redux"
+import { MemoryRouter } from "react-router-dom"
 
+import { PersistGate } from "@plasmohq/redux-persist/integration/react"
+
+import { WisherRoutes } from "~routes/wisher.router"
+import { mockStore } from "~store/store"
 import { OverLay } from "~views/components/overlay/overlay"
-import { Wisher } from "~views/wisher"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.google.com/*"]
@@ -16,28 +20,16 @@ export const getStyle = () => {
 }
 
 const Context = () => {
-  const [isHide, setIsHide] = useState(true)
-  const [initial, setInitial] = useState(false)
-
-  const onBadgeClick = () => {
-    setIsHide(!isHide)
-    setInitial(true)
-  }
-
-  const onWisherClose = () => {
-    setIsHide(true)
-  }
-
   return (
-    <div className="extensions-washer-host">
-      <OverLay onClickFn={onWisherClose} isHide={isHide} initial={initial} />
+    <Provider store={mockStore}>
+      <div className="extensions-washer-host">
+        <OverLay />
 
-      <Wisher
-        isHide={isHide}
-        onClickFn={onBadgeClick}
-        onWisherCloseFn={onWisherClose}
-      />
-    </div>
+        <MemoryRouter>
+          <WisherRoutes />
+        </MemoryRouter>
+      </div>
+    </Provider>
   )
 }
 

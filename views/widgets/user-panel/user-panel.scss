@@ -1,0 +1,30 @@
+.extensions-wisher-user-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__user {
+    display: flex;
+    column-gap: 5px;
+  }
+
+  &__user-name {
+    color: hsla(0, 0%, 0%, 0.87);
+
+    font-size: 16px;
+  }
+
+  &__auth-message {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+
+    color: var(--extensions-wisher-special);
+  }
+
+  &__action {
+    width: 62px;
+
+    height: 16px;
+  }
+}

@@ -17,6 +17,10 @@ export const Ripple = ({ host }: Props) => {
 
   const handleEvent = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     requestAnimationFrame(() => {
+      if (host.current === null) {
+        return
+      }
+
       const rect = host.current.getBoundingClientRect()
 
       const size = Math.max(rect.width, rect.height)
@@ -39,12 +43,18 @@ export const Ripple = ({ host }: Props) => {
   }
 
   useEffect(() => {
-    if (host.current) {
-      host.current.addEventListener("click", handleEvent)
+    if (host.current === null) {
+      return
+    }
 
-      return () => {
-        host.current.removeEventListener("click", handleEvent)
+    host.current.addEventListener("click", handleEvent)
+
+    return () => {
+      if (host.current === null) {
+        return
       }
+
+      host.current.removeEventListener("click", handleEvent)
     }
   }, [host])
 

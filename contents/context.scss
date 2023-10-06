@@ -1,15 +1,24 @@
 @use "./content-base.scss";
 
-@use "../views/wisher.scss";
+@use "../views/root.scss";
 @use "../views/pages/pages.scss";
 @use "../views/components/components.scss";
+@use "../views/widgets/widget.scss";
 
 .extensions-washer-host {
-  --extensions-wisher-primary: #9025f1;
+  --extensions-wisher-primary: hsla(271, 88%, 55%, 1);
+
+  --extensions-wisher-special: hsla(338, 88%, 44%, 1);
 
   --extensions-wisher-bac: hsl(287, 25%, 39%);
 
   * {
     box-sizing: border-box;
+
+    font-family: "Roboto", sans-serif;
+
+    font-weight: 400;
+
+    font-size: 14px;
   }
 }

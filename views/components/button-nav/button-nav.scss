@@ -1,0 +1,20 @@
+.extensions-wisher-btn-nav {
+  height: 100%;
+  width: 100%;
+
+  &--default {
+    color: hsla(0, 0%, 0%, 0.2);
+  }
+
+  &--default[nav-active="true"] {
+    color: hsla(0, 0%, 0%, 1);
+  }
+
+  &--primary {
+    color: var(--extensions-wisher-primary);
+  }
+
+  &--primary[nav-active="true"] {
+    color: var(--extensions-wisher-primary);
+  }
+}

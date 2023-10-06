@@ -1,16 +1,21 @@
-interface Props {
-  initial: boolean
-  isHide: boolean
-  onClickFn: () => void
-}
+import { useDispatch, useSelector } from "react-redux"
 
-export const OverLay = ({ onClickFn, isHide, initial }: Props) => (
-  <div
-    host-initial={initial.toString()}
-    className={`${
-      isHide
-        ? "extensions-wisher-overlay--hide"
-        : "extensions-wisher-overlay--show"
-    } extensions-wisher-overlay`}
-    onClick={onClickFn}></div>
-)
+import { toggleWisherSate } from "~store/wisher-state"
+
+export const OverLay = () => {
+  const initial = useSelector(({ initial: { isInitial } }) => isInitial)
+  const isShow = useSelector(({ wisher: { isShow } }) => isShow)
+
+  const dispatch = useDispatch()
+
+  return (
+    <div
+      host-initial={initial.toString()}
+      className={`${
+        isShow
+          ? "extensions-wisher-overlay--show"
+          : "extensions-wisher-overlay--hide"
+      } extensions-wisher-overlay`}
+      onClick={() => dispatch(toggleWisherSate(false))}></div>
+  )
+}

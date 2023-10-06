@@ -3,17 +3,24 @@
   "displayName": "Wisher",
   "version": "0.0.1",
   "description": "Create Your Ideal Wishlist with Registry & Wishlist: Wisher",
-  "author": "Nikolat <repyah84@gmail.com>",
+  "author": "Nikolay <repyah84@gmail.com>",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
     "package": "plasmo package"
   },
   "dependencies": {
+    "@plasmohq/redux-persist": "^6.1.0",
+    "@plasmohq/storage": "^1.8.0",
+    "@reduxjs/toolkit": "^1.9.7",
     "plasmo": "0.83.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-redux": "^8.1.3",
+    "react-router-dom": "^6.16.0",
+    "redux": "^4.2.1",
+    "redux-persist-webextension-storage": "^1.0.2",
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",

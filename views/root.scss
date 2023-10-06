@@ -1,12 +1,9 @@
-.extensions-wisher {
+.extensions-wisher-root {
   position: fixed;
   top: 120px;
   right: 0;
 
-  padding: 16px;
-
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
 
   width: 428px;
   height: 628px;

@@ -1,13 +1,11 @@
-import { useNavigate } from "react-router-dom"
+import { ButtonNav } from "~views/components/button-nav/button-nav"
 
 export const LoginPage = () => {
-  const navigation = useNavigate()
-
   return (
-    <div>
+    <div className="extensions-wisher-login-page">
       <h2>Login Page</h2>
 
-      <button onClick={() => navigation("/")}>Home</button>
+      <ButtonNav link="/wisher">Wishes</ButtonNav>
     </div>
   )
 }

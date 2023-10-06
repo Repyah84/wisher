@@ -1,9 +1,11 @@
 .extensions-wisher-ripple {
+  --extensions-wisher-ripple-color: var(--extensions-wisher-bac);
+
   position: absolute;
 
   border-radius: 50%;
 
-  background: var(--extensions-wisher-bac);
+  background: var(--extensions-wisher-ripple-color);
 
   transform: scale(0);
 
