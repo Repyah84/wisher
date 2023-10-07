@@ -12,9 +12,18 @@
 
   --extensions-wisher-bac: hsl(287, 25%, 39%);
 
+  --extensions-mode-text: hsla(0, 0%, 0%, 0.87);
+
   * {
     box-sizing: border-box;
 
     font-family: "Roboto", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--extensions-mode-text);
   }
 }

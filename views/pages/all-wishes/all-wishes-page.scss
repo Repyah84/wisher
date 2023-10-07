@@ -1,0 +1,32 @@
+.extensions-wisher-all-wishes-page {
+  display: grid;
+
+  &__empty-list {
+    margin-top: auto;
+
+    text-align: center;
+
+    padding-bottom: 50px;
+  }
+
+  &__title {
+    margin: 25px 0;
+
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  &__description {
+    font-size: 14px;
+
+    color: hsla(0, 0%, 63%, 1);
+  }
+
+  &__action {
+    & .__extensions-wisher-btn__ {
+      text-transform: uppercase;
+
+      font-size: 14px;
+    }
+  }
+}

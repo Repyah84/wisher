@@ -10,14 +10,10 @@ interface Props {
 
 export const ButtonNav = ({ link, children }: Props) => {
   const hostRef = useRef(null)
-
   const location = useLocation()
-
-  // console.log(location, "!!!!!!!!!!!!!!!!!", link)
-
   const navigate = useNavigate()
 
-  const active = (location.pathname === link).toString()
+  const active = location.pathname.includes(link).toString()
 
   return (
     <button

@@ -2,9 +2,11 @@ import { useRef, type ReactNode } from "react"
 
 import { Ripple } from "../ripple/ripple"
 
+export type BtnType = "icon" | "default" | "stroke"
+export type BtnColor = "primary" | "default"
 interface Props {
-  btnType?: "icon" | "default" | "stroke"
-  btnColor?: "primary" | "default"
+  btnType?: BtnType
+  btnColor?: BtnColor
   children: ReactNode
   onClickFn: () => void
   disable?: boolean
