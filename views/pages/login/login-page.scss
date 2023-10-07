@@ -2,4 +2,41 @@
   width: 100%;
 
   display: grid;
+
+  grid-template-rows: auto 1fr;
+
+  &__welcome {
+    margin-top: auto;
+
+    text-align: center;
+  }
+
+  &__title {
+    margin-top: 30px;
+    margin-bottom: 10px;
+
+    font-size: 48px;
+    font-weight: 400;
+  }
+
+  &__description {
+    margin-top: 0;
+    margin-bottom: 70px;
+
+    font-size: 16px;
+  }
+
+  &__login {
+    height: 30px;
+  }
+
+  &__action {
+    padding: 16px;
+
+    .__extensions-wisher-btn__ {
+      font-size: 10px;
+
+      color: hsla(0, 0%, 0%, 0.6);
+    }
+  }
 }

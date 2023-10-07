@@ -1,9 +1,9 @@
-import { UserPAnel } from "~views/widgets/user-panel/user-panel"
+import { UserPanel } from "~views/widgets/user-panel/user-panel"
 
 export const WishesPage = () => {
   return (
     <div className="extensions-wisher-wishes-page">
-      <UserPAnel />
+      <UserPanel />
     </div>
   )
 }

@@ -11,8 +11,6 @@ export const Root = () => {
 
   const isShow = useSelector(({ wisher: { isShow } }) => isShow)
 
-  console.log(isShow)
-
   const onClickFn = () => {
     dispatch(toggleWisherSate(!isShow))
     dispatch(initialWisher(true))

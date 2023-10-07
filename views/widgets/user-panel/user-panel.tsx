@@ -1,16 +1,25 @@
 import svgIcon from "data-base64:~assets/wisher-avatar.svg"
+import { useNavigate } from "react-router-dom"
 
-import { ButtonNav } from "~views/components/button-nav/button-nav"
+import { Button } from "~views/components/button/button"
 import { WarningSvgIcon } from "~views/components/icons/warning/warning"
 
-export const UserPAnel = () => {
+export const UserPanel = () => {
+  const navigate = useNavigate()
+
+  const onNavClick = () => {
+    navigate("/login")
+  }
+
   return (
     <div className="extensions-wisher-user-panel">
       <div className="extensions-wisher-user-panel__user">
         <img src={svgIcon} alt="auth" width={72} height={72} />
 
-        <div className="extensions-wisher-user-panel__user-name">
-          <span>Guest555550115</span>
+        <div className="extensions-wisher-user-panel__user-info">
+          <span className="extensions-wisher-user-panel__user-name">
+            Guest555550115
+          </span>
 
           <div className="extensions-wisher-user-panel__auth-message">
             <WarningSvgIcon />
@@ -20,9 +29,9 @@ export const UserPAnel = () => {
       </div>
 
       <div className="extensions-wisher-user-panel__action">
-        <ButtonNav link="/login" bnyNavColor="primary">
+        <Button btnType="stroke" onClickFn={onNavClick}>
           <span>SING UP</span>
-        </ButtonNav>
+        </Button>
       </div>
     </div>
   )

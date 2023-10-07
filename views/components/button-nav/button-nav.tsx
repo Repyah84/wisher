@@ -6,14 +6,9 @@ import { Ripple } from "../ripple/ripple"
 interface Props {
   link: string
   children: ReactNode
-  bnyNavColor?: "default" | "primary"
 }
 
-export const ButtonNav = ({
-  link,
-  children,
-  bnyNavColor = "default"
-}: Props) => {
+export const ButtonNav = ({ link, children }: Props) => {
   const hostRef = useRef(null)
 
   const location = useLocation()
@@ -29,7 +24,7 @@ export const ButtonNav = ({
       ref={hostRef}
       onClick={() => navigate(link)}
       nav-active={active}
-      className={`__extensions-wisher-btn__ extensions-wisher-btn-nav extensions-wisher-btn-nav--${bnyNavColor}`}>
+      className={`__extensions-wisher-btn__ extensions-wisher-btn-nav`}>
       {children} <Ripple host={hostRef}></Ripple>
     </button>
   )

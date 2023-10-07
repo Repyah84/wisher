@@ -1,11 +1,20 @@
 .extensions-wisher-user-panel {
+  padding: 8px 16px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   &__user {
     display: flex;
-    column-gap: 5px;
+    align-items: center;
+    column-gap: 8px;
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
   }
 
   &__user-name {
@@ -20,11 +29,11 @@
     column-gap: 5px;
 
     color: var(--extensions-wisher-special);
+
+    font-size: 12px;
   }
 
-  &__action {
-    width: 62px;
-
-    height: 16px;
+  &__action .__extensions-wisher-btn__ {
+    font-size: 16px;
   }
 }

@@ -3,7 +3,7 @@ import { useRef, type ReactNode } from "react"
 import { Ripple } from "../ripple/ripple"
 
 interface Props {
-  btnType?: "icon" | "default"
+  btnType?: "icon" | "default" | "stroke"
   btnColor?: "primary" | "default"
   children: ReactNode
   onClickFn: () => void
