@@ -6,6 +6,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+  border-bottom-left-radius: var(--extensions-mode-border-radius);
+  border-bottom-right-radius: var(--extensions-mode-border-radius);
 }
