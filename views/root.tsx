@@ -1,27 +1,20 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useContext } from "react"
 import { Outlet } from "react-router-dom"
 
-import { initialWisher } from "~store/initial"
-import { toggleWisherSate } from "~store/wisher-state"
-
 import { Badge } from "./components/badge/badge"
+import { WisherStateContext } from "./context/wisher/wisher.context"
 
 export const Root = () => {
-  const dispatch = useDispatch()
-
-  const isShow = useSelector(({ wisher: { isShow } }) => isShow)
-
-  const onClickFn = () => {
-    dispatch(toggleWisherSate(!isShow))
-    dispatch(initialWisher(true))
-  }
+  const {
+    wisherSate: { isShow }
+  } = useContext(WisherStateContext)
 
   return (
     <div
       className={`${
         isShow ? "extensions-wisher-root--show" : ""
       } extensions-wisher-root`}>
-      <Badge onClickFn={onClickFn} />
+      <Badge />
 
       <Outlet></Outlet>
     </div>

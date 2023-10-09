@@ -4,15 +4,25 @@ import { useState } from "react"
 import { Button } from "~views/components/button/button"
 import { Help } from "~views/components/help/help"
 import { FileSvgIcon } from "~views/components/icons/file/file"
+import { Input } from "~views/components/input/input"
 import { Popup } from "~views/components/popup/popup"
 
 export const WishesCollectionsPage = () => {
   const collections = null
 
+  const [inputValue, setInputValue] = useState("")
   const [popup, setPopup] = useState(false)
+
+  const onResetINputValue = () => {
+    setInputValue("")
+  }
 
   const togglePopup = () => {
     setPopup((value) => !value)
+  }
+
+  const onCreateCollectionClick = () => {
+    console.log("create")
   }
 
   return (
@@ -32,7 +42,7 @@ export const WishesCollectionsPage = () => {
             </p>
 
             <div className="extensions-wisher-wishes-collections-page__action">
-              <Button btnColor="primary" onClickFn={togglePopup}>
+              <Button btnColor="primary" onClickFn={togglePopup} size="md">
                 <FileSvgIcon></FileSvgIcon>
                 <span>new collection</span>
               </Button>
@@ -57,6 +67,26 @@ export const WishesCollectionsPage = () => {
           For parents <br />
           Tip: don’t forget to share your collections with friends and family!
         </Help>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+          }}
+          className="extensions-wisher-wishes-collections-page__form">
+          <Input
+            value={inputValue}
+            onChangeValue={setInputValue}
+            onResetValue={onResetINputValue}
+          />
+
+          <Button
+            btnColor="primary"
+            type="submit"
+            size="md"
+            onClickFn={onCreateCollectionClick}>
+            CREATE
+          </Button>
+        </form>
       </Popup>
     </>
   )

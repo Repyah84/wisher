@@ -1,28 +1,7 @@
 @use "./content-base.scss";
 
+@use "../views/context/context.scss";
 @use "../views/root.scss";
 @use "../views/pages/pages.scss";
 @use "../views/components/components.scss";
 @use "../views/widgets/widget.scss";
-
-.extensions-washer-host {
-  --extensions-wisher-primary: hsla(271, 88%, 55%, 1);
-
-  --extensions-wisher-special: hsla(338, 88%, 44%, 1);
-
-  --extensions-wishes-accept: hsla(168, 100%, 89%, 1);
-
-  --extensions-wisher-bac: hsl(287, 25%, 39%);
-
-  --extensions-mode-text: hsla(0, 0%, 7%, 0.87);
-
-  --extensions-mode-border-radius: 24px;
-
-  color: var(--extensions-mode-text);
-
-  * {
-    box-sizing: border-box;
-
-    font-family: "Roboto", sans-serif;
-  }
-}

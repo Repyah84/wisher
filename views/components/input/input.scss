@@ -1,0 +1,27 @@
+.extensions-wisher-input {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 5px 16px;
+
+  border-radius: 6px;
+
+  background-color: hsla(0, 0%, 92%, 1);
+
+  justify-content: space-between;
+
+  border-radius: 6px;
+
+  transition: box-shadow 150ms;
+
+  &:focus-within {
+    box-shadow: 0 4px 0 -1px hsla(267, 95%, 76%, 1);
+  }
+
+  &__content {
+    background: none;
+    outline: none;
+    border: none;
+  }
+}

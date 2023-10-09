@@ -22,11 +22,11 @@
     cursor: pointer;
 
     &[is-overlay="true"] {
-      animation: overlay-show 200ms forwards ease-in-out;
+      animation: popup-overlay-show 200ms forwards ease-in-out;
     }
 
     &[is-overlay="false"] {
-      animation: overlay-hide 200ms forwards ease-in-out;
+      animation: popup-overlay-hide 200ms forwards ease-in-out;
     }
   }
 
@@ -46,11 +46,11 @@
     border-top-left-radius: var(--extensions-mode-border-radius);
 
     &[is-layout="true"] {
-      animation: show-layout 200ms forwards ease-in-out;
+      animation: popup-show-layout 200ms forwards ease-in-out;
     }
 
     &[is-layout="false"] {
-      animation: hide-layout 200ms forwards ease-in-out;
+      animation: popup-hide-layout 200ms forwards ease-in-out;
     }
   }
 
@@ -62,10 +62,14 @@
     margin-bottom: 16px;
 
     font-size: 12px;
+
+    & .__extensions-wisher-btn__ {
+      font-size: 12px;
+    }
   }
 }
 
-@keyframes overlay-show {
+@keyframes popup-overlay-show {
   0% {
     background-color: transparent;
   }
@@ -74,7 +78,7 @@
   }
 }
 
-@keyframes overlay-hide {
+@keyframes popup-overlay-hide {
   0% {
     background-color: var(--extensions-wisher-bac);
   }
@@ -83,7 +87,7 @@
   }
 }
 
-@keyframes show-layout {
+@keyframes popup-show-layout {
   0% {
     transform: translateY(100%);
   }
@@ -92,7 +96,7 @@
   }
 }
 
-@keyframes hide-layout {
+@keyframes popup-hide-layout {
   0% {
     transform: translateY(0);
   }

@@ -1,11 +1,23 @@
+import { useContext } from "react"
+
+import { WisherStateContext } from "~views/context/wisher/wisher.context"
+
 import { WisherSvgIcon } from "../icons/wisher/wisher"
 
-interface Props {
-  onClickFn: () => void
-}
+export const Badge = () => {
+  const { setWisherState } = useContext(WisherStateContext)
 
-export const Badge = ({ onClickFn }: Props) => (
-  <div onClick={onClickFn} className="extensions-wisher-badge">
-    <WisherSvgIcon />
-  </div>
-)
+  const updateWisher = () => {
+    setWisherState((wisher) => ({
+      ...wisher,
+      isInitial: true,
+      isShow: !wisher.isShow
+    }))
+  }
+
+  return (
+    <div onClick={updateWisher} className="extensions-wisher-badge">
+      <WisherSvgIcon />
+    </div>
+  )
+}

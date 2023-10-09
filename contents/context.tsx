@@ -6,8 +6,9 @@ import { MemoryRouter } from "react-router-dom"
 import { PersistGate } from "@plasmohq/redux-persist/integration/react"
 
 import { WisherRoutes } from "~routes/wisher.router"
-import { mockStore } from "~store/store"
+import { persistor, store } from "~store/store"
 import { OverLay } from "~views/components/overlay/overlay"
+import { WisherContext } from "~views/context/wisher/wisher.context"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.wishr.app/*"]
@@ -21,14 +22,16 @@ export const getStyle = () => {
 
 const Context = () => {
   return (
-    <Provider store={mockStore}>
-      <div className="extensions-washer-host">
-        <OverLay />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <WisherContext>
+          <OverLay />
 
-        <MemoryRouter>
-          <WisherRoutes />
-        </MemoryRouter>
-      </div>
+          <MemoryRouter>
+            <WisherRoutes />
+          </MemoryRouter>
+        </WisherContext>
+      </PersistGate>
     </Provider>
   )
 }

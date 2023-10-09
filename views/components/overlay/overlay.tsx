@@ -1,21 +1,25 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useContext } from "react"
 
-import { toggleWisherSate } from "~store/wisher-state"
+import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
 export const OverLay = () => {
-  const initial = useSelector(({ initial: { isInitial } }) => isInitial)
-  const isShow = useSelector(({ wisher: { isShow } }) => isShow)
+  const {
+    wisherSate: { isInitial, isShow },
+    setWisherState: setWisherSate
+  } = useContext(WisherStateContext)
 
-  const dispatch = useDispatch()
+  const updateWisher = () => {
+    setWisherSate((wisher) => ({ ...wisher, isShow: false }))
+  }
 
   return (
     <div
-      host-initial={initial.toString()}
+      host-initial={isInitial.toString()}
       className={`${
         isShow
           ? "extensions-wisher-overlay--show"
           : "extensions-wisher-overlay--hide"
       } extensions-wisher-overlay`}
-      onClick={() => dispatch(toggleWisherSate(false))}></div>
+      onClick={updateWisher}></div>
   )
 }

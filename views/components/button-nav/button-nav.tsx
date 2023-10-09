@@ -29,7 +29,8 @@ export const ButtonNav = ({ link, children }: Props) => {
       onClick={() => onNavigate(link)}
       nav-active={active.toString()}
       className={`__extensions-wisher-btn__ extensions-wisher-btn-nav`}>
-      {children} <Ripple host={hostRef}></Ripple>
+      {children}
+      <Ripple host={hostRef}></Ripple>
     </button>
   )
 }

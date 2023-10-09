@@ -35,7 +35,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, combinedReducers)
 
 // Until persistReducer is fixed, we need to use this mock store to get the types
-export const mockStore = configureStore({
+const mockStore = configureStore({
   reducer: combinedReducers
 })
 
