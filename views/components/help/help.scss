@@ -1,0 +1,56 @@
+.extensions-wisher-help {
+  position: relative;
+
+  padding: 16px;
+
+  background-color: var(--extensions-wishes-accept);
+
+  color: hsla(0, 0%, 0%, 1);
+
+  font-size: 14px;
+  line-height: 20px;
+
+  margin-top: calc(var(--extensions-wisher-help-icon-size) * 0.5);
+
+  &[is-btn-close="true"] {
+    --extensions-wisher-help-icon-size: 38px;
+
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  &[is-btn-close="false"] {
+    border-radius: 5px;
+
+    --extensions-wisher-help-icon-size: 24px;
+  }
+
+  &__btn-close {
+    position: absolute;
+
+    display: inline-flex;
+
+    top: 0;
+    right: 0;
+
+    transform: translateY(-50%);
+
+    background-color: var(--extensions-wishes-accept);
+
+    border-radius: 50%;
+
+    // & .__extensions-wisher-btn__ {
+    //   color: currentColor;
+    // }
+  }
+
+  &__icon {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    transform: translateY(-50%);
+  }
+}

@@ -13,13 +13,21 @@ export const ButtonNav = ({ link, children }: Props) => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const active = location.pathname.includes(link).toString()
+  const active = location.pathname.includes(link)
+
+  const onNavigate = (link: string) => {
+    if (active) {
+      return
+    }
+
+    navigate(link)
+  }
 
   return (
     <button
       ref={hostRef}
-      onClick={() => navigate(link)}
-      nav-active={active}
+      onClick={() => onNavigate(link)}
+      nav-active={active.toString()}
       className={`__extensions-wisher-btn__ extensions-wisher-btn-nav`}>
       {children} <Ripple host={hostRef}></Ripple>
     </button>

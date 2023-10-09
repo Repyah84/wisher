@@ -10,7 +10,7 @@ import { mockStore } from "~store/store"
 import { OverLay } from "~views/components/overlay/overlay"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://www.google.com/*"]
+  matches: ["https://www.wishr.app/*"]
 }
 
 export const getStyle = () => {

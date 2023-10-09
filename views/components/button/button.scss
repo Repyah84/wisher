@@ -18,17 +18,9 @@
   }
 
   &--icon {
-    padding: 8px;
+    padding: 7px;
 
     border-radius: 50%;
-  }
-
-  &--icon#{&}-color--default {
-    color: #000;
-  }
-
-  &--icon#{&}-color--primary {
-    color: var(--extensions-wisher-primary);
   }
 
   &--stroke {
@@ -36,8 +28,13 @@
     border-radius: 1px;
   }
 
-  &--stroke#{&}-color--primary,
+  &--icon#{&}-color--default,
   &--stroke#{&}-color--default {
+    color: var(--extensions-mode-text);
+  }
+
+  &--icon#{&}-color--primary,
+  &--stroke#{&}-color--primary {
     color: var(--extensions-wisher-primary);
   }
 }

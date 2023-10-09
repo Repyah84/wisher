@@ -34,7 +34,10 @@ export const UserPanel = () => {
       </div>
 
       <div className="extensions-wisher-user-panel__action">
-        <Button btnType="stroke" onClickFn={() => onNavClick("/login")}>
+        <Button
+          btnType="stroke"
+          btnColor="primary"
+          onClickFn={() => onNavClick("/login")}>
           <span>SING UP</span>
         </Button>
       </div>
