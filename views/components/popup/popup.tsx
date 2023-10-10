@@ -1,15 +1,23 @@
-import { useState, type ReactNode } from "react"
+import { useContext, useState, type ReactNode } from "react"
+
+import {
+  WisherStateContext,
+  type WisherMessage
+} from "~views/context/wisher/wisher.context"
 
 import { Button } from "../button/button"
 
 interface Props {
   title: string
   children: ReactNode
-  hasPopup: boolean
-  hidePopupFn: () => void
+  typeMessage: WisherMessage
 }
 
-export const Popup = ({ title, children, hasPopup, hidePopupFn }: Props) => {
+export const Popup = ({ title, children, typeMessage }: Props) => {
+  const {
+    wisherSate: { hasMessage },
+    setWisherState
+  } = useContext(WisherStateContext)
   const [isPopup, setIsPopup] = useState(true)
 
   const onPopupClickClose = () => {
@@ -21,11 +29,11 @@ export const Popup = ({ title, children, hasPopup, hidePopupFn }: Props) => {
       return
     }
 
-    hidePopupFn()
+    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
     setIsPopup(true)
   }
 
-  return hasPopup ? (
+  return typeMessage === hasMessage ? (
     <div className="extensions-wisher-popup">
       <div
         is-overlay={isPopup.toString()}

@@ -1,6 +1,6 @@
 import { createContext, useState, type ReactNode } from "react"
 
-type WisherMessage = "create-wisher" | null
+export type WisherMessage = "create-wisher" | "create-collection" | null
 
 interface Props {
   children: ReactNode

@@ -1,29 +1,24 @@
-import svgIcon from "data-base64:~assets/wisher-collection.svg"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 
 import { AddForm } from "~views/components/add-form/add-form"
-import { Button } from "~views/components/button/button"
 import { Help } from "~views/components/help/help"
-import { FileSvgIcon } from "~views/components/icons/file/file"
 import { Popup } from "~views/components/popup/popup"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { WishesCollectionsEmpty } from "~views/widgets/wishes-collections-empty/wishes-collections-empty"
 
 export const WishesCollectionsPage = () => {
   const collections = null
 
+  //TO move tol async store
   const {
     wisherSate: { isCreateCollectionHelp },
     setWisherState
   } = useContext(WisherStateContext)
-  const [popup, setPopup] = useState(false)
-
-  const togglePopup = () => {
-    setPopup((value) => !value)
-  }
 
   const messageClose = () => {
     setWisherState((wisher) => ({ ...wisher, isCreateCollectionHelp: false }))
   }
+  //
 
   const onCreateCollectionClick = () => {
     console.log("create")
@@ -32,35 +27,10 @@ export const WishesCollectionsPage = () => {
   return (
     <>
       <div className="extensions-wisher-wishes-collections-page">
-        {collections === null ? (
-          <div className="extensions-wisher-wishes-collections-page__empty">
-            <img width={104} height={104} src={svgIcon} alt="empty" />
-
-            <h3 className="extensions-wisher-wishes-collections-page__title">
-              No collections
-            </h3>
-
-            <p className="extensions-wisher-wishes-collections-page__description">
-              Keep your gifts and wishes organised with various <br />
-              collections.
-            </p>
-
-            <div className="extensions-wisher-wishes-collections-page__action">
-              <Button btnColor="primary" onClickFn={togglePopup} size="md">
-                <FileSvgIcon></FileSvgIcon>
-                <span>NEW COLLECTION</span>
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <></>
-        )}
+        {collections === null ? <WishesCollectionsEmpty /> : <></>}
       </div>
 
-      <Popup
-        title="Create the collection"
-        hasPopup={popup}
-        hidePopupFn={togglePopup}>
+      <Popup title="Create the collection" typeMessage="create-collection">
         <Help
           hasMessage={isCreateCollectionHelp}
           hasBtnClose={true}
