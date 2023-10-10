@@ -1,0 +1,26 @@
+.extensions-wisher-collection-page {
+  padding: 0 16px;
+
+  display: grid;
+
+  grid-template-rows: auto auto 1fr;
+
+  &__header {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 8px 0;
+  }
+
+  &__info {
+    padding: 10px 0;
+    box-shadow: 0 2px 0 -1px hsla(272, 100%, 85%, 1);
+  }
+
+  &__title {
+    margin: 0;
+
+    font-size: 34px;
+  }
+}

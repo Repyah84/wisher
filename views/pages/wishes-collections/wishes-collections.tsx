@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { AddForm } from "~views/components/add-form/add-form"
 import { Help } from "~views/components/help/help"
@@ -8,6 +9,8 @@ import { WishesCollectionsEmpty } from "~views/widgets/wishes-collections-empty/
 
 export const WishesCollectionsPage = () => {
   const collections = null
+
+  const navigate = useNavigate()
 
   //TO move tol async store
   const {
@@ -20,8 +23,10 @@ export const WishesCollectionsPage = () => {
   }
   //
 
-  const onCreateCollectionClick = () => {
-    console.log("create")
+  const onCreateCollectionClick = (value: string) => {
+    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+
+    navigate(`/wisher/wishes-collection/${value}`)
   }
 
   return (

@@ -1,11 +1,10 @@
 import { useState } from "react"
-import { useStore } from "react-redux"
 
 import { Button } from "../button/button"
 import { Input } from "../input/input"
 
 interface Props {
-  onSubmitFn: () => void
+  onSubmitFn: (e: string) => void
 }
 
 export const AddForm = ({ onSubmitFn }: Props) => {
@@ -15,7 +14,7 @@ export const AddForm = ({ onSubmitFn }: Props) => {
     <form
       onSubmit={(e) => {
         e.preventDefault()
-        onSubmitFn()
+        onSubmitFn(inputValue)
       }}
       className="extensions-wisher-add-form">
       <Input
@@ -24,7 +23,11 @@ export const AddForm = ({ onSubmitFn }: Props) => {
         onResetValue={() => setInputValue("")}
       />
 
-      <Button btnColor="primary" type="submit" size="md" onClickFn={onSubmitFn}>
+      <Button
+        btnColor="primary"
+        type="submit"
+        size="md"
+        onClickFn={() => onSubmitFn(inputValue)}>
         CREATE
       </Button>
     </form>

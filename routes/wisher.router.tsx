@@ -4,6 +4,7 @@ import { AddWisherPage } from "~views/pages/add-wisher/add-wisher-page"
 import { AllWishesPage } from "~views/pages/all-wishes/all-wishes-page"
 import { LoginPage } from "~views/pages/login/login-page"
 import { WisherPage } from "~views/pages/wisher/wisher-page"
+import { CollectionPage } from "~views/pages/wishes-collection/wishes-collection-page"
 import { WishesCollectionsPage } from "~views/pages/wishes-collections/wishes-collections"
 import { WishesPage } from "~views/pages/wishes/wishes-page"
 import { Root } from "~views/root"
@@ -21,11 +22,14 @@ export const WisherRoutes = () => (
           <Route path="" element={<Navigate to={"all-wishes"} />} />
 
           <Route path="all-wishes" element={<AllWishesPage />} />
+
           <Route
             path="wishes-collections"
             element={<WishesCollectionsPage />}
           />
         </Route>
+
+        <Route path="wishes-collection/:name" element={<CollectionPage />} />
 
         <Route path="add-wisher" element={<AddWisherPage />}>
           {/* <Route path="" element={<Navigate to={"wisher-empty-data"} />} />
