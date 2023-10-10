@@ -48,7 +48,7 @@ export const WishesCollectionsPage = () => {
             <div className="extensions-wisher-wishes-collections-page__action">
               <Button btnColor="primary" onClickFn={togglePopup} size="md">
                 <FileSvgIcon></FileSvgIcon>
-                <span>new collection</span>
+                <span>NEW COLLECTION</span>
               </Button>
             </div>
           </div>

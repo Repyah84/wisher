@@ -32,6 +32,7 @@ export const Button = ({
       ref={hostRef}
       className={`__extensions-wisher-btn__ extensions-wisher-btn extensions-wisher-btn--${btnType} extensions-wisher-btn-color--${btnColor} extensions-wisher-btn-size--${size}`}
       disabled={disable}
+      is-disabled={disable.toString()}
       onClick={onClickFn}>
       {children}
       <Ripple host={hostRef}></Ripple>

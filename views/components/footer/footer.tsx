@@ -31,7 +31,7 @@ export const Footer = () => {
       return { ...wisher, hasMessage: null }
     })
 
-    navigate("/login")
+    navigate("/wisher/add-wisher")
   }
 
   const onMessageCloseStart = () => {
@@ -60,7 +60,7 @@ export const Footer = () => {
           <AddSvgIcon />
         </div>
       ) : (
-        <ButtonNav link="/login">
+        <ButtonNav link="/wisher/add-wisher">
           <AddSvgIcon />
         </ButtonNav>
       )}

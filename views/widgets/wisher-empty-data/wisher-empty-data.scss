@@ -1,0 +1,33 @@
+.extensions-wisher-wisher-empty-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0 16px;
+
+  row-gap: 20px;
+
+  &__description {
+    margin: 0;
+
+    color: var(--extensions-mode-text-secondary);
+
+    text-align: center;
+
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &__action {
+    margin-top: auto;
+
+    display: flex;
+    width: 100%;
+
+    column-gap: 16px;
+
+    & > :first-child {
+      flex: 1;
+    }
+  }
+}

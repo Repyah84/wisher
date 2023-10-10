@@ -16,16 +16,6 @@
     font-size: 14px;
     line-height: 18px;
 
-    color: hsla(0, 0%, 63%, 1);
-  }
-
-  &__action {
-    & .__extensions-wisher-btn__ {
-      text-transform: uppercase;
-
-      & span {
-        margin-left: 5px;
-      }
-    }
+    color: var(--extensions-mode-text-secondary);
   }
 }

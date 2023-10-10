@@ -1,6 +1,8 @@
 .extensions-wisher-btn {
   font-size: 14px;
 
+  column-gap: 5px;
+
   &--default {
     padding: 0 16px;
   }
@@ -48,5 +50,13 @@
   &--icon#{&}-color--primary,
   &--stroke#{&}-color--primary {
     color: var(--extensions-wisher-primary);
+  }
+
+  &--default[is-disabled="true"] {
+    background-color: var(--extensions-mode-color-grey);
+
+    color: white;
+
+    box-shadow: none;
   }
 }
