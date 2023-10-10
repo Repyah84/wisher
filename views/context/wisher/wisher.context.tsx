@@ -10,6 +10,8 @@ interface WisherStateContextType {
   isInitial: boolean
   isShow: boolean
   hasMessage: WisherMessage
+  //TODO move in to async store
+  isCreateCollectionHelp: boolean
 }
 
 interface ContextState {
@@ -23,7 +25,8 @@ export const WisherContext = ({ children }: Props) => {
   const [wisherSate, setWisherState] = useState<WisherStateContextType>({
     isShow: false,
     isInitial: false,
-    hasMessage: null
+    hasMessage: null,
+    isCreateCollectionHelp: true
   })
 
   return (

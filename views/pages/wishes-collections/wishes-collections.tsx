@@ -1,24 +1,28 @@
 import svgIcon from "data-base64:~assets/wisher-collection.svg"
-import { useState } from "react"
+import { useContext, useState } from "react"
 
+import { AddForm } from "~views/components/add-form/add-form"
 import { Button } from "~views/components/button/button"
 import { Help } from "~views/components/help/help"
 import { FileSvgIcon } from "~views/components/icons/file/file"
-import { Input } from "~views/components/input/input"
 import { Popup } from "~views/components/popup/popup"
+import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
 export const WishesCollectionsPage = () => {
   const collections = null
 
-  const [inputValue, setInputValue] = useState("")
+  const {
+    wisherSate: { isCreateCollectionHelp },
+    setWisherState
+  } = useContext(WisherStateContext)
   const [popup, setPopup] = useState(false)
-
-  const onResetINputValue = () => {
-    setInputValue("")
-  }
 
   const togglePopup = () => {
     setPopup((value) => !value)
+  }
+
+  const messageClose = () => {
+    setWisherState((wisher) => ({ ...wisher, isCreateCollectionHelp: false }))
   }
 
   const onCreateCollectionClick = () => {
@@ -57,7 +61,10 @@ export const WishesCollectionsPage = () => {
         title="Create the collection"
         hasPopup={popup}
         hidePopupFn={togglePopup}>
-        <Help hasBtnClose={true}>
+        <Help
+          hasMessage={isCreateCollectionHelp}
+          hasBtnClose={true}
+          onMessageClose={messageClose}>
           Keep your gifts and wishes organized with various collections. Here
           are some collection ideas for you to get started: <br />
           Birthday <br />
@@ -68,25 +75,7 @@ export const WishesCollectionsPage = () => {
           Tip: don’t forget to share your collections with friends and family!
         </Help>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-          }}
-          className="extensions-wisher-wishes-collections-page__form">
-          <Input
-            value={inputValue}
-            onChangeValue={setInputValue}
-            onResetValue={onResetINputValue}
-          />
-
-          <Button
-            btnColor="primary"
-            type="submit"
-            size="md"
-            onClickFn={onCreateCollectionClick}>
-            CREATE
-          </Button>
-        </form>
+        <AddForm onSubmitFn={onCreateCollectionClick} />
       </Popup>
     </>
   )

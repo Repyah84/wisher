@@ -43,7 +43,7 @@ export const Footer = () => {
       <MessageOverlay
         noMessageClosed={noMessageClosed}
         onMessageCloseStart={onMessageCloseStart}>
-        <Help hasBtnClose={false}>
+        <Help>
           Tap the button and choose your way of adding wishes to the list
         </Help>
       </MessageOverlay>

@@ -1,23 +1,38 @@
 import svgIcon from "data-base64:~assets/poll.svg"
-import type { ReactNode } from "react"
+import { useState, type ReactNode } from "react"
 
 import { Button } from "../button/button"
-import { CrossSvgIcon } from "../icons/cross/cross"
+import { CrossCircleSvgIcon } from "../icons/cross-circle/cross-circle"
 
 interface Props {
-  hasBtnClose: boolean
+  hasBtnClose?: boolean
   children: ReactNode
+  hasMessage?: boolean
+  onMessageClose?: () => void
 }
 
-export const Help = ({ hasBtnClose, children }: Props) => {
-  return (
+export const Help = ({
+  hasMessage = true,
+  hasBtnClose = false,
+  children,
+  onMessageClose = () => undefined
+}: Props) => {
+  const [isMessage, setIsMessage] = useState(true)
+
+  const onBntClick = () => {
+    setIsMessage(false)
+  }
+
+  return hasMessage ? (
     <div
+      onAnimationEnd={onMessageClose}
       is-btn-close={hasBtnClose.toString()}
+      is-message={isMessage.toString()}
       className="extensions-wisher-help">
       {hasBtnClose ? (
         <div className="extensions-wisher-help__btn-close">
-          <Button btnType="icon" onClickFn={() => console.log()}>
-            <CrossSvgIcon />
+          <Button btnType="icon" onClickFn={onBntClick}>
+            <CrossCircleSvgIcon />
           </Button>
         </div>
       ) : (
@@ -34,5 +49,7 @@ export const Help = ({ hasBtnClose, children }: Props) => {
 
       {children}
     </div>
+  ) : (
+    <></>
   )
 }

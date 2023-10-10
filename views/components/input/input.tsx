@@ -1,5 +1,5 @@
 import { Button } from "../button/button"
-import { CrossSvgIcon } from "../icons/cross/cross"
+import { CrossCircleSvgIcon } from "../icons/cross-circle/cross-circle"
 
 interface Props {
   value?: string
@@ -20,7 +20,7 @@ export const Input = ({ value = "", onChangeValue, onResetValue }: Props) => {
       />
 
       <Button btnType="icon" onClickFn={onResetValue}>
-        <CrossSvgIcon />
+        <CrossCircleSvgIcon />
       </Button>
     </label>
   )

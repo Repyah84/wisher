@@ -1,7 +1,12 @@
 .extensions-wisher-help {
+  //TODO add element height animation
   position: relative;
 
   padding: 16px;
+
+  display: grid;
+
+  grid-template-rows: 1fr;
 
   background-color: var(--extensions-wishes-accept);
 
@@ -26,6 +31,10 @@
     --extensions-wisher-help-icon-size: 24px;
   }
 
+  &[is-message="false"] {
+    animation: help-message-hide 150ms forwards ease-out;
+  }
+
   &__btn-close {
     position: absolute;
 
@@ -48,5 +57,16 @@
     left: 0;
 
     transform: translateY(-50%);
+  }
+}
+
+@keyframes help-message-hide {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
   }
 }
