@@ -16,16 +16,16 @@ export const WishesCollectionsEmpty = () => {
     <div className="extensions-wisher-wishes-collections-empty">
       <img width={104} height={104} src={svgIcon} alt="empty" />
 
-      <h3 className="extensions-wisher-wishes-collections-empty __title">
+      <h3 className="extensions-wisher-wishes-collections-empty__title">
         No collections
       </h3>
 
-      <p className="extensions-wisher-wishes-collections-empty __description">
+      <p className="extensions-wisher-wishes-collections-empty__description">
         Keep your gifts and wishes organised with various <br />
         collections.
       </p>
 
-      <div className="extensions-wisher-wishes-collections-empty __action">
+      <div className="extensions-wisher-wishes-collections-empty__action">
         <Button btnColor="primary" onClickFn={togglePopup} size="md">
           <FileSvgIcon></FileSvgIcon>
           <span>NEW COLLECTION</span>

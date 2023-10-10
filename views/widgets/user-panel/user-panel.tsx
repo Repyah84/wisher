@@ -1,20 +1,11 @@
 import svgIcon from "data-base64:~assets/wisher-avatar.svg"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
-import { Button, type BtnColor } from "~views/components/button/button"
+import { Button } from "~views/components/button/button"
 import { WarningSvgIcon } from "~views/components/icons/warning/warning"
 
 export const UserPanel = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-
-  const onNavClick = (link: string) => {
-    navigate(link)
-  }
-
-  const activeLink = (link: string): BtnColor => {
-    return location.pathname.includes(link) ? "primary" : "default"
-  }
 
   return (
     <div className="extensions-wisher-user-panel">
@@ -37,26 +28,8 @@ export const UserPanel = () => {
         <Button
           btnType="stroke"
           btnColor="primary"
-          onClickFn={() => onNavClick("/login")}>
+          onClickFn={() => navigate("/login")}>
           <span>SING UP</span>
-        </Button>
-      </div>
-
-      <div className="extensions-wisher-user-panel__nav">
-        <Button
-          btnColor={activeLink("all-wishes")}
-          onClickFn={() => {
-            onNavClick("/wisher/wishes/all-wishes")
-          }}>
-          <span>All Wishes</span>
-        </Button>
-
-        <Button
-          btnColor={activeLink("wishes-collections")}
-          onClickFn={() => {
-            onNavClick("/wisher/wishes/wishes-collections")
-          }}>
-          <span>Collection</span>
         </Button>
       </div>
     </div>
