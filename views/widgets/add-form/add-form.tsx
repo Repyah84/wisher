@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-import { Button } from "../button/button"
-import { Input } from "../input/input"
+import { Button } from "../../components/button/button"
+import { Input } from "../../components/input/input"
 
 interface Props {
   onSubmitFn: (e: string) => void

@@ -1,8 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 
+import { AboutPage } from "~views/pages/about/about-page"
 import { AddWisherPage } from "~views/pages/add-wisher/add-wisher-page"
 import { AllWishesPage } from "~views/pages/all-wishes/all-wishes-page"
+import { DetailsPage } from "~views/pages/details/details-page"
+import { HelpPage } from "~views/pages/help/help-page"
 import { LoginPage } from "~views/pages/login/login-page"
+import { SettingsPage } from "~views/pages/settings/settings-page"
 import { WisherPage } from "~views/pages/wisher/wisher-page"
 import { CollectionPage } from "~views/pages/wishes-collection/wishes-collection-page"
 import { WishesCollectionsPage } from "~views/pages/wishes-collections/wishes-collections"
@@ -36,6 +40,14 @@ export const WisherRoutes = () => (
 
           <Route path="wisher-empty-data" element={<WisherEmptyData />} /> */}
         </Route>
+
+        <Route path="details" element={<DetailsPage />} />
+
+        <Route path="details-settings" element={<SettingsPage />} />
+
+        <Route path="details-help" element={<HelpPage />} />
+
+        <Route path="details-about" element={<AboutPage />} />
       </Route>
 
       <Route path="login" element={<LoginPage />} />

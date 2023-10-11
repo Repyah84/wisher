@@ -1,6 +1,11 @@
+@use "./footer/footer.scss";
+@use "./header/header.scss";
 @use "./user-panel/user-panel.scss";
 @use "./wisher-empty-data/wisher-empty-data.scss";
 @use "./wishes-empty/wishes-empty.scss";
 @use "./wishes-collections-empty/wishes-collections-empty.scss";
 @use "./wishes-collection-empty/wishes-collection-empty.scss";
 @use "./wishes-nav/wishes-nav.scss";
+@use "./add-form/add-form.scss";
+@use "./details-options/details-options.scss";
+@use "./header-nav/header-nav.scss";

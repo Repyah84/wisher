@@ -1,10 +1,10 @@
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { AddForm } from "~views/components/add-form/add-form"
 import { Help } from "~views/components/help/help"
 import { Popup } from "~views/components/popup/popup"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { AddForm } from "~views/widgets/add-form/add-form"
 import { WishesCollectionsEmpty } from "~views/widgets/wishes-collections-empty/wishes-collections-empty"
 
 export const WishesCollectionsPage = () => {

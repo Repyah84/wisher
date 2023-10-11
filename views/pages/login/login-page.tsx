@@ -1,7 +1,7 @@
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
 
 import { ButtonNav } from "~views/components/button-nav/button-nav"
-import { Header } from "~views/components/header/header"
+import { Header } from "~views/widgets/header/header"
 
 export const LoginPage = () => {
   return (

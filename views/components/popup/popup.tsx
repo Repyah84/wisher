@@ -18,6 +18,7 @@ export const Popup = ({ title, children, typeMessage }: Props) => {
     wisherSate: { hasMessage },
     setWisherState
   } = useContext(WisherStateContext)
+
   const [isPopup, setIsPopup] = useState(true)
 
   const onPopupClickClose = () => {

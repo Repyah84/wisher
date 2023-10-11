@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 
-import { Footer } from "~views/components/footer/footer"
-import { Header } from "~views/components/header/header"
+import { Footer } from "~views/widgets/footer/footer"
+import { Header } from "~views/widgets/header/header"
 
 export const WisherPage = () => {
   return (

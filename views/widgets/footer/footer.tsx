@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom"
 
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
-import { ButtonNav } from "../button-nav/button-nav"
-import { Help } from "../help/help"
-import { AddSvgIcon } from "../icons/add/add"
-import { HeartSvgIcon } from "../icons/heart/heart"
-import { OptionsSvgIcon } from "../icons/options/options"
-import { MessageOverlay } from "../message/message"
+import { ButtonNav } from "../../components/button-nav/button-nav"
+import { Help } from "../../components/help/help"
+import { AddSvgIcon } from "../../components/icons/add/add"
+import { HeartSvgIcon } from "../../components/icons/heart/heart"
+import { OptionsSvgIcon } from "../../components/icons/options/options"
+import { MessageOverlay } from "../../components/message/message"
 
 export const Footer = () => {
   const [isMessageItem, setIsMessageItem] = useState(true)
@@ -65,7 +65,7 @@ export const Footer = () => {
         </ButtonNav>
       )}
 
-      <ButtonNav link="/login">
+      <ButtonNav link="/wisher/details">
         <OptionsSvgIcon />
       </ButtonNav>
     </div>
