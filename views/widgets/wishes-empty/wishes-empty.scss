@@ -3,18 +3,27 @@
 
   text-align: center;
 
-  padding-bottom: 50px;
+  padding-bottom: 52px;
 
   &__title {
-    margin: 25px 0;
+    margin: 24px 0;
 
     font-size: 20px;
     font-weight: 500;
   }
 
   &__description {
+    margin-top: 0;
+    margin-bottom: 24px;
+
     font-size: 14px;
 
     color: var(--extensions-mode-text-secondary);
+  }
+
+  &__action {
+    span {
+      font-weight: 500;
+    }
   }
 }

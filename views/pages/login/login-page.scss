@@ -5,14 +5,18 @@
 
   grid-template-rows: auto 1fr;
 
-  &__welcome {
+  &__main {
     margin-top: auto;
 
     text-align: center;
   }
 
+  &__welcome {
+    margin: 32px 0;
+  }
+
   &__title {
-    margin-top: 30px;
+    margin-top: 0;
     margin-bottom: 10px;
 
     font-size: 48px;
@@ -20,23 +24,42 @@
   }
 
   &__description {
-    margin-top: 0;
-    margin-bottom: 70px;
+    margin: 0;
 
     font-size: 16px;
-  }
 
-  &__login {
-    height: 30px;
+    &--grey {
+      color: hsla(0, 0%, 0%, 0.6);
+    }
   }
 
   &__action {
-    padding: 16px;
+    padding: 20px 16px;
 
-    .__extensions-wisher-btn__ {
+    display: grid;
+    row-gap: 24px;
+
+    font-size: 14px;
+
+    & > :last-child {
       font-size: 10px;
+      font-weight: 500;
 
       color: hsla(0, 0%, 0%, 0.6);
     }
+  }
+
+  &__google-login {
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-content: center;
+
+    color: hsla(0, 0%, 0%, 1);
+
+    font-weight: 500;
   }
 }

@@ -31,6 +31,12 @@ export const WishesCollectionsEmpty = () => {
           <span>NEW COLLECTION</span>
         </Button>
       </div>
+
+      <p className="extensions-wisher-wishes-collections-empty__description">
+        Here are some collection ideas for you to get started:
+      </p>
+
+      <div className="extensions-wisher-wishes-collections-empty__ideas"></div>
     </div>
   )
 }

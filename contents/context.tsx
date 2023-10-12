@@ -11,7 +11,8 @@ import { OverLay } from "~views/components/overlay/overlay"
 import { WisherContext } from "~views/context/wisher/wisher.context"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://www.wishr.app/*"]
+  matches: ["https://www.wishr.app/*"],
+  css: ["font.css"]
 }
 
 export const getStyle = () => {

@@ -12,7 +12,6 @@ import { CollectionPage } from "~views/pages/wishes-collection/wishes-collection
 import { WishesCollectionsPage } from "~views/pages/wishes-collections/wishes-collections"
 import { WishesPage } from "~views/pages/wishes/wishes-page"
 import { Root } from "~views/root"
-import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-data"
 
 export const WisherRoutes = () => (
   <Routes>
