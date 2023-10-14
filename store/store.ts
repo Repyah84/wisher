@@ -3,26 +3,13 @@ import { useDispatch, useSelector } from "react-redux"
 import type { TypedUseSelectorHook } from "react-redux"
 import { syncStorage } from "redux-persist-webextension-storage"
 
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  persistReducer,
-  persistStore,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-  RESYNC
-} from "@plasmohq/redux-persist"
+import { persistReducer, persistStore } from "@plasmohq/redux-persist"
 import { Storage } from "@plasmohq/storage"
 
-import initialReducer from "./initial"
-import wisherSateReducer from "./wisher-state"
+import userReducer, { toggleUser } from "./slice/user"
 
-// Here you can add all your reducers
 const combinedReducers = combineReducers({
-  wisher: wisherSateReducer,
-  initial: initialReducer
+  userStore: userReducer
 })
 
 const persistConfig = {
@@ -31,7 +18,6 @@ const persistConfig = {
   storage: syncStorage
 }
 
-// TODO: Fix persistReducer so it doesn't break the types
 const persistedReducer = persistReducer(persistConfig, combinedReducers)
 
 // Until persistReducer is fixed, we need to use this mock store to get the types
@@ -44,17 +30,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [
-          FLUSH,
-          REHYDRATE,
-          PAUSE,
-          PERSIST,
-          PURGE,
-          REGISTER,
-          RESYNC
-        ]
-      }
+      serializableCheck: false
     })
 }) as typeof mockStore
 

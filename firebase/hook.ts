@@ -3,23 +3,24 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   setPersistence,
-  signInWithCredential,
-  type User
+  signInWithCredential
 } from "firebase/auth"
-import { getFirestore } from "firebase/firestore"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 
 import { sendToBackground } from "@plasmohq/messaging"
 
-import { app, auth } from "~firebase"
+import { auth } from "~firebase"
+import { toggleUser } from "~store/slice/user"
+import { useAppDispatch, useAppSelector } from "~store/store"
 
 setPersistence(auth, browserLocalPersistence)
 
 export const useFirebase = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const [user, setUser] = useState<User>(null)
 
-  const firestore = useMemo(() => (user ? getFirestore(app) : null), [user])
+  const user = useAppSelector(({ userStore: { user } }) => user)
+
+  const dispatch = useAppDispatch()
 
   const onLogout = async () => {
     setIsLoading(true)
@@ -51,14 +52,14 @@ export const useFirebase = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setIsLoading(false)
-      setUser(user)
+
+      dispatch(toggleUser(user))
     })
   }, [])
 
   return {
     isLoading,
     user,
-    firestore,
     onLogin,
     onLogout
   }

@@ -1,6 +1,5 @@
 import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
-import { useEffect } from "react"
 
 import { useFirebase } from "~firebase/hook"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
@@ -8,11 +7,7 @@ import { Button } from "~views/components/button/button"
 import { Header } from "~views/widgets/header/header"
 
 export const LoginPage = () => {
-  const { user, isLoading, onLogin, onLogout } = useFirebase()
-
-  useEffect(() => {
-    console.log("@@@@@@@@@@@", user)
-  }, [user])
+  const { onLogin, onLogout } = useFirebase()
 
   return (
     <div className="extensions-wisher-login-page">
@@ -43,7 +38,7 @@ export const LoginPage = () => {
                 alt="google-logo"
               />
 
-              <span style={{ marginLeft: "-27px" }}>SIGN UP WITH GOOGLE</span>
+              <span>SIGN UP WITH GOOGLE</span>
             </div>
           </Button>
 

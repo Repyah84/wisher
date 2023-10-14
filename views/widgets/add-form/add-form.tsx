@@ -10,11 +10,23 @@ interface Props {
 export const AddForm = ({ onSubmitFn }: Props) => {
   const [inputValue, setInputValue] = useState("")
 
+  const requiredValidator = (): boolean => {
+    return inputValue === "" || inputValue === null || inputValue === undefined
+  }
+
+  const onSubmitClick = () => {
+    if (requiredValidator()) {
+      return
+    }
+
+    onSubmitFn(inputValue)
+  }
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault()
-        onSubmitFn(inputValue)
+        onSubmitClick()
       }}
       className="extensions-wisher-add-form">
       <Input
@@ -24,10 +36,11 @@ export const AddForm = ({ onSubmitFn }: Props) => {
       />
 
       <Button
+        disable={requiredValidator()}
         btnColor="primary"
         type="submit"
         size="md"
-        onClickFn={() => onSubmitFn(inputValue)}>
+        onClickFn={onSubmitClick}>
         CREATE
       </Button>
     </form>

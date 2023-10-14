@@ -3026,8 +3026,8 @@ packages:
     resolution: {integrity: sha512-PwBsCBD3lDODn4xpje3Y1di0aDJp4Ww7aSfMRVw6ysnxD4I7Wmq2mBkSKaDtN403hqH5sp6c9xQUvFYY3+lkBg==}
     dev: true
 
-  /@types/hoist-non-react-statics@3.3.2:
-    resolution: {integrity: sha512-YIQtIg4PKr7ZyqNPZObpxfHsHEmuB8dXCxd6qVcGuQVDK2bpsF7bYNnBJ4Nn7giuACZg+WewExgrtAJ3XnA4Xw==}
+  /@types/hoist-non-react-statics@3.3.3:
+    resolution: {integrity: sha512-Wny3a2UXn5FEA1l7gc6BbpoV5mD1XijZqgkp4TRgDCDL5r3B5ieOFGUX5h3n78Tr1MEG7BfvoM8qeztdvNU0fw==}
     dependencies:
       '@types/react': 18.2.21
       hoist-non-react-statics: 3.3.2
@@ -5451,7 +5451,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.23.1
-      '@types/hoist-non-react-statics': 3.3.2
+      '@types/hoist-non-react-statics': 3.3.3
       '@types/react': 18.2.21
       '@types/react-dom': 18.2.7
       '@types/use-sync-external-store': 0.0.3

@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 
+import { useFirebase } from "~firebase/hook"
 import { AboutPage } from "~views/pages/about/about-page"
 import { AddWisherPage } from "~views/pages/add-wisher/add-wisher-page"
 import { AllWishesPage } from "~views/pages/all-wishes/all-wishes-page"
@@ -13,43 +14,50 @@ import { WishesCollectionsPage } from "~views/pages/wishes-collections/wishes-co
 import { WishesPage } from "~views/pages/wishes/wishes-page"
 import { Root } from "~views/root"
 
-export const WisherRoutes = () => (
-  <Routes>
-    <Route path="/" element={<Root />}>
-      <Route path="" element={<Navigate to={"login"} />} />
+export const WisherRoutes = () => {
+  const { user } = useFirebase()
 
-      <Route path="wisher" element={<WisherPage />}>
-        <Route path="" element={<Navigate to={"wishes"} />} />
+  return (
+    <Routes>
+      <Route path="/" element={<Root />}>
+        <Route
+          path=""
+          element={<Navigate to={user === null ? "login" : "wisher"} />}
+        />
 
-        <Route path="wishes" element={<WishesPage />}>
-          <Route path="" element={<Navigate to={"all-wishes"} />} />
+        <Route path="wisher" element={<WisherPage />}>
+          <Route path="" element={<Navigate to={"wishes"} />} />
 
-          <Route path="all-wishes" element={<AllWishesPage />} />
+          <Route path="wishes" element={<WishesPage />}>
+            <Route path="" element={<Navigate to={"all-wishes"} />} />
 
-          <Route
-            path="wishes-collections"
-            element={<WishesCollectionsPage />}
-          />
-        </Route>
+            <Route path="all-wishes" element={<AllWishesPage />} />
 
-        <Route path="wishes-collection/:name" element={<CollectionPage />} />
+            <Route
+              path="wishes-collections"
+              element={<WishesCollectionsPage />}
+            />
+          </Route>
 
-        <Route path="add-wisher" element={<AddWisherPage />}>
-          {/* <Route path="" element={<Navigate to={"wisher-empty-data"} />} />
+          <Route path="wishes-collection/:name" element={<CollectionPage />} />
+
+          <Route path="add-wisher" element={<AddWisherPage />}>
+            {/* <Route path="" element={<Navigate to={"wisher-empty-data"} />} />
 
           <Route path="wisher-empty-data" element={<WisherEmptyData />} /> */}
+          </Route>
+
+          <Route path="details" element={<DetailsPage />} />
+
+          <Route path="details-settings" element={<SettingsPage />} />
+
+          <Route path="details-help" element={<HelpPage />} />
+
+          <Route path="details-about" element={<AboutPage />} />
         </Route>
 
-        <Route path="details" element={<DetailsPage />} />
-
-        <Route path="details-settings" element={<SettingsPage />} />
-
-        <Route path="details-help" element={<HelpPage />} />
-
-        <Route path="details-about" element={<AboutPage />} />
+        <Route path="login" element={<LoginPage />} />
       </Route>
-
-      <Route path="login" element={<LoginPage />} />
-    </Route>
-  </Routes>
-)
+    </Routes>
+  )
+}

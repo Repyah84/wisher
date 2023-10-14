@@ -41,6 +41,12 @@
 
     font-size: 14px;
 
+    & {
+      .__extensions-wisher-btn__ {
+        padding: 0 7px;
+      }
+    }
+
     & > :last-child {
       font-size: 10px;
       font-weight: 500;
@@ -54,7 +60,7 @@
 
     display: grid;
 
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto 1fr 27px;
     align-items: center;
     justify-content: center;
 
