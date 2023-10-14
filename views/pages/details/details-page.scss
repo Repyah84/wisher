@@ -1,4 +1,12 @@
 .extensions-wisher-details-page {
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: repeat(3, auto) 1fr;
+
+  & .extensions-wisher-help {
+    padding: 0 16px;
+
+    .extensions-wisher-help__content {
+      margin-bottom: 16px;
+    }
+  }
 }

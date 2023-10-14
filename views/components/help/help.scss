@@ -2,7 +2,7 @@
   overflow: hidden;
 
   &[is-message="false"] {
-    animation: help-message-wrapper-hide 150ms forwards ease-out;
+    animation: help-message-wrapper-hide 250ms forwards ease-out;
   }
 
   &__content {
@@ -38,7 +38,7 @@
     }
 
     &[is-message="false"] {
-      animation: help-message-hide 150ms forwards ease-out;
+      animation: help-message-hide 250ms forwards ease-out;
     }
   }
 

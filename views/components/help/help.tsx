@@ -5,9 +5,9 @@ import { Button } from "../button/button"
 import { CrossCircleSvgIcon } from "../icons/cross-circle/cross-circle"
 
 interface Props {
-  hasBtnClose?: boolean
   children: ReactNode
   hasMessage?: boolean
+  hasBtnClose?: boolean
   onMessageClosed?: () => void
 }
 

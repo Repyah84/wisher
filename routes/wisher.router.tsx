@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 
 import { useFirebase } from "~firebase/hook"
 import { AboutPage } from "~views/pages/about/about-page"
+import { AccountSettingsPage } from "~views/pages/account-settings/account-settings-page"
 import { AddWisherPage } from "~views/pages/add-wisher/add-wisher-page"
 import { AllWishesPage } from "~views/pages/all-wishes/all-wishes-page"
 import { DetailsPage } from "~views/pages/details/details-page"
@@ -41,11 +42,7 @@ export const WisherRoutes = () => {
 
           <Route path="wishes-collection/:name" element={<CollectionPage />} />
 
-          <Route path="add-wisher" element={<AddWisherPage />}>
-            {/* <Route path="" element={<Navigate to={"wisher-empty-data"} />} />
-
-          <Route path="wisher-empty-data" element={<WisherEmptyData />} /> */}
-          </Route>
+          <Route path="add-wisher" element={<AddWisherPage />} />
 
           <Route path="details" element={<DetailsPage />} />
 
@@ -54,6 +51,11 @@ export const WisherRoutes = () => {
           <Route path="details-help" element={<HelpPage />} />
 
           <Route path="details-about" element={<AboutPage />} />
+
+          <Route
+            path="details-account-settings"
+            element={<AccountSettingsPage />}
+          />
         </Route>
 
         <Route path="login" element={<LoginPage />} />

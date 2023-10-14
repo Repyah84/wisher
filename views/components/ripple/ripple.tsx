@@ -38,9 +38,9 @@ export const Ripple = ({ host }: Props) => {
     })
   }
 
-  // const rippleAnimationAnd = (rippleId: number) => {
-  //   setRipples((ripples) => ripples.filter(({ id }) => id !== rippleId))
-  // }
+  const rippleAnimationAnd = (rippleId: number) => {
+    setRipples((ripples) => ripples.filter(({ id }) => id !== rippleId))
+  }
 
   useEffect(() => {
     if (host.current === null) {
@@ -58,9 +58,9 @@ export const Ripple = ({ host }: Props) => {
     }
   }, [host])
 
-  // onAnimationEnd={() => rippleAnimationAnd(ripple.id)}
   return ripples.map((ripple) => (
     <span
+      onAnimationEnd={() => rippleAnimationAnd(ripple.id)}
       key={ripple.id}
       className="extensions-wisher-ripple"
       style={{

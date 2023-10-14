@@ -1,8 +1,12 @@
 .extensions-wisher-header-nav {
-  display: flex;
+  display: grid;
+
+  grid-template-columns: auto 1fr 38px;
   align-items: center;
 
-  padding: 9px 16px;
+  padding: 9px 7px;
 
   box-shadow: 0 2px 0 0 var(--extensions-mode-color-grey);
+
+  text-align: center;
 }

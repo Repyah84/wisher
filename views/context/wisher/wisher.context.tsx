@@ -17,6 +17,9 @@ interface WisherStateContextType {
   //TODO move in to async store
   isCreateCollectionHelp: boolean
   //
+  //TODO move in to async store
+  isDetailsHelp: boolean
+  //
 }
 
 interface ContextState {
@@ -32,7 +35,9 @@ export const WisherContext = ({ children }: Props) => {
     isInitial: false,
     hasMessage: null,
     //TODO move in to async store
-    isCreateCollectionHelp: true
+    isCreateCollectionHelp: true,
+    //TODO move in to async store
+    isDetailsHelp: true
     //
   })
 
