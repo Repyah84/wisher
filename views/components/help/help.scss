@@ -1,38 +1,45 @@
 .extensions-wisher-help {
-  //TODO add element height animation
-  position: relative;
-
-  padding: 16px;
-
-  display: grid;
-
-  grid-template-rows: 1fr;
-
-  background-color: var(--extensions-wishes-accept);
-
-  color: hsla(0, 0%, 0%, 1);
-
-  font-size: 14px;
-  line-height: 20px;
-
-  margin-top: calc(var(--extensions-wisher-help-icon-size) * 0.5);
-
-  &[is-btn-close="true"] {
-    --extensions-wisher-help-icon-size: 38px;
-
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-
-  &[is-btn-close="false"] {
-    border-radius: 5px;
-
-    --extensions-wisher-help-icon-size: 24px;
-  }
+  overflow: hidden;
 
   &[is-message="false"] {
-    animation: help-message-hide 150ms forwards ease-out;
+    animation: help-message-wrapper-hide 150ms forwards ease-out;
+  }
+
+  &__content {
+    position: relative;
+
+    padding: 16px;
+
+    display: grid;
+
+    grid-template-rows: 1fr;
+
+    background-color: var(--extensions-wishes-accept);
+
+    color: hsla(0, 0%, 0%, 1);
+
+    font-size: 14px;
+    line-height: 20px;
+
+    margin-top: calc(var(--extensions-wisher-help-icon-size) * 0.5);
+
+    &[is-btn-close="true"] {
+      --extensions-wisher-help-icon-size: 38px;
+
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    &[is-btn-close="false"] {
+      border-radius: 5px;
+
+      --extensions-wisher-help-icon-size: 24px;
+    }
+
+    &[is-message="false"] {
+      animation: help-message-hide 150ms forwards ease-out;
+    }
   }
 
   &__btn-close {
@@ -68,5 +75,14 @@
   100% {
     transform: translateX(100%);
     opacity: 0;
+  }
+}
+
+@keyframes help-message-wrapper-hide {
+  0% {
+    max-height: var(--extensions-wisher-height);
+  }
+  100% {
+    max-height: 0px;
   }
 }

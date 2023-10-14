@@ -8,14 +8,14 @@ interface Props {
   hasBtnClose?: boolean
   children: ReactNode
   hasMessage?: boolean
-  onMessageClose?: () => void
+  onMessageClosed?: () => void
 }
 
 export const Help = ({
   hasMessage = true,
   hasBtnClose = false,
   children,
-  onMessageClose = () => undefined
+  onMessageClosed = () => undefined
 }: Props) => {
   const [isMessage, setIsMessage] = useState(true)
 
@@ -25,29 +25,33 @@ export const Help = ({
 
   return hasMessage ? (
     <div
-      onAnimationEnd={onMessageClose}
-      is-btn-close={hasBtnClose.toString()}
       is-message={isMessage.toString()}
+      onAnimationEnd={onMessageClosed}
       className="extensions-wisher-help">
-      {hasBtnClose ? (
-        <div className="extensions-wisher-help__btn-close">
-          <Button btnType="icon" onClickFn={onBntClick}>
-            <CrossCircleSvgIcon />
-          </Button>
-        </div>
-      ) : (
-        <></>
-      )}
+      <div
+        is-btn-close={hasBtnClose.toString()}
+        is-message={isMessage.toString()}
+        className="extensions-wisher-help__content">
+        {hasBtnClose ? (
+          <div className="extensions-wisher-help__btn-close">
+            <Button btnType="icon" onClickFn={onBntClick}>
+              <CrossCircleSvgIcon />
+            </Button>
+          </div>
+        ) : (
+          <></>
+        )}
 
-      <img
-        className="extensions-wisher-help__icon"
-        width={24}
-        height={24}
-        src={svgIcon}
-        alt="Poll"
-      />
+        <img
+          className="extensions-wisher-help__icon"
+          width={24}
+          height={24}
+          src={svgIcon}
+          alt="Poll"
+        />
 
-      {children}
+        {children}
+      </div>
     </div>
   ) : (
     <></>

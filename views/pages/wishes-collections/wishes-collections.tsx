@@ -18,7 +18,7 @@ export const WishesCollectionsPage = () => {
     setWisherState
   } = useContext(WisherStateContext)
 
-  const messageClose = () => {
+  const messageClosed = () => {
     setWisherState((wisher) => ({ ...wisher, isCreateCollectionHelp: false }))
   }
   //
@@ -39,7 +39,7 @@ export const WishesCollectionsPage = () => {
         <Help
           hasMessage={isCreateCollectionHelp}
           hasBtnClose={true}
-          onMessageClose={messageClose}>
+          onMessageClosed={messageClosed}>
           Keep your gifts and wishes organized with various collections. Here
           are some collection ideas for you to get started: <br />
           Birthday <br />
