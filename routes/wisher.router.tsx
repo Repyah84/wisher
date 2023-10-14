@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 
-import { useFirebase } from "~firebase/hook"
 import { AboutPage } from "~views/pages/about/about-page"
 import { AccountSettingsPage } from "~views/pages/account-settings/account-settings-page"
 import { AddWisherPage } from "~views/pages/add-wisher/add-wisher-page"
@@ -16,15 +15,10 @@ import { WishesPage } from "~views/pages/wishes/wishes-page"
 import { Root } from "~views/root"
 
 export const WisherRoutes = () => {
-  const { user } = useFirebase()
-
   return (
     <Routes>
       <Route path="/" element={<Root />}>
-        <Route
-          path=""
-          element={<Navigate to={user === null ? "login" : "wisher"} />}
-        />
+        <Route path="" element={<Navigate to={"login"} />} />
 
         <Route path="wisher" element={<WisherPage />}>
           <Route path="" element={<Navigate to={"wishes"} />} />

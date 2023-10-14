@@ -1,5 +1,7 @@
 import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { useFirebase } from "~firebase/hook"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
@@ -7,7 +9,17 @@ import { Button } from "~views/components/button/button"
 import { Header } from "~views/widgets/header/header"
 
 export const LoginPage = () => {
-  const { onLogin, onLogout } = useFirebase()
+  const { user, onLogin } = useFirebase()
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (user === null) {
+      return
+    }
+
+    navigate("/wisher/wishes")
+  }, [user])
 
   return (
     <div className="extensions-wisher-login-page">
