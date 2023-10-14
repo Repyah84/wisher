@@ -38,9 +38,14 @@ export const Footer = () => {
     setIsMessageItem(false)
   }
 
+  const getMessageState = () => {
+    return hasMessage === "create-wisher"
+  }
+
   return (
     <div className="extensions-wisher-footer">
       <MessageOverlay
+        hasMessage={getMessageState()}
         noMessageClosed={noMessageClosed}
         onMessageCloseStart={onMessageCloseStart}>
         <Help>
@@ -52,11 +57,11 @@ export const Footer = () => {
         <HeartSvgIcon />
       </ButtonNav>
 
-      {hasMessage === "create-wisher" ? (
+      {getMessageState() ? (
         <div
           onClick={onNavItemClick}
           is-message-item={isMessageItem.toString()}
-          className="extensions-wisher-footer__message-nav-item-overlay">
+          className="extensions-wisher-footer__message-nav-item">
           <AddSvgIcon />
         </div>
       ) : (

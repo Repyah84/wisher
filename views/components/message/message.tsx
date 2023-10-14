@@ -4,19 +4,17 @@ import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
 interface Props {
   children: ReactNode
+  hasMessage: boolean
   onMessageCloseStart: () => void
   noMessageClosed: () => void
 }
 
 export const MessageOverlay = ({
   children,
+  hasMessage,
   onMessageCloseStart,
   noMessageClosed
 }: Props) => {
-  const {
-    wisherSate: { hasMessage }
-  } = useContext(WisherStateContext)
-
   const [isMessage, setIsMessage] = useState(true)
 
   const handleAnimation = () => {
@@ -25,10 +23,11 @@ export const MessageOverlay = ({
     }
 
     noMessageClosed()
+
     setIsMessage(true)
   }
 
-  return hasMessage === "create-wisher" ? (
+  return hasMessage ? (
     <div className="extensions-wisher-message">
       <div
         is-overlay={isMessage.toString()}
