@@ -17,10 +17,10 @@
   transition: transform 200ms ease-in-out;
 
   &[is-show="true"] {
-    transform: translateX(calc(4px + 100%));
+    transform: translateX(-20px);
   }
 
   &[is-show="false"] {
-    transform: translateX(-20px);
+    transform: translateX(calc(4px + 100%));
   }
 }
