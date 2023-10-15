@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
 
-import { useMountToggle } from "~hooks/mount-toggle"
+import { useMount } from "~hooks/mount"
 
 import { Button } from "../button/button"
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Popup = ({ title, children, hasPopup, onCloseClick }: Props) => {
-  const { state, animationEnd } = useMountToggle(hasPopup)
+  const { state, animationEnd } = useMount(hasPopup)
 
   return state ? (
     <div className="extensions-wisher-popup">

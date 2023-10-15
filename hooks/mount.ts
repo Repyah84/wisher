@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const useMountToggle = (isIt: boolean) => {
+export const useMount = (isIt: boolean) => {
   const [state, setState] = useState(false)
 
   useEffect(() => {

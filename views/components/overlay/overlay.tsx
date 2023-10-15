@@ -1,6 +1,6 @@
 import { useContext } from "react"
 
-import { useMountToggle } from "~hooks/mount-toggle"
+import { useMount } from "~hooks/mount"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
 export const OverLay = () => {
@@ -9,7 +9,7 @@ export const OverLay = () => {
     setWisherState: setWisherSate
   } = useContext(WisherStateContext)
 
-  const { state, animationEnd } = useMountToggle(isShow)
+  const { state, animationEnd } = useMount(isShow)
 
   const onOverLayClick = () => {
     setWisherSate((wisher) => ({ ...wisher, isShow: false }))

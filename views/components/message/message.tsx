@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
 
-import { useMountToggle } from "~hooks/mount-toggle"
+import { useMount } from "~hooks/mount"
 
 interface Props {
   children: ReactNode
@@ -13,7 +13,7 @@ export const MessageOverlay = ({
   hasMessage,
   onMessageCloseClick
 }: Props) => {
-  const { state, animationEnd } = useMountToggle(hasMessage)
+  const { state, animationEnd } = useMount(hasMessage)
 
   return state ? (
     <div className="extensions-wisher-message">
