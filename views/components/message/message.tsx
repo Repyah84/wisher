@@ -1,45 +1,30 @@
-import { useContext, useState, type ReactNode } from "react"
+import { type ReactNode } from "react"
 
-import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useMountToggle } from "~hooks/mount-toggle"
 
 interface Props {
   children: ReactNode
   hasMessage: boolean
-  onMessageCloseStart: () => void
-  noMessageClosed: () => void
+  onMessageCloseClick: () => void
 }
 
 export const MessageOverlay = ({
   children,
   hasMessage,
-  onMessageCloseStart,
-  noMessageClosed
+  onMessageCloseClick
 }: Props) => {
-  const [isMessage, setIsMessage] = useState(true)
+  const { state, animationEnd } = useMountToggle(hasMessage)
 
-  const handleAnimation = () => {
-    if (isMessage) {
-      return
-    }
-
-    noMessageClosed()
-
-    setIsMessage(true)
-  }
-
-  return hasMessage ? (
+  return state ? (
     <div className="extensions-wisher-message">
       <div
-        is-overlay={isMessage.toString()}
-        onClick={() => {
-          setIsMessage(false)
-          onMessageCloseStart()
-        }}
+        is-overlay={hasMessage.toString()}
+        onClick={onMessageCloseClick}
         className="extensions-wisher-message__overlay"></div>
 
       <div
-        onAnimationEnd={handleAnimation}
-        is-message={isMessage.toString()}
+        onAnimationEnd={animationEnd}
+        is-message={hasMessage.toString()}
         className="extensions-wisher-message__content">
         {children}
       </div>

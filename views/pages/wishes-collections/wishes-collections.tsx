@@ -14,7 +14,7 @@ export const WishesCollectionsPage = () => {
 
   //TO move tol async store
   const {
-    wisherSate: { isCreateCollectionHelp },
+    wisherSate: { isCreateCollectionHelp, hasMessage },
     setWisherState
   } = useContext(WisherStateContext)
 
@@ -22,6 +22,10 @@ export const WishesCollectionsPage = () => {
     setWisherState((wisher) => ({ ...wisher, isCreateCollectionHelp: false }))
   }
   //
+
+  const popupClose = () => {
+    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+  }
 
   const onCreateCollectionClick = (value: string) => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
@@ -35,7 +39,10 @@ export const WishesCollectionsPage = () => {
         {collections === null ? <WishesCollectionsEmpty /> : <></>}
       </div>
 
-      <Popup title="Create the collection" typeMessage="create-collection">
+      <Popup
+        title="Create the collection"
+        hasPopup={hasMessage === "create-collection"}
+        onCloseClick={popupClose}>
         <Help
           hasMessage={isCreateCollectionHelp}
           hasBtnClose={true}

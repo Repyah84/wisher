@@ -1,55 +1,34 @@
-import { useContext, useState, type ReactNode } from "react"
+import { type ReactNode } from "react"
 
-import {
-  WisherStateContext,
-  type WisherMessage
-} from "~views/context/wisher/wisher.context"
+import { useMountToggle } from "~hooks/mount-toggle"
 
 import { Button } from "../button/button"
 
 interface Props {
   title: string
   children: ReactNode
-  typeMessage: WisherMessage
+  hasPopup: boolean
+  onCloseClick: () => void
 }
 
-export const Popup = ({ title, children, typeMessage }: Props) => {
-  const {
-    wisherSate: { hasMessage },
-    setWisherState
-  } = useContext(WisherStateContext)
+export const Popup = ({ title, children, hasPopup, onCloseClick }: Props) => {
+  const { state, animationEnd } = useMountToggle(hasPopup)
 
-  const [isPopup, setIsPopup] = useState(true)
-
-  const onPopupClickClose = () => {
-    setIsPopup(false)
-  }
-
-  const handleAnimation = () => {
-    if (isPopup) {
-      return
-    }
-
-    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
-
-    setIsPopup(true)
-  }
-
-  return typeMessage === hasMessage ? (
+  return state ? (
     <div className="extensions-wisher-popup">
       <div
-        is-overlay={isPopup.toString()}
-        onClick={onPopupClickClose}
+        is-overlay={hasPopup.toString()}
+        onAnimationEnd={animationEnd}
+        onClick={onCloseClick}
         className="extensions-wisher-popup__overlay"></div>
 
       <div
-        onAnimationEnd={handleAnimation}
-        is-layout={isPopup.toString()}
+        is-layout={hasPopup.toString()}
         className="extensions-wisher-popup__layout">
         <div className="extensions-wisher-popup__header">
           <span>{title}</span>
 
-          <Button btnType="stroke" onClickFn={onPopupClickClose}>
+          <Button btnType="stroke" onClickFn={onCloseClick}>
             <span>Close</span>
           </Button>
         </div>

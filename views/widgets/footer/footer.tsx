@@ -1,41 +1,23 @@
-import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useContext } from "react"
 
+import { AddSvgIcon } from "~views/components/icons/add/add"
+import { MessageItem } from "~views/components/message-item/message-item"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
 import { ButtonNav } from "../../components/button-nav/button-nav"
 import { Help } from "../../components/help/help"
-import { AddSvgIcon } from "../../components/icons/add/add"
 import { HeartSvgIcon } from "../../components/icons/heart/heart"
 import { OptionsSvgIcon } from "../../components/icons/options/options"
 import { MessageOverlay } from "../../components/message/message"
 
 export const Footer = () => {
-  const [isMessageItem, setIsMessageItem] = useState(true)
-
-  const navigate = useNavigate()
-
   const {
     wisherSate: { hasMessage },
     setWisherState
   } = useContext(WisherStateContext)
 
-  const noMessageClosed = () => {
+  const onMessageCloseClick = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
-
-    setIsMessageItem(true)
-  }
-
-  const onNavItemClick = () => {
-    setWisherState((wisher) => {
-      return { ...wisher, hasMessage: null }
-    })
-
-    navigate("/wisher/add-wisher")
-  }
-
-  const onMessageCloseStart = () => {
-    setIsMessageItem(false)
   }
 
   const getMessageState = () => {
@@ -46,8 +28,7 @@ export const Footer = () => {
     <div className="extensions-wisher-footer">
       <MessageOverlay
         hasMessage={getMessageState()}
-        noMessageClosed={noMessageClosed}
-        onMessageCloseStart={onMessageCloseStart}>
+        onMessageCloseClick={onMessageCloseClick}>
         <Help>
           Tap the button and choose your way of adding wishes to the list
         </Help>
@@ -57,18 +38,11 @@ export const Footer = () => {
         <HeartSvgIcon />
       </ButtonNav>
 
-      {getMessageState() ? (
-        <div
-          onClick={onNavItemClick}
-          is-message-item={isMessageItem.toString()}
-          className="extensions-wisher-footer__message-nav-item">
-          <AddSvgIcon />
-        </div>
-      ) : (
+      <MessageItem hasItem={getMessageState()}>
         <ButtonNav link="/wisher/add-wisher">
           <AddSvgIcon />
         </ButtonNav>
-      )}
+      </MessageItem>
 
       <ButtonNav link="/wisher/details">
         <OptionsSvgIcon />

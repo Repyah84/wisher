@@ -1,12 +1,12 @@
 import svgPawerIcon from "data-base64:~assets/power.svg"
 import { useNavigate } from "react-router-dom"
 
-import { useFirebase } from "~firebase/hook"
+import { useFirebaseAuth } from "~hooks/firebase-auth"
 import { HeaderNav } from "~views/widgets/header-nav/header-nav"
 
 export const AccountSettingsPage = () => {
   const navigate = useNavigate()
-  const { isLoading, onLogout } = useFirebase()
+  const { isLoading, onLogout } = useFirebaseAuth()
 
   const onLogOutClick = async () => {
     await onLogout()

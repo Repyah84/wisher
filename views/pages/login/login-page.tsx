@@ -3,13 +3,13 @@ import welcomeImage from "data-base64:~assets/wisher-auth.png"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { useFirebase } from "~firebase/hook"
+import { useFirebaseAuth } from "~hooks/firebase-auth"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
 import { Header } from "~views/widgets/header/header"
 
 export const LoginPage = () => {
-  const { user, onLogin } = useFirebase()
+  const { user, onLogin } = useFirebaseAuth()
 
   const navigate = useNavigate()
 

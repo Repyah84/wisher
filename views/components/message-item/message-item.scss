@@ -1,0 +1,15 @@
+.extensions-wisher-message-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background-color 200ms ease-in-out;
+
+  &[is-message-item="true"] {
+    background-color: var(--extensions-wishes-accept);
+  }
+
+  &[is-message-item="false"] {
+    background-color: transparent;
+  }
+}

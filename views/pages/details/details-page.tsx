@@ -1,13 +1,13 @@
 import { useContext } from "react"
 
-import { useFirebase } from "~firebase/hook"
+import { useFirebaseAuth } from "~hooks/firebase-auth"
 import { Help } from "~views/components/help/help"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { DetailsOptions } from "~views/widgets/details-options/details-options"
 import { UserPanel } from "~views/widgets/user-panel/user-panel"
 
 export const DetailsPage = () => {
-  const { user } = useFirebase()
+  const { user } = useFirebaseAuth()
 
   const {
     wisherSate: { isDetailsHelp },

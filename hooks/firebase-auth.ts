@@ -14,7 +14,7 @@ import { auth } from "~firebase"
 
 setPersistence(auth, browserLocalPersistence)
 
-export const useFirebase = () => {
+export const useFirebaseAuth = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const [user, setUser] = useState<User | null>(auth.currentUser)

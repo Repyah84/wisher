@@ -9,49 +9,7 @@
   border-bottom-left-radius: var(--extensions-mode-border-radius);
   border-bottom-right-radius: var(--extensions-mode-border-radius);
 
-  &__message-nav-item {
-    grid-area: 1/2 / 2/3;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    color: hsla(0, 0%, 0%, 0.2);
-
-    cursor: pointer;
-
-    &[is-message-item="true"] {
-      animation: extensions-wisher-footer-message-nav-item 200ms forwards
-        ease-in-out;
-    }
-
-    &[is-message-item="false"] {
-      animation: extensions-wisher-footer-message-nav-item 200ms forwards
-        ease-in-out;
-    }
-  }
-
   & .extensions-wisher-ripple {
     --extensions-wisher-ripple-color: var(--extensions-wishes-accept);
-  }
-}
-
-@keyframes extensions-wisher-footer-message-nav-item {
-  0% {
-    background-color: transparent;
-  }
-
-  100% {
-    background-color: var(--extensions-wishes-accept);
-  }
-}
-
-@keyframes extensions-wisher-footer-message-nav-item {
-  0% {
-    background-color: var(--extensions-wishes-accept);
-  }
-
-  100% {
-    background-color: transparent;
   }
 }
