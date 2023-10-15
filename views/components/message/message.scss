@@ -25,11 +25,13 @@
     cursor: pointer;
 
     &[is-overlay="true"] {
-      animation: message-overlay-show 200ms forwards ease-in-out;
+      animation: extensions-wisher-message-overlay-show 200ms forwards
+        ease-in-out;
     }
 
     &[is-overlay="false"] {
-      animation: message-overlay-hide 200ms forwards ease-in-out;
+      animation: extensions-wisher-message-overlay-hide 200ms forwards
+        ease-in-out;
     }
   }
 
@@ -42,16 +44,18 @@
     padding: 0 16px;
 
     &[is-message="true"] {
-      animation: message-content-show 200ms forwards ease-in-out;
+      animation: extensions-wisher-message-content-show 200ms forwards
+        ease-in-out;
     }
 
     &[is-message="false"] {
-      animation: message-content-hide 200ms forwards ease-in-out;
+      animation: extensions-wisher-message-content-hide 200ms forwards
+        ease-in-out;
     }
   }
 }
 
-@keyframes message-overlay-show {
+@keyframes extensions-wisher-message-overlay-show {
   0% {
     background-color: transparent;
   }
@@ -60,7 +64,7 @@
   }
 }
 
-@keyframes message-overlay-hide {
+@keyframes extensions-wisher-message-overlay-hide {
   0% {
     background-color: var(--extensions-wisher-bac);
   }
@@ -69,7 +73,7 @@
   }
 }
 
-@keyframes message-content-show {
+@keyframes extensions-wisher-message-content-show {
   0% {
     transform: translateY(50%);
     opacity: 0;
@@ -81,7 +85,7 @@
   }
 }
 
-@keyframes message-content-hide {
+@keyframes extensions-wisher-message-content-hide {
   0% {
     transform: translateY(0);
     opacity: 1;

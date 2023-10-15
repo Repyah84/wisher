@@ -21,11 +21,13 @@
     cursor: pointer;
 
     &[is-message-item="true"] {
-      animation: shoe-message-nav-item 200ms forwards ease-in-out;
+      animation: extensions-wisher-footer-message-nav-item 200ms forwards
+        ease-in-out;
     }
 
     &[is-message-item="false"] {
-      animation: hide-message-nav-item 200ms forwards ease-in-out;
+      animation: extensions-wisher-footer-message-nav-item 200ms forwards
+        ease-in-out;
     }
   }
 
@@ -34,7 +36,7 @@
   }
 }
 
-@keyframes shoe-message-nav-item {
+@keyframes extensions-wisher-footer-message-nav-item {
   0% {
     background-color: transparent;
   }
@@ -44,7 +46,7 @@
   }
 }
 
-@keyframes hide-message-nav-item {
+@keyframes extensions-wisher-footer-message-nav-item {
   0% {
     background-color: var(--extensions-wishes-accept);
   }

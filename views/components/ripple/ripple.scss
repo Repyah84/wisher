@@ -9,12 +9,12 @@
 
   transform: scale(0);
 
-  animation: ripple-animation 500ms ease-out;
+  animation: extensions-wisher-ripple-animation 500ms ease-out;
 
   pointer-events: none;
 }
 
-@keyframes ripple-animation {
+@keyframes extensions-wisher-ripple-animation {
   to {
     transform: scale(4);
     opacity: 0;

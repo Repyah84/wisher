@@ -31,6 +31,7 @@ export const Popup = ({ title, children, typeMessage }: Props) => {
     }
 
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+
     setIsPopup(true)
   }
 

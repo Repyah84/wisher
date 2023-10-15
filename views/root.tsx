@@ -10,10 +10,7 @@ export const Root = () => {
   } = useContext(WisherStateContext)
 
   return (
-    <div
-      className={`${
-        isShow ? "extensions-wisher-root--show" : ""
-      } extensions-wisher-root`}>
+    <div is-show={isShow.toString()} className="extensions-wisher-root">
       <Badge />
 
       <Outlet></Outlet>

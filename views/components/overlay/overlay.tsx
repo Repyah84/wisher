@@ -1,25 +1,42 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
 export const OverLay = () => {
   const {
-    wisherSate: { isInitial, isShow },
+    wisherSate: { isShow },
     setWisherState: setWisherSate
   } = useContext(WisherStateContext)
 
-  const updateWisher = () => {
+  const [isOverLay, setIsOverLay] = useState(false)
+
+  const animationEnd = () => {
+    if (isShow) {
+      return
+    }
+
+    setIsOverLay(false)
+  }
+
+  const onOverLayClick = () => {
     setWisherSate((wisher) => ({ ...wisher, isShow: false }))
   }
 
-  return (
+  useEffect(() => {
+    if (!isShow) {
+      return
+    }
+
+    setIsOverLay(true)
+  }, [isShow])
+
+  return isOverLay ? (
     <div
-      host-initial={isInitial.toString()}
-      className={`${
-        isShow
-          ? "extensions-wisher-overlay--show"
-          : "extensions-wisher-overlay--hide"
-      } extensions-wisher-overlay`}
-      onClick={updateWisher}></div>
+      is-overlay={isShow.toString()}
+      className="extensions-wisher-overlay"
+      onAnimationEnd={animationEnd}
+      onClick={onOverLayClick}></div>
+  ) : (
+    <></>
   )
 }

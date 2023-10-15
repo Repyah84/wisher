@@ -6,41 +6,31 @@
   right: 0;
   bottom: 0;
 
-  display: none;
+  background-color: var(--extensions-wisher-bac);
 
-  &[host-initial="true"] {
-    display: block;
-
-    background-color: var(--extensions-wisher-bac);
+  &[is-overlay="true"] {
+    animation: extensions-wisher-overlay-show forwards 200ms ease-in-out;
   }
 
-  &--hide[host-initial="true"] {
-    animation: hide-overlay 200ms forwards ease-in-out;
-  }
-
-  &--show[host-initial="true"] {
-    animation: show-overlay 200ms forwards ease-in-out;
+  &[is-overlay="false"] {
+    animation: extensions-wisher-overlay-hide forwards 200ms ease-in-out;
   }
 }
 
-@keyframes hide-overlay {
+@keyframes extensions-wisher-overlay-show {
   0% {
-    opacity: 0.5;
-  }
-
-  100% {
     opacity: 0;
-    display: none;
+  }
+  100% {
+    opacity: 0.5;
   }
 }
 
-@keyframes show-overlay {
+@keyframes extensions-wisher-overlay-hide {
   0% {
-    display: block;
-    opacity: 0;
-  }
-
-  100% {
     opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
   }
 }

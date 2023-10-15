@@ -14,11 +14,13 @@
 
   box-shadow: -6px 0 0 -2px var(--extensions-wisher-primary);
 
-  transform: translateX(calc(4px + 100%));
-
   transition: transform 200ms ease-in-out;
 
-  &--show {
+  &[is-show="true"] {
+    transform: translateX(calc(4px + 100%));
+  }
+
+  &[is-show="false"] {
     transform: translateX(-20px);
   }
 }
