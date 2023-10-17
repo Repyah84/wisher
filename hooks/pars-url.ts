@@ -13,7 +13,9 @@ export const useParsUrl = () => {
   })
 
   useEffect(() => {
-    setCanceled(false)
+    if (canceled) {
+      setCanceled(false)
+    }
 
     const url = window.location.href
 
