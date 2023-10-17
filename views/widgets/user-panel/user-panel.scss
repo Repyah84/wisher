@@ -20,6 +20,10 @@
     row-gap: 8px;
   }
 
+  &__user-image {
+    border-radius: 50%;
+  }
+
   &__user-name {
     color: hsla(0, 0%, 0%, 0.87);
 
@@ -31,9 +35,15 @@
     align-items: center;
     column-gap: 5px;
 
-    color: var(--extensions-wisher-special);
-
     font-size: 12px;
+
+    color: var(--extensions-wisher-special);
+  }
+
+  &__user-email {
+    font-size: 12px;
+
+    color: var(--extensions-wisher-primary);
   }
 
   &__action {

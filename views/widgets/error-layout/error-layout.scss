@@ -1,0 +1,19 @@
+.extensions-wisher-error-layout {
+  padding: 0 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  row-gap: 24px;
+
+  &__title {
+    margin: 0;
+
+    text-align: center;
+
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

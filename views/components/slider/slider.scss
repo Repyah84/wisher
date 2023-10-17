@@ -1,0 +1,43 @@
+.extensions-wisher-slider {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 24px 8px;
+
+  align-items: center;
+
+  &__points {
+    grid-area: 2/1 / 3/4;
+
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+  }
+
+  &__point {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background-color: var(--extensions-wisher-primary-light);
+
+    box-shadow: 0 0 0 0 var(--extensions-wisher-primary-light);
+
+    transition:
+      box-shadow 250ms,
+      background-color 250ms;
+
+    &--active {
+      box-shadow: 0 0 0 2px var(--extensions-wisher-primary);
+      background-color: var(--extensions-wisher-primary);
+    }
+
+    &--neighbour {
+      box-shadow: 0 0 0 1px var(--extensions-wisher-primary-light);
+    }
+  }
+
+  & .extensions-wisher-ripple {
+    --extensions-wisher-ripple-color: var(--extensions-wisher-primary-light);
+  }
+}

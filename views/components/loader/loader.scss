@@ -1,0 +1,53 @@
+.extensions-wisher-loader {
+  --extensions-wisher-loader-color: var(--extensions-wisher-primary);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  width: 5em;
+  height: 5em;
+
+  div {
+    display: block;
+
+    position: absolute;
+
+    width: 4em;
+    height: 4em;
+
+    margin: 0.375em;
+
+    border: 0.375em solid var(--extensions-wisher-loader-color);
+    border-radius: 50%;
+
+    border-color: var(--extensions-wisher-loader-color) transparent transparent
+      transparent;
+
+    animation: extensions-wisher-loader-lds-ring 1.2s
+      cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  }
+
+  div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+
+  div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+
+  div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+}
+
+@keyframes extensions-wisher-loader-lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

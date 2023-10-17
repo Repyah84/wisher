@@ -6,7 +6,8 @@ import { HeaderNav } from "~views/widgets/header-nav/header-nav"
 
 export const AccountSettingsPage = () => {
   const navigate = useNavigate()
-  const { isLoading, onLogout } = useFirebaseAuth()
+
+  const { onLogout } = useFirebaseAuth()
 
   const onLogOutClick = async () => {
     await onLogout()

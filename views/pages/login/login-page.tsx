@@ -6,12 +6,15 @@ import { useNavigate } from "react-router-dom"
 import { useFirebaseAuth } from "~hooks/firebase-auth"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
+import { Loader } from "~views/components/loader/loader"
 import { Header } from "~views/widgets/header/header"
 
 export const LoginPage = () => {
-  const { user, onLogin } = useFirebaseAuth()
+  const { user, onLogin, isLoading } = useFirebaseAuth()
 
   const navigate = useNavigate()
+
+  console.log(user)
 
   useEffect(() => {
     if (user === null) {
@@ -51,6 +54,10 @@ export const LoginPage = () => {
               />
 
               <span>SIGN UP WITH GOOGLE</span>
+
+              <div className="extensions-wisher-login-page__loader">
+                <Loader isLoading={isLoading} />
+              </div>
             </div>
           </Button>
 

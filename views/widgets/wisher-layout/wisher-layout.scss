@@ -1,0 +1,40 @@
+.extensions-wisher-layout {
+  padding: 0 16px;
+
+  padding-bottom: 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  row-gap: 24px;
+
+  &__name {
+    margin: 0;
+
+    font-size: 14px;
+
+    text-align: center;
+
+    color: hsla(0, 0%, 0%, 1);
+
+    text-wrap: balance;
+  }
+
+  &__price {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  &__action {
+    display: flex;
+
+    width: 100%;
+
+    column-gap: 16px;
+
+    & > :last-child {
+      flex: 1;
+    }
+  }
+}

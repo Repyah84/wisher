@@ -10,7 +10,6 @@ export const Badge = () => {
   const updateWisher = () => {
     setWisherState((wisher) => ({
       ...wisher,
-      isInitial: true,
       isShow: !wisher.isShow
     }))
   }

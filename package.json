@@ -14,6 +14,8 @@
     "@plasmohq/redux-persist": "^6.1.0",
     "@plasmohq/storage": "^1.8.0",
     "@reduxjs/toolkit": "^1.9.7",
+    "@tanstack/react-query": "^4.36.1",
+    "currency-symbol-map": "^5.1.0",
     "firebase": "^10.4.0",
     "plasmo": "0.83.0",
     "react": "18.2.0",

@@ -20,14 +20,10 @@ export const Footer = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
   }
 
-  const getMessageState = () => {
-    return hasMessage === "create-wisher"
-  }
-
   return (
     <div className="extensions-wisher-footer">
       <MessageOverlay
-        hasMessage={getMessageState()}
+        hasMessage={hasMessage === "create-wisher"}
         onMessageCloseClick={onMessageCloseClick}>
         <Help>
           Tap the button and choose your way of adding wishes to the list
@@ -38,7 +34,7 @@ export const Footer = () => {
         <HeartSvgIcon />
       </ButtonNav>
 
-      <MessageItem hasItem={getMessageState()}>
+      <MessageItem hasItem={hasMessage === "create-wisher"}>
         <ButtonNav link="/wisher/add-wisher">
           <AddSvgIcon />
         </ButtonNav>
