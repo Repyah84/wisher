@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 import { Storage } from "@plasmohq/storage"
 
+import { ItemsGraphQL } from "~gql/hooks/items"
 import type { StoreJWT } from "~gql/hooks/signin"
 import { useUserGraphQL } from "~gql/hooks/user"
 import { Loader } from "~views/components/loader/loader"
@@ -12,31 +13,29 @@ import { Header } from "~views/widgets/header/header"
 export const InitialPage = () => {
   const storage = new Storage({ area: "local" })
 
-  const { mutate, isSuccess, isError } = useUserGraphQL()
+  const { mutate, isSuccess } = useUserGraphQL()
+
+  const { mutate: itemsMutation, isSuccess: itemsIsSuccess } = ItemsGraphQL()
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isError) {
-      return
-    }
-
     storage.get<StoreJWT>("JWT").then((data) => {
       if (data) {
         mutate(data.token)
-
+        itemsMutation(data.token)
         return
       }
 
       navigate("/login")
     })
-  }, [isError])
+  }, [])
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && itemsIsSuccess) {
       navigate("/wisher/wishes")
     }
-  }, [isSuccess])
+  }, [isSuccess, itemsIsSuccess])
 
   return (
     <div className="extensions-wisher-initial-page">

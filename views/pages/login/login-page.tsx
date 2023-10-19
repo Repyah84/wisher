@@ -3,6 +3,7 @@ import welcomeImage from "data-base64:~assets/wisher-auth.png"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
+import { ItemsGraphQL } from "~gql/hooks/items"
 import { useSignInGraphQL } from "~gql/hooks/signin"
 import { useUserGraphQL } from "~gql/hooks/user"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
@@ -19,21 +20,26 @@ export const LoginPage = () => {
 
   const { mutate, isSuccess } = useUserGraphQL()
 
+  const { mutate: itemsMutation, isSuccess: itemsIsSuccess } = ItemsGraphQL()
+
   useEffect(() => {
     if (wisherJWT === null || wisherJWT === undefined) {
       return
     }
 
-    mutate(wisherJWT.token)
+    const token = wisherJWT.token
+
+    mutate(token)
+    itemsMutation(token)
   }, [wisherJWT])
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && itemsIsSuccess) {
       setIsLoading(false)
 
       navigate("/wisher/wishes")
     }
-  }, [isSuccess])
+  }, [isSuccess, itemsIsSuccess])
 
   const onGoogleLoginClick = () => {
     setIsLoading(true)

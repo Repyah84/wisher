@@ -1,7 +1,7 @@
 import { graphql } from "~gql/types"
 
 export const user = graphql(`
-  query Query {
+  query User {
     user {
       birthday
       collections
