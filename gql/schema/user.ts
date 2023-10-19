@@ -10,10 +10,6 @@ export const user = graphql(`
       imageUrl
       isHidden
       lastName
-      notificationSetting {
-        birthdayRemind
-        newsAndUpdates
-      }
       uid
     }
   }

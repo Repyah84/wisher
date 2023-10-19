@@ -1,6 +1,7 @@
 /* eslint-disable */
-import * as types from './graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import { type TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core"
+
+import * as types from "./graphql"
 
 /**
  * Map of all GraphQL operations in the project.
@@ -13,9 +14,11 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  mutation Mutation($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n      user {\n        email\n      }\n    }\n  }\n": types.MutationDocument,
-    "\n  query Query {\n    user {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      notificationSetting {\n        birthdayRemind\n        newsAndUpdates\n      }\n      uid\n    }\n  }\n": types.QueryDocument,
-};
+  "\n  mutation Mutation($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n      user {\n        email\n      }\n    }\n  }\n":
+    types.MutationDocument,
+  "\n  query Query {\n    user {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      uid\n    }\n  }\n":
+    types.QueryDocument
+}
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -29,19 +32,24 @@ const documents = {
  * The query argument is unknown!
  * Please regenerate the types.
  */
-export function graphql(source: string): unknown;
+export function graphql(source: string): unknown
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation Mutation($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n      user {\n        email\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Mutation($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n      user {\n        email\n      }\n    }\n  }\n"];
+export function graphql(
+  source: "\n  mutation Mutation($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n      user {\n        email\n      }\n    }\n  }\n"
+): (typeof documents)["\n  mutation Mutation($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n      user {\n        email\n      }\n    }\n  }\n"]
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Query {\n    user {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      notificationSetting {\n        birthdayRemind\n        newsAndUpdates\n      }\n      uid\n    }\n  }\n"): (typeof documents)["\n  query Query {\n    user {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      notificationSetting {\n        birthdayRemind\n        newsAndUpdates\n      }\n      uid\n    }\n  }\n"];
+export function graphql(
+  source: "\n  query Query {\n    user {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      uid\n    }\n  }\n"
+): (typeof documents)["\n  query Query {\n    user {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      uid\n    }\n  }\n"]
 
 export function graphql(source: string) {
-  return (documents as any)[source] ?? {};
+  return (documents as any)[source] ?? {}
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never
