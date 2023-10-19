@@ -10,6 +10,10 @@
   row-gap: 24px;
 
   &__name {
+    overflow: hidden;
+
+    display: -webkit-box;
+
     margin: 0;
 
     font-size: 14px;
@@ -19,6 +23,9 @@
     color: hsla(0, 0%, 0%, 1);
 
     text-wrap: balance;
+
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 
   &__price {

@@ -1,9 +1,11 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import cssText from "data-text:~/contents/context.scss"
 import type { PlasmoCSConfig } from "plasmo"
+import { Provider } from "react-redux"
 import { MemoryRouter } from "react-router-dom"
 
 import { WisherRoutes } from "~routes/wisher.router"
+import { wisherStore } from "~store/wisher.store"
 import { OverLay } from "~views/components/overlay/overlay"
 import { WisherContext } from "~views/context/wisher/wisher.context"
 
@@ -28,15 +30,17 @@ const queryClient = new QueryClient({
 
 const Context = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <WisherContext>
-        <OverLay />
+    <Provider store={wisherStore}>
+      <QueryClientProvider client={queryClient}>
+        <WisherContext>
+          <OverLay />
 
-        <MemoryRouter>
-          <WisherRoutes />
-        </MemoryRouter>
-      </WisherContext>
-    </QueryClientProvider>
+          <MemoryRouter>
+            <WisherRoutes />
+          </MemoryRouter>
+        </WisherContext>
+      </QueryClientProvider>
+    </Provider>
   )
 }
 

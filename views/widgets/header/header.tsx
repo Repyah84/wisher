@@ -1,10 +1,9 @@
 import { useContext } from "react"
 
+import { Button } from "~views/components/button/button"
+import { CrossSvgIcon } from "~views/components/icons/cross/cross"
+import { LogoSvgIcon } from "~views/components/icons/logo/logo"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
-
-import { Button } from "../../components/button/button"
-import { CrossSvgIcon } from "../../components/icons/cross/cross"
-import { LogoSvgIcon } from "../../components/icons/logo/logo"
 
 export const Header = () => {
   const { setWisherState } = useContext(WisherStateContext)

@@ -1,4 +1,4 @@
-import { useParsUrl } from "~hooks/pars-url"
+import { useParsUrl } from "~api/hooks/pars-url"
 import { ErrorLayout } from "~views/widgets/error-layout/error-layout"
 import { LoaderLayout } from "~views/widgets/loader-layout/loader-layout"
 import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-data"

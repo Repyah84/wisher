@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
 
-import { useMount } from "~hooks/mount"
+import { useMount } from "~views/hooks/mount"
 
 import { Button } from "../button/button"
 

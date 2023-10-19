@@ -1,7 +1,7 @@
 import { useContext } from "react"
 
-import { useMount } from "~hooks/mount"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useMount } from "~views/hooks/mount"
 
 export const OverLay = () => {
   const {

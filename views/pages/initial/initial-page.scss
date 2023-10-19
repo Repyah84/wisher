@@ -1,0 +1,27 @@
+.extensions-wisher-initial-page {
+  justify-content: center;
+  row-gap: 24px;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  &__main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    row-gap: 24px;
+  }
+
+  &__title {
+    margin-top: 0;
+
+    font-size: 14px;
+
+    color: var(--extensions-mode-text-secondary);
+  }
+}

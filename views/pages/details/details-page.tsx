@@ -1,6 +1,6 @@
 import { useContext } from "react"
 
-import { useFirebaseAuth } from "~hooks/firebase-auth"
+import { useFirebaseAuth } from "~firebase/hooks/firebase-auth"
 import { Help } from "~views/components/help/help"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { DetailsOptions } from "~views/widgets/details-options/details-options"

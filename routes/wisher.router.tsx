@@ -6,6 +6,7 @@ import { AddWisherPage } from "~views/pages/add-wisher/add-wisher-page"
 import { AllWishesPage } from "~views/pages/all-wishes/all-wishes-page"
 import { DetailsPage } from "~views/pages/details/details-page"
 import { HelpPage } from "~views/pages/help/help-page"
+import { InitialPage } from "~views/pages/initial/initial-page"
 import { LoginPage } from "~views/pages/login/login-page"
 import { SettingsPage } from "~views/pages/settings/settings-page"
 import { WisherPage } from "~views/pages/wisher/wisher-page"
@@ -18,7 +19,7 @@ export const WisherRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Root />}>
-        <Route path="" element={<Navigate to={"login"} />} />
+        <Route path="" element={<Navigate to={"initial"} />} />
 
         <Route path="wisher" element={<WisherPage />}>
           <Route path="" element={<Navigate to={"wishes"} />} />
@@ -53,6 +54,8 @@ export const WisherRoutes = () => {
         </Route>
 
         <Route path="login" element={<LoginPage />} />
+
+        <Route path="initial" element={<InitialPage />} />
       </Route>
     </Routes>
   )

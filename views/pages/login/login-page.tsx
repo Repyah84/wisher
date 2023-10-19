@@ -1,28 +1,44 @@
 import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { useFirebaseAuth } from "~hooks/firebase-auth"
+import { useSignInGraphQL } from "~gql/hooks/signin"
+import { useUserGraphQL } from "~gql/hooks/user"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
 import { Header } from "~views/widgets/header/header"
 
 export const LoginPage = () => {
-  const { user, onLogin, isLoading } = useFirebaseAuth()
-
   const navigate = useNavigate()
 
-  console.log(user)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { wisherJWT, onLogin } = useSignInGraphQL()
+
+  const { mutate, isSuccess } = useUserGraphQL()
 
   useEffect(() => {
-    if (user === null) {
+    if (wisherJWT === null || wisherJWT === undefined) {
       return
     }
 
-    navigate("/wisher/wishes")
-  }, [user])
+    mutate(wisherJWT.token)
+  }, [wisherJWT])
+
+  useEffect(() => {
+    if (isSuccess) {
+      setIsLoading(false)
+
+      navigate("/wisher/wishes")
+    }
+  }, [isSuccess])
+
+  const onGoogleLoginClick = () => {
+    setIsLoading(true)
+    onLogin()
+  }
 
   return (
     <div className="extensions-wisher-login-page">
@@ -44,7 +60,7 @@ export const LoginPage = () => {
         </p>
 
         <div className="extensions-wisher-login-page__action">
-          <Button size="md" onClickFn={onLogin}>
+          <Button size="md" onClickFn={onGoogleLoginClick}>
             <div className="extensions-wisher-login-page__google-login">
               <img
                 width={27}

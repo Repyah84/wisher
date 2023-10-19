@@ -1,14 +1,13 @@
 import { useContext } from "react"
 
+import { ButtonNav } from "~views/components/button-nav/button-nav"
+import { Help } from "~views/components/help/help"
 import { AddSvgIcon } from "~views/components/icons/add/add"
+import { HeartSvgIcon } from "~views/components/icons/heart/heart"
+import { OptionsSvgIcon } from "~views/components/icons/options/options"
 import { MessageItem } from "~views/components/message-item/message-item"
+import { MessageOverlay } from "~views/components/message/message"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
-
-import { ButtonNav } from "../../components/button-nav/button-nav"
-import { Help } from "../../components/help/help"
-import { HeartSvgIcon } from "../../components/icons/heart/heart"
-import { OptionsSvgIcon } from "../../components/icons/options/options"
-import { MessageOverlay } from "../../components/message/message"
 
 export const Footer = () => {
   const {

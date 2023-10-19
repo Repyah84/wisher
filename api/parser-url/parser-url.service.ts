@@ -1,4 +1,14 @@
-import type { ParserUrl } from "./parser-url.type"
+export interface ParserUrl {
+  AMAZON_API_TEST?: string
+  availability: boolean
+  description: string
+  icon: string
+  image: string[]
+  name: string
+  price: number | null
+  priceCurrency: string
+  success: boolean
+}
 
 export class ParserUrlService {
   private static readonly _href = process.env.PLASMO_PUBLIC_PARS_URL_HREF
