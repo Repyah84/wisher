@@ -71,9 +71,7 @@ export const LoginPage = () => {
 
               <span>SIGN UP WITH GOOGLE</span>
 
-              <div className="extensions-wisher-login-page__loader">
-                <Loader isLoading={isLoading} />
-              </div>
+              <Loader size={5.5} isLoading={isLoading} />
             </div>
           </Button>
 

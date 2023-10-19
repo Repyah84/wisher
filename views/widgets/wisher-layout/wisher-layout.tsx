@@ -1,14 +1,17 @@
 import getSymbolFromCurrency from "currency-symbol-map"
 
-import type { ParserUrl } from "~api/parser-url/parser-url.type"
+import type { ParserUrl } from "~api/parser-url/parser-url.service"
 import { Button } from "~views/components/button/button"
+import { Loader } from "~views/components/loader/loader"
 import { Slider } from "~views/components/slider/slider"
 
 interface Props {
   data: ParserUrl
+  isLoading: boolean
+  onSaveClick: () => void
 }
 
-export const WisherLayout = ({ data }: Props) => {
+export const WisherLayout = ({ data, isLoading, onSaveClick }: Props) => {
   console.log(data)
 
   const { name, image, price, priceCurrency } = data
@@ -28,11 +31,12 @@ export const WisherLayout = ({ data }: Props) => {
           EDIT
         </Button>
 
-        <Button
-          btnColor="primary"
-          size="md"
-          onClickFn={() => console.log("click")}>
-          SAVE
+        <Button btnColor="primary" size="md" onClickFn={onSaveClick}>
+          <div className="extensions-wisher-layout__save-btn-content">
+            <span>SAVE</span>
+
+            <Loader size={5.5} isLoading={isLoading} />
+          </div>
         </Button>
       </div>
     </div>

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
-import type { QueryQuery } from "~gql/types/graphql"
+import type { User } from "~gql/types/graphql"
 import { logout } from "~store/actions/logout"
 
 export interface UserState {
-  data: QueryQuery["user"] | null
+  data: User | null
 }
 
 const initialState: UserState = {
@@ -16,7 +16,7 @@ export const userSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
-    toggleUserSate: (state, { payload }: PayloadAction<QueryQuery["user"]>) => {
+    toggleUserSate: (state, { payload }: PayloadAction<User>) => {
       state.data = payload
     }
   },

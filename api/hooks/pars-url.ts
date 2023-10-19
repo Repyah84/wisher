@@ -3,13 +3,18 @@ import { useEffect, useState } from "react"
 
 import { ParserUrlService } from "~api/parser-url/parser-url.service"
 
+interface ParsUrlInputData {
+  url: string
+  signal: AbortSignal
+}
+
 export const useParsUrl = () => {
   const [canceled, setCanceled] = useState(false)
   const [controller, setController] = useState(new AbortController())
 
   const { mutate, data, isError, isLoading, isSuccess } = useMutation({
-    mutationFn: (data: { signal: AbortSignal; url: string }) =>
-      ParserUrlService.getDataByUrl(data.url, data.signal)
+    mutationFn: ({ url, signal }: ParsUrlInputData) =>
+      ParserUrlService.getDataByUrl(url, signal)
   })
 
   useEffect(() => {
