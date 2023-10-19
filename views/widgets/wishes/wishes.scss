@@ -12,7 +12,8 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: hsl(271.19deg 69.69% 80.41%);
+    background: var(--extensions-mode-color-grey);
+
     border-radius: 3px;
   }
 }

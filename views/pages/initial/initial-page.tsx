@@ -15,15 +15,18 @@ export const InitialPage = () => {
 
   const { mutate, isSuccess } = useUserGraphQL()
 
-  const { mutate: itemsMutation, isSuccess: itemsIsSuccess } = ItemsGraphQL()
+  const { mutate: itemsMutate, isSuccess: itemsIsSuccess } = ItemsGraphQL()
 
   const navigate = useNavigate()
 
   useEffect(() => {
     storage.get<StoreJWT>("JWT").then((data) => {
       if (data) {
-        mutate(data.token)
-        itemsMutation(data.token)
+        const token = data.token
+
+        mutate(token)
+        itemsMutate(token)
+
         return
       }
 

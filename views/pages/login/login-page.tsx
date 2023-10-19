@@ -20,17 +20,17 @@ export const LoginPage = () => {
 
   const { mutate, isSuccess } = useUserGraphQL()
 
-  const { mutate: itemsMutation, isSuccess: itemsIsSuccess } = ItemsGraphQL()
+  const { mutate: itemsMutate, isSuccess: itemsIsSuccess } = ItemsGraphQL()
 
   useEffect(() => {
-    if (wisherJWT === null || wisherJWT === undefined) {
+    if (wisherJWT === null) {
       return
     }
 
     const token = wisherJWT.token
 
     mutate(token)
-    itemsMutation(token)
+    itemsMutate(token)
   }, [wisherJWT])
 
   useEffect(() => {

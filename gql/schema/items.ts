@@ -3,21 +3,21 @@ import { graphql } from "~gql/types"
 export const items = graphql(`
   query Items {
     items {
+      count
       rows {
-        id
         url
-        imageUrl
-        title
-        note
-        personalRating
-        price
-        collections
-        currency
-        marketplace
         updatedAt
-        createdAt
-        isPurchased
+        title
+        price
+        personalRating
+        note
+        marketplace
+        imageUrl
+        id
         faviconUrl
+        currency
+        createdAt
+        collections
       }
     }
   }

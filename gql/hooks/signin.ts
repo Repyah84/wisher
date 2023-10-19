@@ -17,7 +17,7 @@ export interface StoreJWT {
 export const useSignInGraphQL = () => {
   const { user, onLogin } = useFirebaseAuth()
 
-  const [wisherJWT, setWisherJWT] = useStorage<StoreJWT>(
+  const [wisherJWT, setWisherJWT] = useStorage<StoreJWT | null>(
     {
       key: "JWT",
       instance: new Storage({ area: "local" })
