@@ -5,9 +5,10 @@ import { ReloadSvgIcon } from "~views/components/icons/reload/reload"
 
 interface Props {
   retryFn: () => void
+  onEditClick: () => void
 }
 
-export const WisherEmptyData = ({ retryFn }: Props) => {
+export const WisherEmptyData = ({ retryFn, onEditClick }: Props) => {
   return (
     <div className="extensions-wisher-wisher-empty-data">
       <img src={imageGarage} alt="Garage" />
@@ -27,7 +28,7 @@ export const WisherEmptyData = ({ retryFn }: Props) => {
           EDIT
         </Button>
 
-        <Button size="md" disable={true} onClickFn={() => console.log("click")}>
+        <Button size="md" disable={true} onClickFn={onEditClick}>
           SAVE
         </Button>
       </div>

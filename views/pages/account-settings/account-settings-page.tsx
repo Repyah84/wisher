@@ -36,6 +36,7 @@ export const AccountSettingsPage = () => {
           onClick={onLogoutClick}
           className="__extensions-wisher-details-option__">
           <img width={24} height={24} src={svgPawerIcon} alt="Pawer" />
+
           <span>Log out</span>
         </div>
       </div>

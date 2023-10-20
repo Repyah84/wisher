@@ -1,13 +1,14 @@
 import { useContext } from "react"
+import { useSelector } from "react-redux"
 
-import { useFirebaseAuth } from "~firebase/hooks/firebase-auth"
+import type { RootState } from "~store/wisher.store"
 import { Help } from "~views/components/help/help"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { DetailsOptions } from "~views/widgets/details-options/details-options"
 import { UserPanel } from "~views/widgets/user-panel/user-panel"
 
 export const DetailsPage = () => {
-  const { user } = useFirebaseAuth()
+  const user = useSelector(({ user: { data } }: RootState) => data)
 
   const {
     wisherSate: { isDetailsHelp },

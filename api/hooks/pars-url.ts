@@ -1,7 +1,11 @@
 import { useMutation } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
 import { ParserUrlService } from "~api/parser-url/parser-url.service"
+import { resetWisher } from "~store/actions/reset-wisher"
+import { setWisher, type WisherSearchData } from "~store/slices/wisher"
+import type { RootState } from "~store/wisher.store"
 
 interface ParsUrlInputData {
   url: string
@@ -9,12 +13,36 @@ interface ParsUrlInputData {
 }
 
 export const useParsUrl = () => {
+  const dispatch = useDispatch()
+
+  const data = useSelector(({ wisher: { data } }: RootState) => data)
+
   const [canceled, setCanceled] = useState(false)
+
   const [controller, setController] = useState(new AbortController())
 
-  const { mutate, data, isError, isLoading, isSuccess } = useMutation({
+  const { mutate, isError, isLoading, isSuccess } = useMutation({
     mutationFn: ({ url, signal }: ParsUrlInputData) =>
-      ParserUrlService.getDataByUrl(url, signal)
+      ParserUrlService.getDataByUrl(url, signal),
+    onSuccess: (res) => {
+      const { image, priceCurrency, price, description, icon } = res
+
+      const data: WisherSearchData = {
+        images: image ?? null,
+        input: {
+          currency: priceCurrency ?? null,
+          faviconUrl: icon ?? null,
+          imageUrl: image ? image[0] : null,
+          note: null,
+          personalRating: null,
+          price,
+          title: description ?? null,
+          url: window.location.href
+        }
+      }
+
+      dispatch(setWisher(data))
+    }
   })
 
   useEffect(() => {
@@ -23,10 +51,19 @@ export const useParsUrl = () => {
     }
 
     const url = window.location.href
-
     const signal = controller.signal
 
-    mutate({ url, signal })
+    if (data === null) {
+      mutate({ url, signal })
+
+      return
+    }
+
+    if (data.input.url !== url) {
+      dispatch(resetWisher())
+
+      mutate({ url, signal })
+    }
   }, [controller])
 
   const invalidate = () => {

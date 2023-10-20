@@ -5,6 +5,7 @@ import { AccountSettingsPage } from "~views/pages/account-settings/account-setti
 import { AddWisherPage } from "~views/pages/add-wisher/add-wisher-page"
 import { AllWishesPage } from "~views/pages/all-wishes/all-wishes-page"
 import { DetailsPage } from "~views/pages/details/details-page"
+import { EditWisherPage } from "~views/pages/edit/edit"
 import { HelpPage } from "~views/pages/help/help-page"
 import { InitialPage } from "~views/pages/initial/initial-page"
 import { LoginPage } from "~views/pages/login/login-page"
@@ -52,6 +53,8 @@ export const WisherRoutes = () => {
             element={<AccountSettingsPage />}
           />
         </Route>
+
+        <Route path="wisher-edit" element={<EditWisherPage />} />
 
         <Route path="login" element={<LoginPage />} />
 

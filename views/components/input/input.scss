@@ -1,22 +1,39 @@
 .extensions-wisher-input {
-  display: inline-flex;
+  display: grid;
 
-  align-items: center;
+  &__title {
+    padding: 4px 8px;
 
-  padding: 5px 16px;
+    font-size: 10px;
+    font-weight: 500;
 
-  border-radius: 6px;
+    color: var(--extension-mode-text-light);
 
-  background-color: hsla(0, 0%, 92%, 1);
+    text-transform: uppercase;
+  }
 
-  justify-content: space-between;
+  &__label {
+    min-height: 48px;
 
-  border-radius: 6px;
+    display: inline-flex;
 
-  transition: box-shadow 150ms;
+    align-items: center;
 
-  &:focus-within {
-    box-shadow: 0 4px 0 -1px hsla(267, 95%, 76%, 1);
+    padding: 5px 16px;
+
+    border-radius: 6px;
+
+    background-color: hsla(0, 0%, 92%, 1);
+
+    justify-content: space-between;
+
+    border-radius: 6px;
+
+    transition: box-shadow 150ms;
+
+    &:focus-within {
+      box-shadow: 0 4px 0 -1px var(--extension-wisher-primary-medium);
+    }
   }
 
   &__content {

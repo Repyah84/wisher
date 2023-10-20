@@ -30,8 +30,9 @@ export const AddForm = ({ onSubmitFn }: Props) => {
       }}
       className="extensions-wisher-add-form">
       <Input
+        title="title"
         value={inputValue}
-        onChangeValue={setInputValue}
+        onChangeValue={(value) => setInputValue(value as string)}
         onResetValue={() => setInputValue("")}
       />
 

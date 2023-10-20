@@ -1,0 +1,45 @@
+.extensions-wisher-edit-form {
+  display: grid;
+
+  grid-template-rows: 1fr auto;
+
+  &__content {
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+
+    padding: 16px;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--extensions-mode-color-grey);
+
+      border-radius: 3px;
+    }
+  }
+
+  &__price {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 0 8px;
+  }
+
+  & .__extensions-wisher-btn__ {
+    width: 100%;
+  }
+
+  &__action {
+    padding: 16px 24px;
+  }
+}

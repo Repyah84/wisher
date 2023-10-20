@@ -10,7 +10,7 @@ import { WarningSvgIcon } from "~views/components/icons/warning/warning"
 export const UserPanel = () => {
   const navigate = useNavigate()
 
-  const user = useSelector((state: RootState) => state.user.data)
+  const user = useSelector(({ user: { data } }: RootState) => data)
 
   console.log("!!!!!!!!!!!!!!!", user)
 

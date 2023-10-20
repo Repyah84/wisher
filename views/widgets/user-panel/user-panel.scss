@@ -25,7 +25,7 @@
   }
 
   &__user-name {
-    color: hsla(0, 0%, 0%, 0.87);
+    color: var(--extension-mode-text-light);
 
     font-size: 16px;
   }

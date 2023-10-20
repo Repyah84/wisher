@@ -1,12 +1,12 @@
 .extensions-wisher-item {
-  display: flex;
-
-  column-gap: 16px;
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: 0 16px;
 
   padding: 16px;
 
   &__image {
-    border-radius: 10px;
+    border-radius: 6px;
   }
 
   &__info {

@@ -5,7 +5,7 @@ import { WishesEmpty } from "~views/widgets/wishes-empty/wishes-empty"
 import { WishesMemo } from "~views/widgets/wishes/wishes"
 
 export const AllWishesPage = () => {
-  const allWishes = useSelector((store: RootState) => store.items.data)
+  const allWishes = useSelector(({ items: { data } }: RootState) => data)
 
   console.log("AllWishesPage", allWishes)
 

@@ -1,33 +1,40 @@
 import getSymbolFromCurrency from "currency-symbol-map"
 
-import type { ParserUrl } from "~api/parser-url/parser-url.service"
+import type { WisherSearchData } from "~store/slices/wisher"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
 import { Slider } from "~views/components/slider/slider"
 
 interface Props {
-  data: ParserUrl
+  data: WisherSearchData
   isLoading: boolean
   onSaveClick: () => void
+  onEditClick: () => void
 }
 
-export const WisherLayout = ({ data, isLoading, onSaveClick }: Props) => {
-  console.log(data)
+export const WisherLayout = ({
+  data,
+  isLoading,
+  onSaveClick,
+  onEditClick
+}: Props) => {
+  const {
+    input: { title, currency, price },
+    images
+  } = data
 
-  const { name, image, price, priceCurrency } = data
-
-  const priceValue = `${getSymbolFromCurrency(priceCurrency)}${price}`
+  const priceValue = `${getSymbolFromCurrency(currency)}${price}`
 
   return (
     <div className="extensions-wisher-layout">
-      <Slider images={image} />
+      <Slider images={images} />
 
-      <p className="extensions-wisher-layout__name">{name}</p>
+      <p className="extensions-wisher-layout__name">{title}</p>
 
       <span className="extensions-wisher-layout__price">{priceValue}</span>
 
       <div className="extensions-wisher-layout__action">
-        <Button size="md" onClickFn={() => console.log("click")}>
+        <Button size="md" onClickFn={onEditClick}>
           EDIT
         </Button>
 
