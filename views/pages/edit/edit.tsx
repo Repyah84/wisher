@@ -33,8 +33,6 @@ export const EditWisherPage = () => {
   const onSaveClick = (input: ItemInput) => {
     dispatch(setWisher({ ...data, input }))
 
-    console.log("EditWisherPage")
-
     navigate("/wisher/add-wisher")
   }
 

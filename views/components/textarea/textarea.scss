@@ -1,5 +1,5 @@
-.extensions-wisher-input {
-  display: grid;
+.extensions-wisher-textarea {
+  display: inline-grid;
 
   &__title {
     padding: 4px 8px;
@@ -12,39 +12,30 @@
     text-transform: uppercase;
   }
 
-  &__label {
-    min-height: 48px;
+  &__textarea {
+    resize: none;
 
-    display: inline-flex;
+    border: none;
+    outline: none;
 
-    align-items: center;
+    width: 100%;
 
-    padding: 5px 16px;
+    padding: 12px 16px;
 
     border-radius: 6px;
 
     background-color: var(--extension-wisher-field-back);
 
-    justify-content: space-between;
-
     border-radius: 6px;
 
     transition: box-shadow 150ms;
 
+    font-size: 16px;
+
+    color: #000000;
+
     &:focus-within {
       box-shadow: 0 4px 0 -1px var(--extension-wisher-primary-medium);
     }
-  }
-
-  &__content {
-    background: none;
-    outline: none;
-    border: none;
-
-    padding: 0;
-
-    flex: 1;
-
-    font-size: 14px;
   }
 }

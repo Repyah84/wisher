@@ -22,7 +22,6 @@ export const InitialPage = () => {
   useEffect(() => {
     storage.get<StoreJWT>("JWT").then((data) => {
       if (data) {
-        console.log(data)
         const token = data.token
 
         mutate(token)

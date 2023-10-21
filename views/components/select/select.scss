@@ -29,7 +29,7 @@
 
     border-radius: 6px;
 
-    background-color: hsla(0, 0%, 92%, 1);
+    background-color: var(--extension-wisher-field-back);
 
     justify-content: space-between;
 
@@ -63,7 +63,7 @@
 
     box-shadow: 0 0 3px 1px hsla(0, 0%, 0%, 0.15);
 
-    background-color: hsla(0, 0%, 92%, 1);
+    background-color: var(--extension-wisher-field-back);
 
     &[is-open="true"] {
       animation: extensions-wisher-select-open forwards 100ms ease-in-out;
@@ -83,12 +83,12 @@
     align-items: center;
     justify-content: space-between;
 
-    transition: box-shadow 100ms;
+    transition: background-color 100ms;
 
     cursor: pointer;
 
     &:hover {
-      box-shadow: 0 3px 0 -1px var(--extensions-wisher-primary-light);
+      background-color: var(--extensions-wisher-primary-light);
     }
   }
 }

@@ -3,6 +3,8 @@
 
   grid-template-rows: 1fr auto;
 
+  overflow: hidden;
+
   &__content {
     overflow: auto;
 

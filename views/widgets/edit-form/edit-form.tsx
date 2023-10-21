@@ -5,6 +5,7 @@ import { Button } from "~views/components/button/button"
 import { Input } from "~views/components/input/input"
 import { Rating } from "~views/components/rating/rating"
 import { Select } from "~views/components/select/select"
+import { Textarea } from "~views/components/textarea/textarea"
 
 interface Props {
   data: ItemInput
@@ -69,16 +70,20 @@ export const EditForm = ({ data, onSaveClick }: Props) => {
           title="url"
         />
 
-        {/* <Input
-        value={title}
-        onChangeValue={(value) => change({ note: value as string })}
-        title="notes"
-        type="tx"
-      /> */}
+        <Textarea
+          title="Notes"
+          placeholder="Size, color, amount, etc."
+          value={edit.note}
+          onValueChange={(value) => change({ note: value })}
+        />
       </div>
 
       <div className="extensions-wisher-edit-form__action">
-        <Button type="submit" btnColor="primary" onClickFn={() => undefined}>
+        <Button
+          size="md"
+          type="submit"
+          btnColor="primary"
+          onClickFn={() => undefined}>
           SAVE
         </Button>
       </div>
