@@ -67,31 +67,31 @@ export const Select = ({ title, selected, onSelected }: Props) => {
         ) : (
           <Loader size={5.5} isLoading={true} />
         )}
+
+        {state ? (
+          <div
+            is-open={open.toString()}
+            onAnimationEnd={animationEnd}
+            className="extensions-wisher-select__options">
+            {data.currencies.map((option) => (
+              <div
+                onClick={() => onOptionClick(option.code)}
+                key={option.code}
+                className="extensions-wisher-select__option">
+                <span>{option.code}</span>
+
+                {option.code === selectedOption ? (
+                  <img width={24} height={24} src={checkSvhIcon} alt="check" />
+                ) : (
+                  <></>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <></>
+        )}
       </button>
-
-      {state ? (
-        <div
-          is-open={open.toString()}
-          onAnimationEnd={animationEnd}
-          className="extensions-wisher-select__options">
-          {data.currencies.map((option) => (
-            <div
-              onClick={() => onOptionClick(option.code)}
-              key={option.code}
-              className="extensions-wisher-select__option">
-              <span>{option.code}</span>
-
-              {option.code === selectedOption ? (
-                <img width={24} height={24} src={checkSvhIcon} alt="check" />
-              ) : (
-                <></>
-              )}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <></>
-      )}
     </div>
   )
 }

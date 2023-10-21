@@ -28,6 +28,16 @@
     -webkit-box-orient: vertical;
   }
 
+  &__rating-title {
+    margin-bottom: 8px;
+
+    font-size: 12px;
+
+    color: #000000;
+
+    text-align: center;
+  }
+
   &__price {
     font-size: 20px;
     font-weight: 500;

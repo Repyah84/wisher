@@ -27,6 +27,17 @@
     }
   }
 
+  &__item-title {
+    padding: 4px 8px;
+
+    font-size: 10px;
+    font-weight: 500;
+
+    color: var(--extension-mode-text-light);
+
+    text-transform: uppercase;
+  }
+
   &__price {
     display: grid;
 

@@ -47,7 +47,15 @@ export const Slider = ({ images }: Props) => {
         <></>
       )}
 
-      <img width={192} height={192} src={images[imageIndex]} alt="Item image" />
+      <img
+        style={{
+          objectFit: "contain"
+        }}
+        width={192}
+        height={192}
+        src={images[imageIndex]}
+        alt="Item image"
+      />
 
       {isSlider ? (
         <Button btnType="icon" onClickFn={onNext}>

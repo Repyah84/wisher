@@ -1,8 +1,10 @@
 import getSymbolFromCurrency from "currency-symbol-map"
+import imageGarage from "data-base64:~assets/garage.png"
 
 import type { WisherSearchData } from "~store/slices/wisher"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
+import { Rating } from "~views/components/rating/rating"
 import { Slider } from "~views/components/slider/slider"
 
 interface Props {
@@ -19,7 +21,7 @@ export const WisherLayout = ({
   onEditClick
 }: Props) => {
   const {
-    input: { title, currency, price },
+    input: { title, currency, price, personalRating },
     images
   } = data
 
@@ -27,7 +29,17 @@ export const WisherLayout = ({
 
   return (
     <div className="extensions-wisher-layout">
-      <Slider images={images} />
+      {images === null ? (
+        <img src={imageGarage} width={192} height={192} alt="Garage" />
+      ) : (
+        <Slider images={images} />
+      )}
+
+      <Rating rating={personalRating}>
+        <span className="extensions-wisher-layout__rating-title">
+          Personal Rating
+        </span>
+      </Rating>
 
       <p className="extensions-wisher-layout__name">{title}</p>
 

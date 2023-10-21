@@ -1,0 +1,8 @@
+.extensions-wisher-rating {
+  display: inline-grid;
+
+  &__items {
+    display: flex;
+    column-gap: 8px;
+  }
+}

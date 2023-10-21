@@ -34,7 +34,7 @@ export const useParsUrl = () => {
           faviconUrl: icon ?? null,
           imageUrl: image ? image[0] : null,
           note: null,
-          personalRating: null,
+          personalRating: 0,
           price,
           title: description ?? null,
           url: window.location.href

@@ -23,23 +23,19 @@ export const LoginPage = () => {
   const { mutate: itemsMutate, isSuccess: itemsIsSuccess } = ItemsGraphQL()
 
   useEffect(() => {
-    if (wisherJWT === null) {
-      return
+    if (wisherJWT !== null && !isSuccess && !itemsIsSuccess) {
+      const token = wisherJWT.token
+
+      mutate(token)
+      itemsMutate(token)
     }
 
-    const token = wisherJWT.token
-
-    mutate(token)
-    itemsMutate(token)
-  }, [wisherJWT])
-
-  useEffect(() => {
     if (isSuccess && itemsIsSuccess) {
       setIsLoading(false)
 
       navigate("/wisher/wishes")
     }
-  }, [isSuccess, itemsIsSuccess])
+  }, [wisherJWT, isSuccess, itemsIsSuccess])
 
   const onGoogleLoginClick = () => {
     setIsLoading(true)

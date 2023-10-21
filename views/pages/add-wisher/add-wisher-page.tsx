@@ -6,6 +6,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import { useParsUrl } from "~api/hooks/pars-url"
 import { ItemAddGraphQL } from "~gql/hooks/item-add"
+import { ItemsGraphQL } from "~gql/hooks/items"
 import type { StoreJWT } from "~gql/hooks/signin"
 import { ErrorLayout } from "~views/widgets/error-layout/error-layout"
 import { LoaderLayout } from "~views/widgets/loader-layout/loader-layout"
@@ -17,16 +18,14 @@ export const AddWisherPage = () => {
 
   const { mutate, isSuccess: addItemSuccess, isLoading } = ItemAddGraphQL()
 
+  const {
+    mutate: itemsMutate,
+    isSuccess: itemsIsSuccess,
+    isLoading: itemsUpdate
+  } = ItemsGraphQL()
+
   const { data, isSuccess, isError, canceled, invalidate, cancel } =
     useParsUrl()
-
-  useEffect(() => {
-    if (!addItemSuccess) {
-      return
-    }
-
-    navigate("/wisher/wishes")
-  }, [addItemSuccess])
 
   const [wisherJWT] = useStorage<StoreJWT>(
     {
@@ -36,9 +35,21 @@ export const AddWisherPage = () => {
     null
   )
 
+  useEffect(() => {
+    if (addItemSuccess && !itemsIsSuccess) {
+      itemsMutate(wisherJWT.token)
+    }
+
+    if (itemsIsSuccess) {
+      navigate("/wisher/wishes")
+    }
+  }, [addItemSuccess, itemsIsSuccess])
+
   const onSaveClick = () => {
     if (wisherJWT === null) {
       navigate("/login")
+
+      return
     }
 
     mutate({ token: wisherJWT.token, input: data.input })
@@ -59,7 +70,7 @@ export const AddWisherPage = () => {
       ) : data || isSuccess ? (
         <WisherLayout
           data={data}
-          isLoading={isLoading}
+          isLoading={isLoading || itemsUpdate}
           onSaveClick={onSaveClick}
           onEditClick={onEditClick}
         />

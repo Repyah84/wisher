@@ -3,6 +3,7 @@ import { useState } from "react"
 import type { ItemInput } from "~gql/types/graphql"
 import { Button } from "~views/components/button/button"
 import { Input } from "~views/components/input/input"
+import { Rating } from "~views/components/rating/rating"
 import { Select } from "~views/components/select/select"
 
 interface Props {
@@ -36,6 +37,14 @@ export const EditForm = ({ data, onSaveClick }: Props) => {
           placeholder="Add gift title (required)"
           title="Wish title*"
         />
+
+        <Rating
+          rating={edit.personalRating}
+          onRatingChange={(value) => change({ personalRating: value })}>
+          <span className="extensions-wisher-edit-form__item-title">
+            Personal rating
+          </span>
+        </Rating>
 
         <div className="extensions-wisher-edit-form__price">
           <Input
