@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query Currencies {\n    currencies {\n      code\n      name\n    }\n  }\n": types.CurrenciesDocument,
-    "\n  mutation Item($input: ItemInput!) {\n    item(input: $input) {\n      collections\n      id\n      createdAt\n      updatedAt\n      title\n    }\n  }\n": types.ItemDocument,
+    "\n  mutation Item($input: ItemInput!, $image: Upload) {\n    item(input: $input, image: $image) {\n      collections\n      id\n      createdAt\n      updatedAt\n      title\n    }\n  }\n": types.ItemDocument,
     "\n  query Items {\n    items {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n      }\n    }\n  }\n": types.ItemsDocument,
     "\n  mutation SignIn($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n    }\n  }\n": types.SignInDocument,
     "\n  query User {\n    user {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      uid\n    }\n  }\n": types.UserDocument,
@@ -41,7 +41,7 @@ export function graphql(source: "\n  query Currencies {\n    currencies {\n     
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation Item($input: ItemInput!) {\n    item(input: $input) {\n      collections\n      id\n      createdAt\n      updatedAt\n      title\n    }\n  }\n"): (typeof documents)["\n  mutation Item($input: ItemInput!) {\n    item(input: $input) {\n      collections\n      id\n      createdAt\n      updatedAt\n      title\n    }\n  }\n"];
+export function graphql(source: "\n  mutation Item($input: ItemInput!, $image: Upload) {\n    item(input: $input, image: $image) {\n      collections\n      id\n      createdAt\n      updatedAt\n      title\n    }\n  }\n"): (typeof documents)["\n  mutation Item($input: ItemInput!, $image: Upload) {\n    item(input: $input, image: $image) {\n      collections\n      id\n      createdAt\n      updatedAt\n      title\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

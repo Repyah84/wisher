@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
-import type { ItemInput } from "~gql/types/graphql"
 import { setWisher, type WisherSearchData } from "~store/slices/wisher"
 import type { RootState } from "~store/wisher.store"
 import { EditForm } from "~views/widgets/edit-form/edit-form"
@@ -30,8 +29,8 @@ export const EditWisherPage = () => {
     return data === null ? DEFAULT_DATA : data
   })
 
-  const onSaveClick = (input: ItemInput) => {
-    dispatch(setWisher({ ...data, input }))
+  const onSaveClick = (value: WisherSearchData) => {
+    dispatch(setWisher({ ...data, ...value }))
 
     navigate("/wisher/add-wisher")
   }
@@ -42,7 +41,7 @@ export const EditWisherPage = () => {
     <div className="extensions-wisher-edit-page">
       <Header />
 
-      <EditForm data={data.input} onSaveClick={onSaveClick} />
+      <EditForm data={data} onSaveClick={onSaveClick} />
     </div>
   )
 }

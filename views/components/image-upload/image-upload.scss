@@ -1,0 +1,23 @@
+.extensions-wisher-image-upload {
+  display: grid;
+
+  justify-content: center;
+
+  &__label {
+    padding: 4px 16px;
+
+    font-size: 12px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 2px 2px 0 hsla(0, 0%, 0%, 0.15);
+
+    margin: 0 auto;
+
+    cursor: pointer;
+
+    & input[type="file"] {
+      display: none;
+    }
+  }
+}

@@ -1,19 +1,23 @@
 import { useState } from "react"
 
 import type { ItemInput } from "~gql/types/graphql"
+import type { WisherSearchData } from "~store/slices/wisher"
 import { Button } from "~views/components/button/button"
+import { ImageUploader } from "~views/components/image-upload/image-upload"
 import { Input } from "~views/components/input/input"
 import { Rating } from "~views/components/rating/rating"
 import { Select } from "~views/components/select/select"
 import { Textarea } from "~views/components/textarea/textarea"
 
 interface Props {
-  data: ItemInput
-  onSaveClick: (data: ItemInput) => void
+  data: WisherSearchData
+  onSaveClick: (data: WisherSearchData) => void
 }
 
 export const EditForm = ({ data, onSaveClick }: Props) => {
-  const [edit, setEdit] = useState<ItemInput>(data)
+  const [edit, setEdit] = useState<ItemInput>(data.input)
+
+  const [imageUpload, setImageUpload] = useState<File | undefined>()
 
   const change = (value: Partial<ItemInput>) => {
     setEdit((data) => partial(data, value))
@@ -28,10 +32,12 @@ export const EditForm = ({ data, onSaveClick }: Props) => {
       onSubmit={(e) => {
         e.preventDefault()
 
-        onSaveClick(edit)
+        onSaveClick({ ...data, imageUpload, input: edit })
       }}
       className="extensions-wisher-edit-form">
       <div className="extensions-wisher-edit-form__content">
+        <ImageUploader image={edit.imageUrl} onImageChange={setImageUpload} />
+
         <Input
           value={edit.title}
           onChangeValue={(value) => change({ title: value })}

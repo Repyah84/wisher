@@ -6,6 +6,7 @@ import { resetWisher } from "~store/actions/reset-wisher"
 export interface WisherSearchData {
   images: string[] | null
   input: ItemInput
+  imageUpload?: File
 }
 
 interface Wisher {
@@ -19,7 +20,7 @@ export const wisherSlice = createSlice({
   name: "wisher",
   initialState,
   reducers: {
-    setWisher(store, { payload }: PayloadAction<Wisher["data"]>) {
+    setWisher(store, { payload }: PayloadAction<WisherSearchData>) {
       store.data = payload
     }
   },
