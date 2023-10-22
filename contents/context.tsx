@@ -11,7 +11,7 @@ import { OverLay } from "~views/components/overlay/overlay"
 import { WisherContext } from "~views/context/wisher/wisher.context"
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://www.amazon.com/*"],
+  matches: ["https://www.amazon.com/*", "https://ek.ua/*"],
   css: ["font.css"]
 }
 
@@ -27,7 +27,12 @@ const uploadLink = createUploadLink({
 
 const client = new ApolloClient({
   link: uploadLink,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "network-only"
+    }
+  }
 })
 
 const Context = () => {

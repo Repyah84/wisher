@@ -41,8 +41,8 @@ export const useParsUrl = () => {
             imageUrl: image ? image[0] : null,
             note: "",
             personalRating: 0,
-            price,
-            title: description ?? null,
+            price: price ?? 0,
+            title: description ?? "",
             url: window.location.href
           }
         }

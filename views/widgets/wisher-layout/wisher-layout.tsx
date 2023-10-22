@@ -21,6 +21,7 @@ export const WisherLayout = ({
   onEditClick
 }: Props) => {
   const {
+    imageUpload,
     input: { title, currency, price, personalRating },
     images
   } = data
@@ -30,7 +31,15 @@ export const WisherLayout = ({
   return (
     <div className="extensions-wisher-layout">
       {images === null ? (
-        <img src={imageGarage} width={192} height={192} alt="Garage" />
+        <img
+          style={{
+            objectFit: "cover"
+          }}
+          src={imageUpload ? URL.createObjectURL(imageUpload) : imageGarage}
+          width={192}
+          height={192}
+          alt="Garage"
+        />
       ) : (
         <Slider images={images} />
       )}
