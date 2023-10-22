@@ -1,4 +1,3 @@
-import { useMutation } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -17,38 +16,49 @@ export const useParsUrl = () => {
 
   const data = useSelector(({ wisher: { data } }: RootState) => data)
 
-  const [canceled, setCanceled] = useState(false)
-
   const [controller, setController] = useState(new AbortController())
 
-  const { mutate, isError, isLoading, isSuccess } = useMutation({
-    mutationFn: ({ url, signal }: ParsUrlInputData) =>
-      ParserUrlService.getDataByUrl(url, signal),
-    onSuccess: (res) => {
-      const { image, priceCurrency, price, description, icon } = res
+  const [isError, setIsError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [canceled, setCanceled] = useState(false)
 
-      const data: WisherSearchData = {
-        images: image ?? null,
-        input: {
-          currency: priceCurrency ?? null,
-          faviconUrl: icon ?? null,
-          imageUrl: image ? image[0] : null,
-          note: "",
-          personalRating: 0,
-          price,
-          title: description ?? null,
-          url: window.location.href
+  const mutate = ({ url, signal }: ParsUrlInputData) => {
+    setIsLoading(true)
+
+    ParserUrlService.getDataByUrl(url, signal)
+      .then((res) => {
+        setIsLoading(false)
+        setIsSuccess(true)
+
+        const { image, priceCurrency, price, description, icon } = res
+
+        const data: WisherSearchData = {
+          images: image ?? null,
+          input: {
+            currency: priceCurrency ?? null,
+            faviconUrl: icon ?? null,
+            imageUrl: image ? image[0] : null,
+            note: "",
+            personalRating: 0,
+            price,
+            title: description ?? null,
+            url: window.location.href
+          }
         }
-      }
 
-      dispatch(setWisher(data))
-    }
-  })
+        dispatch(setWisher(data))
+      })
+      .catch((error) => {
+        setIsLoading(false)
+        setIsError(error)
+      })
+  }
 
   useEffect(() => {
-    if (canceled) {
-      setCanceled(false)
-    }
+    setIsError(null)
+    setCanceled(false)
+    setIsSuccess(false)
 
     const url = window.location.href
     const signal = controller.signal

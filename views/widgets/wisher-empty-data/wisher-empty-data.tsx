@@ -20,15 +20,15 @@ export const WisherEmptyData = ({ retryFn, onEditClick }: Props) => {
         </span>
       </Rating>
 
-      <Button btnType="stroke" btnColor="primary" onClickFn={retryFn}>
-        <ReloadSvgIcon />
-        <span>RETRY</span>
-      </Button>
-
       <p className="extensions-wisher-wisher-empty-data__description">
         Sorry, we couldn’t find any data about the wish :( <br /> Please tap the
         EDIT button to add more information
       </p>
+
+      <Button btnType="stroke" btnColor="primary" onClickFn={retryFn}>
+        <ReloadSvgIcon />
+        <span>RETRY</span>
+      </Button>
 
       <div className="extensions-wisher-wisher-empty-data__action">
         <Button size="md" onClickFn={onEditClick}>

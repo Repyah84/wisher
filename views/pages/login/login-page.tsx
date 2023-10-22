@@ -24,8 +24,6 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (wisherJWT !== null && !isSuccess && !itemsIsSuccess) {
-      const token = wisherJWT.token
-
       getUser()
       getItems()
     }

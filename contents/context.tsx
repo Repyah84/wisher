@@ -1,5 +1,4 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { createUploadLink } from "apollo-upload-client"
 import cssText from "data-text:~/contents/context.scss"
 import type { PlasmoCSConfig } from "plasmo"
@@ -31,27 +30,17 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false
-    }
-  }
-})
-
 const Context = () => {
   return (
     <Provider store={wisherStore}>
       <ApolloProvider client={client}>
-        <QueryClientProvider client={queryClient}>
-          <WisherContext>
-            <OverLay />
+        <WisherContext>
+          <OverLay />
 
-            <MemoryRouter>
-              <WisherRoutes />
-            </MemoryRouter>
-          </WisherContext>
-        </QueryClientProvider>
+          <MemoryRouter>
+            <WisherRoutes />
+          </MemoryRouter>
+        </WisherContext>
       </ApolloProvider>
     </Provider>
   )
