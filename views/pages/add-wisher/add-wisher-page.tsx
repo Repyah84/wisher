@@ -5,9 +5,9 @@ import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import { useParsUrl } from "~api/hooks/pars-url"
-import { ItemAddGraphQL } from "~gql/hooks/item-add"
-import { ItemsGraphQL } from "~gql/hooks/items"
-import type { StoreJWT } from "~gql/hooks/signin"
+import { useItemMutate } from "~gql/hooks/item.mutate"
+import { useGetItemsLazy } from "~gql/hooks/items.mutate"
+import type { StoreJWT } from "~gql/hooks/signin.mutate"
 import { ErrorLayout } from "~views/widgets/error-layout/error-layout"
 import { LoaderLayout } from "~views/widgets/loader-layout/loader-layout"
 import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-data"
@@ -16,16 +16,16 @@ import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 export const AddWisherPage = () => {
   const navigate = useNavigate()
 
-  const { mutate, isSuccess: addItemSuccess, isLoading } = ItemAddGraphQL()
-
-  const {
-    mutate: itemsMutate,
-    isSuccess: itemsIsSuccess,
-    isLoading: itemsUpdate
-  } = ItemsGraphQL()
+  const { data: addItemData, loading, addItem } = useItemMutate()
 
   const { data, isSuccess, isError, canceled, invalidate, cancel } =
     useParsUrl()
+
+  const {
+    data: itemsIsSuccess,
+    loading: itemsLoading,
+    getItems
+  } = useGetItemsLazy()
 
   const [wisherJWT] = useStorage<StoreJWT>(
     {
@@ -36,14 +36,14 @@ export const AddWisherPage = () => {
   )
 
   useEffect(() => {
-    if (addItemSuccess && !itemsIsSuccess) {
-      itemsMutate(wisherJWT.token)
+    if (addItemData && !itemsIsSuccess) {
+      getItems()
     }
 
     if (itemsIsSuccess) {
       navigate("/wisher/wishes")
     }
-  }, [addItemSuccess, itemsIsSuccess])
+  }, [addItemData, itemsIsSuccess])
 
   const onSaveClick = () => {
     if (wisherJWT === null) {
@@ -52,7 +52,7 @@ export const AddWisherPage = () => {
       return
     }
 
-    mutate({ token: wisherJWT.token, input: data.input })
+    addItem({ input: data.input, image: data.imageUpload })
   }
 
   const onEditClick = () => {
@@ -70,7 +70,7 @@ export const AddWisherPage = () => {
       ) : data || isSuccess ? (
         <WisherLayout
           data={data}
-          isLoading={isLoading || itemsUpdate}
+          isLoading={loading || itemsLoading}
           onSaveClick={onSaveClick}
           onEditClick={onEditClick}
         />

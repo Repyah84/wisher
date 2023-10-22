@@ -3,9 +3,9 @@ import welcomeImage from "data-base64:~assets/wisher-auth.png"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { ItemsGraphQL } from "~gql/hooks/items"
-import { useSignInGraphQL } from "~gql/hooks/signin"
-import { useUserGraphQL } from "~gql/hooks/user"
+import { useGetItemsLazy } from "~gql/hooks/items.mutate"
+import { useSignInMutate } from "~gql/hooks/signin.mutate"
+import { useGetUserLazy } from "~gql/hooks/user"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
@@ -16,18 +16,18 @@ export const LoginPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const { wisherJWT, onLogin } = useSignInGraphQL()
+  const { wisherJWT, onLogin } = useSignInMutate()
 
-  const { mutate, isSuccess } = useUserGraphQL()
+  const { getUser, data: isSuccess } = useGetUserLazy()
 
-  const { mutate: itemsMutate, isSuccess: itemsIsSuccess } = ItemsGraphQL()
+  const { data: itemsIsSuccess, getItems } = useGetItemsLazy()
 
   useEffect(() => {
     if (wisherJWT !== null && !isSuccess && !itemsIsSuccess) {
       const token = wisherJWT.token
 
-      mutate(token)
-      itemsMutate(token)
+      getUser()
+      getItems()
     }
 
     if (isSuccess && itemsIsSuccess) {

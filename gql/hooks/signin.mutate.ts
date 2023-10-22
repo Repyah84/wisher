@@ -1,5 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
-import request from "graphql-request"
+import { useMutation } from "@apollo/client"
 import jwt_decode from "jwt-decode"
 import { useEffect } from "react"
 
@@ -14,7 +13,7 @@ export interface StoreJWT {
   exp: number
 }
 
-export const useSignInGraphQL = () => {
+export const useSignInMutate = () => {
   const { user, onLogin } = useFirebaseAuth()
 
   const [wisherJWT, setWisherJWT] = useStorage<StoreJWT | null>(
@@ -25,21 +24,7 @@ export const useSignInGraphQL = () => {
     null
   )
 
-  const { mutate, isError, isSuccess } = useMutation({
-    mutationFn: (idToken: string) =>
-      request(process.env.PLASMO_PUBLIC_API_GQL, signIn, {
-        idToken
-      }),
-    onSuccess: (data) => {
-      const token = data.signIn.token
-
-      const decoder = jwt_decode(token)
-
-      if (typeof decoder === "object" && "exp" in decoder) {
-        setWisherJWT({ exp: decoder.exp as number, token })
-      }
-    }
-  })
+  const [mutate, { data: isSuccess, error }] = useMutation(signIn)
 
   useEffect(() => {
     if (user === null) {
@@ -47,13 +32,26 @@ export const useSignInGraphQL = () => {
     }
 
     if ("accessToken" in user) {
-      mutate(user.accessToken as string)
+      mutate({
+        variables: {
+          idToken: user.accessToken as string
+        },
+        onCompleted: (data) => {
+          const token = data.signIn.token
+
+          const decoder = jwt_decode(token)
+
+          if (typeof decoder === "object" && "exp" in decoder) {
+            setWisherJWT({ exp: decoder.exp as number, token })
+          }
+        }
+      })
     }
   }, [user])
 
   return {
     wisherJWT,
-    isError,
+    error,
     isSuccess,
     onLogin
   }

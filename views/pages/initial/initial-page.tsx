@@ -4,28 +4,26 @@ import { useNavigate } from "react-router-dom"
 
 import { Storage } from "@plasmohq/storage"
 
-import { ItemsGraphQL } from "~gql/hooks/items"
-import type { StoreJWT } from "~gql/hooks/signin"
-import { useUserGraphQL } from "~gql/hooks/user"
+import { useGetItemsLazy } from "~gql/hooks/items.mutate"
+import type { StoreJWT } from "~gql/hooks/signin.mutate"
+import { useGetUserLazy } from "~gql/hooks/user"
 import { Loader } from "~views/components/loader/loader"
 import { Header } from "~views/widgets/header/header"
 
 export const InitialPage = () => {
   const storage = new Storage({ area: "local" })
 
-  const { mutate, isSuccess } = useUserGraphQL()
+  const { getUser, data: isSuccess } = useGetUserLazy()
 
-  const { mutate: itemsMutate, isSuccess: itemsIsSuccess } = ItemsGraphQL()
+  const { data: itemsIsSuccess, getItems } = useGetItemsLazy()
 
   const navigate = useNavigate()
 
   useEffect(() => {
     storage.get<StoreJWT>("JWT").then((data) => {
       if (data) {
-        const token = data.token
-
-        mutate(token)
-        itemsMutate(token)
+        getUser()
+        getItems()
 
         return
       }

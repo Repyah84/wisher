@@ -1,8 +1,9 @@
+import { useQuery } from "@apollo/client"
 import checkSvhIcon from "data-base64:~assets/check.svg"
 import arrowSvgIcon from "data-base64:~assets/short-arrow-down.svg"
 import { useEffect, useState } from "react"
 
-import { useCurrenciesGraphQL } from "~gql/hooks/currencies"
+import { currencies } from "~gql/schema/currencies"
 import { useMount } from "~views/hooks/mount"
 
 import { Loader } from "../loader/loader"
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export const Select = ({ title, selected, onSelected }: Props) => {
-  const { data, isSuccess } = useCurrenciesGraphQL()
+  const { data } = useQuery(currencies)
 
   const [open, setOpen] = useState(false)
 
@@ -37,7 +38,7 @@ export const Select = ({ title, selected, onSelected }: Props) => {
   const onSelectClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    if (!isSuccess) {
+    if (!data) {
       return
     }
 
@@ -62,7 +63,7 @@ export const Select = ({ title, selected, onSelected }: Props) => {
         className="extensions-wisher-select__btn">
         <span>{selectedOption}</span>
 
-        {isSuccess ? (
+        {data ? (
           <img src={arrowSvgIcon} width={24} height={24} alt="arrow" />
         ) : (
           <Loader size={5.5} isLoading={true} />

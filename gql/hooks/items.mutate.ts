@@ -3,19 +3,19 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
-import { user } from "~gql/schema/user"
-import { toggleUserSate } from "~store/slices/user"
+import { items } from "~gql/schema/items"
+import { setItems } from "~store/slices/items"
 
 import type { StoreJWT } from "./signin.mutate"
 
 const storage = new Storage({ area: "local" })
 
-export const useGetUserLazy = () => {
+export const useGetItemsLazy = () => {
   const dispatch = useDispatch()
 
-  const [mutate, { data, loading, error }] = useLazyQuery(user)
+  const [mutate, { data, error, loading }] = useLazyQuery(items)
 
-  const getUser = () => {
+  const getItems = () => {
     storage.get<StoreJWT>("JWT").then(({ token }) => {
       mutate({
         context: {
@@ -24,11 +24,11 @@ export const useGetUserLazy = () => {
           }
         },
         onCompleted: (data) => {
-          dispatch(toggleUserSate(data.user))
+          dispatch(setItems(data.items.rows))
         }
       })
     })
   }
 
-  return { getUser, data, loading, error }
+  return { data, error, loading, getItems }
 }
