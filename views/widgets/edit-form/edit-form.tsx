@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 import type { ItemInput } from "~gql/types/graphql"
 import type { WisherSearchData } from "~store/slices/wisher"
@@ -8,6 +8,7 @@ import { Input } from "~views/components/input/input"
 import { Rating } from "~views/components/rating/rating"
 import { Select } from "~views/components/select/select"
 import { Textarea } from "~views/components/textarea/textarea"
+import { WishImage } from "~views/components/wish-image/wish-image"
 
 interface Props {
   data: WisherSearchData
@@ -17,11 +18,13 @@ interface Props {
 export const EditForm = ({ data, onSaveClick }: Props) => {
   const [edit, setEdit] = useState<ItemInput>(data.input)
 
-  const [imageUpload, setImageUpload] = useState<File | null>(null)
+  const [imageUpload, setImageUpload] = useState<File | null>(
+    data.imageUpload ?? null
+  )
 
-  const uploadImage = () => {
-    return imageUpload ? URL.createObjectURL(imageUpload) : edit.imageUrl
-  }
+  const uploadImage = useMemo(() => {
+    return imageUpload ? URL.createObjectURL(imageUpload) : data.input.imageUrl
+  }, [imageUpload, data])
 
   const change = (value: Partial<ItemInput>) => {
     setEdit((data) => partial(data, value))
@@ -40,22 +43,10 @@ export const EditForm = ({ data, onSaveClick }: Props) => {
       }}
       className="extensions-wisher-edit-form">
       <div className="extensions-wisher-edit-form__content">
-        <div
-          style={{
-            backgroundImage: `url(${uploadImage()})`
-          }}
-          className="extensions-wisher-edit-form__image-action">
-          {!imageUpload && !edit.imageUrl ? (
-            <></>
-          ) : (
-            <img
-              src={uploadImage()}
-              className="extensions-wisher-edit-form__image"
-              alt="image"
-            />
-          )}
+        <div className="extensions-wisher-edit-form__item-image">
+          <WishImage image={uploadImage} />
 
-          <ImageUploader image={edit.imageUrl} onImageChange={setImageUpload} />
+          <ImageUploader onImageChange={setImageUpload} />
         </div>
 
         <div className="extensions-wisher-edit-form__fields">

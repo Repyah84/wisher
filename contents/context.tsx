@@ -27,12 +27,7 @@ const uploadLink = createUploadLink({
 
 const client = new ApolloClient({
   link: uploadLink,
-  cache: new InMemoryCache(),
-  defaultOptions: {
-    watchQuery: {
-      fetchPolicy: "network-only"
-    }
-  }
+  cache: new InMemoryCache()
 })
 
 const Context = () => {

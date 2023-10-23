@@ -13,7 +13,11 @@ const storage = new Storage({ area: "local" })
 export const useGetItemsLazy = () => {
   const dispatch = useDispatch()
 
-  const [mutate, { data, error, loading }] = useLazyQuery(items)
+  const [mutate, { data, error, loading }] = useLazyQuery(items, {
+    defaultOptions: {
+      fetchPolicy: "network-only"
+    }
+  })
 
   const getItems = () => {
     storage.get<StoreJWT>("JWT").then(({ token }) => {

@@ -1,20 +1,14 @@
-import emptyImage from "data-base64:~assets/garage.png"
-import { useState } from "react"
-
-const fileTypes = ["image/jpeg", "image/png", "image/webp"]
+const fileTypes = ["image/jpeg", "image/jpg", "image/png"]
 
 function validFileType(file) {
   return fileTypes.includes(file.type)
 }
 
 interface Props {
-  image: string
   onImageChange: (image: File) => void
 }
 
-export const ImageUploader = ({ image, onImageChange }: Props) => {
-  const [file, setFile] = useState<File | null>(null)
-
+export const ImageUploader = ({ onImageChange }: Props) => {
   const onChangeImageClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.files[0]
 
@@ -22,34 +16,18 @@ export const ImageUploader = ({ image, onImageChange }: Props) => {
       return
     }
 
-    setFile(value)
-
     onImageChange(value)
   }
 
   return (
-    <div className="extensions-wisher-image-upload">
-      {image || file ? (
-        <></>
-      ) : (
-        <img
-          className="extensions-wisher-image-upload__image-default"
-          width={100}
-          height={100}
-          src={emptyImage}
-          alt="image"
-        />
-      )}
+    <label className="extensions-wisher-image-upload">
+      <span>Change image</span>
 
-      <label className="extensions-wisher-image-upload__label">
-        <span>Change image</span>
-
-        <input
-          onChange={onChangeImageClick}
-          type="file"
-          accept=".jpg, .jpeg, .png"
-        />
-      </label>
-    </div>
+      <input
+        onChange={onChangeImageClick}
+        type="file"
+        accept=".jpg, .jpeg, .png"
+      />
+    </label>
   )
 }

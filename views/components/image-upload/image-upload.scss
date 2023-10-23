@@ -1,34 +1,19 @@
 .extensions-wisher-image-upload {
-  display: grid;
+  padding: 4px 16px;
 
-  justify-content: center;
-  align-items: end;
+  font-size: 12px;
 
-  &__image-default {
-    grid-area: 1/1 / 2/2;
+  border-radius: 10px;
 
-    margin: 0 auto;
-  }
+  box-shadow: 0 2px 2px 0 hsla(0, 0%, 0%, 0.15);
 
-  &__label {
-    grid-area: 1/1 / 2/2;
+  margin: 0 auto;
 
-    padding: 4px 16px;
+  background-color: white;
 
-    font-size: 12px;
+  cursor: pointer;
 
-    border-radius: 10px;
-
-    box-shadow: 0 2px 2px 0 hsla(0, 0%, 0%, 0.15);
-
-    margin: 0 auto;
-
-    background-color: white;
-
-    cursor: pointer;
-
-    & input[type="file"] {
-      display: none;
-    }
+  & input[type="file"] {
+    display: none;
   }
 }

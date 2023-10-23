@@ -13,7 +13,11 @@ const storage = new Storage({ area: "local" })
 export const useGetUserLazy = () => {
   const dispatch = useDispatch()
 
-  const [mutate, { data, loading, error }] = useLazyQuery(user)
+  const [mutate, { data, loading, error }] = useLazyQuery(user, {
+    defaultOptions: {
+      fetchPolicy: "network-only"
+    }
+  })
 
   const getUser = () => {
     storage.get<StoreJWT>("JWT").then(({ token }) => {

@@ -15,22 +15,20 @@ interface Props {
 }
 
 export const WisherLayout = ({
-  data,
+  data: {
+    imageUpload,
+    input: { title, currency, price, personalRating },
+    images
+  },
   isLoading,
   onSaveClick,
   onEditClick
 }: Props) => {
-  const {
-    imageUpload,
-    input: { title, currency, price, personalRating },
-    images
-  } = data
-
   const priceValue = `${getSymbolFromCurrency(currency)}${price}`
 
   return (
     <div className="extensions-wisher-layout">
-      {images === null ? (
+      {imageUpload || images === null ? (
         <img
           style={{
             objectFit: "cover"
