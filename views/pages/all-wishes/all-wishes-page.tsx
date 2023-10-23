@@ -2,16 +2,20 @@ import { useSelector } from "react-redux"
 
 import type { RootState } from "~store/wisher.store"
 import { WishesEmpty } from "~views/widgets/wishes-empty/wishes-empty"
-import { WishesMemo } from "~views/widgets/wishes/wishes"
+import { Wishes } from "~views/widgets/wishes/wishes"
 
 export const AllWishesPage = () => {
   const allWishes = useSelector(({ items: { data } }: RootState) => data)
 
-  console.log("AllWishesPage", allWishes)
+  console.log("@@@@@@@@@@@@@@@@@", allWishes[0].__typename)
 
   return (
     <div className="extensions-wisher-all-wishes-page">
-      {allWishes === null ? <WishesEmpty /> : <WishesMemo wishes={allWishes} />}
+      {allWishes === null || allWishes.length === 0 ? (
+        <WishesEmpty />
+      ) : (
+        <Wishes wishes={allWishes} />
+      )}
     </div>
   )
 }

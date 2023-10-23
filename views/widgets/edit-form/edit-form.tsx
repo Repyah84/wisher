@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react"
 
-import type { ItemInput } from "~gql/types/graphql"
+import type { Item, ItemInput } from "~gql/types/graphql"
 import type { WisherSearchData } from "~store/slices/wisher"
 import { Button } from "~views/components/button/button"
 import { ImageUploader } from "~views/components/image-upload/image-upload"
 import { Input } from "~views/components/input/input"
+import { Loader } from "~views/components/loader/loader"
 import { Rating } from "~views/components/rating/rating"
 import { Select } from "~views/components/select/select"
 import { Textarea } from "~views/components/textarea/textarea"
@@ -13,9 +14,10 @@ import { WishImage } from "~views/components/wish-image/wish-image"
 interface Props {
   data: WisherSearchData
   onSaveClick: (data: WisherSearchData) => void
+  loading?: boolean
 }
 
-export const EditForm = ({ data, onSaveClick }: Props) => {
+export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
   const [edit, setEdit] = useState<ItemInput>(data.input)
 
   const [imageUpload, setImageUpload] = useState<File | null>(
@@ -91,7 +93,7 @@ export const EditForm = ({ data, onSaveClick }: Props) => {
           <Textarea
             title="Notes"
             placeholder="Size, color, amount, etc."
-            value={edit.note}
+            value={edit.note || ""}
             onValueChange={(value) => change({ note: value })}
           />
         </div>
@@ -103,7 +105,11 @@ export const EditForm = ({ data, onSaveClick }: Props) => {
           type="submit"
           btnColor="primary"
           onClickFn={() => undefined}>
-          SAVE
+          <div className="extensions-wisher-edit-form__action-content">
+            <span>SAVE</span>
+
+            <Loader size={5.5} isLoading={loading} />
+          </div>
         </Button>
       </div>
     </form>

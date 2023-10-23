@@ -8,8 +8,10 @@ import { DetailsPage } from "~views/pages/details/details-page"
 import { EditWisherPage } from "~views/pages/edit/edit"
 import { HelpPage } from "~views/pages/help/help-page"
 import { InitialPage } from "~views/pages/initial/initial-page"
+import { ItemEditPage } from "~views/pages/item-edit/item-edit-page"
 import { LoginPage } from "~views/pages/login/login-page"
 import { SettingsPage } from "~views/pages/settings/settings-page"
+import { WisherItemPage } from "~views/pages/wisher-item/wisher-item"
 import { WisherPage } from "~views/pages/wisher/wisher-page"
 import { CollectionPage } from "~views/pages/wishes-collection/wishes-collection-page"
 import { WishesCollectionsPage } from "~views/pages/wishes-collections/wishes-collections"
@@ -53,6 +55,10 @@ export const WisherRoutes = () => {
             element={<AccountSettingsPage />}
           />
         </Route>
+
+        <Route path="wisher-item/:itemId" element={<WisherItemPage />} />
+
+        <Route path="wisher-item-edit/:itemId" element={<ItemEditPage />} />
 
         <Route path="wisher-edit" element={<EditWisherPage />} />
 

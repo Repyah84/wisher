@@ -1,6 +1,7 @@
 import getSymbolFromCurrency from "currency-symbol-map"
 import circleSvg from "data-base64:~assets/circle.svg"
 import emptyImage from "data-base64:~assets/garage.png"
+import { useNavigate } from "react-router-dom"
 
 import type { Item } from "~gql/types/graphql"
 
@@ -20,13 +21,20 @@ export const Wisher = ({
     faviconUrl,
     marketplace,
     createdAt,
-    personalRating
+    personalRating,
+    id
   }
 }: Props) => {
+  const navigate = useNavigate()
+
   const priceValue = `${getSymbolFromCurrency(currency)}${price}`
 
+  const onItemClick = () => {
+    navigate(`/wisher-item/${id}`)
+  }
+
   return (
-    <div className="extensions-wisher-item">
+    <div onClick={onItemClick} className="extensions-wisher-item">
       <div className="extensions-wisher-item__header">
         <div className="extensions-wisher-item__marketplace">
           <img
@@ -36,7 +44,7 @@ export const Wisher = ({
             alt="Domain icon"
           />
 
-          <span>{marketplace}</span>
+          <span>{marketplace || "Domain without icon"}</span>
         </div>
 
         <WishDate date={createdAt} />

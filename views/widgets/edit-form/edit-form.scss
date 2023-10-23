@@ -26,7 +26,7 @@
     padding-bottom: 16px;
 
     &::-webkit-scrollbar {
-      width: 5px;
+      width: 3px;
     }
 
     &::-webkit-scrollbar-track {
@@ -73,5 +73,24 @@
 
   &__action {
     padding: 16px 24px;
+  }
+
+  &__action-content {
+    flex: 1;
+
+    display: grid;
+    align-items: center;
+
+    grid-template-columns: 27px 1fr 27px;
+
+    & > span {
+      grid-area: 1/2 / 2/3;
+    }
+
+    & > .extensions-wisher-loader {
+      --extensions-wisher-loader-color: white;
+
+      grid-area: 1/3 / 2/4;
+    }
   }
 }

@@ -1,11 +1,11 @@
 import aboutSvg from "data-base64:~assets/about.svg"
 import helpSvg from "data-base64:~assets/help.svg"
 import settingsSvg from "data-base64:~assets/settings.svg"
-import shareSvg from "data-base64:~assets/share.svg"
 import shortArrow from "data-base64:~assets/short-arrow-right.svg"
 import starSvg from "data-base64:~assets/star.svg"
 
 import { ButtonNav } from "~views/components/button-nav/button-nav"
+import { ShareSvgIcon } from "~views/components/icons/share/share"
 
 export const DetailsOptions = () => {
   return (
@@ -47,7 +47,7 @@ export const DetailsOptions = () => {
       </a>
 
       <a className="__extensions-wisher-details-option__">
-        <img width={24} height={24} src={shareSvg} alt="Share" />
+        <ShareSvgIcon />
 
         <span>Tell friends about Wisher app</span>
       </a>

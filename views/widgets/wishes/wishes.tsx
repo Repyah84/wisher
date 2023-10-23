@@ -7,7 +7,7 @@ interface Props {
   wishes: Item[]
 }
 
-const Wishes = ({ wishes }: Props) => {
+export const Wishes = ({ wishes }: Props) => {
   return (
     <div className="extensions-wisher-wishes">
       {wishes.map((item) => (
@@ -16,5 +16,3 @@ const Wishes = ({ wishes }: Props) => {
     </div>
   )
 }
-
-export const WishesMemo = memo(Wishes)
