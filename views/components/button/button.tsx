@@ -10,7 +10,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   btnType?: BtnType
   btnColor?: BtnColor
   children: ReactNode
-  onClickFn: () => void
+  onClickFn?: () => void
   disable?: boolean
   size?: BtnSize
 }
@@ -26,6 +26,14 @@ export const Button = ({
 }: Props) => {
   const hostRef = useRef(null)
 
+  const onBtnClick = () => {
+    if (!onClickFn) {
+      return
+    }
+
+    onClickFn()
+  }
+
   return (
     <button
       type={type}
@@ -33,7 +41,7 @@ export const Button = ({
       className={`__extensions-wisher-btn__ extensions-wisher-btn extensions-wisher-btn--${btnType} extensions-wisher-btn-color--${btnColor} extensions-wisher-btn-size--${size}`}
       disabled={disable}
       is-disabled={disable.toString()}
-      onClick={onClickFn}>
+      onClick={onBtnClick}>
       {children}
       <Ripple host={hostRef}></Ripple>
     </button>

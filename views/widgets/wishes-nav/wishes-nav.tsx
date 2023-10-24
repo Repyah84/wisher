@@ -4,6 +4,7 @@ import { Button, type BtnColor } from "~views/components/button/button"
 
 export const WishesNav = () => {
   const navigate = useNavigate()
+
   const location = useLocation()
 
   const onNavClick = (link: string) => {
@@ -11,6 +12,8 @@ export const WishesNav = () => {
   }
 
   const activeLink = (link: string): BtnColor => {
+    console.log("ÉEEEEEEEEEEEEEEEEEEE")
+
     return location.pathname.includes(link) ? "primary" : "default"
   }
 

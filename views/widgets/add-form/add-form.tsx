@@ -2,12 +2,14 @@ import { useState } from "react"
 
 import { Button } from "~views/components/button/button"
 import { Input } from "~views/components/input/input"
+import { Loader } from "~views/components/loader/loader"
 
 interface Props {
+  loading?: boolean
   onSubmitFn: (e: string) => void
 }
 
-export const AddForm = ({ onSubmitFn }: Props) => {
+export const AddForm = ({ loading = false, onSubmitFn }: Props) => {
   const [inputValue, setInputValue] = useState("")
 
   const requiredValidator = (): boolean => {
@@ -15,7 +17,7 @@ export const AddForm = ({ onSubmitFn }: Props) => {
   }
 
   const onSubmitClick = () => {
-    if (requiredValidator()) {
+    if (requiredValidator() && loading) {
       return
     }
 
@@ -40,9 +42,12 @@ export const AddForm = ({ onSubmitFn }: Props) => {
         disable={requiredValidator()}
         btnColor="primary"
         type="submit"
-        size="md"
-        onClickFn={onSubmitClick}>
-        CREATE
+        size="md">
+        <div className="extensions-wisher-add-form__action">
+          <span>CREATE</span>
+
+          <Loader size={5.5} isLoading={loading} />
+        </div>
       </Button>
     </form>
   )

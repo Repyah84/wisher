@@ -19,18 +19,18 @@ export const useGetItemsLazy = () => {
     }
   })
 
-  const getItems = () => {
-    storage.get<StoreJWT>("JWT").then(({ token }) => {
-      mutate({
-        context: {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        },
-        onCompleted: (data) => {
-          dispatch(setItems(data.items.rows))
+  const getItems = async () => {
+    const { token } = await storage.get<StoreJWT>("JWT")
+
+    return mutate({
+      context: {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      })
+      },
+      onCompleted: (data) => {
+        dispatch(setItems(data.items.rows))
+      }
     })
   }
 

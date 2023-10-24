@@ -18,25 +18,25 @@ export const LoginPage = () => {
 
   const { wisherJWT, onLogin } = useSignInMutate()
 
-  const { getUser, data: isSuccess } = useGetUserLazy()
+  const { getUser } = useGetUserLazy()
 
-  const { data: itemsIsSuccess, getItems } = useGetItemsLazy()
+  const { getItems } = useGetItemsLazy()
 
   useEffect(() => {
-    if (wisherJWT !== null && !isSuccess && !itemsIsSuccess) {
-      getUser()
-      getItems()
+    if (wisherJWT === null) {
+      return
     }
 
-    if (isSuccess && itemsIsSuccess) {
+    Promise.all([getUser(), getItems()]).then(() => {
       setIsLoading(false)
 
       navigate("/wisher/wishes")
-    }
-  }, [wisherJWT, isSuccess, itemsIsSuccess])
+    })
+  }, [wisherJWT])
 
   const onGoogleLoginClick = () => {
     setIsLoading(true)
+
     onLogin()
   }
 

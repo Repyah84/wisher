@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { Storage } from "@plasmohq/storage"
@@ -16,16 +15,12 @@ import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 export const AddWisherPage = () => {
   const navigate = useNavigate()
 
-  const { data: addItemData, loading, addItem } = useItemMutate()
+  const { loading, addItem } = useItemMutate()
 
   const { data, isSuccess, isError, canceled, invalidate, cancel } =
     useParsUrl()
 
-  const {
-    data: itemsIsSuccess,
-    loading: itemsLoading,
-    getItems
-  } = useGetItemsLazy()
+  const { loading: itemsLoading, getItems } = useGetItemsLazy()
 
   const [wisherJWT] = useStorage<StoreJWT>(
     {
@@ -35,16 +30,6 @@ export const AddWisherPage = () => {
     null
   )
 
-  useEffect(() => {
-    if (addItemData && !itemsIsSuccess) {
-      getItems()
-    }
-
-    if (itemsIsSuccess) {
-      navigate("/wisher/wishes")
-    }
-  }, [addItemData, itemsIsSuccess])
-
   const onSaveClick = () => {
     if (wisherJWT === null) {
       navigate("/login")
@@ -52,7 +37,11 @@ export const AddWisherPage = () => {
       return
     }
 
-    addItem({ input: data.input, image: data.imageUpload })
+    addItem({ input: data.input, image: data.imageUpload }).then(() => {
+      getItems().then(() => {
+        navigate("/wisher/wishes")
+      })
+    })
   }
 
   const onEditClick = () => {
