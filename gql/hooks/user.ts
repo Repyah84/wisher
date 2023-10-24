@@ -19,18 +19,18 @@ export const useGetUserLazy = () => {
     }
   })
 
-  const getUser = () => {
-    storage.get<StoreJWT>("JWT").then(({ token }) => {
-      mutate({
-        context: {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        },
-        onCompleted: (data) => {
-          dispatch(toggleUserSate(data.user))
+  const getUser = async () => {
+    const { token } = await storage.get<StoreJWT>("JWT")
+
+    return mutate({
+      context: {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      })
+      },
+      onCompleted: (data) => {
+        dispatch(toggleUserSate(data.user))
+      }
     })
   }
 

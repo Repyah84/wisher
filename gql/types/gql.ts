@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  query Currencies {\n    currencies {\n      code\n      name\n    }\n  }\n": types.CurrenciesDocument,
+    "\n  mutation UserCollectionsAdd($input: UserInput!) {\n    user(input: $input) {\n      uid\n      collections\n    }\n  }\n": types.UserCollectionsAddDocument,
     "\n  mutation Item($input: ItemInput!, $image: Upload) {\n    item(input: $input, image: $image) {\n      collections\n      id\n      createdAt\n      updatedAt\n      title\n    }\n  }\n": types.ItemDocument,
     "\n  query Items {\n    items {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n      }\n    }\n  }\n": types.ItemsDocument,
     "\n  mutation SignIn($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n    }\n  }\n": types.SignInDocument,
@@ -38,6 +39,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Currencies {\n    currencies {\n      code\n      name\n    }\n  }\n"): (typeof documents)["\n  query Currencies {\n    currencies {\n      code\n      name\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UserCollectionsAdd($input: UserInput!) {\n    user(input: $input) {\n      uid\n      collections\n    }\n  }\n"): (typeof documents)["\n  mutation UserCollectionsAdd($input: UserInput!) {\n    user(input: $input) {\n      uid\n      collections\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

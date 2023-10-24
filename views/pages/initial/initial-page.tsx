@@ -13,17 +13,18 @@ import { Header } from "~views/widgets/header/header"
 export const InitialPage = () => {
   const storage = new Storage({ area: "local" })
 
-  const { getUser, data: isSuccess } = useGetUserLazy()
+  const { getUser } = useGetUserLazy()
 
-  const { data: itemsIsSuccess, getItems } = useGetItemsLazy()
+  const { getItems } = useGetItemsLazy()
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    storage.get<StoreJWT>("JWT").then((data) => {
-      if (data) {
-        getUser()
-        getItems()
+    storage.get<StoreJWT>("JWT").then((jwt) => {
+      if (jwt) {
+        Promise.all([getUser(), getItems()]).then(() => {
+          navigate("/wisher/wishes")
+        })
 
         return
       }
@@ -31,12 +32,6 @@ export const InitialPage = () => {
       navigate("/login")
     })
   }, [])
-
-  useEffect(() => {
-    if (isSuccess && itemsIsSuccess) {
-      navigate("/wisher/wishes")
-    }
-  }, [isSuccess, itemsIsSuccess])
 
   return (
     <div className="extensions-wisher-initial-page">

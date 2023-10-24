@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 
+import { useCollectionsMutate } from "~gql/hooks/collections.mutate"
 import { Help } from "~views/components/help/help"
 import { Popup } from "~views/components/popup/popup"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
@@ -11,6 +12,8 @@ import { Header } from "~views/widgets/header/header"
 export const WisherPage = () => {
   const navigate = useNavigate()
 
+  const { loading, addCollection } = useCollectionsMutate()
+
   const {
     wisherSate: { isCreateCollectionHelp, hasMessage, isShow },
     setWisherState
@@ -20,10 +23,12 @@ export const WisherPage = () => {
     setWisherState((wisher) => ({ ...wisher, isCreateCollectionHelp: false }))
   }
 
-  const onCreateCollectionClick = (value: string) => {
-    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+  const onCreateCollectionClick = (collection: string) => {
+    addCollection([collection]).then(() => {
+      setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
-    navigate(`/wisher/wishes-collection/${value}`)
+      navigate(`/wisher/wishes-collection/${collection}`)
+    })
   }
 
   const popupClose = () => {
@@ -56,7 +61,7 @@ export const WisherPage = () => {
           Tip: don’t forget to share your collections with friends and family!
         </Help>
 
-        <AddForm onSubmitFn={onCreateCollectionClick} />
+        <AddForm loading={loading} onSubmitFn={onCreateCollectionClick} />
       </Popup>
     </div>
   )
