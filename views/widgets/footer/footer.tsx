@@ -29,17 +29,17 @@ export const Footer = () => {
         </Help>
       </MessageOverlay>
 
-      <ButtonNav link="/wisher/wishes">
+      <ButtonNav rootLink="wishes" link="/wisher/wishes/wishes-all">
         <HeartSvgIcon />
       </ButtonNav>
 
       <MessageItem hasItem={hasMessage === "create-wisher"}>
-        <ButtonNav link="/wisher/add-wisher">
+        <ButtonNav rootLink="wisher-add" link="/wisher/wisher-add">
           <AddSvgIcon />
         </ButtonNav>
       </MessageItem>
 
-      <ButtonNav link="/wisher/details">
+      <ButtonNav rootLink="details" link="/wisher/details">
         <OptionsSvgIcon />
       </ButtonNav>
     </div>

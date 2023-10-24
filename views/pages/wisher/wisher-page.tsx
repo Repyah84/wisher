@@ -1,7 +1,9 @@
 import { useContext } from "react"
+import { useSelector } from "react-redux"
 import { Outlet, useNavigate } from "react-router-dom"
 
 import { useCollectionsMutate } from "~gql/hooks/collections.mutate"
+import type { RootState } from "~store/wisher.store"
 import { Help } from "~views/components/help/help"
 import { Popup } from "~views/components/popup/popup"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
@@ -14,8 +16,10 @@ export const WisherPage = () => {
 
   const { loading, addCollection } = useCollectionsMutate()
 
+  const user = useSelector(({ user: { data } }: RootState) => data)
+
   const {
-    wisherSate: { isCreateCollectionHelp, hasMessage, isShow },
+    wisherSate: { isCreateCollectionHelp, hasMessage },
     setWisherState
   } = useContext(WisherStateContext)
 
@@ -24,7 +28,11 @@ export const WisherPage = () => {
   }
 
   const onCreateCollectionClick = (collection: string) => {
-    addCollection([collection]).then(() => {
+    if (loading) {
+      return
+    }
+
+    addCollection([...user.collections, collection]).then(() => {
       setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
       navigate(`/wisher/wishes-collection/${collection}`)

@@ -1,8 +1,8 @@
 import { graphql } from "~gql/types"
 
 export const items = graphql(`
-  query Items {
-    items {
+  query Items($collections: [String]) {
+    items(collections: $collections) {
       count
       rows {
         url

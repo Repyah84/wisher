@@ -1,0 +1,9 @@
+.extension-wisher-item-wrapper {
+  display: inline-block;
+
+  transition: background-color 150ms;
+
+  &:hover {
+    background-color: var(--extensions-wisher-primary-light);
+  }
+}

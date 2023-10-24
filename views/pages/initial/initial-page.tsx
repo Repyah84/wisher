@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 import { Storage } from "@plasmohq/storage"
 
+import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
 import { useGetItemsLazy } from "~gql/hooks/items.mutate"
 import type { StoreJWT } from "~gql/hooks/signin.mutate"
 import { useGetUserLazy } from "~gql/hooks/user"
@@ -13,6 +14,8 @@ import { Header } from "~views/widgets/header/header"
 export const InitialPage = () => {
   const storage = new Storage({ area: "local" })
 
+  const { getCollectionWithImages } = useCollectionWithImages()
+
   const { getUser } = useGetUserLazy()
 
   const { getItems } = useGetItemsLazy()
@@ -20,17 +23,21 @@ export const InitialPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    storage.get<StoreJWT>("JWT").then((jwt) => {
-      if (jwt) {
-        Promise.all([getUser(), getItems()]).then(() => {
-          navigate("/wisher/wishes")
-        })
+    storage
+      .get<StoreJWT>("JWT")
+      .then((jwt) => {
+        if (jwt) {
+          return getUser()
+        }
 
-        return
-      }
-
-      navigate("/login")
-    })
+        navigate("/login")
+      })
+      .then((response) => {
+        return Promise.all([getItems()])
+      })
+      .then((r) => {
+        navigate("/wisher/wishes/wishes-all")
+      })
   }, [])
 
   return (

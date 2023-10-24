@@ -4,11 +4,11 @@ import type { PayloadAction } from "@reduxjs/toolkit"
 import type { Item } from "~gql/types/graphql"
 import { logout } from "~store/actions/logout"
 
-export interface UserState {
+export interface itemsState {
   data: Item[] | null
 }
 
-const initialState: UserState = {
+const initialState: itemsState = {
   data: null
 }
 

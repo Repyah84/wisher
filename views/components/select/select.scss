@@ -49,8 +49,6 @@
   }
 
   &__options {
-    font-size: 14px;
-
     position: absolute;
 
     bottom: calc(-100%);
@@ -65,12 +63,20 @@
 
     background-color: var(--extension-wisher-field-back);
 
+    color: var(--extensions-wisher-primary);
+
     &[is-open="true"] {
       animation: extensions-wisher-select-open forwards 100ms ease-in-out;
     }
 
     &[is-open="false"] {
       animation: extensions-wisher-select-close forwards 100ms ease-in-out;
+    }
+
+    span {
+      font-size: 14px;
+
+      color: var(--extension-mode-text-light);
     }
   }
 

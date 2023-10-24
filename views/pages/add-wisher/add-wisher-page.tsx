@@ -31,6 +31,10 @@ export const AddWisherPage = () => {
   )
 
   const onSaveClick = () => {
+    if (loading || itemsLoading) {
+      return
+    }
+
     if (wisherJWT === null) {
       navigate("/login")
 

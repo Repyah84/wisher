@@ -32,7 +32,7 @@ export const EditWisherPage = () => {
   const onSaveClick = (value: WisherSearchData) => {
     dispatch(setWisher({ ...data, ...value }))
 
-    navigate("/wisher/add-wisher")
+    navigate("/wisher/wisher-add")
   }
 
   console.log(data)

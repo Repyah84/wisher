@@ -1,8 +1,8 @@
-import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
+import type { Item } from "~gql/types/graphql"
 import type { WisherSearchData } from "~store/slices/wisher"
 import type { RootState } from "~store/wisher.store"
 import { EditForm } from "~views/widgets/edit-form/edit-form"
@@ -13,7 +13,7 @@ export const ItemEditPage = () => {
 
   const { itemId } = useParams()
 
-  // const { data: addItemData, loading, addItem } = useItemMutate()
+  const { loading, addItem } = useItemMutate()
 
   const input = useSelector(({ items: { data } }: RootState) =>
     data.find(({ id }) => itemId === id)
@@ -22,25 +22,26 @@ export const ItemEditPage = () => {
   const data: WisherSearchData = { input, images: [] }
 
   const onSaveClick = (data: WisherSearchData) => {
-    console.log("@@@@@@@@@@@@@@@", data)
+    const input = data.input as Item
 
-    navigate(`/wisher-item/${itemId}`)
-    // addItem({ input: data.input, image: data.imageUpload })
+    input.__typename = "ItemInput" as any
+
+    console.log("@@@@@@@@@@@@@@@", input)
+
+    addItem({ input, image: data.imageUpload })
+      .then(() => {
+        navigate(`/wisher-item/${itemId}`)
+      })
+      .catch(() => {
+        navigate(`/wisher-item/${itemId}`)
+      })
   }
-
-  // useEffect(() => {
-  //   if (!addItemData) {
-  //     return
-  //   }
-
-  //   navigate(`/wisher-item/${itemId}`)
-  // }, [addItemData])
 
   return (
     <div className="extensions-wisher-edit-item-page">
       <Header />
 
-      <EditForm data={data} loading={false} onSaveClick={onSaveClick} />
+      <EditForm data={data} loading={loading} onSaveClick={onSaveClick} />
     </div>
   )
 }

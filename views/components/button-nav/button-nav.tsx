@@ -8,16 +8,17 @@ import { Ripple } from "../ripple/ripple"
 interface Props {
   link: string
   children: ReactNode
+  rootLink?: string
 }
 
-export const ButtonNav = ({ link, children }: Props) => {
+export const ButtonNav = ({ link, children, rootLink }: Props) => {
   const hostRef = useRef(null)
   const location = useLocation()
   const navigate = useNavigate()
 
   const { setWisherState } = useContext(WisherStateContext)
 
-  const active = location.pathname.includes(link)
+  const active = location.pathname.includes(rootLink)
 
   const onNavigate = (link: string) => {
     if (active) {

@@ -30,7 +30,7 @@ export const LoginPage = () => {
     Promise.all([getUser(), getItems()]).then(() => {
       setIsLoading(false)
 
-      navigate("/wisher/wishes")
+      navigate("/wisher/wishes/wishes-all")
     })
   }, [wisherJWT])
 

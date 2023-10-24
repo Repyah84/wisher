@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client"
-import checkSvhIcon from "data-base64:~assets/check.svg"
 import arrowSvgIcon from "data-base64:~assets/short-arrow-down.svg"
 import { useEffect, useState } from "react"
 
 import { currencies } from "~gql/schema/currencies"
 import { useMount } from "~views/hooks/mount"
 
+import { CheckSvg } from "../icons/check/check"
 import { Loader } from "../loader/loader"
 
 interface Props {
@@ -69,7 +69,7 @@ export const Select = ({ title, selected, onSelected }: Props) => {
           <Loader size={5.5} isLoading={true} />
         )}
 
-        {state ? (
+        {state && (
           <div
             is-open={open.toString()}
             onAnimationEnd={animationEnd}
@@ -81,16 +81,10 @@ export const Select = ({ title, selected, onSelected }: Props) => {
                 className="extensions-wisher-select__option">
                 <span>{option.code}</span>
 
-                {option.code === selectedOption ? (
-                  <img width={24} height={24} src={checkSvhIcon} alt="check" />
-                ) : (
-                  <></>
-                )}
+                {option.code === selectedOption && <CheckSvg />}
               </div>
             ))}
           </div>
-        ) : (
-          <></>
         )}
       </button>
     </div>

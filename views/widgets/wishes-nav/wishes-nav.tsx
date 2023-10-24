@@ -20,9 +20,9 @@ export const WishesNav = () => {
   return (
     <div className="extensions-wisher-wishes-nav">
       <Button
-        btnColor={activeLink("all-wishes")}
+        btnColor={activeLink("wishes-all")}
         onClickFn={() => {
-          onNavClick("/wisher/wishes/all-wishes")
+          onNavClick("/wisher/wishes/wishes-all")
         }}>
         <span>All Wishes</span>
       </Button>

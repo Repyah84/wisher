@@ -18,6 +18,7 @@ export const Input = ({
   return (
     <div className="extensions-wisher-input">
       <span className="extensions-wisher-input__title">{title}</span>
+
       <label className="extensions-wisher-input__label">
         <input
           onChange={(e) => {
@@ -29,12 +30,10 @@ export const Input = ({
           placeholder={placeholder}
         />
 
-        {onResetValue !== undefined ? (
+        {onResetValue && (
           <Button btnType="icon" onClickFn={onResetValue}>
             <CrossCircleSvgIcon />
           </Button>
-        ) : (
-          <></>
         )}
       </label>
     </div>

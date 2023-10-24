@@ -15,21 +15,21 @@ export const MessageOverlay = ({
 }: Props) => {
   const { state, animationEnd } = useMount(hasMessage)
 
-  return state ? (
-    <div className="extensions-wisher-message">
-      <div
-        is-overlay={hasMessage.toString()}
-        onClick={onMessageCloseClick}
-        className="extensions-wisher-message__overlay"></div>
+  return (
+    state && (
+      <div className="extensions-wisher-message">
+        <div
+          is-overlay={hasMessage.toString()}
+          onClick={onMessageCloseClick}
+          className="extensions-wisher-message__overlay"></div>
 
-      <div
-        onAnimationEnd={animationEnd}
-        is-message={hasMessage.toString()}
-        className="extensions-wisher-message__content">
-        {children}
+        <div
+          onAnimationEnd={animationEnd}
+          is-message={hasMessage.toString()}
+          className="extensions-wisher-message__content">
+          {children}
+        </div>
       </div>
-    </div>
-  ) : (
-    <></>
+    )
   )
 }

@@ -7,7 +7,7 @@ import { Wishes } from "~views/widgets/wishes/wishes"
 export const AllWishesPage = () => {
   const allWishes = useSelector(({ items: { data } }: RootState) => data)
 
-  console.log("@@@@@@@@@@@@@@@@@", allWishes[0].__typename)
+  console.log("@@@@@@@@@@@@@@@@@", allWishes)
 
   return (
     <div className="extensions-wisher-all-wishes-page">

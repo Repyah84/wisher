@@ -28,9 +28,9 @@ export const WisherRoutes = () => {
           <Route path="" element={<Navigate to={"wishes"} />} />
 
           <Route path="wishes" element={<WishesPage />}>
-            <Route path="" element={<Navigate to={"all-wishes"} />} />
+            <Route path="" element={<Navigate to={"wishes-all"} />} />
 
-            <Route path="all-wishes" element={<AllWishesPage />} />
+            <Route path="wishes-all" element={<AllWishesPage />} />
 
             <Route
               path="wishes-collections"
@@ -40,7 +40,7 @@ export const WisherRoutes = () => {
 
           <Route path="wishes-collection/:name" element={<CollectionPage />} />
 
-          <Route path="add-wisher" element={<AddWisherPage />} />
+          <Route path="wisher-add" element={<AddWisherPage />} />
 
           <Route path="details" element={<DetailsPage />} />
 
