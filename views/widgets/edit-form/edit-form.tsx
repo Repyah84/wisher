@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
 
-import type { Item, ItemInput } from "~gql/types/graphql"
+import type { ItemInput } from "~gql/types/graphql"
 import type { WisherSearchData } from "~store/slices/wisher"
 import { Button } from "~views/components/button/button"
 import { ImageUploader } from "~views/components/image-upload/image-upload"

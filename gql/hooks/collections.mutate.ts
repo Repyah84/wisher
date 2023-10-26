@@ -5,11 +5,11 @@ import { Storage } from "@plasmohq/storage"
 import { collectionInput } from "~gql/schema/input-collections"
 import type { UserCollectionsAddMutation } from "~gql/types/graphql"
 
-import type { StoreJWT } from "./signin.mutate"
-
-const storage = new Storage({ area: "local" })
+import type { StoreJWT } from "./signin"
 
 export const useCollectionsMutate = () => {
+  const storage = new Storage({ area: "local" })
+
   const [mutate, { data, error, loading }] = useMutation(collectionInput)
 
   const addCollection = async (

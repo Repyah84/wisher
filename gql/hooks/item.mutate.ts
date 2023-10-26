@@ -5,16 +5,16 @@ import { Storage } from "@plasmohq/storage"
 import { itemInput } from "~gql/schema/input-item"
 import type { ItemInput, ItemMutation } from "~gql/types/graphql"
 
-import type { StoreJWT } from "./signin.mutate"
+import type { StoreJWT } from "./signin"
 
 export interface ItemAddInputData {
   input: ItemInput
   image?: File
 }
 
-const storage = new Storage({ area: "local" })
-
 export const useItemMutate = () => {
+  const storage = new Storage({ area: "local" })
+
   const [mutate, { data, error, loading }] = useMutation(itemInput)
 
   const addItem = async (

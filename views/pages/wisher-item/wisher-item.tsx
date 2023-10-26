@@ -109,11 +109,13 @@ export const WisherItemPage = () => {
             </Button>
           </div>
 
-          <div className="extension-wisher-item__notes">
+          <div
+            onClick={() => navigate(`/wisher-item-edit/${itemId}`)}
+            className="extension-wisher-item__notes">
             <div className="extension-wisher-item__notes-header">
               <span>NOTES</span>
 
-              <span>(click TO EDIT)</span>
+              <span>(CLICK TO EDIT)</span>
             </div>
 
             <p className="extension-wisher-item__note">{note || "..."}</p>

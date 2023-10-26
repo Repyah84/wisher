@@ -1,0 +1,50 @@
+.extensions-wishes-collection-item {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  padding: 16px 16px 24px 16px;
+
+  transition: background-color 150ms;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--extensions-wisher-primary-light);
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+
+    color: hsla(0, 0%, 40%, 1);
+
+    font-size: 12px;
+  }
+
+  &__title {
+    font-size: 20px;
+
+    color: hsla(0, 0%, 0%, 1);
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__images {
+    display: flex;
+    column-gap: 8px;
+  }
+
+  &__image {
+    object-fit: contain;
+
+    border-radius: 4px;
+
+    // background-color: white;
+  }
+}

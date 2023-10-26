@@ -1,27 +1,41 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
-import type { CollectionsWithImagesQuery } from "~gql/types/graphql"
+import type { Item } from "~gql/types/graphql"
 import { logout } from "~store/actions/logout"
 
+export interface CollectionWithImages {
+  title: string
+  images: string[]
+  count: number
+}
+
 export interface CollectionsWithImagesState {
-  data: CollectionsWithImagesQuery["collectionsWithImages"] | null
+  data: CollectionWithImages[] | null
 }
 
 const initialState: CollectionsWithImagesState = {
-  data: null
+  data: []
 }
 
 const collectionWithImagesSlice = createSlice({
   name: "collectionWithImages",
   initialState,
   reducers: {
-    setCollectionsWithImages: (
+    setCollectionWithImages: (
       state,
-      {
-        payload
-      }: PayloadAction<CollectionsWithImagesQuery["collectionsWithImages"]>
+      { payload }: PayloadAction<CollectionWithImages>
     ) => {
-      state.data = payload
+      const itemIndex = state.data.findIndex(
+        ({ title }) => title === payload.title
+      )
+
+      if (itemIndex === -1) {
+        state.data.push(payload)
+
+        return
+      }
+
+      state.data[itemIndex] = payload
     }
   },
   extraReducers: (builder) => {
@@ -31,6 +45,6 @@ const collectionWithImagesSlice = createSlice({
   }
 })
 
-export const { setCollectionsWithImages } = collectionWithImagesSlice.actions
+export const { setCollectionWithImages } = collectionWithImagesSlice.actions
 
 export default collectionWithImagesSlice.reducer

@@ -13,12 +13,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query CollectionsWithImages($collections: [String]) {\n    collectionsWithImages(collections: $collections) {\n      collection {\n        title\n      }\n      images\n    }\n  }\n": types.CollectionsWithImagesDocument,
+    "\n  query CollectionsWithImages($collections: [String]) {\n    collectionsWithImages(collections: $collections) {\n      images\n    }\n  }\n": types.CollectionsWithImagesDocument,
     "\n  query Currencies {\n    currencies {\n      code\n      name\n    }\n  }\n": types.CurrenciesDocument,
     "\n  mutation UserCollectionsAdd($input: UserInput!) {\n    user(input: $input) {\n      uid\n      collections\n    }\n  }\n": types.UserCollectionsAddDocument,
     "\n  mutation AddItemsToCollection($ids: [ID]!, $collection: String!) {\n    addItemsToCollection(ids: $ids, collection: $collection) {\n      status\n    }\n  }\n": types.AddItemsToCollectionDocument,
     "\n  mutation Item($input: ItemInput!, $image: Upload) {\n    item(input: $input, image: $image) {\n      collections\n      id\n      createdAt\n      updatedAt\n      title\n    }\n  }\n": types.ItemDocument,
-    "\n  query Items($collections: [String]) {\n    items(collections: $collections) {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n      }\n    }\n  }\n": types.ItemsDocument,
+    "\n  query Items(\n    $limit: Int\n    $startAfterItemId: String\n    $sort: Sort\n    $collections: [String]\n  ) {\n    items(\n      limit: $limit\n      startAfterItemId: $startAfterItemId\n      sort: $sort\n      collections: $collections\n    ) {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n      }\n    }\n  }\n": types.ItemsDocument,
     "\n  mutation SignIn($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n    }\n  }\n": types.SignInDocument,
     "\n  query User {\n    user {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      uid\n    }\n  }\n": types.UserDocument,
 };
@@ -40,7 +40,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query CollectionsWithImages($collections: [String]) {\n    collectionsWithImages(collections: $collections) {\n      collection {\n        title\n      }\n      images\n    }\n  }\n"): (typeof documents)["\n  query CollectionsWithImages($collections: [String]) {\n    collectionsWithImages(collections: $collections) {\n      collection {\n        title\n      }\n      images\n    }\n  }\n"];
+export function graphql(source: "\n  query CollectionsWithImages($collections: [String]) {\n    collectionsWithImages(collections: $collections) {\n      images\n    }\n  }\n"): (typeof documents)["\n  query CollectionsWithImages($collections: [String]) {\n    collectionsWithImages(collections: $collections) {\n      images\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -60,7 +60,7 @@ export function graphql(source: "\n  mutation Item($input: ItemInput!, $image: U
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Items($collections: [String]) {\n    items(collections: $collections) {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n      }\n    }\n  }\n"): (typeof documents)["\n  query Items($collections: [String]) {\n    items(collections: $collections) {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Items(\n    $limit: Int\n    $startAfterItemId: String\n    $sort: Sort\n    $collections: [String]\n  ) {\n    items(\n      limit: $limit\n      startAfterItemId: $startAfterItemId\n      sort: $sort\n      collections: $collections\n    ) {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n      }\n    }\n  }\n"): (typeof documents)["\n  query Items(\n    $limit: Int\n    $startAfterItemId: String\n    $sort: Sort\n    $collections: [String]\n  ) {\n    items(\n      limit: $limit\n      startAfterItemId: $startAfterItemId\n      sort: $sort\n      collections: $collections\n    ) {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

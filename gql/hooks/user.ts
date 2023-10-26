@@ -6,7 +6,7 @@ import { Storage } from "@plasmohq/storage"
 import { user } from "~gql/schema/user"
 import { toggleUserSate } from "~store/slices/user"
 
-import type { StoreJWT } from "./signin.mutate"
+import type { StoreJWT } from "./signin"
 
 const storage = new Storage({ area: "local" })
 

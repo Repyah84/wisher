@@ -1,8 +1,10 @@
+import { useMemo } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
-import type { Item } from "~gql/types/graphql"
+import { useGetItemsLazy } from "~gql/hooks/items"
+import { InputItemDTO } from "~helpers/get-item-input.dto"
 import type { WisherSearchData } from "~store/slices/wisher"
 import type { RootState } from "~store/wisher.store"
 import { EditForm } from "~views/widgets/edit-form/edit-form"
@@ -15,24 +17,30 @@ export const ItemEditPage = () => {
 
   const { loading, addItem } = useItemMutate()
 
-  const input = useSelector(({ items: { data } }: RootState) =>
-    data.find(({ id }) => itemId === id)
-  )
+  const { getItems, loading: itemsLoading } = useGetItemsLazy()
 
-  const data: WisherSearchData = { input, images: [] }
+  const items = useSelector(({ items: { data } }: RootState) => data)
 
-  const onSaveClick = (data: WisherSearchData) => {
-    const input = data.input as Item
+  const editData = useMemo(() => {
+    const item = items.find(({ id }) => itemId === id)
 
-    input.__typename = "ItemInput" as any
+    if (item === undefined) {
+      throw new Error("Item data is not define")
+    }
 
-    console.log("@@@@@@@@@@@@@@@", input)
+    return { input: InputItemDTO(item), images: [] }
+  }, [items])
 
-    addItem({ input, image: data.imageUpload })
+  const onSaveClick = ({ input, imageUpload: image }: WisherSearchData) => {
+    if (loading || itemsLoading) {
+      return
+    }
+
+    addItem({ input, image })
       .then(() => {
-        navigate(`/wisher-item/${itemId}`)
+        return getItems()
       })
-      .catch(() => {
+      .then(() => {
         navigate(`/wisher-item/${itemId}`)
       })
   }
@@ -41,7 +49,11 @@ export const ItemEditPage = () => {
     <div className="extensions-wisher-edit-item-page">
       <Header />
 
-      <EditForm data={data} loading={loading} onSaveClick={onSaveClick} />
+      <EditForm
+        data={editData}
+        loading={loading || itemsLoading}
+        onSaveClick={onSaveClick}
+      />
     </div>
   )
 }

@@ -1,9 +1,12 @@
-import { useContext, useState } from "react"
+import addSvgIcon from "data-base64:~assets/circle-croos.svg"
+import { useContext, useMemo, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
 import { useGetCollectionItems } from "~gql/hooks/collection-items"
 import { useAddItemsToCollection } from "~gql/hooks/collection-items.mutate"
+import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
+import { useGetItemsLazy } from "~gql/hooks/items"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
@@ -19,23 +22,31 @@ export const CollectionPage = () => {
 
   const navigate = useNavigate()
 
-  const { loading: loadingCollectionItems, getCollectionItems } =
-    useGetCollectionItems()
-
-  const { loading, setItemsToCollection } = useAddItemsToCollection()
-
   const [selectItems, setSelectItem] = useState<string[]>([])
-
-  const collectionItems = useSelector(
-    ({ collection: { data } }: RootState) => data
-  )
-
-  const items = useSelector(({ items: { data } }: RootState) => data)
 
   const {
     wisherSate: { hasMessage },
     setWisherState
   } = useContext(WisherStateContext)
+
+  const { loading: itemsLoading, getItems } = useGetItemsLazy()
+  const { loading, setItemsToCollection } = useAddItemsToCollection()
+  const { loading: collectionItemsLoading, getCollectionItems } =
+    useGetCollectionItems()
+  const { loading: loadingCollectionImages, getCollectionWithImages } =
+    useCollectionWithImages()
+
+  const items = useSelector(({ items: { data } }: RootState) => data)
+
+  const collectionItems = useSelector(
+    ({ collection: { data } }: RootState) => data
+  )
+
+  const itemsToAdd = useMemo(() => {
+    return items.filter(
+      ({ collections }) => collections === null || !collections.includes(name)
+    )
+  }, [items, name])
 
   const onPopupClose = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
@@ -54,16 +65,31 @@ export const CollectionPage = () => {
     return selectItems.includes(id)
   }
 
+  const onAddIconClick = () => {
+    setWisherState((wisher) => ({ ...wisher, hasMessage: "add-to-collection" }))
+  }
+
   const onAddItemsToCollection = () => {
-    if (loading || loadingCollectionItems) {
+    if (
+      loading ||
+      itemsLoading ||
+      loadingCollectionImages ||
+      collectionItemsLoading
+    ) {
       return
     }
 
-    setItemsToCollection(selectItems, name).then(() => {
-      getCollectionItems([name]).then(() => {
+    setItemsToCollection(selectItems, name)
+      .then(() => {
+        return Promise.all([
+          getItems(),
+          getCollectionWithImages(name),
+          getCollectionItems(name)
+        ])
+      })
+      .then(() => {
         onPopupClose()
       })
-    })
   }
 
   return (
@@ -75,13 +101,17 @@ export const CollectionPage = () => {
             onClickFn={() => navigate("/wisher/wishes/wishes-collections")}>
             <ArrowLeftSvgIcon />
           </Button>
+
+          <Button onClickFn={onAddIconClick} btnType="icon">
+            <img width={24} height={24} src={addSvgIcon} alt="add" />
+          </Button>
         </div>
 
         <div className="extensions-wisher-collection-page__info">
           <h2 className="extensions-wisher-collection-page__title">{name}</h2>
         </div>
 
-        {collectionItems === null || collectionItems.length === 0 ? (
+        {collectionItems.length === 0 ? (
           <WisherCollectionEmpty />
         ) : (
           <Wishes wishes={collectionItems} />
@@ -95,7 +125,7 @@ export const CollectionPage = () => {
         <p>Select wishes you want to add to this collection</p>
 
         <div className="extensions-wisher-collection-page__items">
-          {items.map((wish) => (
+          {itemsToAdd.map((wish) => (
             <WisherSelect
               key={wish.id}
               wish={wish}
@@ -115,7 +145,12 @@ export const CollectionPage = () => {
 
               <Loader
                 size={5.5}
-                isLoading={loading || loadingCollectionItems}
+                isLoading={
+                  loading ||
+                  itemsLoading ||
+                  loadingCollectionImages ||
+                  collectionItemsLoading
+                }
               />
             </div>
           </Button>

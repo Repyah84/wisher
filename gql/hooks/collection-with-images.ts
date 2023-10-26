@@ -3,31 +3,29 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
-import { collectionsWithImages } from "~gql/schema/collection-with-images"
-import { setCollectionsWithImages } from "~store/slices/collections-with-images"
+import { items } from "~gql/schema/items"
+import { setCollectionWithImages } from "~store/slices/collections-with-images"
 
-import type { StoreJWT } from "./signin.mutate"
-
-const storage = new Storage({ area: "local" })
+import type { StoreJWT } from "./signin"
 
 export const useCollectionWithImages = () => {
+  const storage = new Storage({ area: "local" })
+
   const dispatch = useDispatch()
 
-  const [mutate, { data, error, loading }] = useLazyQuery(
-    collectionsWithImages,
-    {
-      defaultOptions: {
-        fetchPolicy: "network-only"
-      }
+  const [mutate, { data, error, loading }] = useLazyQuery(items, {
+    defaultOptions: {
+      fetchPolicy: "network-only"
     }
-  )
+  })
 
-  const getCollectionWithImages = async (collections: string[]) => {
+  const getCollectionWithImages = async (collections: string, limit = 5) => {
     const { token } = await storage.get<StoreJWT>("JWT")
 
     return mutate({
       variables: {
-        collections
+        collections,
+        limit
       },
       context: {
         headers: {
@@ -35,7 +33,13 @@ export const useCollectionWithImages = () => {
         }
       },
       onCompleted: (data) => {
-        dispatch(setCollectionsWithImages(data.collectionsWithImages))
+        dispatch(
+          setCollectionWithImages({
+            title: collections,
+            images: data.items.rows.map(({ imageUrl }) => imageUrl),
+            count: data.items.count
+          })
+        )
       }
     })
   }

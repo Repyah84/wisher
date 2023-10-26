@@ -1,9 +1,12 @@
 import {
   browserLocalPersistence,
+  getRedirectResult,
   GoogleAuthProvider,
+  OAuthProvider,
   onAuthStateChanged,
   setPersistence,
   signInWithCredential,
+  signInWithRedirect,
   type User
 } from "firebase/auth"
 import { useEffect, useState } from "react"
@@ -27,6 +30,20 @@ export const useFirebaseAuth = () => {
     }
   }
 
+  const onAppleLogin = async () => {
+    setIsLoading(true)
+
+    console.log("onAppleLogin")
+
+    const provider = new OAuthProvider("apple.com")
+
+    try {
+      signInWithRedirect(auth, provider)
+    } catch (error) {
+      console.error()
+    }
+  }
+
   const onLogin = async () => {
     setIsLoading(true)
 
@@ -47,8 +64,16 @@ export const useFirebaseAuth = () => {
   }
 
   useEffect(() => {
+    getRedirectResult(auth).then((user) => {
+      setIsLoading(false)
+
+      console.log("getRedirectResult", user)
+    })
+
     onAuthStateChanged(auth, (user) => {
       setIsLoading(false)
+
+      console.log("onAuthStateChanged", user)
 
       setUser(user)
     })
@@ -58,6 +83,7 @@ export const useFirebaseAuth = () => {
     isLoading,
     user,
     onLogin,
-    onLogout
+    onLogout,
+    onAppleLogin
   }
 }

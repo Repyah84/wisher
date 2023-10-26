@@ -38,7 +38,7 @@ export const useParsUrl = () => {
           input: {
             currency: priceCurrency ?? null,
             faviconUrl: icon ?? null,
-            imageUrl: image ? image[0] : null,
+            imageUrl: image[0] ?? null,
             note: "",
             personalRating: 0,
             price: price ?? 0,

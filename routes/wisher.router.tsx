@@ -14,7 +14,7 @@ import { SettingsPage } from "~views/pages/settings/settings-page"
 import { WisherItemPage } from "~views/pages/wisher-item/wisher-item"
 import { WisherPage } from "~views/pages/wisher/wisher-page"
 import { CollectionPage } from "~views/pages/wishes-collection/wishes-collection-page"
-import { WishesCollectionsPage } from "~views/pages/wishes-collections/wishes-collections"
+import { WishesCollectionsPage } from "~views/pages/wishes-collections/wishes-collections-page"
 import { WishesPage } from "~views/pages/wishes/wishes-page"
 import { Root } from "~views/root"
 

@@ -1,0 +1,23 @@
+.extensions-wisher-wishes-collection {
+  display: grid;
+
+  overflow: hidden;
+
+  &__scroll-bar {
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--extensions-mode-color-grey);
+
+      border-radius: 3px;
+    }
+  }
+}

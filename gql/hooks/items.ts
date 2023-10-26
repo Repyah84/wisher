@@ -6,11 +6,11 @@ import { Storage } from "@plasmohq/storage"
 import { items } from "~gql/schema/items"
 import { setItems } from "~store/slices/items"
 
-import type { StoreJWT } from "./signin.mutate"
-
-const storage = new Storage({ area: "local" })
+import type { StoreJWT } from "./signin"
 
 export const useGetItemsLazy = () => {
+  const storage = new Storage({ area: "local" })
+
   const dispatch = useDispatch()
 
   const [mutate, { data, error, loading }] = useLazyQuery(items, {

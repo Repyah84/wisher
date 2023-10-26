@@ -1,11 +1,14 @@
+import appleLogoSvg from "data-base64:~assets/apple.svg"
 import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { useGetItemsLazy } from "~gql/hooks/items.mutate"
-import { useSignInMutate } from "~gql/hooks/signin.mutate"
+import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
+import { useGetItemsLazy } from "~gql/hooks/items"
+import { useSignInMutate } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
+import { PromiseListRun } from "~helpers/promise-list-run"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
@@ -14,12 +17,13 @@ import { Header } from "~views/widgets/header/header"
 export const LoginPage = () => {
   const navigate = useNavigate()
 
+  const [appleLoading, setAppleLoading] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const { wisherJWT, onLogin } = useSignInMutate()
+  const { getCollectionWithImages } = useCollectionWithImages()
 
+  const { wisherJWT, onLogin, onAppleLogin } = useSignInMutate()
   const { getUser } = useGetUserLazy()
-
   const { getItems } = useGetItemsLazy()
 
   useEffect(() => {
@@ -27,17 +31,36 @@ export const LoginPage = () => {
       return
     }
 
-    Promise.all([getUser(), getItems()]).then(() => {
-      setIsLoading(false)
+    Promise.all([getUser(), getItems()])
+      .then(([res]) => {
+        return PromiseListRun(
+          res.data.user.collections,
+          getCollectionWithImages
+        )
+      })
+      .then(() => {
+        setIsLoading(false)
+        setAppleLoading(false)
 
-      navigate("/wisher/wishes/wishes-all")
-    })
+        navigate("/wisher/wishes/wishes-all")
+      })
   }, [wisherJWT])
 
   const onGoogleLoginClick = () => {
-    setIsLoading(true)
+    if (isLoading || appleLoading) {
+      return
+    }
 
+    setIsLoading(true)
     onLogin()
+  }
+
+  const onAppleLoginClock = () => {
+    // if (isLoading || appleLoading) {
+    //   return
+    // }
+    // setAppleLoading(true)
+    // onAppleLogin()
   }
 
   return (
@@ -60,6 +83,16 @@ export const LoginPage = () => {
         </p>
 
         <div className="extensions-wisher-login-page__action">
+          <Button size="md" onClickFn={onAppleLoginClock}>
+            <div className="extensions-wisher-login-page__apple-login">
+              <img width={24} height={24} src={appleLogoSvg} alt="apple-logo" />
+
+              <span>SIGN UP WITH APPLE</span>
+
+              <Loader size={5.5} isLoading={appleLoading} />
+            </div>
+          </Button>
+
           <Button size="md" onClickFn={onGoogleLoginClick}>
             <div className="extensions-wisher-login-page__google-login">
               <img

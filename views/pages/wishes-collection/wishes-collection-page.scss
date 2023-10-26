@@ -6,13 +6,11 @@
   grid-template-rows: auto auto 1fr;
 
   &__header {
-    padding: 0 16px;
+    padding: 8px 8;
 
     display: flex;
 
     justify-content: space-between;
-
-    padding: 8px 0;
   }
 
   &__info {

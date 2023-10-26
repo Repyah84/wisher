@@ -4,13 +4,11 @@ import { Storage } from "@plasmohq/storage"
 
 import { addItemsToCollection } from "~gql/schema/input-item-to-collection"
 
-import type { StoreJWT } from "./signin.mutate"
-
-const storage = new Storage({ area: "local" })
-
-console.log("IN_HOOKS", storage)
+import type { StoreJWT } from "./signin"
 
 export const useAddItemsToCollection = () => {
+  const storage = new Storage({ area: "local" })
+
   const [mutate, { data, error, loading }] = useMutation(addItemsToCollection)
 
   const setItemsToCollection = async (ids: string[], collection: string) => {
