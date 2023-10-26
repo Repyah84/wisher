@@ -36,7 +36,13 @@ export const CollectionPage = () => {
   const { loading: loadingCollectionImages, getCollectionWithImages } =
     useCollectionWithImages()
 
-  const items = useSelector(({ items: { data } }: RootState) => data)
+  const items = useSelector(
+    ({
+      items: {
+        data: { items }
+      }
+    }: RootState) => items
+  )
 
   const collectionItems = useSelector(
     ({ collection: { data } }: RootState) => data

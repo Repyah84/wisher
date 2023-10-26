@@ -34,7 +34,7 @@ export const WisherItemPage = () => {
     faviconUrl,
     marketplace
   } = useSelector(({ items: { data } }: RootState) =>
-    data.find(({ id }) => itemId === id)
+    data.items.find(({ id }) => itemId === id)
   )
 
   const priceValue = `${getSymbolFromCurrency(currency)}${price}`

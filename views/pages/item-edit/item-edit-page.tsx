@@ -19,7 +19,13 @@ export const ItemEditPage = () => {
 
   const { getItems, loading: itemsLoading } = useGetItemsLazy()
 
-  const items = useSelector(({ items: { data } }: RootState) => data)
+  const items = useSelector(
+    ({
+      items: {
+        data: { items }
+      }
+    }: RootState) => items
+  )
 
   const editData = useMemo(() => {
     const item = items.find(({ id }) => itemId === id)

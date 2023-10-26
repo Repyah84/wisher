@@ -52,8 +52,6 @@ export const AddWisherPage = () => {
     navigate("/wisher-edit")
   }
 
-  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@", data, wisherJWT)
-
   return (
     <div className="extensions-wisher-add-wisher-page">
       {data === null && !canceled && !isError ? (

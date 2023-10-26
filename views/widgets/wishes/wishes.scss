@@ -1,21 +1,5 @@
 .extensions-wisher-wishes {
   display: grid;
 
-  overflow: auto;
-
   padding-top: 16px;
-
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: none;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--extensions-mode-color-grey);
-
-    border-radius: 3px;
-  }
 }

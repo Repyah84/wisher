@@ -1,0 +1,30 @@
+.extension-extension-interact-observer {
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--extensions-mode-color-grey);
+
+    border-radius: 3px;
+  }
+
+  &__content {
+    position: relative;
+  }
+
+  &__loader {
+    position: absolute;
+
+    bottom: 10px;
+    right: 10px;
+
+    display: inline-flex;
+  }
+}

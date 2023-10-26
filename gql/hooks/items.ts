@@ -19,17 +19,21 @@ export const useGetItemsLazy = () => {
     }
   })
 
-  const getItems = async () => {
+  const getItems = async (limit = 10, startAfterItemId?: string) => {
     const { token } = await storage.get<StoreJWT>("JWT")
 
     return mutate({
+      variables: {
+        limit,
+        startAfterItemId
+      },
       context: {
         headers: {
           Authorization: `Bearer ${token}`
         }
       },
-      onCompleted: (data) => {
-        dispatch(setItems(data.items.rows))
+      onCompleted: ({ items: { rows: items, count } }) => {
+        dispatch(setItems({ count, items }))
       }
     })
   }

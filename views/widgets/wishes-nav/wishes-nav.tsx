@@ -12,8 +12,6 @@ export const WishesNav = () => {
   }
 
   const activeLink = (link: string): BtnColor => {
-    console.log("ÉEEEEEEEEEEEEEEEEEEE")
-
     return location.pathname.includes(link) ? "primary" : "default"
   }
 
