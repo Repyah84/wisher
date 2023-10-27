@@ -1,38 +1,45 @@
 import { useEffect, useRef, type ReactNode } from "react"
 
-import { useInteractObserver } from "~views/hooks/iteracti-oserver"
+import { useInteractionObserver } from "~views/hooks/intersection-observer"
 
 import { Loader } from "../loader/loader"
 
 interface Props {
   children: ReactNode
-  loading: boolean
   observerEventFn: () => void
+  loading?: boolean
+  repeatWhen?: { value: boolean }
+  height?: string
 }
 
 export const InteractObserver = ({
   children,
-  loading,
-  observerEventFn
+  observerEventFn,
+  loading = false,
+  repeatWhen,
+  height = "auto"
 }: Props) => {
   const ref = useRef(null)
   const rootRef = useRef(null)
 
-  const entry = useInteractObserver(ref, rootRef, {
+  const entry = useInteractionObserver(ref, rootRef, {
     rootMargin: "0px 0px 400px 0px",
-    threshold: 1
+    threshold: 0
   })
 
   useEffect(() => {
-    if (!entry) {
-      return
+    if (entry || (entry && repeatWhen.value)) {
+      observerEventFn()
     }
-
-    observerEventFn()
-  }, [entry])
+  }, [entry, repeatWhen])
 
   return (
-    <div ref={rootRef} className="extension-extension-interact-observer">
+    <div
+      style={{
+        height: height
+      }}
+      ref={rootRef}
+      className="extension-extension-interact-observer">
       <div className="extension-extension-interact-observer__content">
         {children}
 

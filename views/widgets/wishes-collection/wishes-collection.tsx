@@ -1,9 +1,10 @@
 import emptyImage from "data-base64:~assets/garage.png"
 import { useMemo } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 import { useGetCollectionItems } from "~gql/hooks/collection-items"
+import { setCollectionName } from "~store/slices/collection"
 import type { RootState } from "~store/wisher.store"
 import { Loader } from "~views/components/loader/loader"
 
@@ -14,13 +15,13 @@ interface Props {
 export const WishesCollection = ({ collectionName }: Props) => {
   const navigate = useNavigate()
 
+  const dispatch = useDispatch()
+
   const { loading, getCollectionItems } = useGetCollectionItems()
 
-  const onCollectionClick = (coolName: string) => {
-    getCollectionItems(collectionName).then(() => {
-      navigate(`/wisher/wishes-collection/${coolName}`)
-    })
-  }
+  const collectionItems = useSelector(
+    ({ collection: { data } }: RootState) => data
+  )
 
   const collectionImagesData = useSelector(
     ({ collectionWithImages: { data } }: RootState) => data
@@ -45,6 +46,26 @@ export const WishesCollection = ({ collectionName }: Props) => {
       ))
     }
   }, [collectionName, collectionImagesData])
+
+  const onCollectionClick = (coolName: string) => {
+    if (loading) {
+      return
+    }
+
+    if (
+      collectionItems.items.length === 0 ||
+      collectionName !== collectionItems.name
+    ) {
+      getCollectionItems(collectionName, 10, true).then(() => {
+        dispatch(setCollectionName(collectionName))
+
+        navigate(`/wisher/wishes-collection/${coolName}`)
+      })
+
+      return
+    }
+    navigate(`/wisher/wishes-collection/${coolName}`)
+  }
 
   return (
     <div

@@ -3,7 +3,6 @@ import type { PayloadAction } from "@reduxjs/toolkit"
 
 import type { Item } from "~gql/types/graphql"
 import { logout } from "~store/actions/logout"
-import { resetItems } from "~store/actions/reset-Items"
 
 export interface ItemStateData {
   items: Item[]
@@ -30,18 +29,18 @@ export const itemsState = createSlice({
       const items = [...state.data.items, ...payload.items]
 
       state.data = { count, items }
+    },
+    resetItems: (state) => {
+      state.data = initialState.data
     }
   },
   extraReducers: (builder) => {
     builder.addCase(logout, () => {
       return initialState
     })
-    builder.addCase(resetItems, () => {
-      return initialState
-    })
   }
 })
 
-export const { setItems } = itemsState.actions
+export const { setItems, resetItems } = itemsState.actions
 
 export default itemsState.reducer

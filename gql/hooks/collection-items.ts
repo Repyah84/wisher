@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import { Storage } from "@plasmohq/storage"
 
 import { items } from "~gql/schema/items"
-import { setCollection } from "~store/slices/collection"
+import { resetCollection, setCollection } from "~store/slices/collection"
 
 import type { StoreJWT } from "./signin"
 
@@ -19,20 +19,31 @@ export const useGetCollectionItems = () => {
     }
   })
 
-  const getCollectionItems = async (collections: string) => {
+  const getCollectionItems = async (
+    collections: string,
+    limit = 10,
+    resetStore = false,
+    startAfterItemId?: string
+  ) => {
     const { token } = await storage.get<StoreJWT>("JWT")
 
     return mutate({
       variables: {
-        collections
+        collections,
+        limit,
+        startAfterItemId
       },
       context: {
         headers: {
           Authorization: `Bearer ${token}`
         }
       },
-      onCompleted: (data) => {
-        dispatch(setCollection(data.items.rows))
+      onCompleted: ({ items: { count, rows: items } }) => {
+        if (resetStore) {
+          dispatch(resetCollection())
+        }
+
+        dispatch(setCollection({ count, items }))
       }
     })
   }

@@ -3,20 +3,41 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 import type { Item } from "~gql/types/graphql"
 import { logout } from "~store/actions/logout"
 
+interface CollectionItemData {
+  count: number
+  items: Item[]
+  name?: string
+}
+
 export interface CollectionItem {
-  data: Item[]
+  data: CollectionItemData
 }
 
 const initialState: CollectionItem = {
-  data: null
+  data: {
+    count: 0,
+    items: [],
+    name: ""
+  }
 }
 
 const collectionSlice = createSlice({
   name: "collection",
   initialState,
   reducers: {
-    setCollection: (state, { payload }: PayloadAction<Item[]>) => {
-      state.data = payload
+    setCollection: (state, { payload }: PayloadAction<CollectionItemData>) => {
+      const count = payload.count
+      const items = [...state.data.items, ...payload.items]
+      state.data = {
+        count,
+        items
+      }
+    },
+    setCollectionName: (state, { payload }: PayloadAction<string>) => {
+      state.data.name = payload
+    },
+    resetCollection: (state) => {
+      state.data = initialState.data
     }
   },
   extraReducers: (builder) => {
@@ -26,6 +47,7 @@ const collectionSlice = createSlice({
   }
 })
 
-export const { setCollection } = collectionSlice.actions
+export const { setCollection, setCollectionName, resetCollection } =
+  collectionSlice.actions
 
 export default collectionSlice.reducer

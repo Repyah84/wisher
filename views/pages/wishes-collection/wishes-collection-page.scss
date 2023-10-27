@@ -24,16 +24,18 @@
     font-size: 34px;
   }
 
+  &__description {
+    margin: 0 0 16px 0;
+
+    font-size: 12px;
+
+    text-align: center;
+  }
+
   &__items {
     margin-bottom: 24px;
 
-    overflow: auto;
-
     display: grid;
-
-    overflow: auto;
-
-    max-height: 400px;
 
     &::-webkit-scrollbar {
       width: 3px;
@@ -52,6 +54,8 @@
 
   &__action {
     display: grid;
+
+    padding-top: 24px;
   }
 
   &__btn-content {

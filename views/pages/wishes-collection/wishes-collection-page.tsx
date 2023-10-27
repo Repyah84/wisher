@@ -10,6 +10,7 @@ import { useGetItemsLazy } from "~gql/hooks/items"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
+import { InteractObserver } from "~views/components/interact-observer/interact-observer"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
@@ -36,23 +37,21 @@ export const CollectionPage = () => {
   const { loading: loadingCollectionImages, getCollectionWithImages } =
     useCollectionWithImages()
 
-  const items = useSelector(
-    ({
-      items: {
-        data: { items }
-      }
-    }: RootState) => items
-  )
+  const itemsData = useSelector(({ items: { data } }: RootState) => data)
 
   const collectionItems = useSelector(
     ({ collection: { data } }: RootState) => data
   )
 
   const itemsToAdd = useMemo(() => {
-    return items.filter(
+    return itemsData.items.filter(
       ({ collections }) => collections === null || !collections.includes(name)
     )
-  }, [items, name])
+  }, [itemsData, name])
+
+  const repeatWhen = useMemo(() => {
+    return { value: itemsData.items.length !== itemsData.count }
+  }, [itemsData])
 
   const onPopupClose = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
@@ -88,14 +87,38 @@ export const CollectionPage = () => {
     setItemsToCollection(selectItems, name)
       .then(() => {
         return Promise.all([
-          getItems(),
+          getItems(10, true),
           getCollectionWithImages(name),
-          getCollectionItems(name)
+          getCollectionItems(name, 10, true)
         ])
       })
       .then(() => {
         onPopupClose()
       })
+  }
+
+  const onObserverEventAddItems = () => {
+    if (itemsLoading || itemsData.items.length === itemsData.count) {
+      return
+    }
+
+    const lastItemId = itemsData.items[itemsData.items.length - 1].id
+
+    getItems(10, false, lastItemId)
+  }
+
+  const onObserverEventCollectionItems = () => {
+    if (
+      collectionItemsLoading ||
+      collectionItems.items.length === collectionItems.count
+    ) {
+      return
+    }
+
+    const lastItemId =
+      collectionItems.items[collectionItems.items.length - 1].id
+
+    getCollectionItems(name, 10, false, lastItemId)
   }
 
   return (
@@ -117,34 +140,46 @@ export const CollectionPage = () => {
           <h2 className="extensions-wisher-collection-page__title">{name}</h2>
         </div>
 
-        {collectionItems.length === 0 ? (
+        {collectionItems.items.length === 0 ? (
           <WisherCollectionEmpty />
         ) : (
-          <Wishes wishes={collectionItems} />
+          <InteractObserver
+            loading={collectionItemsLoading}
+            observerEventFn={onObserverEventCollectionItems}>
+            <Wishes wishes={collectionItems.items} />
+          </InteractObserver>
         )}
       </div>
 
       <Popup
-        title="0 wishes selected"
+        title={`${selectItems.length} wishes selected`}
         hasPopup={hasMessage === "add-to-collection"}
         onCloseClick={onPopupClose}>
-        <p>Select wishes you want to add to this collection</p>
+        <p className="extensions-wisher-collection-page__description">
+          Select wishes you want to add to this collection
+        </p>
 
-        <div className="extensions-wisher-collection-page__items">
-          {itemsToAdd.map((wish) => (
-            <WisherSelect
-              key={wish.id}
-              wish={wish}
-              selected={isSelect(wish.id)}
-              onSelectFn={onSelectItem}
-            />
-          ))}
-        </div>
+        <InteractObserver
+          height="400px"
+          repeatWhen={repeatWhen}
+          observerEventFn={onObserverEventAddItems}>
+          <div className="extensions-wisher-collection-page__items">
+            {itemsToAdd.map((wish) => (
+              <WisherSelect
+                key={wish.id}
+                wish={wish}
+                selected={isSelect(wish.id)}
+                onSelectFn={onSelectItem}
+              />
+            ))}
+          </div>
+        </InteractObserver>
 
         <div className="extensions-wisher-collection-page__action">
           <Button
             size="md"
             btnColor="primary"
+            disable={selectItems.length === 0}
             onClickFn={onAddItemsToCollection}>
             <div className="extensions-wisher-collection-page__btn-content">
               <span>add to {name} </span>

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import { Storage } from "@plasmohq/storage"
 
 import { items } from "~gql/schema/items"
-import { setItems } from "~store/slices/items"
+import { resetItems, setItems } from "~store/slices/items"
 
 import type { StoreJWT } from "./signin"
 
@@ -19,12 +19,18 @@ export const useGetItemsLazy = () => {
     }
   })
 
-  const getItems = async (limit = 10, startAfterItemId?: string) => {
+  const getItems = async (
+    limit = 10,
+    resetStore = false,
+    startAfterItemId?: string,
+    collections?: string | [string]
+  ) => {
     const { token } = await storage.get<StoreJWT>("JWT")
 
     return mutate({
       variables: {
         limit,
+        collections,
         startAfterItemId
       },
       context: {
@@ -33,6 +39,10 @@ export const useGetItemsLazy = () => {
         }
       },
       onCompleted: ({ items: { rows: items, count } }) => {
+        if (resetStore) {
+          dispatch(resetItems())
+        }
+
         dispatch(setItems({ count, items }))
       }
     })

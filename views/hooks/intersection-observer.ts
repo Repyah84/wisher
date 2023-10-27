@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const useInteractObserver = (
+export const useInteractionObserver = (
   ref: React.MutableRefObject<any>,
   root: React.MutableRefObject<any>,
   { rootMargin, threshold }: IntersectionObserverInit
@@ -30,11 +30,11 @@ export const useInteractObserver = (
     observer.observe(ref.current)
 
     return () => {
-      if (ref.current === null) {
+      if (!observer) {
         return
       }
 
-      observer.unobserve(ref.current)
+      observer.disconnect()
     }
   }, [ref, root])
 

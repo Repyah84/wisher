@@ -16,14 +16,9 @@ export const AllWishesPage = () => {
       return
     }
 
-    console.log(
-      "))))))))))))))))",
-      allWishes.items[allWishes.items.length - 1].id
-    )
-
     const lastItemIndex = allWishes.items[allWishes.items.length - 1].id
 
-    getItems(10, lastItemIndex)
+    getItems(10, false, lastItemIndex)
   }
 
   return (
