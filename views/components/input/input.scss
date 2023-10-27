@@ -1,15 +1,25 @@
 .extensions-wisher-input {
   display: grid;
 
-  &__title {
+  &__header {
     padding: 4px 8px;
 
+    display: flex;
+    justify-content: space-between;
+
     font-size: 10px;
+  }
+
+  &__title {
     font-weight: 500;
 
     color: var(--extension-mode-text-light);
 
     text-transform: uppercase;
+  }
+
+  &__error {
+    color: hsla(0, 100%, 60%, 1);
   }
 
   &__label {

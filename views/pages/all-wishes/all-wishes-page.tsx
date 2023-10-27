@@ -1,7 +1,10 @@
+import searchSvgIcon from "data-base64:~assets/search.svg"
+import sortSvgIcon from "data-base64:~assets/sort.svg"
 import { useSelector } from "react-redux"
 
 import { useGetItemsLazy } from "~gql/hooks/items"
 import type { RootState } from "~store/wisher.store"
+import { Button } from "~views/components/button/button"
 import { InteractObserver } from "~views/components/interact-observer/interact-observer"
 import { WishesEmpty } from "~views/widgets/wishes-empty/wishes-empty"
 import { Wishes } from "~views/widgets/wishes/wishes"
@@ -26,9 +29,25 @@ export const AllWishesPage = () => {
       {allWishes.items.length === 0 ? (
         <WishesEmpty />
       ) : (
-        <InteractObserver loading={loading} observerEventFn={onObserverEvent}>
-          <Wishes wishes={allWishes.items} />
-        </InteractObserver>
+        <>
+          <div className="extensions-wisher-all-wishes-page__panel">
+            <span>{allWishes.count} Items</span>
+
+            <div className="extensions-wisher-all-wishes-page__tools">
+              <Button btnType="icon">
+                <img src={searchSvgIcon} width={24} height={24} alt="Search" />
+              </Button>
+
+              <Button btnType="icon">
+                <img src={sortSvgIcon} width={24} height={24} alt="Sort" />
+              </Button>
+            </div>
+          </div>
+
+          <InteractObserver loading={loading} observerEventFn={onObserverEvent}>
+            <Wishes wishes={allWishes.items} />
+          </InteractObserver>
+        </>
       )}
     </div>
   )

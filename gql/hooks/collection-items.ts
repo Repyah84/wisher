@@ -43,7 +43,7 @@ export const useGetCollectionItems = () => {
           dispatch(resetCollection())
         }
 
-        dispatch(setCollection({ count, items }))
+        dispatch(setCollection({ count, items, name: collections }))
       }
     })
   }

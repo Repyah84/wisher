@@ -6,18 +6,27 @@ import { Loader } from "~views/components/loader/loader"
 
 interface Props {
   loading?: boolean
+  collections: string[]
   onSubmitFn: (e: string) => void
 }
 
-export const AddForm = ({ loading = false, onSubmitFn }: Props) => {
+export const AddForm = ({
+  loading = false,
+  collections,
+  onSubmitFn
+}: Props) => {
   const [inputValue, setInputValue] = useState("")
 
   const requiredValidator = (): boolean => {
     return inputValue === "" || inputValue === null || inputValue === undefined
   }
 
+  const errorValidator = () => {
+    return collections && collections.includes(inputValue)
+  }
+
   const onSubmitClick = () => {
-    if (requiredValidator() && loading) {
+    if (requiredValidator() || errorValidator() || loading) {
       return
     }
 
@@ -32,14 +41,17 @@ export const AddForm = ({ loading = false, onSubmitFn }: Props) => {
       }}
       className="extensions-wisher-add-form">
       <Input
-        title="title"
+        title="name*"
+        errorMessage={
+          errorValidator() && "You already have a collection with this name"
+        }
         value={inputValue}
         onChangeValue={(value) => setInputValue(value as string)}
         onResetValue={() => setInputValue("")}
       />
 
       <Button
-        disable={requiredValidator()}
+        disable={requiredValidator() || errorValidator()}
         btnColor="primary"
         type="submit"
         size="md">

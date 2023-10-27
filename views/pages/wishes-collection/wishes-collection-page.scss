@@ -13,9 +13,22 @@
     justify-content: space-between;
   }
 
+  &__tools {
+    display: flex;
+  }
+
   &__info {
-    padding: 10px 16px;
-    box-shadow: 0 2px 0 -1px hsla(272, 100%, 85%, 1);
+    padding: 10px 0;
+
+    margin: 0 16px 16px 16px;
+
+    box-shadow: 0 2.5px 0 -1px hsla(272, 100%, 85%, 1);
+  }
+
+  &__details {
+    margin-top: 8px;
+
+    font-size: 12px;
   }
 
   &__title {
@@ -33,8 +46,6 @@
   }
 
   &__items {
-    margin-bottom: 24px;
-
     display: grid;
 
     &::-webkit-scrollbar {

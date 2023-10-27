@@ -8,7 +8,7 @@ import { WisherStateContext } from "~views/context/wisher/wisher.context"
 export const WishesCollectionsEmpty = () => {
   const { setWisherState } = useContext(WisherStateContext)
 
-  const togglePopup = () => {
+  const onAddCollectionClick = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: "create-collection" }))
   }
 
@@ -26,8 +26,8 @@ export const WishesCollectionsEmpty = () => {
       </p>
 
       <div className="extensions-wisher-wishes-collections-empty__action">
-        <Button btnColor="primary" onClickFn={togglePopup} size="md">
-          <FileSvgIcon></FileSvgIcon>
+        <Button btnColor="primary" onClickFn={onAddCollectionClick} size="md">
+          <FileSvgIcon />
           <span>NEW COLLECTION</span>
         </Button>
       </div>

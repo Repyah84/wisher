@@ -3,6 +3,24 @@
 
   overflow: hidden;
 
+  &__header {
+    padding: 5px 10px 5px 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 12px;
+  }
+
+  &__tools {
+    display: flex;
+
+    & .__extensions-wisher-btn__ {
+      color: var(--extensions-mode-color-grey-strong);
+    }
+  }
+
   &__scroll-bar {
     overflow: auto;
 

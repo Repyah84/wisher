@@ -1,4 +1,5 @@
 import addSvgIcon from "data-base64:~assets/circle-croos.svg"
+import sortSvgIcon from "data-base64:~assets/sort.svg"
 import { useContext, useMemo, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
@@ -10,6 +11,7 @@ import { useGetItemsLazy } from "~gql/hooks/items"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
+import { OptionsSvgIcon } from "~views/components/icons/options/options"
 import { InteractObserver } from "~views/components/interact-observer/interact-observer"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
@@ -131,13 +133,27 @@ export const CollectionPage = () => {
             <ArrowLeftSvgIcon />
           </Button>
 
-          <Button onClickFn={onAddIconClick} btnType="icon">
-            <img width={24} height={24} src={addSvgIcon} alt="add" />
-          </Button>
+          <div className="extensions-wisher-collection-page__tools">
+            <Button onClickFn={onAddIconClick} btnType="icon">
+              <img width={24} height={24} src={addSvgIcon} alt="add" />
+            </Button>
+
+            <Button btnType="icon">
+              <img width={24} height={24} src={sortSvgIcon} alt="Option" />
+            </Button>
+
+            <Button btnType="icon">
+              <OptionsSvgIcon />
+            </Button>
+          </div>
         </div>
 
         <div className="extensions-wisher-collection-page__info">
           <h2 className="extensions-wisher-collection-page__title">{name}</h2>
+
+          <div className="extensions-wisher-collection-page__details">
+            <span>{collectionItems.count} Items</span>
+          </div>
         </div>
 
         {collectionItems.items.length === 0 ? (

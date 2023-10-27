@@ -7,20 +7,20 @@ export type BtnColor = "primary" | "default"
 export type BtnSize = "sm" | "md"
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode
   btnType?: BtnType
   btnColor?: BtnColor
-  children: ReactNode
   onClickFn?: () => void
   disable?: boolean
   size?: BtnSize
 }
 
 export const Button = ({
+  children,
+  onClickFn,
   btnType = "default",
   btnColor = "default",
   disable = false,
-  children,
-  onClickFn,
   type = "button",
   size = "sm"
 }: Props) => {

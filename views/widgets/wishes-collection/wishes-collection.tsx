@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 import { useGetCollectionItems } from "~gql/hooks/collection-items"
-import { setCollectionName } from "~store/slices/collection"
+import { resetCollection } from "~store/slices/collection"
 import type { RootState } from "~store/wisher.store"
 import { Loader } from "~views/components/loader/loader"
 
@@ -47,8 +47,16 @@ export const WishesCollection = ({ collectionName }: Props) => {
     }
   }, [collectionName, collectionImagesData])
 
-  const onCollectionClick = (coolName: string) => {
+  const onCollectionClick = () => {
     if (loading) {
+      return
+    }
+
+    if (collectionImages.count === 0) {
+      dispatch(resetCollection())
+
+      navigate(`/wisher/wishes-collection/${collectionName}`)
+
       return
     }
 
@@ -57,19 +65,18 @@ export const WishesCollection = ({ collectionName }: Props) => {
       collectionName !== collectionItems.name
     ) {
       getCollectionItems(collectionName, 10, true).then(() => {
-        dispatch(setCollectionName(collectionName))
-
-        navigate(`/wisher/wishes-collection/${coolName}`)
+        navigate(`/wisher/wishes-collection/${collectionName}`)
       })
 
       return
     }
-    navigate(`/wisher/wishes-collection/${coolName}`)
+
+    navigate(`/wisher/wishes-collection/${collectionName}`)
   }
 
   return (
     <div
-      onClick={() => onCollectionClick(collectionName)}
+      onClick={() => onCollectionClick()}
       className="extensions-wishes-collection-item">
       <div className="extensions-wishes-collection-item__header">
         <span className="extensions-wishes-collection-item__title">

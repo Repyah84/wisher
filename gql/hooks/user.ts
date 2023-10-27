@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import { Storage } from "@plasmohq/storage"
 
 import { user } from "~gql/schema/user"
-import { toggleUserSate } from "~store/slices/user"
+import { setUserSate } from "~store/slices/user"
 
 import type { StoreJWT } from "./signin"
 
@@ -29,7 +29,7 @@ export const useGetUserLazy = () => {
         }
       },
       onCompleted: (data) => {
-        dispatch(toggleUserSate(data.user))
+        dispatch(setUserSate(data.user))
       }
     })
   }

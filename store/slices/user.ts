@@ -16,8 +16,11 @@ export const userSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
-    toggleUserSate: (state, { payload }: PayloadAction<User>) => {
+    setUserSate: (state, { payload }: PayloadAction<User>) => {
       state.data = payload
+    },
+    updateUserCollections: (state, { payload }: PayloadAction<string[]>) => {
+      state.data.collections = payload
     }
   },
   extraReducers: (builder) => {
@@ -27,6 +30,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { toggleUserSate } = userSlice.actions
+export const { setUserSate, updateUserCollections } = userSlice.actions
 
 export default userSlice.reducer

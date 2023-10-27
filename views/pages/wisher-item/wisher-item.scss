@@ -18,7 +18,7 @@
     &#{&} .__extensions-wisher-btn__ {
       background-color: hsla(0, 0%, 100%, 0.75);
 
-      color: hsla(0, 0%, 40%, 1);
+      color: var(--extensions-mode-color-grey-strong);
     }
   }
 
@@ -57,7 +57,7 @@
 
     background-color: hsla(0, 0%, 100%, 0.75);
 
-    color: hsla(0, 0%, 40%, 1);
+    color: var(--extensions-mode-color-grey-strong);
   }
 
   &__main {

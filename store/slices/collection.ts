@@ -6,7 +6,7 @@ import { logout } from "~store/actions/logout"
 interface CollectionItemData {
   count: number
   items: Item[]
-  name?: string
+  name: string
 }
 
 export interface CollectionItem {
@@ -30,12 +30,11 @@ const collectionSlice = createSlice({
       const items = [...state.data.items, ...payload.items]
       state.data = {
         count,
-        items
+        items,
+        name: payload.name
       }
     },
-    setCollectionName: (state, { payload }: PayloadAction<string>) => {
-      state.data.name = payload
-    },
+
     resetCollection: (state) => {
       state.data = initialState.data
     }
@@ -47,7 +46,6 @@ const collectionSlice = createSlice({
   }
 })
 
-export const { setCollection, setCollectionName, resetCollection } =
-  collectionSlice.actions
+export const { setCollection, resetCollection } = collectionSlice.actions
 
 export default collectionSlice.reducer

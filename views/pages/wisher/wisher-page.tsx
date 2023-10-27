@@ -1,8 +1,11 @@
 import { useContext } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Outlet, useNavigate } from "react-router-dom"
 
 import { useCollectionsMutate } from "~gql/hooks/collections.mutate"
+import { resetCollection } from "~store/slices/collection"
+import { setCollectionWithImages } from "~store/slices/collections-with-images"
+import { updateUserCollections } from "~store/slices/user"
 import type { RootState } from "~store/wisher.store"
 import { Help } from "~views/components/help/help"
 import { Popup } from "~views/components/popup/popup"
@@ -13,6 +16,8 @@ import { Header } from "~views/widgets/header/header"
 
 export const WisherPage = () => {
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
 
   const { loading, addCollection } = useCollectionsMutate()
 
@@ -32,11 +37,21 @@ export const WisherPage = () => {
       return
     }
 
-    addCollection([...user.collections, collection]).then(() => {
-      setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+    addCollection([...user.collections, collection]).then(
+      ({ data: { user } }) => {
+        dispatch(updateUserCollections(user.collections))
 
-      navigate(`/wisher/wishes-collection/${collection}`)
-    })
+        dispatch(
+          setCollectionWithImages({ title: collection, images: [], count: 0 })
+        )
+
+        dispatch(resetCollection())
+
+        setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+
+        navigate(`/wisher/wishes-collection/${collection}`)
+      }
+    )
   }
 
   const popupClose = () => {
@@ -69,7 +84,11 @@ export const WisherPage = () => {
           Tip: don’t forget to share your collections with friends and family!
         </Help>
 
-        <AddForm loading={loading} onSubmitFn={onCreateCollectionClick} />
+        <AddForm
+          collections={user.collections}
+          loading={loading}
+          onSubmitFn={onCreateCollectionClick}
+        />
       </Popup>
     </div>
   )

@@ -5,6 +5,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   title: string
   onChangeValue: (value: string) => void
   onResetValue?: () => void
+  errorMessage?: string
 }
 
 export const Input = ({
@@ -13,11 +14,18 @@ export const Input = ({
   type = "text",
   placeholder,
   onChangeValue,
-  onResetValue
+  onResetValue,
+  errorMessage
 }: Props) => {
   return (
     <div className="extensions-wisher-input">
-      <span className="extensions-wisher-input__title">{title}</span>
+      <div className="extensions-wisher-input__header">
+        <span className="extensions-wisher-input__title">{title}</span>
+
+        {errorMessage && (
+          <span className="extensions-wisher-input__error">{errorMessage}</span>
+        )}
+      </div>
 
       <label className="extensions-wisher-input__label">
         <input
