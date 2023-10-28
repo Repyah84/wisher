@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
+import { SettingsItem } from "~views/components/settings-item/settings-item"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
 export const ItemSetting = () => {
@@ -22,19 +23,17 @@ export const ItemSetting = () => {
 
   return (
     <div className="extension-wisher-item-setting">
-      <div
-        onClick={onEditClick}
-        className="extension-wisher-item-setting__item">
+      <SettingsItem onClickFn={onEditClick}>
         <span>Edit</span>
-      </div>
+      </SettingsItem>
 
-      <div className="extension-wisher-item-setting__item">
+      <SettingsItem onClickFn={onDeleteClick}>
         <span>Delete</span>
-      </div>
+      </SettingsItem>
 
-      <div className="extension-wisher-item-setting__item">
+      <SettingsItem onClickFn={onMarlClick}>
         <span>Mark as purchased</span>
-      </div>
+      </SettingsItem>
     </div>
   )
 }

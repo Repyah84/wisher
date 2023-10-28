@@ -1,13 +1,15 @@
 import addSvgIcon from "data-base64:~assets/circle-croos.svg"
 import sortSvgIcon from "data-base64:~assets/sort.svg"
 import { useContext, useMemo, useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
 import { useGetCollectionItems } from "~gql/hooks/collection-items"
 import { useAddItemsToCollection } from "~gql/hooks/collection-items.mutate"
 import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
+import { useCollectionUpdate } from "~gql/hooks/collection.mutate"
 import { useGetItemsLazy } from "~gql/hooks/items"
+import { updateUserCollectionName } from "~store/slices/user"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
@@ -15,7 +17,9 @@ import { OptionsSvgIcon } from "~views/components/icons/options/options"
 import { InteractObserver } from "~views/components/interact-observer/interact-observer"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
+import { SettingsItem } from "~views/components/settings-item/settings-item"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { AddForm } from "~views/widgets/add-form/add-form"
 import { WisherSelect } from "~views/widgets/wisher-select/wisher-select"
 import { WisherCollectionEmpty } from "~views/widgets/wishes-collection-empty/wishes-collection-empty"
 import { Wishes } from "~views/widgets/wishes/wishes"
@@ -25,6 +29,9 @@ export const CollectionPage = () => {
 
   const navigate = useNavigate()
 
+  const dispatch = useDispatch()
+
+  const [collectionName, setCollectionName] = useState(name)
   const [selectItems, setSelectItem] = useState<string[]>([])
 
   const {
@@ -38,16 +45,21 @@ export const CollectionPage = () => {
     useGetCollectionItems()
   const { loading: loadingCollectionImages, getCollectionWithImages } =
     useCollectionWithImages()
+  const { loading: updateCollectionLoading, updateCollectionName } =
+    useCollectionUpdate()
 
+  const collections = useSelector(
+    ({ user: { data } }: RootState) => data.collections
+  )
   const itemsData = useSelector(({ items: { data } }: RootState) => data)
-
   const collectionItems = useSelector(
     ({ collection: { data } }: RootState) => data
   )
 
   const itemsToAdd = useMemo(() => {
     return itemsData.items.filter(
-      ({ collections }) => collections === null || !collections.includes(name)
+      ({ collections }) =>
+        collections === null || !collections.includes(collectionName)
     )
   }, [itemsData, name])
 
@@ -84,18 +96,46 @@ export const CollectionPage = () => {
       return
     }
 
-    setItemsToCollection(selectItems, name)
+    setItemsToCollection(selectItems, collectionName)
       .then(() => {
         return Promise.all([
           getItems(10, true),
-          getCollectionWithImages(name),
-          getCollectionItems(name, 10, true)
+          getCollectionWithImages(collectionName),
+          getCollectionItems(collectionName, 10, true)
         ])
       })
       .then(() => {
         onPopupClose()
       })
   }
+
+  const onSettingsClick = () => {
+    setWisherState((wisher) => ({
+      ...wisher,
+      hasMessage: "collection-settings"
+    }))
+  }
+
+  const onRenameCollection = () => {
+    setWisherState((wisher) => ({
+      ...wisher,
+      hasMessage: "collection-update-name"
+    }))
+  }
+
+  const onUpdateCollectionName = (newCollection: string) => {
+    const updateDate = { newCollection, oldCollection: collectionName }
+
+    updateCollectionName(updateDate).then(() => {
+      dispatch(updateUserCollectionName(updateDate))
+
+      setCollectionName(newCollection)
+
+      onPopupClose()
+    })
+  }
+
+  const onDeleteCollection = () => {}
 
   const observerEventAddItems = () => {
     if (itemsLoading || itemsData.items.length === itemsData.count) {
@@ -118,7 +158,7 @@ export const CollectionPage = () => {
     const lastItemId =
       collectionItems.items[collectionItems.items.length - 1].id
 
-    getCollectionItems(name, 10, false, lastItemId)
+    getCollectionItems(collectionName, 10, false, lastItemId)
   }
 
   return (
@@ -140,14 +180,16 @@ export const CollectionPage = () => {
               <img width={24} height={24} src={sortSvgIcon} alt="Option" />
             </Button>
 
-            <Button btnType="icon">
+            <Button onClickFn={onSettingsClick} btnType="icon">
               <OptionsSvgIcon />
             </Button>
           </div>
         </div>
 
         <div className="extensions-wisher-collection-page__info">
-          <h2 className="extensions-wisher-collection-page__title">{name}</h2>
+          <h2 className="extensions-wisher-collection-page__title">
+            {collectionName}
+          </h2>
 
           <div className="extensions-wisher-collection-page__details">
             <span>{collectionItems.count} Items</span>
@@ -196,12 +238,39 @@ export const CollectionPage = () => {
             disable={selectItems.length === 0}
             onClickFn={onAddItemsToCollection}>
             <div className="extensions-wisher-collection-page__btn-content">
-              <span>add to {name} </span>
+              <span>add to {collectionName} </span>
 
               <Loader size={5.5} isLoading={isLoading()} />
             </div>
           </Button>
         </div>
+      </Popup>
+
+      <Popup
+        title="collection-settings"
+        hasPopup={hasMessage === "collection-settings"}
+        onCloseClick={onPopupClose}>
+        <div className="extensions-wisher-collection-page__settings">
+          <SettingsItem onClickFn={onRenameCollection}>
+            <span>Rename</span>
+          </SettingsItem>
+
+          <SettingsItem onClickFn={onDeleteCollection}>
+            <span>Delete</span>
+          </SettingsItem>
+        </div>
+      </Popup>
+
+      <Popup
+        title="Rename the collection"
+        hasPopup={hasMessage === "collection-update-name"}
+        onCloseClick={onPopupClose}>
+        <AddForm
+          btnTitle="rename"
+          loading={updateCollectionLoading}
+          collections={collections}
+          onSubmitFn={onUpdateCollectionName}
+        />
       </Popup>
     </>
   )

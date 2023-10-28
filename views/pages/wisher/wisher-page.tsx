@@ -85,6 +85,7 @@ export const WisherPage = () => {
         </Help>
 
         <AddForm
+          btnTitle="create"
           collections={user?.collections}
           loading={loading}
           onSubmitFn={onCreateCollectionClick}

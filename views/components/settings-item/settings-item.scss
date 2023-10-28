@@ -1,0 +1,26 @@
+.extensions-wisher-settings-item {
+  display: inline-flex;
+  justify-content: space-between;
+
+  margin: 0;
+  padding: 0;
+
+  background: none;
+  border: none;
+  outline: none;
+
+  padding: 16px;
+
+  margin-left: -16px;
+  margin-right: -16px;
+
+  font-size: 16px;
+
+  transition: background-color 150ms;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--extensions-wisher-primary-light);
+  }
+}

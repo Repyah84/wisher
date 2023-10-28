@@ -5,6 +5,8 @@ export type WisherMessage =
   | "create-collection"
   | "add-to-collection"
   | "item-setting"
+  | "collection-settings"
+  | "collection-update-name"
   | null
 
 interface Props {

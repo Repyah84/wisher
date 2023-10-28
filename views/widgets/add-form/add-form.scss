@@ -11,6 +11,8 @@
     grid-template-columns: 27px 1fr 27px;
     align-items: center;
 
+    text-transform: uppercase;
+
     & > span {
       grid-area: 1/2 / 2/3;
     }

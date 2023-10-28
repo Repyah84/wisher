@@ -5,12 +5,14 @@ import { Input } from "~views/components/input/input"
 import { Loader } from "~views/components/loader/loader"
 
 interface Props {
+  btnTitle: string
   loading?: boolean
   collections: string[]
   onSubmitFn: (e: string) => void
 }
 
 export const AddForm = ({
+  btnTitle,
   loading = false,
   collections,
   onSubmitFn
@@ -41,7 +43,7 @@ export const AddForm = ({
       }}
       className="extensions-wisher-add-form">
       <Input
-        title="name*"
+        title="collection name*"
         errorMessage={
           errorValidator() && "You already have a collection with this name"
         }
@@ -56,7 +58,7 @@ export const AddForm = ({
         type="submit"
         size="md">
         <div className="extensions-wisher-add-form__action">
-          <span>CREATE</span>
+          <span>{btnTitle}</span>
 
           <Loader size={5.5} isLoading={loading} />
         </div>

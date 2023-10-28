@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
+import type { UpdateCollectionName } from "~gql/hooks/collection.mutate"
 import type { Item } from "~gql/types/graphql"
 import { logout } from "~store/actions/logout"
 
@@ -36,6 +37,20 @@ const collectionWithImagesSlice = createSlice({
       }
 
       state.data[itemIndex] = payload
+    },
+    updateCollectionNameState: (
+      state,
+      { payload }: PayloadAction<UpdateCollectionName>
+    ) => {
+      const itemIndex = state.data.findIndex(
+        ({ title }) => title === payload.oldCollection
+      )
+
+      if (itemIndex === -1) {
+        return
+      }
+
+      state.data[itemIndex].title = payload.newCollection
     }
   },
   extraReducers: (builder) => {
@@ -45,6 +60,7 @@ const collectionWithImagesSlice = createSlice({
   }
 })
 
-export const { setCollectionWithImages } = collectionWithImagesSlice.actions
+export const { setCollectionWithImages, updateCollectionNameState } =
+  collectionWithImagesSlice.actions
 
 export default collectionWithImagesSlice.reducer
