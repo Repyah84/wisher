@@ -28,13 +28,13 @@ const collectionSlice = createSlice({
     setCollection: (state, { payload }: PayloadAction<CollectionItemData>) => {
       const count = payload.count
       const items = [...state.data.items, ...payload.items]
+
       state.data = {
         count,
         items,
         name: payload.name
       }
     },
-
     resetCollection: (state) => {
       state.data = initialState.data
     }

@@ -14,12 +14,13 @@ import { ShareSvgIcon } from "~views/components/icons/share/share"
 import { Rating } from "~views/components/rating/rating"
 import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { Header } from "~views/widgets/header/header"
 
 export const WisherItemPage = () => {
   const { itemId } = useParams()
 
-  const navigate = useNavigate()
+  const { navigate, navigateWithRedirect } = useNavigateWithRedirect()
 
   const { setWisherState } = useContext(WisherStateContext)
 
@@ -55,7 +56,9 @@ export const WisherItemPage = () => {
             <Button
               size="md"
               btnType="icon"
-              onClickFn={() => navigate("/wisher/wishes")}>
+              onClickFn={() =>
+                navigateWithRedirect("/wisher/wishes/wishes-all")
+              }>
               <ArrowLeftSvgIcon />
             </Button>
 

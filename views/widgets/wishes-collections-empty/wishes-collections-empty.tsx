@@ -1,14 +1,28 @@
 import svgIcon from "data-base64:~assets/wisher-collection.svg"
 import { useContext } from "react"
+import { useSelector } from "react-redux"
 
+import type { User } from "~gql/types/graphql"
+import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { FileSvgIcon } from "~views/components/icons/file/file"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 export const WishesCollectionsEmpty = () => {
+  const user = useSelector(({ user: { data } }: RootState) => data)
+
+  const { navigate } = useNavigateWithRedirect()
+
   const { setWisherState } = useContext(WisherStateContext)
 
   const onAddCollectionClick = () => {
+    if (user === null) {
+      navigate("/login")
+
+      return
+    }
+
     setWisherState((wisher) => ({ ...wisher, hasMessage: "create-collection" }))
   }
 

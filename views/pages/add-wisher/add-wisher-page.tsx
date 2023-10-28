@@ -1,19 +1,19 @@
-import { useNavigate } from "react-router-dom"
-
-import { Storage } from "@plasmohq/storage"
-import { useStorage } from "@plasmohq/storage/hook"
+import { useSelector } from "react-redux"
 
 import { useParsUrl } from "~api/hooks/pars-url"
 import { useItemMutate } from "~gql/hooks/item.mutate"
 import { useGetItemsLazy } from "~gql/hooks/items"
-import type { StoreJWT } from "~gql/hooks/signin"
+import type { RootState } from "~store/wisher.store"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { ErrorLayout } from "~views/widgets/error-layout/error-layout"
 import { LoaderLayout } from "~views/widgets/loader-layout/loader-layout"
 import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-data"
 import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 
 export const AddWisherPage = () => {
-  const navigate = useNavigate()
+  const { navigate } = useNavigateWithRedirect()
+
+  const user = useSelector(({ user: { data } }: RootState) => data)
 
   const { loading, addItem } = useItemMutate()
 
@@ -22,28 +22,20 @@ export const AddWisherPage = () => {
 
   const { loading: itemsLoading, getItems } = useGetItemsLazy()
 
-  const [wisherJWT] = useStorage<StoreJWT>(
-    {
-      key: "JWT",
-      instance: new Storage({ area: "local" })
-    },
-    null
-  )
-
   const onSaveClick = () => {
-    if (loading || itemsLoading) {
-      return
-    }
-
-    if (wisherJWT === null) {
+    if (user === null) {
       navigate("/login")
 
       return
     }
 
+    if (loading || itemsLoading) {
+      return
+    }
+
     addItem({ input: data.input, image: data.imageUpload }).then(() => {
       getItems().then(() => {
-        navigate("/wisher/wishes")
+        navigate("/wisher/wishes/wishes-all")
       })
     })
   }

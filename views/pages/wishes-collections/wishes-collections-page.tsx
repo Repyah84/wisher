@@ -5,20 +5,14 @@ import { WishesCollectionsEmpty } from "~views/widgets/wishes-collections-empty/
 import { WishesCollections } from "~views/widgets/wishes-collections/wishes-collections"
 
 export const WishesCollectionsPage = () => {
-  const collections = useSelector(
-    ({
-      user: {
-        data: { collections }
-      }
-    }: RootState) => collections
-  )
+  const user = useSelector(({ user: { data } }: RootState) => data)
 
   return (
     <div className="extensions-wisher-wishes-collections-page">
-      {collections.length === 0 ? (
+      {user === null || user.collections.length === 0 ? (
         <WishesCollectionsEmpty />
       ) : (
-        <WishesCollections collections={collections} />
+        <WishesCollections collections={user.collections} />
       )}
     </div>
   )

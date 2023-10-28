@@ -2,7 +2,6 @@ import appleLogoSvg from "data-base64:~assets/apple.svg"
 import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 
 import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
 import { useGetItemsLazy } from "~gql/hooks/items"
@@ -12,10 +11,11 @@ import { PromiseListRun } from "~helpers/promise-list-run"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { Header } from "~views/widgets/header/header"
 
 export const LoginPage = () => {
-  const navigate = useNavigate()
+  const { navigateWithRedirect } = useNavigateWithRedirect()
 
   const [appleLoading, setAppleLoading] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -42,7 +42,7 @@ export const LoginPage = () => {
         setIsLoading(false)
         setAppleLoading(false)
 
-        navigate("/wisher/wishes/wishes-all")
+        navigateWithRedirect("/wisher/wishes/wishes-all")
       })
   }, [wisherJWT])
 
@@ -108,7 +108,7 @@ export const LoginPage = () => {
             </div>
           </Button>
 
-          <ButtonNav link="/wisher">DO IT LATER</ButtonNav>
+          <ButtonNav link="/wisher/wishes/wishes-all">DO IT LATER</ButtonNav>
         </div>
       </main>
     </div>

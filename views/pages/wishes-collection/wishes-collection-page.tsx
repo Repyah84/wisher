@@ -55,6 +55,13 @@ export const CollectionPage = () => {
     return { value: itemsData.items.length !== itemsData.count }
   }, [itemsData])
 
+  const isSelect = (id: string) => {
+    return selectItems.includes(id)
+  }
+
+  const isLoading = () =>
+    loading || itemsLoading || loadingCollectionImages || collectionItemsLoading
+
   const onPopupClose = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
   }
@@ -68,21 +75,12 @@ export const CollectionPage = () => {
     setSelectItem((state) => [...state, id])
   }
 
-  const isSelect = (id: string) => {
-    return selectItems.includes(id)
-  }
-
   const onAddIconClick = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: "add-to-collection" }))
   }
 
   const onAddItemsToCollection = () => {
-    if (
-      loading ||
-      itemsLoading ||
-      loadingCollectionImages ||
-      collectionItemsLoading
-    ) {
+    if (isLoading()) {
       return
     }
 
@@ -99,7 +97,7 @@ export const CollectionPage = () => {
       })
   }
 
-  const onObserverEventAddItems = () => {
+  const observerEventAddItems = () => {
     if (itemsLoading || itemsData.items.length === itemsData.count) {
       return
     }
@@ -109,7 +107,7 @@ export const CollectionPage = () => {
     getItems(10, false, lastItemId)
   }
 
-  const onObserverEventCollectionItems = () => {
+  const observerEventCollectionItems = () => {
     if (
       collectionItemsLoading ||
       collectionItems.items.length === collectionItems.count
@@ -161,7 +159,7 @@ export const CollectionPage = () => {
         ) : (
           <InteractObserver
             loading={collectionItemsLoading}
-            observerEventFn={onObserverEventCollectionItems}>
+            observerEventFn={observerEventCollectionItems}>
             <Wishes wishes={collectionItems.items} />
           </InteractObserver>
         )}
@@ -178,7 +176,7 @@ export const CollectionPage = () => {
         <InteractObserver
           height="400px"
           repeatWhen={repeatWhen}
-          observerEventFn={onObserverEventAddItems}>
+          observerEventFn={observerEventAddItems}>
           <div className="extensions-wisher-collection-page__items">
             {itemsToAdd.map((wish) => (
               <WisherSelect
@@ -200,15 +198,7 @@ export const CollectionPage = () => {
             <div className="extensions-wisher-collection-page__btn-content">
               <span>add to {name} </span>
 
-              <Loader
-                size={5.5}
-                isLoading={
-                  loading ||
-                  itemsLoading ||
-                  loadingCollectionImages ||
-                  collectionItemsLoading
-                }
-              />
+              <Loader size={5.5} isLoading={isLoading()} />
             </div>
           </Button>
         </div>

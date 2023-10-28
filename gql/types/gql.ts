@@ -13,7 +13,6 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query CollectionsWithImages($collections: [String]) {\n    collectionsWithImages(collections: $collections) {\n      images\n    }\n  }\n": types.CollectionsWithImagesDocument,
     "\n  query Currencies {\n    currencies {\n      code\n      name\n    }\n  }\n": types.CurrenciesDocument,
     "\n  mutation UserCollectionsAdd($input: UserInput!) {\n    user(input: $input) {\n      uid\n      collections\n    }\n  }\n": types.UserCollectionsAddDocument,
     "\n  mutation AddItemsToCollection($ids: [ID]!, $collection: String!) {\n    addItemsToCollection(ids: $ids, collection: $collection) {\n      status\n    }\n  }\n": types.AddItemsToCollectionDocument,
@@ -37,10 +36,6 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  query CollectionsWithImages($collections: [String]) {\n    collectionsWithImages(collections: $collections) {\n      images\n    }\n  }\n"): (typeof documents)["\n  query CollectionsWithImages($collections: [String]) {\n    collectionsWithImages(collections: $collections) {\n      images\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
