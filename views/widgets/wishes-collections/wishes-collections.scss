@@ -1,5 +1,6 @@
 .extensions-wisher-wishes-collection {
   display: grid;
+  grid-template-rows: auto 1fr;
 
   overflow: hidden;
 
@@ -18,6 +19,21 @@
 
     & .__extensions-wisher-btn__ {
       color: var(--extensions-mode-color-grey-strong);
+    }
+  }
+
+  &__loader {
+    width: 38px;
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    & .extensions-wisher-loader {
+      --extensions-wisher-loader-color: var(
+        --extensions-mode-color-grey-strong
+      );
     }
   }
 

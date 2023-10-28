@@ -2,6 +2,7 @@ import { useContext, useRef, type ReactNode } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import { Ripple } from "../ripple/ripple"
 
@@ -14,7 +15,7 @@ interface Props {
 export const ButtonNav = ({ link, children, rootLink }: Props) => {
   const hostRef = useRef(null)
   const location = useLocation()
-  const navigate = useNavigate()
+  const { navigate } = useNavigateWithRedirect()
 
   const { setWisherState } = useContext(WisherStateContext)
 

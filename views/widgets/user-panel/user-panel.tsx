@@ -1,14 +1,14 @@
 import svgProfile from "data-base64:~assets/profile.svg"
 import svgIcon from "data-base64:~assets/wisher-avatar.svg"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
 
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { WarningSvgIcon } from "~views/components/icons/warning/warning"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 export const UserPanel = () => {
-  const navigate = useNavigate()
+  const { navigate } = useNavigateWithRedirect()
 
   const user = useSelector(({ user: { data } }: RootState) => data)
 

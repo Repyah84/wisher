@@ -8,14 +8,11 @@ import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
 import { useGetItemsLazy } from "~gql/hooks/items"
 import type { StoreJWT } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
-import { PromiseListRun } from "~helpers/promise-list-run"
 import { Loader } from "~views/components/loader/loader"
 import { Header } from "~views/widgets/header/header"
 
 export const InitialPage = () => {
   const storage = new Storage({ area: "local" })
-
-  const { getCollectionWithImages } = useCollectionWithImages()
 
   const { getUser } = useGetUserLazy()
 
@@ -32,12 +29,6 @@ export const InitialPage = () => {
         }
 
         return Promise.all([getUser(), getItems()])
-      })
-      .then(([res]) => {
-        return PromiseListRun(
-          res.data.user.collections,
-          getCollectionWithImages
-        )
       })
       .then(() => {
         navigate("/wisher/wishes/wishes-all")

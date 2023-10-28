@@ -20,8 +20,6 @@ export const LoginPage = () => {
   const [appleLoading, setAppleLoading] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const { getCollectionWithImages } = useCollectionWithImages()
-
   const { wisherJWT, onLogin, onAppleLogin } = useSignInMutate()
   const { getUser } = useGetUserLazy()
   const { getItems } = useGetItemsLazy()
@@ -31,22 +29,17 @@ export const LoginPage = () => {
       return
     }
 
-    Promise.all([getUser(), getItems()])
-      .then(([res]) => {
-        return PromiseListRun(
-          res.data.user.collections,
-          getCollectionWithImages
-        )
-      })
-      .then(() => {
-        setIsLoading(false)
-        setAppleLoading(false)
+    Promise.all([getUser(), getItems()]).then(() => {
+      setIsLoading(false)
+      setAppleLoading(false)
 
-        navigateWithRedirect("/wisher/wishes/wishes-all")
-      })
+      navigateWithRedirect("/wisher/wishes/wishes-all")
+    })
   }, [wisherJWT])
 
   const onGoogleLoginClick = () => {
+    console.log("LOGIN")
+
     if (isLoading || appleLoading) {
       return
     }

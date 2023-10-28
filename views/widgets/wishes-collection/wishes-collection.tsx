@@ -1,9 +1,10 @@
 import emptyImage from "data-base64:~assets/garage.png"
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 import { useGetCollectionItems } from "~gql/hooks/collection-items"
+import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
 import { resetCollection } from "~store/slices/collection"
 import type { RootState } from "~store/wisher.store"
 import { Loader } from "~views/components/loader/loader"
@@ -17,24 +18,30 @@ export const WishesCollection = ({ collectionName }: Props) => {
 
   const dispatch = useDispatch()
 
+  const { getCollectionWithImages } = useCollectionWithImages()
+
   const { loading, getCollectionItems } = useGetCollectionItems()
 
   const collectionItems = useSelector(
     ({ collection: { data } }: RootState) => data
   )
 
-  const collectionImagesData = useSelector(
+  const collectionsImagesData = useSelector(
     ({ collectionWithImages: { data } }: RootState) => data
   )
 
+  const collectionImageData = useMemo(() => {
+    return collectionsImagesData.find(({ title }) => title === collectionName)
+  }, [collectionsImagesData, collectionName])
+
   const collectionImages = useMemo(() => {
-    const collection = collectionImagesData.find(
-      ({ title }) => title === collectionName
-    )
+    if (collectionImageData === undefined) {
+      return
+    }
 
     return {
-      count: collection.count,
-      images: collection.images.map((image, index) => (
+      count: collectionImageData.count,
+      images: collectionImageData.images.map((image, index) => (
         <img
           width={64}
           height={64}
@@ -45,7 +52,15 @@ export const WishesCollection = ({ collectionName }: Props) => {
         />
       ))
     }
-  }, [collectionName, collectionImagesData])
+  }, [collectionImageData])
+
+  useEffect(() => {
+    if (collectionImageData !== undefined) {
+      return
+    }
+
+    getCollectionWithImages(collectionName)
+  }, [collectionName, collectionImageData])
 
   const onCollectionClick = () => {
     if (loading) {
@@ -74,7 +89,9 @@ export const WishesCollection = ({ collectionName }: Props) => {
     navigate(`/wisher/wishes-collection/${collectionName}`)
   }
 
-  return (
+  return collectionImageData === undefined ? (
+    <></>
+  ) : (
     <div
       onClick={() => onCollectionClick()}
       className="extensions-wishes-collection-item">

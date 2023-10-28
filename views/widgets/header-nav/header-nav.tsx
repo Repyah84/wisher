@@ -1,19 +1,21 @@
 import { type ReactNode } from "react"
-import { useNavigate } from "react-router-dom"
 
 import { Button } from "~views/components/button/button"
 import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 interface Props {
   children: ReactNode
 }
 
 export const HeaderNav = ({ children }: Props) => {
-  const navigate = useNavigate()
+  const { navigateWithRedirect } = useNavigateWithRedirect()
 
   return (
     <div className="extensions-wisher-header-nav">
-      <Button btnType="icon" onClickFn={() => navigate("/wisher/details")}>
+      <Button
+        btnType="icon"
+        onClickFn={() => navigateWithRedirect("/wisher/details")}>
         <ArrowLeftSvgIcon />
       </Button>
       {children}
