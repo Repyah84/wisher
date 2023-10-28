@@ -19,11 +19,16 @@ import { Footer } from "~views/widgets/footer/footer"
 import { Header } from "~views/widgets/header/header"
 
 export const WisherPage = () => {
-  const navigate = useNavigate()
-
   const { name: collectionName } = useParams()
 
+  const navigate = useNavigate()
+
   const dispatch = useDispatch()
+
+  const {
+    wisherSate: { isCreateCollectionHelp, hasMessage },
+    setWisherState
+  } = useContext(WisherStateContext)
 
   const { loading, addCollection } = useCollectionsMutate()
 
@@ -31,13 +36,13 @@ export const WisherPage = () => {
   const collections = useSelector(
     ({ user: { data } }: RootState) => data.collections
   )
-  const {
-    wisherSate: { isCreateCollectionHelp, hasMessage },
-    setWisherState
-  } = useContext(WisherStateContext)
 
-  const messageClosed = () => {
+  const onMessageClosed = () => {
     setWisherState((wisher) => ({ ...wisher, isCreateCollectionHelp: false }))
+  }
+
+  const onPopupClose = () => {
+    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
   }
 
   const onCreateCollectionClick = (collection: string) => {
@@ -62,10 +67,6 @@ export const WisherPage = () => {
     )
   }
 
-  const popupClose = () => {
-    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
-  }
-
   const onAcceptDeleteCollection = () => {
     if (loading) {
       return
@@ -82,7 +83,7 @@ export const WisherPage = () => {
 
       navigate("/wisher/wishes/wishes-collections")
 
-      popupClose()
+      onPopupClose()
     })
   }
 
@@ -97,11 +98,11 @@ export const WisherPage = () => {
       <Popup
         title="Create the collection"
         hasPopup={hasMessage === "create-collection"}
-        onCloseClick={popupClose}>
+        onCloseClick={onPopupClose}>
         <Help
           hasMessage={isCreateCollectionHelp}
           hasBtnClose={true}
-          onMessageClosed={messageClosed}>
+          onMessageClosed={onMessageClosed}>
           Keep your gifts and wishes organized with various collections. Here
           are some collection ideas for you to get started: <br />
           Birthday <br />
@@ -122,11 +123,11 @@ export const WisherPage = () => {
 
       <Popup
         hasPopup={hasMessage === "collection-delete"}
-        onCloseClick={popupClose}>
+        onCloseClick={onPopupClose}>
         <Dialog
           loading={loading}
           onAcceptClick={onAcceptDeleteCollection}
-          onCancelClick={popupClose}
+          onCancelClick={onPopupClose}
         />
       </Popup>
     </div>
