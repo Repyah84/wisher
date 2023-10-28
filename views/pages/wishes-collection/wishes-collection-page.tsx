@@ -135,7 +135,12 @@ export const CollectionPage = () => {
     })
   }
 
-  const onDeleteCollection = () => {}
+  const onDeleteCollection = () => {
+    setWisherState((wisher) => ({
+      ...wisher,
+      hasMessage: "collection-delete"
+    }))
+  }
 
   const observerEventAddItems = () => {
     if (itemsLoading || itemsData.items.length === itemsData.count) {

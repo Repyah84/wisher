@@ -31,6 +31,12 @@
     color: white;
   }
 
+  &--default#{&}-color--warn {
+    background-color: var(--extensions-wisher-warn);
+
+    color: white;
+  }
+
   &--icon {
     padding: 7px;
 

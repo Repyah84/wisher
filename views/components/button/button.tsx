@@ -3,7 +3,7 @@ import { useRef, type ReactNode } from "react"
 import { Ripple } from "../ripple/ripple"
 
 export type BtnType = "icon" | "default" | "stroke"
-export type BtnColor = "primary" | "default"
+export type BtnColor = "primary" | "default" | "warn"
 export type BtnSize = "sm" | "md"
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {

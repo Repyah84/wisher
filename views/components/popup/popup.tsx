@@ -5,7 +5,7 @@ import { useMount } from "~views/hooks/mount"
 import { Button } from "../button/button"
 
 interface Props {
-  title: string
+  title?: string
   children: ReactNode
   hasPopup: boolean
   onCloseClick: () => void
@@ -26,13 +26,15 @@ export const Popup = ({ title, children, hasPopup, onCloseClick }: Props) => {
         <div
           is-layout={hasPopup.toString()}
           className="extensions-wisher-popup__layout">
-          <div className="extensions-wisher-popup__header">
-            <span>{title}</span>
+          {title && (
+            <div className="extensions-wisher-popup__header">
+              <span>{title}</span>
 
-            <Button btnType="stroke" onClickFn={onCloseClick}>
-              <span>Close</span>
-            </Button>
-          </div>
+              <Button btnType="stroke" onClickFn={onCloseClick}>
+                <span>Close</span>
+              </Button>
+            </div>
+          )}
 
           {children}
         </div>

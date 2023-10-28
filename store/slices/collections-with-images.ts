@@ -38,7 +38,7 @@ const collectionWithImagesSlice = createSlice({
 
       state.data[itemIndex] = payload
     },
-    updateCollectionNameState: (
+    updateCollectionWithImagesName: (
       state,
       { payload }: PayloadAction<UpdateCollectionName>
     ) => {
@@ -51,6 +51,11 @@ const collectionWithImagesSlice = createSlice({
       }
 
       state.data[itemIndex].title = payload.newCollection
+    },
+    deleteCollectionWithImages: (state, { payload }: PayloadAction<string>) => {
+      const newData = state.data.filter(({ title }) => title !== payload)
+
+      state.data = newData
     }
   },
   extraReducers: (builder) => {
@@ -60,7 +65,10 @@ const collectionWithImagesSlice = createSlice({
   }
 })
 
-export const { setCollectionWithImages, updateCollectionNameState } =
-  collectionWithImagesSlice.actions
+export const {
+  setCollectionWithImages,
+  updateCollectionWithImagesName,
+  deleteCollectionWithImages
+} = collectionWithImagesSlice.actions
 
 export default collectionWithImagesSlice.reducer

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import { Storage } from "@plasmohq/storage"
 
 import { collectionUpdate } from "~gql/schema/input-collection"
-import { updateCollectionNameState } from "~store/slices/collections-with-images"
+import { updateCollectionWithImagesName } from "~store/slices/collections-with-images"
 
 import type { StoreJWT } from "./signin"
 
@@ -38,7 +38,9 @@ export const useCollectionUpdate = () => {
       },
       onCompleted: ({ renameCollection: { status } }) => {
         if (status) {
-          dispatch(updateCollectionNameState({ oldCollection, newCollection }))
+          dispatch(
+            updateCollectionWithImagesName({ oldCollection, newCollection })
+          )
         }
       }
     })

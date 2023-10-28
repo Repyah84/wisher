@@ -19,7 +19,7 @@
   }
 
   &__error {
-    color: hsla(0, 100%, 60%, 1);
+    color: var(--extensions-wisher-warn);
   }
 
   &__label {
