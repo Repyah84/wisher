@@ -1,0 +1,25 @@
+.extensions-wisher-label {
+  display: inline-flex;
+
+  padding: 4px 12px;
+
+  color: var(--extensions-mode-text);
+
+  border-radius: 15px;
+
+  font-size: 12px;
+
+  &--default {
+    box-shadow: 0 0 0 2px inset hsla(0, 0%, 62%, 1);
+  }
+
+  &--active {
+    box-shadow: 0 0 0 2px inset hsla(265, 100%, 47%, 0.38);
+  }
+
+  &--primary {
+    background-color: var(--extensions-wisher-primary);
+
+    color: white;
+  }
+}

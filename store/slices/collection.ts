@@ -45,6 +45,20 @@ const collectionSlice = createSlice({
       state.data.count--
       state.data.items.splice(itemIndex, 1)
     },
+    updateCollectionItemPurchaseState: (
+      state,
+      {
+        payload: { itemsId, isPurchased }
+      }: PayloadAction<{ itemsId: string; isPurchased: boolean }>
+    ) => {
+      const itemIndex = state.data.items.findIndex(({ id }) => id === itemsId)
+
+      if (itemIndex === -1) {
+        return
+      }
+
+      state.data.items[itemIndex].isPurchased = isPurchased
+    },
     resetCollection: (state) => {
       state.data = initialState.data
     }
@@ -56,7 +70,11 @@ const collectionSlice = createSlice({
   }
 })
 
-export const { setCollection, resetCollection, deleteItemFromCollection } =
-  collectionSlice.actions
+export const {
+  setCollection,
+  resetCollection,
+  deleteItemFromCollection,
+  updateCollectionItemPurchaseState
+} = collectionSlice.actions
 
 export default collectionSlice.reducer

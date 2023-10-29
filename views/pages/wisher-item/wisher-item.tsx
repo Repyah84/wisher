@@ -11,6 +11,7 @@ import { WishDate } from "~views/components/date/date"
 import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
 import { OptionsSvgIcon } from "~views/components/icons/options/options"
 import { ShareSvgIcon } from "~views/components/icons/share/share"
+import { Loader } from "~views/components/loader/loader"
 import { Rating } from "~views/components/rating/rating"
 import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
@@ -22,10 +23,17 @@ export const WisherItemPage = () => {
 
   const { navigate, navigateWithRedirect } = useNavigateWithRedirect()
 
+  const loading = useSelector(
+    ({
+      loading: {
+        data: { value }
+      }
+    }: RootState) => value
+  )
+
   const { setWisherState } = useContext(WisherStateContext)
 
   const items = useSelector(({ items: { data } }: RootState) => data.items)
-
   const {
     imageUrl,
     currency,
@@ -46,6 +54,10 @@ export const WisherItemPage = () => {
   )
 
   const onSettingClick = () => {
+    if (loading) {
+      return
+    }
+
     setWisherState((wisher) => ({ ...wisher, hasMessage: "item-setting" }))
   }
 
@@ -68,7 +80,13 @@ export const WisherItemPage = () => {
             </Button>
 
             <Button size="md" btnType="icon" onClickFn={onSettingClick}>
-              <OptionsSvgIcon />
+              {loading ? (
+                <div className="extension-wisher-item__loader">
+                  <Loader size={5} isLoading={true} />
+                </div>
+              ) : (
+                <OptionsSvgIcon />
+              )}
             </Button>
           </div>
 

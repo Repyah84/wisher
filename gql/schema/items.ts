@@ -28,6 +28,7 @@ export const items = graphql(`
         currency
         createdAt
         collections
+        isPurchased
       }
     }
   }

@@ -8,6 +8,7 @@ export const itemInput = graphql(`
       createdAt
       updatedAt
       title
+      isPurchased
     }
   }
 `)

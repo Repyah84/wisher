@@ -5,6 +5,7 @@ import emptyImage from "data-base64:~assets/garage.png"
 import type { Item } from "~gql/types/graphql"
 
 import { WishDate } from "../date/date"
+import { Label } from "../label/label"
 import { Rating } from "../rating/rating"
 
 interface Props {
@@ -20,7 +21,8 @@ export const Wisher = ({
     faviconUrl,
     marketplace,
     createdAt,
-    personalRating
+    personalRating,
+    isPurchased
   }
 }: Props) => {
   const priceValue = `${getSymbolFromCurrency(currency)}${price}`
@@ -54,9 +56,17 @@ export const Wisher = ({
       />
 
       <div className="extensions-wisher-item__info">
-        <span className="extensions-wisher-item__description">{title}</span>
+        <span
+          is-purchased={isPurchased?.toString()}
+          className="extensions-wisher-item__description">
+          {title}
+        </span>
 
-        <span className="extensions-wisher-item__price">{priceValue}</span>
+        {isPurchased ? (
+          <Label labelType="primary" title="Purchased"></Label>
+        ) : (
+          <span className="extensions-wisher-item__price">{priceValue}</span>
+        )}
 
         <Rating itemWidth={20} rating={personalRating} />
       </div>

@@ -1,13 +1,29 @@
-import { useContext } from "react"
+import { useContext, useMemo } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 
+import { useItemMutate } from "~gql/hooks/item.mutate"
+import { updateCollectionItemPurchaseState } from "~store/slices/collection"
+import { updateItemPurchaseState } from "~store/slices/items"
+import { toggleLoadingState } from "~store/slices/loading"
+import type { RootState } from "~store/wisher.store"
 import { SettingsItem } from "~views/components/settings-item/settings-item"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
 export const ItemSetting = () => {
   const { itemId } = useParams()
 
+  const dispatch = useDispatch()
+
   const navigate = useNavigate()
+
+  const { addItem } = useItemMutate()
+
+  const items = useSelector(({ items: { data } }: RootState) => data.items)
+
+  const item = useMemo(() => {
+    return items.find(({ id }) => id === itemId)
+  }, [items])
 
   const { setWisherState } = useContext(WisherStateContext)
 
@@ -24,7 +40,21 @@ export const ItemSetting = () => {
     }))
   }
 
-  const onMarlClick = () => {}
+  const onMarlClick = () => {
+    dispatch(toggleLoadingState(true))
+
+    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+
+    const isPurchased = !item.isPurchased
+
+    addItem({ input: { id: itemId, isPurchased } }).then(() => {
+      const updateData = { itemsId: itemId, isPurchased }
+
+      dispatch(updateItemPurchaseState(updateData))
+      dispatch(updateCollectionItemPurchaseState(updateData))
+      dispatch(toggleLoadingState(false))
+    })
+  }
 
   return (
     <div className="extension-wisher-item-setting">
@@ -37,7 +67,7 @@ export const ItemSetting = () => {
       </SettingsItem>
 
       <SettingsItem onClickFn={onMarlClick}>
-        <span>Mark as purchased</span>
+        <span>Mark as {item?.isPurchased ? "not purchased" : "purchased"}</span>
       </SettingsItem>
     </div>
   )

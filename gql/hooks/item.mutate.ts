@@ -1,9 +1,11 @@
 import { useMutation, type FetchResult } from "@apollo/client"
+import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
 import { itemInput } from "~gql/schema/input-item"
 import type { ItemInput, ItemMutation } from "~gql/types/graphql"
+import { toggleLoadingState } from "~store/slices/loading"
 
 import type { StoreJWT } from "./signin"
 
@@ -14,6 +16,8 @@ export interface ItemAddInputData {
 
 export const useItemMutate = () => {
   const storage = new Storage({ area: "local" })
+
+  const dispatch = useDispatch()
 
   const [mutate, { data, error, loading }] = useMutation(itemInput)
 
@@ -28,6 +32,9 @@ export const useItemMutate = () => {
         headers: {
           Authorization: `Bearer ${token}`
         }
+      },
+      onError: () => {
+        dispatch(toggleLoadingState(false))
       }
     })
   }

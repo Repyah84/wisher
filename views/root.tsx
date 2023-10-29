@@ -1,12 +1,10 @@
 import { useContext } from "react"
 import { useDispatch } from "react-redux"
-import { Outlet, useNavigate, useParams } from "react-router-dom"
+import { Outlet, useParams } from "react-router-dom"
 
 import { useItemDelete } from "~gql/hooks/item-delete.mutate"
-import {
-  deleteItemFromCollection,
-  resetCollection
-} from "~store/slices/collection"
+import { useItemMutate } from "~gql/hooks/item.mutate"
+import { deleteItemFromCollection } from "~store/slices/collection"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
 import { deleteItem } from "~store/slices/items"
 import { Popup } from "~views/components/popup/popup"

@@ -82,6 +82,15 @@
     }
   }
 
+  &__loader {
+    width: 24px;
+    height: 24px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &__pudding-wrap {
     padding: 24px 16px;
 
