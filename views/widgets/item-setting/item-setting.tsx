@@ -17,7 +17,12 @@ export const ItemSetting = () => {
     navigate(`/wisher-item-edit/${itemId}`)
   }
 
-  const onDeleteClick = () => {}
+  const onDeleteClick = () => {
+    setWisherState((wisher) => ({
+      ...wisher,
+      hasMessage: "wisher-item-delete"
+    }))
+  }
 
   const onMarlClick = () => {}
 

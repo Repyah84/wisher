@@ -125,6 +125,8 @@ export const WisherPage = () => {
         hasPopup={hasMessage === "collection-delete"}
         onCloseClick={onPopupClose}>
         <Dialog
+          title="Delete the collection ?"
+          description="You won’t be able to restore the collection"
           loading={loading}
           onAcceptClick={onAcceptDeleteCollection}
           onCancelClick={onPopupClose}

@@ -14,7 +14,7 @@ import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
 import { OptionsSvgIcon } from "~views/components/icons/options/options"
-import { InteractObserver } from "~views/components/interact-observer/interact-observer"
+import { InfiniteScroll } from "~views/components/infinite-scroll/infinite-scroll"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
 import { SettingsItem } from "~views/components/settings-item/settings-item"
@@ -204,11 +204,11 @@ export const CollectionPage = () => {
         {collectionItems.items.length === 0 ? (
           <WisherCollectionEmpty />
         ) : (
-          <InteractObserver
+          <InfiniteScroll
             loading={collectionItemsLoading}
             observerEventFn={observerEventCollectionItems}>
             <Wishes wishes={collectionItems.items} />
-          </InteractObserver>
+          </InfiniteScroll>
         )}
       </div>
 
@@ -220,7 +220,7 @@ export const CollectionPage = () => {
           Select wishes you want to add to this collection
         </p>
 
-        <InteractObserver
+        <InfiniteScroll
           height="400px"
           repeatWhen={repeatWhen}
           observerEventFn={observerEventAddItems}>
@@ -234,7 +234,7 @@ export const CollectionPage = () => {
               />
             ))}
           </div>
-        </InteractObserver>
+        </InfiniteScroll>
 
         <div className="extensions-wisher-collection-page__action">
           <Button

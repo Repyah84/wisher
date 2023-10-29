@@ -2,21 +2,25 @@ import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
 
 interface Props {
+  title: string
+  description: string
   loading: boolean
   onAcceptClick: () => void
   onCancelClick: () => void
 }
 
-export const Dialog = ({ loading, onAcceptClick, onCancelClick }: Props) => {
+export const Dialog = ({
+  title,
+  description,
+  loading,
+  onAcceptClick,
+  onCancelClick
+}: Props) => {
   return (
     <div className="extensions-wisher-dialog">
-      <h3 className="extensions-wisher-dialog__title">
-        Delete the collection ?
-      </h3>
+      <h3 className="extensions-wisher-dialog__title">{title}</h3>
 
-      <p className="extensions-wisher-dialog__description">
-        You won’t be able to restore the collection
-      </p>
+      <p className="extensions-wisher-dialog__description">{description}</p>
 
       <div className="extensions-wisher-dialog__action">
         <Button size="md" btnColor="default" onClickFn={onCancelClick}>

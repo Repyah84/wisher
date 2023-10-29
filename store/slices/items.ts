@@ -32,6 +32,16 @@ export const itemsState = createSlice({
     },
     resetItems: (state) => {
       state.data = initialState.data
+    },
+    deleteItem: (state, { payload }: PayloadAction<string>) => {
+      const itemIndex = state.data.items.findIndex(({ id }) => id === payload)
+
+      if (itemIndex === -1) {
+        return
+      }
+
+      state.data.count--
+      state.data.items.splice(itemIndex, 1)
     }
   },
   extraReducers: (builder) => {
@@ -41,6 +51,6 @@ export const itemsState = createSlice({
   }
 })
 
-export const { setItems, resetItems } = itemsState.actions
+export const { setItems, resetItems, deleteItem } = itemsState.actions
 
 export default itemsState.reducer

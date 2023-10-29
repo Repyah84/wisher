@@ -12,7 +12,7 @@ interface Props {
   height?: string
 }
 
-export const InteractObserver = ({
+export const InfiniteScroll = ({
   children,
   observerEventFn,
   loading = false,
@@ -39,18 +39,18 @@ export const InteractObserver = ({
         height: height
       }}
       ref={rootRef}
-      className="extension-extension-interact-observer">
-      <div className="extension-extension-interact-observer__content">
+      className="extension-extension-infinite-scroll">
+      <div className="extension-extension-infinite-scroll__content">
         {children}
 
-        <div className="extension-extension-interact-observer__loader">
+        <div className="extension-extension-infinite-scroll__loader">
           <Loader size={6} isLoading={loading} />
         </div>
       </div>
 
       <div
         ref={ref}
-        className="extension-extension-interact-observer__observer"></div>
+        className="extension-extension-infinite-scroll__observer"></div>
     </div>
   )
 }

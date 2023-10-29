@@ -1,9 +1,9 @@
 import getSymbolFromCurrency from "currency-symbol-map"
 import circleSvg from "data-base64:~assets/circle.svg"
 import noteSvg from "data-base64:~assets/note.svg"
-import { useContext } from "react"
+import { useContext, useMemo } from "react"
 import { useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
@@ -24,21 +24,26 @@ export const WisherItemPage = () => {
 
   const { setWisherState } = useContext(WisherStateContext)
 
+  const items = useSelector(({ items: { data } }: RootState) => data.items)
+
   const {
     imageUrl,
-    price,
     currency,
     note,
     title,
     personalRating,
     createdAt,
     faviconUrl,
-    marketplace
-  } = useSelector(({ items: { data } }: RootState) =>
-    data.items.find(({ id }) => itemId === id)
-  )
+    marketplace,
+    price
+  } = useMemo(() => {
+    return items.find(({ id }) => itemId === id)
+  }, [itemId])
 
-  const priceValue = `${getSymbolFromCurrency(currency)}${price}`
+  const priceValue = useMemo(
+    () => `${getSymbolFromCurrency(currency)}${price}`,
+    [price, currency]
+  )
 
   const onSettingClick = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: "item-setting" }))

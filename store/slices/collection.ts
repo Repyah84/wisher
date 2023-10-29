@@ -35,6 +35,16 @@ const collectionSlice = createSlice({
         name: payload.name
       }
     },
+    deleteItemFromCollection: (state, { payload }: PayloadAction<string>) => {
+      const itemIndex = state.data.items.findIndex(({ id }) => id === payload)
+
+      if (itemIndex === -1) {
+        return
+      }
+
+      state.data.count--
+      state.data.items.splice(itemIndex, 1)
+    },
     resetCollection: (state) => {
       state.data = initialState.data
     }
@@ -46,6 +56,7 @@ const collectionSlice = createSlice({
   }
 })
 
-export const { setCollection, resetCollection } = collectionSlice.actions
+export const { setCollection, resetCollection, deleteItemFromCollection } =
+  collectionSlice.actions
 
 export default collectionSlice.reducer
