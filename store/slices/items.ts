@@ -47,6 +47,20 @@ export const itemsState = createSlice({
 
       state.data.items[itemIndex].isPurchased = isPurchased
     },
+    updateItemsCollectionState: (
+      state,
+      {
+        payload: { itemId, collections }
+      }: PayloadAction<{ itemId: string; collections: string[] }>
+    ) => {
+      const itemsIndex = state.data.items.findIndex(({ id }) => id === itemId)
+
+      if (itemsIndex === -1) {
+        return
+      }
+
+      state.data.items[itemsIndex].collections = collections
+    },
     deleteItem: (state, { payload }: PayloadAction<string>) => {
       const itemIndex = state.data.items.findIndex(({ id }) => id === payload)
 
@@ -65,7 +79,12 @@ export const itemsState = createSlice({
   }
 })
 
-export const { setItems, resetItems, deleteItem, updateItemPurchaseState } =
-  itemsState.actions
+export const {
+  setItems,
+  resetItems,
+  deleteItem,
+  updateItemPurchaseState,
+  updateItemsCollectionState
+} = itemsState.actions
 
 export default itemsState.reducer

@@ -33,11 +33,13 @@ export const AddWisherPage = () => {
       return
     }
 
-    addItem({ input: data.input, image: data.imageUpload }).then(() => {
-      getItems().then(() => {
+    addItem({ input: data.input, image: data.imageUpload })
+      .then(() => {
+        return getItems(10, true)
+      })
+      .then(() => {
         navigate("/wisher/wishes/wishes-all")
       })
-    })
   }
 
   const onEditClick = () => {

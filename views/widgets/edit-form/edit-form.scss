@@ -40,6 +40,12 @@
     }
   }
 
+  &__collections {
+    max-width: calc(var(--extensions-wisher-width) - 16px * 2 - 3px);
+
+    overflow: hidden;
+  }
+
   &__fields {
     padding: 16px 16px 0 16px;
 

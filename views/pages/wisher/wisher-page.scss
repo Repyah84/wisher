@@ -5,4 +5,8 @@
 
   display: grid;
   grid-template-rows: auto 1fr auto;
+
+  &__popup {
+    padding: 0 16px;
+  }
 }

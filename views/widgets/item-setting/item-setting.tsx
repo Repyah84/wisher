@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useItemMutate } from "~gql/hooks/item.mutate"
 import { updateCollectionItemPurchaseState } from "~store/slices/collection"
 import { updateItemPurchaseState } from "~store/slices/items"
-import { toggleLoadingState } from "~store/slices/loading"
+import { toggleMarcUsPurchasedState } from "~store/slices/loading"
 import type { RootState } from "~store/wisher.store"
 import { SettingsItem } from "~views/components/settings-item/settings-item"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
@@ -41,7 +41,7 @@ export const ItemSetting = () => {
   }
 
   const onMarlClick = () => {
-    dispatch(toggleLoadingState(true))
+    dispatch(toggleMarcUsPurchasedState(true))
 
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
@@ -52,7 +52,7 @@ export const ItemSetting = () => {
 
       dispatch(updateItemPurchaseState(updateData))
       dispatch(updateCollectionItemPurchaseState(updateData))
-      dispatch(toggleLoadingState(false))
+      dispatch(toggleMarcUsPurchasedState(false))
     })
   }
 

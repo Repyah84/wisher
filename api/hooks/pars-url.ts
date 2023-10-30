@@ -2,8 +2,11 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { ParserUrlService } from "~api/parser-url/parser-url.service"
-import { resetWisher } from "~store/actions/reset-wisher"
-import { setWisher, type WisherSearchData } from "~store/slices/wisher"
+import {
+  resetWisher,
+  setWisher,
+  type WisherSearchData
+} from "~store/slices/wisher"
 import type { RootState } from "~store/wisher.store"
 
 interface ParsUrlInputData {

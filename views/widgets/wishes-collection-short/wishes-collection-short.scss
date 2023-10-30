@@ -1,0 +1,35 @@
+.extensions-wisher-collection-wisher-short {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+
+  color: var(--extensions-wisher-primary);
+
+  &__images {
+    width: calc(32 * 3 - 12 * 2);
+  }
+
+  &__image {
+    object-fit: contain;
+
+    border-radius: 5px;
+
+    &:not(:first-child) {
+      margin-left: -12px;
+    }
+  }
+
+  &__name {
+    max-width: 250px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    color: hsla(0, 0%, 0%, 1);
+
+    font-size: 14px;
+
+    margin-right: auto;
+  }
+}

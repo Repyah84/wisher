@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux"
 import { Outlet, useParams } from "react-router-dom"
 
 import { useItemDelete } from "~gql/hooks/item-delete.mutate"
-import { useItemMutate } from "~gql/hooks/item.mutate"
 import { deleteItemFromCollection } from "~store/slices/collection"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
 import { deleteItem } from "~store/slices/items"
@@ -16,18 +15,18 @@ import { useNavigateWithRedirect } from "./hooks/navigate-with-redirect"
 import { Dialog } from "./widgets/dialog/dialog"
 
 export const Root = () => {
-  const { navigateWithRedirect } = useNavigateWithRedirect()
-
   const { itemId } = useParams()
-
-  const { loading, deleteWisher } = useItemDelete()
-
-  const dispatch = useDispatch()
 
   const {
     wisherSate: { hasMessage, isShow },
     setWisherState
   } = useContext(WisherStateContext)
+
+  const { loading, deleteWisher } = useItemDelete()
+
+  const dispatch = useDispatch()
+
+  const { navigateWithRedirect } = useNavigateWithRedirect()
 
   const onPopupClose = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))

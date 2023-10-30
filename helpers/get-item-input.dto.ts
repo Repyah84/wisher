@@ -10,7 +10,8 @@ export const InputItemDTO = (value: Item): ItemInput => {
     personalRating: value.personalRating ?? 0,
     price: value.price ?? 0,
     title: value.title ?? "",
-    url: value.url ?? null
+    url: value.url ?? null,
+    collections: value.collections ?? []
   }
 
   return obg

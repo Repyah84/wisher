@@ -1,0 +1,53 @@
+.extensions-wisher-collection-settings-select {
+  overflow: auto;
+
+  display: grid;
+
+  height: 270px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--extensions-mode-color-grey);
+
+    border-radius: 3px;
+  }
+
+  &__loader {
+    grid-area: 1/1 / 2/2;
+
+    margin: 0 auto;
+
+    padding: 20px;
+  }
+
+  &__items {
+    grid-area: 1/1 / 2/2;
+
+    display: grid;
+
+    &[is-hide="true"] {
+      opacity: 0;
+    }
+  }
+
+  &__item {
+    padding: 8px 16px;
+
+    height: 48px;
+
+    transition: background-color 150ms;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--extensions-wisher-primary-light);
+    }
+  }
+}

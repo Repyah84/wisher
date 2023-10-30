@@ -6,7 +6,7 @@
 
   display: flex;
 
-  width: 428px;
+  width: var(--extensions-wisher-width);
   height: var(--extensions-wisher-height);
 
   border-radius: var(--extensions-mode-border-radius);

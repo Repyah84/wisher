@@ -1,17 +1,18 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
-import type { Item } from "~gql/types/graphql"
-import { logout } from "~store/actions/logout"
+import { errorResponse } from "~store/actions/error"
 
 export interface LoadingStateDate {
   data: {
-    value: boolean
+    marcUsPurchased: boolean
+    updateItemCollection: boolean
   }
 }
 
 const initialState: LoadingStateDate = {
   data: {
-    value: false
+    marcUsPurchased: false,
+    updateItemCollection: false
   }
 }
 
@@ -19,17 +20,27 @@ const loadingSlice = createSlice({
   name: "loading",
   initialState,
   reducers: {
-    toggleLoadingState: (state, { payload }: PayloadAction<boolean>) => {
-      state.data.value = payload
+    toggleMarcUsPurchasedState: (
+      state,
+      { payload }: PayloadAction<boolean>
+    ) => {
+      state.data.marcUsPurchased = payload
+    },
+    toggleUpdateItemCollection: (
+      state,
+      { payload }: PayloadAction<boolean>
+    ) => {
+      state.data.updateItemCollection = payload
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(logout, () => {
+    builder.addCase(errorResponse, () => {
       return initialState
     })
   }
 })
 
-export const { toggleLoadingState } = loadingSlice.actions
+export const { toggleMarcUsPurchasedState, toggleUpdateItemCollection } =
+  loadingSlice.actions
 
 export default loadingSlice.reducer

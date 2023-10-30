@@ -35,7 +35,7 @@
 
     margin-top: auto;
 
-    padding: 16px;
+    padding: 16px 0;
 
     display: grid;
 
@@ -54,6 +54,8 @@
   }
 
   &__header {
+    padding: 0 16px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;

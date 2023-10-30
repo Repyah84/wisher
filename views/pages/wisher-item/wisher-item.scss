@@ -99,6 +99,12 @@
     row-gap: 24px;
   }
 
+  &__collections {
+    max-width: calc(var(--extensions-wisher-width) - 16px * 2 - 3px);
+
+    overflow: hidden;
+  }
+
   &__title {
     margin: 0;
 

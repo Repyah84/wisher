@@ -1,5 +1,12 @@
 .extensions-wisher-label {
+  position: relative;
+
   display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  text-wrap: nowrap;
 
   padding: 4px 12px;
 
@@ -8,6 +15,8 @@
   border-radius: 15px;
 
   font-size: 12px;
+
+  cursor: pointer;
 
   &--default {
     box-shadow: 0 0 0 2px inset hsla(0, 0%, 62%, 1);
@@ -21,5 +30,22 @@
     background-color: var(--extensions-wisher-primary);
 
     color: white;
+  }
+
+  &__loader {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+
+    .extensions-wisher-loader {
+      --extensions-wisher-loader-color: currentColor;
+    }
+  }
+
+  &__title {
+    &[is-hide="true"] {
+      opacity: 0;
+    }
   }
 }

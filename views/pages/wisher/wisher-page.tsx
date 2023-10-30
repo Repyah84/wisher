@@ -33,8 +33,9 @@ export const WisherPage = () => {
   const { loading, addCollection } = useCollectionsMutate()
 
   const user = useSelector(({ user: { data } }: RootState) => data)
-  const collections = useSelector(
-    ({ user: { data } }: RootState) => data.collections
+
+  const collections: string[] | undefined = useSelector(
+    ({ user: { data } }: RootState) => data?.collections
   )
 
   const onMessageClosed = () => {
@@ -46,7 +47,7 @@ export const WisherPage = () => {
   }
 
   const onCreateCollectionClick = (collection: string) => {
-    if (loading) {
+    if (loading || collections === undefined) {
       return
     }
 
@@ -68,7 +69,7 @@ export const WisherPage = () => {
   }
 
   const onAcceptDeleteCollection = () => {
-    if (loading) {
+    if (loading || collections === undefined) {
       return
     }
 
@@ -99,26 +100,28 @@ export const WisherPage = () => {
         title="Create the collection"
         hasPopup={hasMessage === "create-collection"}
         onCloseClick={onPopupClose}>
-        <Help
-          hasMessage={isCreateCollectionHelp}
-          hasBtnClose={true}
-          onMessageClosed={onMessageClosed}>
-          Keep your gifts and wishes organized with various collections. Here
-          are some collection ideas for you to get started: <br />
-          Birthday <br />
-          Wedding registry <br />
-          My Little Black Dress <br />
-          My top sneakers <br />
-          For parents <br />
-          Tip: don’t forget to share your collections with friends and family!
-        </Help>
+        <div className="extensions-wisher-page__popup">
+          <Help
+            hasMessage={isCreateCollectionHelp}
+            hasBtnClose={true}
+            onMessageClosed={onMessageClosed}>
+            Keep your gifts and wishes organized with various collections. Here
+            are some collection ideas for you to get started: <br />
+            Birthday <br />
+            Wedding registry <br />
+            My Little Black Dress <br />
+            My top sneakers <br />
+            For parents <br />
+            Tip: don’t forget to share your collections with friends and family!
+          </Help>
 
-        <AddForm
-          btnTitle="create"
-          collections={user?.collections}
-          loading={loading}
-          onSubmitFn={onCreateCollectionClick}
-        />
+          <AddForm
+            btnTitle="create"
+            collections={user?.collections}
+            loading={loading}
+            onSubmitFn={onCreateCollectionClick}
+          />
+        </div>
       </Popup>
 
       <Popup

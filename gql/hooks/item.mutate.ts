@@ -5,7 +5,7 @@ import { Storage } from "@plasmohq/storage"
 
 import { itemInput } from "~gql/schema/input-item"
 import type { ItemInput, ItemMutation } from "~gql/types/graphql"
-import { toggleLoadingState } from "~store/slices/loading"
+import { errorResponse } from "~store/actions/error"
 
 import type { StoreJWT } from "./signin"
 
@@ -34,7 +34,7 @@ export const useItemMutate = () => {
         }
       },
       onError: () => {
-        dispatch(toggleLoadingState(false))
+        dispatch(errorResponse)
       }
     })
   }

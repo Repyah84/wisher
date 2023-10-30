@@ -9,6 +9,7 @@ export type WisherMessage =
   | "collection-update-name"
   | "collection-delete"
   | "wisher-item-delete"
+  | "collection-list-short"
   | null
 
 interface Props {

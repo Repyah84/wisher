@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
 import type { ItemInput } from "~gql/types/graphql"
-import { resetWisher } from "~store/actions/reset-wisher"
+import { logout } from "~store/actions/logout"
 
 export interface WisherSearchData {
   images: string[] | null
@@ -22,15 +22,18 @@ export const wisherSlice = createSlice({
   reducers: {
     setWisher(store, { payload }: PayloadAction<WisherSearchData>) {
       store.data = payload
+    },
+    resetWisher: (state) => {
+      state.data = null
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(resetWisher, () => {
+    builder.addCase(logout, () => {
       return initialState
     })
   }
 })
 
-export const { setWisher } = wisherSlice.actions
+export const { setWisher, resetWisher } = wisherSlice.actions
 
 export default wisherSlice.reducer

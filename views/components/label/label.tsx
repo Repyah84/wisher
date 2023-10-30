@@ -1,13 +1,31 @@
+import { Loader } from "../loader/loader"
+
 interface Props {
+  loading?: boolean
   title: string
   labelType?: "default" | "active" | "primary"
+  onLabelClick?: () => void
 }
 
-export const Label = ({ title, labelType = "default" }: Props) => {
+export const Label = ({
+  title,
+  labelType = "default",
+  onLabelClick,
+  loading = false
+}: Props) => {
   return (
     <div
+      onClick={onLabelClick}
       className={`extensions-wisher-label extensions-wisher-label--${labelType}`}>
-      <span>{title}</span>
+      <div className="extensions-wisher-label__loader">
+        <Loader size={4} isLoading={loading} />
+      </div>
+
+      <span
+        is-hide={loading.toString()}
+        className="extensions-wisher-label__title">
+        {title}
+      </span>
     </div>
   )
 }

@@ -1,0 +1,21 @@
+.extensions-wisher-item-collections {
+  overflow: auto;
+
+  display: flex;
+
+  column-gap: 8px;
+
+  &::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--extensions-mode-color-grey);
+
+    border-radius: 3px;
+  }
+}

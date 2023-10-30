@@ -270,12 +270,14 @@ export const CollectionPage = () => {
         title="Rename the collection"
         hasPopup={hasMessage === "collection-update-name"}
         onCloseClick={onPopupClose}>
-        <AddForm
-          btnTitle="rename"
-          loading={updateCollectionLoading}
-          collections={collections}
-          onSubmitFn={onUpdateCollectionName}
-        />
+        <div className="extensions-wisher-collection-page__form">
+          <AddForm
+            btnTitle="rename"
+            loading={updateCollectionLoading}
+            collections={collections}
+            onSubmitFn={onUpdateCollectionName}
+          />
+        </div>
       </Popup>
     </>
   )
