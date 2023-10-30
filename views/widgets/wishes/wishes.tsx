@@ -1,5 +1,3 @@
-import { memo } from "react"
-
 import type { Item } from "~gql/types/graphql"
 
 import { WisherItem } from "../wisher-item/wisher-item"

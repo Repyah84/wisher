@@ -15,13 +15,13 @@ export const OverLay = () => {
     setWisherSate((wisher) => ({ ...wisher, isShow: false }))
   }
 
-  return state ? (
-    <div
-      is-overlay={isShow.toString()}
-      className="extensions-wisher-overlay"
-      onAnimationEnd={animationEnd}
-      onClick={onOverLayClick}></div>
-  ) : (
-    <></>
+  return (
+    state && (
+      <div
+        is-overlay={isShow.toString()}
+        className="extensions-wisher-overlay"
+        onAnimationEnd={animationEnd}
+        onClick={onOverLayClick}></div>
+    )
   )
 }

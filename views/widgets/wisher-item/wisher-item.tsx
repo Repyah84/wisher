@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom"
-
 import type { Item } from "~gql/types/graphql"
 import { Wisher } from "~views/components/wisher/wisher"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"

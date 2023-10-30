@@ -23,37 +23,35 @@ export const Help = ({
     setIsMessage(false)
   }
 
-  return hasMessage ? (
-    <div
-      is-message={isMessage.toString()}
-      onAnimationEnd={onMessageClosed}
-      className="extensions-wisher-help">
+  return (
+    hasMessage && (
       <div
-        is-btn-close={hasBtnClose.toString()}
         is-message={isMessage.toString()}
-        className="extensions-wisher-help__content">
-        {hasBtnClose ? (
-          <div className="extensions-wisher-help__btn-close">
-            <Button btnType="icon" onClickFn={onBntClick}>
-              <CrossCircleSvgIcon />
-            </Button>
-          </div>
-        ) : (
-          <></>
-        )}
+        onAnimationEnd={onMessageClosed}
+        className="extensions-wisher-help">
+        <div
+          is-btn-close={hasBtnClose.toString()}
+          is-message={isMessage.toString()}
+          className="extensions-wisher-help__content">
+          {hasBtnClose && (
+            <div className="extensions-wisher-help__btn-close">
+              <Button btnType="icon" onClickFn={onBntClick}>
+                <CrossCircleSvgIcon />
+              </Button>
+            </div>
+          )}
 
-        <img
-          className="extensions-wisher-help__icon"
-          width={24}
-          height={24}
-          src={svgIcon}
-          alt="Poll"
-        />
+          <img
+            className="extensions-wisher-help__icon"
+            width={24}
+            height={24}
+            src={svgIcon}
+            alt="Poll"
+          />
 
-        {children}
+          {children}
+        </div>
       </div>
-    </div>
-  ) : (
-    <></>
+    )
   )
 }

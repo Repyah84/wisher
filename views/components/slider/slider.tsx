@@ -39,12 +39,10 @@ export const Slider = ({ images }: Props) => {
 
   return (
     <div className="extensions-wisher-slider">
-      {isSlider ? (
+      {isSlider && (
         <Button btnType="icon" onClickFn={onPref}>
           <ArrowLeftSvgIcon width={32} />
         </Button>
-      ) : (
-        <></>
       )}
 
       <img
@@ -57,15 +55,13 @@ export const Slider = ({ images }: Props) => {
         alt="Item image"
       />
 
-      {isSlider ? (
+      {isSlider && (
         <Button btnType="icon" onClickFn={onNext}>
           <ArrowRightSvgIcon width={32} />
         </Button>
-      ) : (
-        <></>
       )}
 
-      {isSlider ? (
+      {isSlider && (
         <div className="extensions-wisher-slider__points">
           {images.map((_item, index) => (
             <div
@@ -81,8 +77,6 @@ export const Slider = ({ images }: Props) => {
               key={index}></div>
           ))}
         </div>
-      ) : (
-        <></>
       )}
     </div>
   )

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 
 import { Storage } from "@plasmohq/storage"
 
-import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
 import { useGetItemsLazy } from "~gql/hooks/items"
 import type { StoreJWT } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"

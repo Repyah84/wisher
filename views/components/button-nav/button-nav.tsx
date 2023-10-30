@@ -1,5 +1,5 @@
 import { useContext, useRef, type ReactNode } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
