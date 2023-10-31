@@ -1,7 +1,7 @@
 import searchSvgIcon from "data-base64:~assets/search.svg"
 import sortSvgIcon from "data-base64:~assets/sort.svg"
 import { useContext } from "react"
-import { useDispatch, useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 import { useGetItemsLazy } from "~gql/hooks/items"
@@ -18,8 +18,6 @@ import { Wishes } from "~views/widgets/wishes/wishes"
 
 export const AllWishesPage = () => {
   const navigate = useNavigate()
-
-  const dispatch = useDispatch()
 
   const dispatch = useDispatch()
 
