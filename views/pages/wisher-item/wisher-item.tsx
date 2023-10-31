@@ -20,6 +20,7 @@ import { Popup } from "~views/components/popup/popup"
 import { Rating } from "~views/components/rating/rating"
 import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useItemRootData } from "~views/hooks/item-root-data"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { CollectionSettingsSelect } from "~views/widgets/collection-settings-select/collection-settings-select"
 import { Header } from "~views/widgets/header/header"
@@ -41,8 +42,6 @@ export const WisherItemPage = () => {
     setWisherState
   } = useContext(WisherStateContext)
 
-  const items = useSelector(({ items: { data } }: RootState) => data.items)
-
   const {
     imageUrl,
     currency,
@@ -54,12 +53,11 @@ export const WisherItemPage = () => {
     marketplace,
     price,
     collections
-  } = useMemo(() => {
-    return items.find(({ id }) => itemId === id)
-  }, [itemId, items])
+  } = useItemRootData(itemId)
 
-  const [selectedCollections, setSelectedCollections] =
-    useState<string[]>(collections)
+  const [selectedCollections, setSelectedCollections] = useState<string[]>(
+    collections || []
+  )
 
   const priceValue = useMemo(
     () => `${getSymbolFromCurrency(currency)}${price}`,
@@ -101,7 +99,10 @@ export const WisherItemPage = () => {
       hasMessage: null
     }))
 
-    if (collections.toString() === selectedCollections.toString()) {
+    if (
+      collections !== null &&
+      collections.toString() === selectedCollections.toString()
+    ) {
       return
     }
 

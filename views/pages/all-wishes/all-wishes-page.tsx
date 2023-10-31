@@ -1,9 +1,11 @@
 import searchSvgIcon from "data-base64:~assets/search.svg"
 import sortSvgIcon from "data-base64:~assets/sort.svg"
 import { useContext } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 import { useGetItemsLazy } from "~gql/hooks/items"
+import { resetCollection } from "~store/slices/collection"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { InfiniteScroll } from "~views/components/infinite-scroll/infinite-scroll"
@@ -15,6 +17,10 @@ import { WishesEmpty } from "~views/widgets/wishes-empty/wishes-empty"
 import { Wishes } from "~views/widgets/wishes/wishes"
 
 export const AllWishesPage = () => {
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+
   const {
     wisherSate: { hasMessage },
     setWisherState
@@ -45,6 +51,8 @@ export const AllWishesPage = () => {
   const onSelectedSortParam = () => {
     onPopupClose()
 
+    dispatch(resetCollection())
+
     getItems(10, true)
   }
 
@@ -59,7 +67,7 @@ export const AllWishesPage = () => {
               <span>{allWishes.count} Items</span>
 
               <div className="extensions-wisher-all-wishes-page__tools">
-                <Button btnType="icon">
+                <Button onClickFn={() => navigate("/search")} btnType="icon">
                   <img
                     src={searchSvgIcon}
                     width={24}

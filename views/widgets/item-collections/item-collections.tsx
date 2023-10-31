@@ -20,9 +20,11 @@ export const ItemCollection = ({
         title="Add to collection"
       />
 
-      {collections.map((name) => (
-        <Label labelType="active" key={name} title={name} />
-      ))}
+      {collections &&
+        collections.length > 0 &&
+        collections.map((name) => (
+          <Label labelType="active" key={name} title={name} />
+        ))}
     </div>
   )
 }

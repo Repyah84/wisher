@@ -2,7 +2,7 @@ import { Button } from "../button/button"
 import { CrossCircleSvgIcon } from "../icons/cross-circle/cross-circle"
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  title: string
+  title?: string
   onChangeValue: (value: string) => void
   onResetValue?: () => void
   errorMessage?: string
@@ -19,13 +19,13 @@ export const Input = ({
 }: Props) => {
   return (
     <div className="extensions-wisher-input">
-      <div className="extensions-wisher-input__header">
+    {title &&   <div className="extensions-wisher-input__header">
         <span className="extensions-wisher-input__title">{title}</span>
 
         {errorMessage && (
           <span className="extensions-wisher-input__error">{errorMessage}</span>
         )}
-      </div>
+      </div>}
 
       <label className="extensions-wisher-input__label">
         <input

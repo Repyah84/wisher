@@ -45,6 +45,17 @@ const collectionSlice = createSlice({
       state.data.count--
       state.data.items.splice(itemIndex, 1)
     },
+    updateItemInCollection: (state, { payload }: PayloadAction<Item>) => {
+      const itemIndex = state.data.items.findIndex(
+        ({ id }) => id === payload.id
+      )
+
+      if (itemIndex === -1) {
+        return
+      }
+
+      state.data.items.splice(itemIndex, 1, payload)
+    },
     updateCollectionItemPurchaseState: (
       state,
       {
@@ -74,6 +85,7 @@ export const {
   setCollection,
   resetCollection,
   deleteItemFromCollection,
+  updateItemInCollection,
   updateCollectionItemPurchaseState
 } = collectionSlice.actions
 

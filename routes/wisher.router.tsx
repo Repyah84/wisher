@@ -10,6 +10,7 @@ import { HelpPage } from "~views/pages/help/help-page"
 import { InitialPage } from "~views/pages/initial/initial-page"
 import { ItemEditPage } from "~views/pages/item-edit/item-edit-page"
 import { LoginPage } from "~views/pages/login/login-page"
+import { SearchPage } from "~views/pages/search/search-page"
 import { SettingsPage } from "~views/pages/settings/settings-page"
 import { WisherItemPage } from "~views/pages/wisher-item/wisher-item"
 import { WisherPage } from "~views/pages/wisher/wisher-page"
@@ -61,6 +62,8 @@ export const WisherRoutes = () => {
         <Route path="wisher-item-edit/:itemId" element={<ItemEditPage />} />
 
         <Route path="wisher-edit" element={<EditWisherPage />} />
+
+        <Route path="search" element={<SearchPage />} />
 
         <Route path="login" element={<LoginPage />} />
 

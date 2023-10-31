@@ -1,7 +1,7 @@
 import { useMemo, type ReactNode } from "react"
 
 interface Props {
-  rating: number
+  rating?: number
   children?: ReactNode
   maxRange?: number
   itemWidth?: number
@@ -10,9 +10,9 @@ interface Props {
 
 export const Rating = ({
   maxRange = 3,
-  children,
-  rating,
+  rating = 0,
   itemWidth = 32,
+  children,
   onRatingChange
 }: Props) => {
   const ratingData = useMemo(() => {
@@ -45,14 +45,14 @@ export const Rating = ({
     <div className="extensions-wisher-rating">
       {children}
       <div className="extensions-wisher-rating__items">
-        {ratingData.map((item) => (
+        {ratingData.map((item, index) => (
           <svg
             style={{
               maxWidth: `${itemWidth}px`,
               minWidth: `${itemWidth}px`,
               cursor: `${onRatingChange === undefined ? "auto" : "pointer"}`
             }}
-            key={item}
+            key={index}
             onClick={() => onItemClick(item)}
             xmlns="http://www.w3.org/2000/svg"
             fill={item > 0 ? "#000" : "none"}
