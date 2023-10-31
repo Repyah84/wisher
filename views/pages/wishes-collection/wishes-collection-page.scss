@@ -95,4 +95,19 @@
   &__form {
     padding: 0 16px;
   }
+
+  &__loader {
+    width: 38px;
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    & .extensions-wisher-loader {
+      --extensions-wisher-loader-color: var(
+        --extensions-mode-color-grey-strong
+      );
+    }
+  }
 }

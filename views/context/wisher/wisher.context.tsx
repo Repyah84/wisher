@@ -10,6 +10,7 @@ export type WisherMessage =
   | "collection-delete"
   | "wisher-item-delete"
   | "collection-list-short"
+  | "wishes-sort"
   | null
 
 interface Props {

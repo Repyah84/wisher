@@ -20,6 +20,7 @@ import { Popup } from "~views/components/popup/popup"
 import { SettingsItem } from "~views/components/settings-item/settings-item"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { AddForm } from "~views/widgets/add-form/add-form"
+import { SortLayout } from "~views/widgets/sort-layout/sort-layout"
 import { WisherSelect } from "~views/widgets/wisher-select/wisher-select"
 import { WisherCollectionEmpty } from "~views/widgets/wishes-collection-empty/wishes-collection-empty"
 import { Wishes } from "~views/widgets/wishes/wishes"
@@ -166,6 +167,16 @@ export const CollectionPage = () => {
     getCollectionItems(collectionName, 10, false, lastItemId)
   }
 
+  const onSortIconClick = () => {
+    setWisherState((wisher) => ({ ...wisher, hasMessage: "wishes-sort" }))
+  }
+
+  const onSelectedSortParam = () => {
+    onPopupClose()
+
+    getCollectionItems(collectionName, 10, true)
+  }
+
   return (
     <>
       <div className="extensions-wisher-collection-page">
@@ -181,9 +192,15 @@ export const CollectionPage = () => {
               <img width={24} height={24} src={addSvgIcon} alt="add" />
             </Button>
 
-            <Button btnType="icon">
-              <img width={24} height={24} src={sortSvgIcon} alt="Option" />
-            </Button>
+            {collectionItemsLoading ? (
+              <div className="extensions-wisher-collection-page__loader">
+                <Loader size={5.5} isLoading={true} />
+              </div>
+            ) : (
+              <Button btnType="icon" onClickFn={onSortIconClick}>
+                <img src={sortSvgIcon} width={24} height={24} alt="Sort" />
+              </Button>
+            )}
 
             <Button onClickFn={onSettingsClick} btnType="icon">
               <OptionsSvgIcon />
@@ -204,9 +221,7 @@ export const CollectionPage = () => {
         {collectionItems.items.length === 0 ? (
           <WisherCollectionEmpty />
         ) : (
-          <InfiniteScroll
-            loading={collectionItemsLoading}
-            observerEventFn={observerEventCollectionItems}>
+          <InfiniteScroll observerEventFn={observerEventCollectionItems}>
             <Wishes wishes={collectionItems.items} />
           </InfiniteScroll>
         )}
@@ -278,6 +293,13 @@ export const CollectionPage = () => {
             onSubmitFn={onUpdateCollectionName}
           />
         </div>
+      </Popup>
+
+      <Popup
+        title="Sort by"
+        hasPopup={hasMessage === "wishes-sort"}
+        onCloseClick={onPopupClose}>
+        <SortLayout onSelectedSortParam={onSelectedSortParam} />
       </Popup>
     </>
   )

@@ -1,0 +1,13 @@
+.extensions-wisher-sort {
+  display: grid;
+
+  &__option-title {
+    font-size: 16px;
+
+    color: var(--extension-mode-text-light);
+  }
+
+  & .extensions-wisher-settings-item {
+    color: var(--extensions-wisher-primary);
+  }
+}
