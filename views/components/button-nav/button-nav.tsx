@@ -14,7 +14,9 @@ interface Props {
 
 export const ButtonNav = ({ link, children, rootLink }: Props) => {
   const hostRef = useRef(null)
+
   const location = useLocation()
+
   const { navigate } = useNavigateWithRedirect()
 
   const { setWisherState } = useContext(WisherStateContext)

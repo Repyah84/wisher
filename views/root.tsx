@@ -6,6 +6,7 @@ import { useItemDelete } from "~gql/hooks/item-delete.mutate"
 import { deleteItemFromCollection } from "~store/slices/collection"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
 import { deleteItem } from "~store/slices/items"
+import { deleteSearchItem } from "~store/slices/search"
 import { Popup } from "~views/components/popup/popup"
 import { ItemSetting } from "~views/widgets/item-setting/item-setting"
 
@@ -40,6 +41,7 @@ export const Root = () => {
     deleteWisher(itemId).then(() => {
       dispatch(deleteItem(itemId))
       dispatch(deleteItemFromCollection(itemId))
+      dispatch(deleteSearchItem(itemId))
       dispatch(resetCollectionsWithImages())
 
       onPopupClose()

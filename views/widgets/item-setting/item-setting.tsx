@@ -1,29 +1,27 @@
-import { useContext, useMemo } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
+import { useContext } from "react"
+import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
 import { updateCollectionItemPurchaseState } from "~store/slices/collection"
 import { updateItemPurchaseState } from "~store/slices/items"
 import { toggleMarcUsPurchasedState } from "~store/slices/loading"
-import type { RootState } from "~store/wisher.store"
+import { updateSearchItemPurchaseState } from "~store/slices/search"
 import { SettingsItem } from "~views/components/settings-item/settings-item"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useItemRootData } from "~views/hooks/item-root-data"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 export const ItemSetting = () => {
   const { itemId } = useParams()
 
   const dispatch = useDispatch()
 
-  const navigate = useNavigate()
+  const { navigate } = useNavigateWithRedirect()
 
   const { addItem } = useItemMutate()
 
-  const items = useSelector(({ items: { data } }: RootState) => data.items)
-
-  const item = useMemo(() => {
-    return items.find(({ id }) => id === itemId)
-  }, [items])
+  const item = useItemRootData(itemId)
 
   const { setWisherState } = useContext(WisherStateContext)
 
@@ -52,6 +50,7 @@ export const ItemSetting = () => {
 
       dispatch(updateItemPurchaseState(updateData))
       dispatch(updateCollectionItemPurchaseState(updateData))
+      dispatch(updateSearchItemPurchaseState(updateData))
       dispatch(toggleMarcUsPurchasedState(false))
     })
   }

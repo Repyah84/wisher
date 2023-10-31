@@ -7,10 +7,10 @@ interface Props {
 }
 
 export const WisherItem = ({ wish }: Props) => {
-  const { navigate } = useNavigateWithRedirect()
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const onItemClick = () => {
-    navigate(`/wisher-item/${wish.id}`)
+    navigateAndSetRedirect(`/wisher-item/${wish.id}`)
   }
 
   return (

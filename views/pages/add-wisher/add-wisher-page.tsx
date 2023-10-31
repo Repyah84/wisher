@@ -1,17 +1,17 @@
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 import { useParsUrl } from "~api/hooks/pars-url"
 import { useItemMutate } from "~gql/hooks/item.mutate"
 import { useGetItemsLazy } from "~gql/hooks/items"
 import type { RootState } from "~store/wisher.store"
-import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { ErrorLayout } from "~views/widgets/error-layout/error-layout"
 import { LoaderLayout } from "~views/widgets/loader-layout/loader-layout"
 import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-data"
 import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 
 export const AddWisherPage = () => {
-  const { navigate } = useNavigateWithRedirect()
+  const navigate = useNavigate()
 
   const user = useSelector(({ user: { data } }: RootState) => data)
 

@@ -1,64 +1,58 @@
 import { useMemo } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
-import { useGetItemsLazy } from "~gql/hooks/items"
 import { InputItemDTO } from "~helpers/get-item-input.dto"
+import { updateItemInCollection } from "~store/slices/collection"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
+import { updateItem } from "~store/slices/items"
+import { updateSearchItem } from "~store/slices/search"
 import type { WisherSearchData } from "~store/slices/wisher"
-import type { RootState } from "~store/wisher.store"
+import { useItemRootData } from "~views/hooks/item-root-data"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { EditForm } from "~views/widgets/edit-form/edit-form"
 import { Header } from "~views/widgets/header/header"
 
 export const ItemEditPage = () => {
-  const navigate = useNavigate()
+  const { itemId } = useParams()
+
+  const { navigate } = useNavigateWithRedirect()
 
   const dispatch = useDispatch()
 
-  const { itemId } = useParams()
-
   const { loading, addItem } = useItemMutate()
 
-  const { getItems, loading: itemsLoading } = useGetItemsLazy()
-
-  const items = useSelector(({ items: { data } }: RootState) => data.items)
+  const item = useItemRootData(itemId)
 
   const editData = useMemo(() => {
-    const item = items.find(({ id }) => itemId === id)
-
     if (item === undefined) {
       throw new Error("Item data is not define")
     }
 
     return { input: InputItemDTO(item), images: [] }
-  }, [items])
+  }, [item])
 
   const onSaveClick = ({ input, imageUpload: image }: WisherSearchData) => {
-    if (loading || itemsLoading) {
+    if (loading) {
       return
     }
 
-    addItem({ input, image })
-      .then(() => {
-        return getItems(10, true)
-      })
-      .then(() => {
-        dispatch(resetCollectionsWithImages())
+    addItem({ input, image }).then(({ data: { item } }) => {
+      dispatch(updateItem(item))
+      dispatch(updateItemInCollection(item))
+      dispatch(updateSearchItem(item))
+      dispatch(resetCollectionsWithImages())
 
-        navigate(`/wisher-item/${itemId}`)
-      })
+      navigate(`/wisher-item/${itemId}`)
+    })
   }
 
   return (
     <div className="extensions-wisher-edit-item-page">
       <Header />
 
-      <EditForm
-        data={editData}
-        loading={loading || itemsLoading}
-        onSaveClick={onSaveClick}
-      />
+      <EditForm data={editData} loading={loading} onSaveClick={onSaveClick} />
     </div>
   )
 }

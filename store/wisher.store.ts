@@ -4,6 +4,7 @@ import wisherCollectionReducer from "./slices/collection"
 import collectionWithImagesReducer from "./slices/collections-with-images"
 import userItemsReducer from "./slices/items"
 import loadingReducer from "./slices/loading"
+import searchReducer from "./slices/search"
 import sortReducer from "./slices/sort"
 import userReducer from "./slices/user"
 import wisherReducer from "./slices/wisher"
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   collection: wisherCollectionReducer,
   collectionWithImages: collectionWithImagesReducer,
   loading: loadingReducer,
-  sort: sortReducer
+  sort: sortReducer,
+  search: searchReducer
 })
 
 export const wisherStore = configureStore({

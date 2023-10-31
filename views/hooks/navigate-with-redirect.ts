@@ -5,7 +5,7 @@ export const useNavigateWithRedirect = () => {
 
   const { pathname, search } = useLocation()
 
-  const navigate = (link: string) => {
+  const navigateAndSetRedirect = (link: string) => {
     const searchParams = new URLSearchParams(search)
 
     searchParams.set("redirect", pathname)
@@ -23,5 +23,11 @@ export const useNavigateWithRedirect = () => {
     nav(linkWithRedirect)
   }
 
-  return { navigate, navigateWithRedirect }
+  const navigate = (link: string) => {
+    const searchParams = new URLSearchParams(search)
+
+    nav(`${link}?${searchParams.toString()}`)
+  }
+
+  return { navigate, navigateAndSetRedirect, navigateWithRedirect }
 }

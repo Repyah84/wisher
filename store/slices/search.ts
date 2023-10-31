@@ -1,39 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit"
-import type { PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
 import type { Item } from "~gql/types/graphql"
 import { logout } from "~store/actions/logout"
 
-export interface ItemStateData {
-  items: Item[]
+interface SearchData {
   count: number
+  items: Item[]
 }
 
-export interface itemsState {
-  data: ItemStateData
+export interface SearchDataState {
+  data: SearchData
 }
 
-const initialState: itemsState = {
+const initialState: SearchDataState = {
   data: {
     count: 0,
     items: []
   }
 }
 
-export const itemsState = createSlice({
-  name: "wishes",
+const searchSlice = createSlice({
+  name: "search",
   initialState,
   reducers: {
-    setItems: (state, { payload }: PayloadAction<ItemStateData>) => {
-      const count = payload.count
-      const items = [...state.data.items, ...payload.items]
-
-      state.data = { count, items }
+    setSearchItems: (state, { payload }: PayloadAction<SearchData>) => {
+      state.data.count = payload.count
+      state.data.items = [...state.data.items, ...payload.items]
     },
-    resetItems: (state) => {
-      state.data = initialState.data
-    },
-    updateItemPurchaseState: (
+    updateSearchItemPurchaseState: (
       state,
       {
         payload: { itemsId, isPurchased }
@@ -47,7 +41,7 @@ export const itemsState = createSlice({
 
       state.data.items[itemIndex].isPurchased = isPurchased
     },
-    updateItemsCollectionState: (
+    updateSearchItemsCollectionState: (
       state,
       {
         payload: { itemId, collections }
@@ -61,7 +55,7 @@ export const itemsState = createSlice({
 
       state.data.items[itemsIndex].collections = collections
     },
-    updateItem: (state, { payload }: PayloadAction<Item>) => {
+    updateSearchItem: (state, { payload }: PayloadAction<Item>) => {
       const itemIndex = state.data.items.findIndex(
         ({ id }) => id === payload.id
       )
@@ -72,7 +66,7 @@ export const itemsState = createSlice({
 
       state.data.items.splice(itemIndex, 1, payload)
     },
-    deleteItem: (state, { payload }: PayloadAction<string>) => {
+    deleteSearchItem: (state, { payload }: PayloadAction<string>) => {
       const itemIndex = state.data.items.findIndex(({ id }) => id === payload)
 
       if (itemIndex === -1) {
@@ -81,6 +75,9 @@ export const itemsState = createSlice({
 
       state.data.count--
       state.data.items.splice(itemIndex, 1)
+    },
+    resetSearchItems: (state) => {
+      state.data = initialState.data
     }
   },
   extraReducers: (builder) => {
@@ -91,12 +88,12 @@ export const itemsState = createSlice({
 })
 
 export const {
-  setItems,
-  resetItems,
-  deleteItem,
-  updateItem,
-  updateItemPurchaseState,
-  updateItemsCollectionState
-} = itemsState.actions
+  setSearchItems,
+  resetSearchItems,
+  updateSearchItem,
+  updateSearchItemPurchaseState,
+  updateSearchItemsCollectionState,
+  deleteSearchItem
+} = searchSlice.actions
 
-export default itemsState.reducer
+export default searchSlice.reducer
