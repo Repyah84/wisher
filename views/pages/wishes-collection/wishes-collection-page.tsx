@@ -9,6 +9,7 @@ import { useAddItemsToCollection } from "~gql/hooks/collection-items.mutate"
 import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
 import { useCollectionUpdate } from "~gql/hooks/collection.mutate"
 import { useGetItemsLazy } from "~gql/hooks/items"
+import { resetItems } from "~store/slices/items"
 import { updateUserCollectionName } from "~store/slices/user"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
@@ -49,10 +50,10 @@ export const CollectionPage = () => {
   const { loading: updateCollectionLoading, updateCollectionName } =
     useCollectionUpdate()
 
+  const itemsData = useSelector(({ items: { data } }: RootState) => data)
   const collections = useSelector(
     ({ user: { data } }: RootState) => data.collections
   )
-  const itemsData = useSelector(({ items: { data } }: RootState) => data)
   const collectionItems = useSelector(
     ({ collection: { data } }: RootState) => data
   )
@@ -174,7 +175,9 @@ export const CollectionPage = () => {
   const onSelectedSortParam = () => {
     onPopupClose()
 
-    getCollectionItems(collectionName, 10, true)
+    getCollectionItems(collectionName, 10, true).then(() => {
+      getItems(10, true)
+    })
   }
 
   return (

@@ -1,9 +1,10 @@
 import searchSvgIcon from "data-base64:~assets/search.svg"
 import sortSvgIcon from "data-base64:~assets/sort.svg"
 import { useContext } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import { useGetItemsLazy } from "~gql/hooks/items"
+import { resetCollection } from "~store/slices/collection"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { InfiniteScroll } from "~views/components/infinite-scroll/infinite-scroll"
@@ -15,6 +16,8 @@ import { WishesEmpty } from "~views/widgets/wishes-empty/wishes-empty"
 import { Wishes } from "~views/widgets/wishes/wishes"
 
 export const AllWishesPage = () => {
+  const dispatch = useDispatch()
+
   const {
     wisherSate: { hasMessage },
     setWisherState
@@ -44,6 +47,8 @@ export const AllWishesPage = () => {
 
   const onSelectedSortParam = () => {
     onPopupClose()
+
+    dispatch(resetCollection())
 
     getItems(10, true)
   }
