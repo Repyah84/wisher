@@ -1,12 +1,11 @@
 import { useContext } from "react"
-import { useDispatch } from "react-redux"
-import { Outlet, useParams } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { Outlet } from "react-router-dom"
 
 import { useItemDelete } from "~gql/hooks/item-delete.mutate"
-import { deleteItemFromCollection } from "~store/slices/collection"
+import { deleteItem } from "~store/actions/delete-item"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
-import { deleteItem } from "~store/slices/items"
-import { deleteSearchItem } from "~store/slices/search"
+import type { RootState } from "~store/wisher.store"
 import { Popup } from "~views/components/popup/popup"
 import { ItemSetting } from "~views/widgets/item-setting/item-setting"
 
@@ -16,12 +15,12 @@ import { useNavigateWithRedirect } from "./hooks/navigate-with-redirect"
 import { Dialog } from "./widgets/dialog/dialog"
 
 export const Root = () => {
-  const { itemId } = useParams()
-
   const {
     wisherSate: { hasMessage, isShow },
     setWisherState
   } = useContext(WisherStateContext)
+
+  const itemId = useSelector(({ item: { data } }: RootState) => data?.id)
 
   const { loading, deleteWisher } = useItemDelete()
 
@@ -40,8 +39,7 @@ export const Root = () => {
 
     deleteWisher(itemId).then(() => {
       dispatch(deleteItem(itemId))
-      dispatch(deleteItemFromCollection(itemId))
-      dispatch(deleteSearchItem(itemId))
+
       dispatch(resetCollectionsWithImages())
 
       onPopupClose()

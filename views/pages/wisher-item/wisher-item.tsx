@@ -3,11 +3,10 @@ import circleSvg from "data-base64:~assets/circle.svg"
 import noteSvg from "data-base64:~assets/note.svg"
 import { useContext, useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
+import { updateItemCollection } from "~store/actions/update-item-collections"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
-import { updateItemsCollectionState } from "~store/slices/items"
 import { toggleUpdateItemCollection } from "~store/slices/loading"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
@@ -27,8 +26,6 @@ import { Header } from "~views/widgets/header/header"
 import { ItemCollection } from "~views/widgets/item-collections/item-collections"
 
 export const WisherItemPage = () => {
-  const { itemId } = useParams()
-
   const dispatch = useDispatch()
 
   const { loading: itemLoading, addItem } = useItemMutate()
@@ -43,6 +40,7 @@ export const WisherItemPage = () => {
   } = useContext(WisherStateContext)
 
   const {
+    id,
     imageUrl,
     currency,
     note,
@@ -53,7 +51,7 @@ export const WisherItemPage = () => {
     marketplace,
     price,
     collections
-  } = useItemRootData(itemId)
+  } = useItemRootData()
 
   const [selectedCollections, setSelectedCollections] = useState<string[]>(
     collections || []
@@ -100,7 +98,7 @@ export const WisherItemPage = () => {
     }))
 
     if (
-      collections !== null &&
+      !collections ||
       collections.toString() === selectedCollections.toString()
     ) {
       return
@@ -108,18 +106,17 @@ export const WisherItemPage = () => {
 
     dispatch(toggleUpdateItemCollection(true))
 
-    addItem({ input: { id: itemId, collections: selectedCollections } }).then(
-      () => {
-        dispatch(
-          updateItemsCollectionState({
-            itemId,
-            collections: selectedCollections
-          })
-        )
-        dispatch(resetCollectionsWithImages())
-        dispatch(toggleUpdateItemCollection(false))
+    addItem({ input: { id, collections: selectedCollections } }).then(() => {
+      const data = {
+        itemId: id,
+        collections: selectedCollections
       }
-    )
+
+      dispatch(updateItemCollection(data))
+
+      dispatch(resetCollectionsWithImages())
+      dispatch(toggleUpdateItemCollection(false))
+    })
   }
 
   return (
@@ -206,7 +203,7 @@ export const WisherItemPage = () => {
             </div>
 
             <div
-              onClick={() => navigate(`/wisher-item-edit/${itemId}`)}
+              onClick={() => navigate(`/wisher-item-edit`)}
               className="extension-wisher-item__notes">
               <div className="extension-wisher-item__notes-header">
                 <span>NOTES</span>

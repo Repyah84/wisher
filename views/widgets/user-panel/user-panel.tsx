@@ -8,7 +8,7 @@ import { WarningSvgIcon } from "~views/components/icons/warning/warning"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 export const UserPanel = () => {
-  const { navigate } = useNavigateWithRedirect()
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const user = useSelector(({ user: { data } }: RootState) => data)
 
@@ -48,7 +48,7 @@ export const UserPanel = () => {
           btnType="stroke"
           btnColor="primary"
           onClickFn={() =>
-            navigate(
+            navigateAndSetRedirect(
               user === null ? "/login" : "/wisher/details-account-settings"
             )
           }>

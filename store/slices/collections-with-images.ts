@@ -1,7 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
 import type { UpdateCollectionName } from "~gql/hooks/collection.mutate"
-import type { Item } from "~gql/types/graphql"
 import { logout } from "~store/actions/logout"
 
 export interface CollectionWithImages {

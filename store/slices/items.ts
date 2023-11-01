@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
 import type { Item } from "~gql/types/graphql"
+import { deleteItem } from "~store/actions/delete-item"
 import { logout } from "~store/actions/logout"
+import { updateItem } from "~store/actions/update-item"
+import { updateItemCollection } from "~store/actions/update-item-collections"
+import { updateItemPurchase } from "~store/actions/update-item-purchase"
 
 export interface ItemStateData {
   items: Item[]
@@ -32,71 +36,59 @@ export const itemsState = createSlice({
     },
     resetItems: (state) => {
       state.data = initialState.data
-    },
-    updateItemPurchaseState: (
-      state,
-      {
-        payload: { itemsId, isPurchased }
-      }: PayloadAction<{ itemsId: string; isPurchased: boolean }>
-    ) => {
-      const itemIndex = state.data.items.findIndex(({ id }) => id === itemsId)
-
-      if (itemIndex === -1) {
-        return
-      }
-
-      state.data.items[itemIndex].isPurchased = isPurchased
-    },
-    updateItemsCollectionState: (
-      state,
-      {
-        payload: { itemId, collections }
-      }: PayloadAction<{ itemId: string; collections: string[] }>
-    ) => {
-      const itemsIndex = state.data.items.findIndex(({ id }) => id === itemId)
-
-      if (itemsIndex === -1) {
-        return
-      }
-
-      state.data.items[itemsIndex].collections = collections
-    },
-    updateItem: (state, { payload }: PayloadAction<Item>) => {
-      const itemIndex = state.data.items.findIndex(
-        ({ id }) => id === payload.id
-      )
-
-      if (itemIndex === -1) {
-        return
-      }
-
-      state.data.items.splice(itemIndex, 1, payload)
-    },
-    deleteItem: (state, { payload }: PayloadAction<string>) => {
-      const itemIndex = state.data.items.findIndex(({ id }) => id === payload)
-
-      if (itemIndex === -1) {
-        return
-      }
-
-      state.data.count--
-      state.data.items.splice(itemIndex, 1)
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(logout, () => {
-      return initialState
-    })
+    builder
+      .addCase(logout, () => {
+        return initialState
+      })
+      .addCase(deleteItem, (state, { payload }) => {
+        const itemIndex = state.data.items.findIndex(({ id }) => id === payload)
+
+        if (itemIndex === -1) {
+          return
+        }
+
+        state.data.count--
+        state.data.items.splice(itemIndex, 1)
+      })
+      .addCase(updateItemCollection, (state, { payload }) => {
+        const itemsIndex = state.data.items.findIndex(
+          ({ id }) => id === payload.itemId
+        )
+
+        if (itemsIndex === -1) {
+          return
+        }
+
+        state.data.items[itemsIndex].collections = payload.collections
+      })
+      .addCase(updateItemPurchase, (state, { payload }) => {
+        const itemIndex = state.data.items.findIndex(
+          ({ id }) => id === payload.itemsId
+        )
+
+        if (itemIndex === -1) {
+          return
+        }
+
+        state.data.items[itemIndex].isPurchased = payload.isPurchased
+      })
+      .addCase(updateItem, (state, { payload }) => {
+        const itemIndex = state.data.items.findIndex(
+          ({ id }) => id === payload.id
+        )
+
+        if (itemIndex === -1) {
+          return
+        }
+
+        state.data.items.splice(itemIndex, 1, payload)
+      })
   }
 })
 
-export const {
-  setItems,
-  resetItems,
-  deleteItem,
-  updateItem,
-  updateItemPurchaseState,
-  updateItemsCollectionState
-} = itemsState.actions
+export const { setItems, resetItems } = itemsState.actions
 
 export default itemsState.reducer

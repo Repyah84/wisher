@@ -1,4 +1,7 @@
+import { useDispatch } from "react-redux"
+
 import type { Item } from "~gql/types/graphql"
+import { setItem } from "~store/slices/item"
 import { Wisher } from "~views/components/wisher/wisher"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
@@ -7,10 +10,14 @@ interface Props {
 }
 
 export const WisherItem = ({ wish }: Props) => {
+  const dispatch = useDispatch()
+
   const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const onItemClick = () => {
-    navigateAndSetRedirect(`/wisher-item/${wish.id}`)
+    dispatch(setItem(wish))
+
+    navigateAndSetRedirect(`/wisher-item`)
   }
 
   return (

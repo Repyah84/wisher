@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Outlet, useNavigate, useParams } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 
 import { useCollectionsMutate } from "~gql/hooks/collections.mutate"
-import { resetCollection } from "~store/slices/collection"
+import { initialStateWithName } from "~store/slices/collection"
 import {
   deleteCollectionWithImages,
   setCollectionWithImages
@@ -19,8 +19,6 @@ import { Footer } from "~views/widgets/footer/footer"
 import { Header } from "~views/widgets/header/header"
 
 export const WisherPage = () => {
-  const { name: collectionName } = useParams()
-
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -36,6 +34,9 @@ export const WisherPage = () => {
 
   const collections: string[] | undefined = useSelector(
     ({ user: { data } }: RootState) => data?.collections
+  )
+  const collectionName = useSelector(
+    ({ collection: { data } }: RootState) => data.name
   )
 
   const onMessageClosed = () => {
@@ -59,11 +60,11 @@ export const WisherPage = () => {
           setCollectionWithImages({ title: collection, images: [], count: 0 })
         )
 
-        dispatch(resetCollection())
+        dispatch(initialStateWithName(collection))
 
         setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
-        navigate(`/wisher/wishes-collection/${collection}`)
+        navigate(`/wisher/wishes-collection`)
       }
     )
   }

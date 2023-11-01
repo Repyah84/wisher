@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 import { useGetCollectionItems } from "~gql/hooks/collection-items"
-import { resetCollection } from "~store/slices/collection"
+import { initialStateWithName } from "~store/slices/collection"
 import type { RootState } from "~store/wisher.store"
 import { Loader } from "~views/components/loader/loader"
 import { useLoadCollectionWithImages } from "~views/hooks/load-collection-with-images"
@@ -52,9 +52,9 @@ export const WishesCollection = ({ collectionName }: Props) => {
     }
 
     if (collectionImages.count === 0) {
-      dispatch(resetCollection())
+      dispatch(initialStateWithName(collectionName))
 
-      navigate(`/wisher/wishes-collection/${collectionName}`)
+      navigate(`/wisher/wishes-collection`)
 
       return
     }
@@ -64,13 +64,13 @@ export const WishesCollection = ({ collectionName }: Props) => {
       collectionName !== collectionItems.name
     ) {
       getCollectionItems(collectionName, 10, true).then(() => {
-        navigate(`/wisher/wishes-collection/${collectionName}`)
+        navigate(`/wisher/wishes-collection`)
       })
 
       return
     }
 
-    navigate(`/wisher/wishes-collection/${collectionName}`)
+    navigate(`/wisher/wishes-collection`)
   }
 
   return (

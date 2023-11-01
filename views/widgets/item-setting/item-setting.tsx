@@ -1,34 +1,29 @@
 import { useContext } from "react"
 import { useDispatch } from "react-redux"
-import { useParams } from "react-router-dom"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
-import { updateCollectionItemPurchaseState } from "~store/slices/collection"
-import { updateItemPurchaseState } from "~store/slices/items"
+import { updateItemPurchase } from "~store/actions/update-item-purchase"
 import { toggleMarcUsPurchasedState } from "~store/slices/loading"
-import { updateSearchItemPurchaseState } from "~store/slices/search"
 import { SettingsItem } from "~views/components/settings-item/settings-item"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useItemRootData } from "~views/hooks/item-root-data"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 export const ItemSetting = () => {
-  const { itemId } = useParams()
-
   const dispatch = useDispatch()
 
   const { navigate } = useNavigateWithRedirect()
 
   const { addItem } = useItemMutate()
 
-  const item = useItemRootData(itemId)
+  const item = useItemRootData()
 
   const { setWisherState } = useContext(WisherStateContext)
 
   const onEditClick = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
-    navigate(`/wisher-item-edit/${itemId}`)
+    navigate(`/wisher-item-edit`)
   }
 
   const onDeleteClick = () => {
@@ -45,12 +40,11 @@ export const ItemSetting = () => {
 
     const isPurchased = !item.isPurchased
 
-    addItem({ input: { id: itemId, isPurchased } }).then(() => {
-      const updateData = { itemsId: itemId, isPurchased }
+    addItem({ input: { id: item.id, isPurchased } }).then(() => {
+      const updateData = { itemsId: item.id, isPurchased }
 
-      dispatch(updateItemPurchaseState(updateData))
-      dispatch(updateCollectionItemPurchaseState(updateData))
-      dispatch(updateSearchItemPurchaseState(updateData))
+      dispatch(updateItemPurchase(updateData))
+
       dispatch(toggleMarcUsPurchasedState(false))
     })
   }

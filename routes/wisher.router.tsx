@@ -39,7 +39,7 @@ export const WisherRoutes = () => {
             />
           </Route>
 
-          <Route path="wishes-collection/:name" element={<CollectionPage />} />
+          <Route path="wishes-collection" element={<CollectionPage />} />
 
           <Route path="wisher-add" element={<AddWisherPage />} />
 
@@ -57,9 +57,9 @@ export const WisherRoutes = () => {
           />
         </Route>
 
-        <Route path="wisher-item/:itemId" element={<WisherItemPage />} />
+        <Route path="wisher-item" element={<WisherItemPage />} />
 
-        <Route path="wisher-item-edit/:itemId" element={<ItemEditPage />} />
+        <Route path="wisher-item-edit" element={<ItemEditPage />} />
 
         <Route path="wisher-edit" element={<EditWisherPage />} />
 

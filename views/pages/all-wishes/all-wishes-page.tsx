@@ -53,8 +53,6 @@ export const AllWishesPage = () => {
 
     dispatch(resetCollection())
 
-    dispatch(resetCollection())
-
     getItems(10, true)
   }
 

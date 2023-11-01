@@ -2,15 +2,14 @@ import addSvgIcon from "data-base64:~assets/circle-croos.svg"
 import sortSvgIcon from "data-base64:~assets/sort.svg"
 import { useContext, useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import { useGetCollectionItems } from "~gql/hooks/collection-items"
 import { useAddItemsToCollection } from "~gql/hooks/collection-items.mutate"
 import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
 import { useCollectionUpdate } from "~gql/hooks/collection.mutate"
 import { useGetItemsLazy } from "~gql/hooks/items"
-import { resetItems } from "~store/slices/items"
-import { updateUserCollectionName } from "~store/slices/user"
+import { updateCollectionNameState } from "~store/actions/update-collection-name"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
@@ -27,13 +26,10 @@ import { WisherCollectionEmpty } from "~views/widgets/wishes-collection-empty/wi
 import { Wishes } from "~views/widgets/wishes/wishes"
 
 export const CollectionPage = () => {
-  const { name } = useParams()
-
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
-  const [collectionName, setCollectionName] = useState(name)
   const [selectItems, setSelectItem] = useState<string[]>([])
 
   const {
@@ -54,14 +50,13 @@ export const CollectionPage = () => {
   const collections = useSelector(
     ({ user: { data } }: RootState) => data.collections
   )
-  const collectionItems = useSelector(
+  const { name, count, items } = useSelector(
     ({ collection: { data } }: RootState) => data
   )
 
   const itemsToAdd = useMemo(() => {
     return itemsData.items.filter(
-      ({ collections }) =>
-        collections === null || !collections.includes(collectionName)
+      ({ collections }) => collections === null || !collections.includes(name)
     )
   }, [itemsData, name])
 
@@ -98,12 +93,12 @@ export const CollectionPage = () => {
       return
     }
 
-    setItemsToCollection(selectItems, collectionName)
+    setItemsToCollection(selectItems, name)
       .then(() => {
         return Promise.all([
           getItems(10, true),
-          getCollectionWithImages(collectionName),
-          getCollectionItems(collectionName, 10, true)
+          getCollectionWithImages(name),
+          getCollectionItems(name, 10, true)
         ])
       })
       .then(() => {
@@ -126,12 +121,10 @@ export const CollectionPage = () => {
   }
 
   const onUpdateCollectionName = (newCollection: string) => {
-    const updateDate = { newCollection, oldCollection: collectionName }
+    const updateDate = { newCollection, oldCollection: name }
 
     updateCollectionName(updateDate).then(() => {
-      dispatch(updateUserCollectionName(updateDate))
-
-      setCollectionName(newCollection)
+      dispatch(updateCollectionNameState(updateDate))
 
       onPopupClose()
     })
@@ -155,17 +148,13 @@ export const CollectionPage = () => {
   }
 
   const observerEventCollectionItems = () => {
-    if (
-      collectionItemsLoading ||
-      collectionItems.items.length === collectionItems.count
-    ) {
+    if (collectionItemsLoading || items.length === count) {
       return
     }
 
-    const lastItemId =
-      collectionItems.items[collectionItems.items.length - 1].id
+    const lastItemId = items[items.length - 1].id
 
-    getCollectionItems(collectionName, 10, false, lastItemId)
+    getCollectionItems(name, 10, false, lastItemId)
   }
 
   const onSortIconClick = () => {
@@ -175,7 +164,7 @@ export const CollectionPage = () => {
   const onSelectedSortParam = () => {
     onPopupClose()
 
-    getCollectionItems(collectionName, 10, true).then(() => {
+    getCollectionItems(name, 10, true).then(() => {
       getItems(10, true)
     })
   }
@@ -212,20 +201,18 @@ export const CollectionPage = () => {
         </div>
 
         <div className="extensions-wisher-collection-page__info">
-          <h2 className="extensions-wisher-collection-page__title">
-            {collectionName}
-          </h2>
+          <h2 className="extensions-wisher-collection-page__title">{name}</h2>
 
           <div className="extensions-wisher-collection-page__details">
-            <span>{collectionItems.count} Items</span>
+            <span>{count} Items</span>
           </div>
         </div>
 
-        {collectionItems.items.length === 0 ? (
+        {items.length === 0 ? (
           <WisherCollectionEmpty />
         ) : (
           <InfiniteScroll observerEventFn={observerEventCollectionItems}>
-            <Wishes wishes={collectionItems.items} />
+            <Wishes wishes={items} />
           </InfiniteScroll>
         )}
       </div>
@@ -261,7 +248,7 @@ export const CollectionPage = () => {
             disable={selectItems.length === 0}
             onClickFn={onAddItemsToCollection}>
             <div className="extensions-wisher-collection-page__btn-content">
-              <span>add to {collectionName} </span>
+              <span>add to {name} </span>
 
               <Loader size={5.5} isLoading={isLoading()} />
             </div>
