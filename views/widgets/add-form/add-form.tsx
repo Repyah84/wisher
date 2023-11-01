@@ -24,7 +24,7 @@ export const AddForm = ({
   }
 
   const errorValidator = () => {
-    return collections && collections.includes(inputValue)
+    return collections !== null && collections.includes(inputValue)
   }
 
   const onSubmitClick = () => {

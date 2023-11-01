@@ -3,6 +3,13 @@
 
   overflow: hidden;
 
+  &__content {
+    overflow: hidden;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+
   &__panel {
     padding: 5px 10px 5px 16px;
 

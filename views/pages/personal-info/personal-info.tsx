@@ -24,7 +24,7 @@ export const PersonalInfoPage = () => {
   const onUpdateUserData = (input: UserInput) => {
     const data: UserInput = {
       ...input,
-      birthday: ParsDate(input.birthday)
+      birthday: ParsDate(input.birthday as Date)
     }
 
     updateUser(data, userImage)

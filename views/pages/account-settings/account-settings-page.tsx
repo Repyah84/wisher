@@ -1,28 +1,19 @@
 import svgPawerIcon from "data-base64:~assets/power.svg"
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import userDeleteIcon from "data-base64:~assets/user-delete.svg"
+import { useContext } from "react"
 
-import { Storage } from "@plasmohq/storage"
-
-import { auth } from "~firebase"
-import { logout } from "~store/actions/logout"
+import { Button } from "~views/components/button/button"
+import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useLogout } from "~views/hooks/logout"
 import { HeaderNav } from "~views/widgets/header-nav/header-nav"
 
 export const AccountSettingsPage = () => {
-  const dispatch = useDispatch()
+  const logout = useLogout()
 
-  const navigate = useNavigate()
+  const { setWisherState } = useContext(WisherStateContext)
 
-  const onLogoutClick = () => {
-    auth.signOut().then(() => {
-      const storage = new Storage({ area: "local" })
-
-      storage.set("JWT", null).then(() => {
-        dispatch(logout())
-
-        navigate("/login")
-      })
-    })
+  const onDeleteUser = () => {
+    setWisherState((wisher) => ({ ...wisher, hasMessage: "delete-user" }))
   }
 
   return (
@@ -32,13 +23,17 @@ export const AccountSettingsPage = () => {
       </HeaderNav>
 
       <div className="extensions-wisher-account-settings-page__action">
-        <button
-          onClick={onLogoutClick}
-          className="__extensions-wisher-details-option__">
+        <Button btnType="stroke" onClickFn={onDeleteUser}>
+          <img width={24} height={24} src={userDeleteIcon} alt="Delete user" />
+
+          <span>Delete my account</span>
+        </Button>
+
+        <Button btnType="stroke" onClickFn={logout}>
           <img width={24} height={24} src={svgPawerIcon} alt="Pawer" />
 
           <span>Log out</span>
-        </button>
+        </Button>
       </div>
     </div>
   )

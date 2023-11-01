@@ -1,7 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
 import type { Item } from "~gql/types/graphql"
-import { deleteItem } from "~store/actions/delete-item"
 import { logout } from "~store/actions/logout"
 import { updateItem } from "~store/actions/update-item"
 import { updateItemCollection } from "~store/actions/update-item-collections"

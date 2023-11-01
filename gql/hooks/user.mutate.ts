@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
-import { updateUserGQL } from "~gql/schema/user-input"
+import { updateUserGQL } from "~gql/schema/input-user"
 import type { UserInput } from "~gql/types/graphql"
 import { setUserSate } from "~store/slices/user"
 

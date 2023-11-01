@@ -9,7 +9,9 @@ export const WishesCollectionsPage = () => {
 
   return (
     <div className="extensions-wisher-wishes-collections-page">
-      {user === null || user.collections.length === 0 ? (
+      {user === null ||
+      user.collections === null ||
+      user.collections.length === 0 ? (
         <WishesCollectionsEmpty />
       ) : (
         <WishesCollections collections={user.collections} />

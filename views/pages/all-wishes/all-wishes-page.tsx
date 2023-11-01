@@ -62,7 +62,7 @@ export const AllWishesPage = () => {
         {allWishes.items.length === 0 ? (
           <WishesEmpty />
         ) : (
-          <>
+          <div className="extensions-wisher-all-wishes-page__content">
             <div className="extensions-wisher-all-wishes-page__panel">
               <span>{allWishes.count} Items</span>
 
@@ -91,7 +91,7 @@ export const AllWishesPage = () => {
             <InfiniteScroll observerEventFn={onObserverEvent}>
               <Wishes wishes={allWishes.items} />
             </InfiniteScroll>
-          </>
+          </div>
         )}
       </div>
 

@@ -30,10 +30,8 @@ export const WisherPage = () => {
 
   const { loading, addCollection } = useCollectionsMutate()
 
-  const user = useSelector(({ user: { data } }: RootState) => data)
-
   const collections: string[] | undefined = useSelector(
-    ({ user: { data } }: RootState) => data?.collections
+    ({ user: { data } }: RootState) => data.collections || []
   )
   const collectionName = useSelector(
     ({ collection: { data } }: RootState) => data.name
@@ -52,21 +50,19 @@ export const WisherPage = () => {
       return
     }
 
-    addCollection([...user.collections, collection]).then(
-      ({ data: { user } }) => {
-        dispatch(updateUserCollections(user.collections))
+    addCollection([...collections, collection]).then(({ data: { user } }) => {
+      dispatch(updateUserCollections(user.collections))
 
-        dispatch(
-          setCollectionWithImages({ title: collection, images: [], count: 0 })
-        )
+      dispatch(
+        setCollectionWithImages({ title: collection, images: [], count: 0 })
+      )
 
-        dispatch(initialStateWithName(collection))
+      dispatch(initialStateWithName(collection))
 
-        setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+      setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
-        navigate(`/wisher/wishes-collection`)
-      }
-    )
+      navigate(`/wisher/wishes-collection`)
+    })
   }
 
   const onAcceptDeleteCollection = () => {
@@ -118,7 +114,7 @@ export const WisherPage = () => {
 
           <AddForm
             btnTitle="create"
-            collections={user?.collections}
+            collections={collections}
             loading={loading}
             onSubmitFn={onCreateCollectionClick}
           />
