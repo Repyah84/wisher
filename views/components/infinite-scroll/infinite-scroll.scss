@@ -1,6 +1,8 @@
 .extension-extension-infinite-scroll {
   overflow: auto;
 
+  overscroll-behavior-y: contain;
+
   &::-webkit-scrollbar {
     width: 5px;
   }

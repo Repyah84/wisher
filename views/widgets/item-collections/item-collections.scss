@@ -5,6 +5,8 @@
 
   column-gap: 8px;
 
+  overscroll-behavior-y: contain;
+
   &::-webkit-scrollbar {
     height: 3px;
   }

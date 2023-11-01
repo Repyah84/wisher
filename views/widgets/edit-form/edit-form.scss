@@ -25,6 +25,8 @@
 
     padding-bottom: 16px;
 
+    overscroll-behavior-y: contain;
+
     &::-webkit-scrollbar {
       width: 3px;
     }

@@ -48,6 +48,8 @@
   &__items {
     display: grid;
 
+    overscroll-behavior-y: contain;
+
     &::-webkit-scrollbar {
       width: 3px;
     }

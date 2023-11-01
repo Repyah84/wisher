@@ -67,6 +67,8 @@
 
     grid-template-rows: auto 1fr;
 
+    overscroll-behavior-y: contain;
+
     &::-webkit-scrollbar {
       width: 3px;
     }

@@ -5,6 +5,8 @@
 
   height: 270px;
 
+  overscroll-behavior-y: contain;
+
   &::-webkit-scrollbar {
     width: 5px;
   }
