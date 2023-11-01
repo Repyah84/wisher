@@ -1,4 +1,4 @@
-export const formatDate = (locale: string, inputDate: Date): string => {
+export const FormatDate = (locale: string, inputDate: Date): string => {
   const date = new Date(inputDate)
 
   const currentDate = new Date()

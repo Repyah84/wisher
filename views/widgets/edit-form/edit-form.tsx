@@ -93,7 +93,10 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
           <div className="extensions-wisher-edit-form__item-image">
             <WishImage image={uploadImage} />
 
-            <ImageUploader onImageChange={setImageUpload} />
+            <ImageUploader
+              title="Change image"
+              onImageChange={setImageUpload}
+            />
           </div>
 
           <div className="extensions-wisher-edit-form__fields">

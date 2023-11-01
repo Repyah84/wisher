@@ -5,10 +5,11 @@ function validFileType(file) {
 }
 
 interface Props {
+  title: string
   onImageChange: (image: File) => void
 }
 
-export const ImageUploader = ({ onImageChange }: Props) => {
+export const ImageUploader = ({ title, onImageChange }: Props) => {
   const onChangeImageClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.files[0]
 
@@ -21,7 +22,7 @@ export const ImageUploader = ({ onImageChange }: Props) => {
 
   return (
     <label className="extensions-wisher-image-upload">
-      <span>Change image</span>
+      <span>{title}</span>
 
       <input
         onChange={onChangeImageClick}

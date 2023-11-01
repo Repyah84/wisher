@@ -1,5 +1,19 @@
 .extensions-wisher-about-page {
   display: grid;
 
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto 1fr;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__link {
+    justify-content: space-between;
+  }
+
+  &__version {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
 }

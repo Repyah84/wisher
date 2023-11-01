@@ -1,0 +1,46 @@
+.extension-wisher-personal-info-page {
+  overflow: hidden;
+
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+
+  flex: 1;
+
+  &__content {
+    padding: 16px 16px 24px 16px;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+
+    margin-bottom: 16px;
+  }
+
+  &__user-image {
+    border-radius: 50%;
+
+    object-fit: contain;
+  }
+
+  & .extensions-wisher-image-upload {
+    font-size: 14px;
+
+    margin: 0;
+
+    box-shadow: none;
+    background-color: transparent;
+
+    span {
+      text-transform: uppercase;
+
+      font-weight: 500;
+
+      color: var(--extensions-wisher-primary);
+    }
+  }
+}

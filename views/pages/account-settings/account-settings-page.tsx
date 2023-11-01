@@ -28,17 +28,17 @@ export const AccountSettingsPage = () => {
   return (
     <div className="extensions-wisher-account-settings-page">
       <HeaderNav>
-        <span>Account Settings</span>
+        <span>Settings</span>
       </HeaderNav>
 
       <div className="extensions-wisher-account-settings-page__action">
-        <div
+        <button
           onClick={onLogoutClick}
           className="__extensions-wisher-details-option__">
           <img width={24} height={24} src={svgPawerIcon} alt="Pawer" />
 
           <span>Log out</span>
-        </div>
+        </button>
       </div>
     </div>
   )

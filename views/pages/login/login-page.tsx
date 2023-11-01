@@ -3,11 +3,9 @@ import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
 import { useEffect, useState } from "react"
 
-import { useCollectionWithImages } from "~gql/hooks/collection-with-images"
 import { useGetItemsLazy } from "~gql/hooks/items"
 import { useSignInMutate } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
-import { PromiseListRun } from "~helpers/promise-list-run"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
@@ -49,6 +47,7 @@ export const LoginPage = () => {
   }
 
   const onAppleLoginClock = () => {
+    console.log("Apple login")
     // if (isLoading || appleLoading) {
     //   return
     // }
@@ -76,7 +75,7 @@ export const LoginPage = () => {
         </p>
 
         <div className="extensions-wisher-login-page__action">
-          <Button size="md" onClickFn={onAppleLoginClock}>
+          {/* <Button size="md" onClickFn={onAppleLoginClock}>
             <div className="extensions-wisher-login-page__apple-login">
               <img width={24} height={24} src={appleLogoSvg} alt="apple-logo" />
 
@@ -84,7 +83,7 @@ export const LoginPage = () => {
 
               <Loader size={5.5} isLoading={appleLoading} />
             </div>
-          </Button>
+          </Button> */}
 
           <Button size="md" onClickFn={onGoogleLoginClick}>
             <div className="extensions-wisher-login-page__google-login">

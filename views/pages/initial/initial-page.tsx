@@ -27,6 +27,8 @@ export const InitialPage = () => {
           navigate("/login")
         }
 
+        console.log(jwt)
+
         return Promise.all([getUser(), getItems()])
       })
       .then(() => {

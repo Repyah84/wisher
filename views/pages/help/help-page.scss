@@ -1,5 +1,17 @@
 .extensions-wisher-help-page {
   display: grid;
 
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto 1fr;
+
+  &__link {
+    justify-content: space-between;
+  }
+
+  & .__extensions-wisher-btn__ {
+    width: 100%;
+
+    padding: 12px 16px;
+
+    justify-content: flex-start;
+  }
 }

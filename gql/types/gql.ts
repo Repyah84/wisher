@@ -22,6 +22,7 @@ const documents = {
     "\n  query Items(\n    $limit: Int\n    $startAfterItemId: String\n    $sort: Sort\n    $collections: [String]\n  ) {\n    items(\n      limit: $limit\n      startAfterItemId: $startAfterItemId\n      sort: $sort\n      collections: $collections\n    ) {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n        isPurchased\n      }\n    }\n  }\n": types.ItemsDocument,
     "\n  query SearchItems(\n    $search: String\n    $collections: [String]\n    $limit: Int\n    $offset: Int\n  ) {\n    searchItems(\n      search: $search\n      collections: $collections\n      limit: $limit\n      offset: $offset\n    ) {\n      count\n      rows {\n        url\n        updatedAt\n        title\n        price\n        personalRating\n        note\n        marketplace\n        imageUrl\n        id\n        faviconUrl\n        currency\n        createdAt\n        collections\n        isPurchased\n      }\n    }\n  }\n": types.SearchItemsDocument,
     "\n  mutation SignIn($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n    }\n  }\n": types.SignInDocument,
+    "\n  mutation UserUpdate($input: UserInput!, $image: Upload) {\n    user(input: $input, image: $image) {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      uid\n    }\n  }\n": types.UserUpdateDocument,
     "\n  query User {\n    user {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      uid\n    }\n  }\n": types.UserDocument,
 };
 
@@ -75,6 +76,10 @@ export function graphql(source: "\n  query SearchItems(\n    $search: String\n  
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation SignIn($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n    }\n  }\n"): (typeof documents)["\n  mutation SignIn($idToken: String!) {\n    signIn(idToken: $idToken) {\n      token\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UserUpdate($input: UserInput!, $image: Upload) {\n    user(input: $input, image: $image) {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      uid\n    }\n  }\n"): (typeof documents)["\n  mutation UserUpdate($input: UserInput!, $image: Upload) {\n    user(input: $input, image: $image) {\n      birthday\n      collections\n      email\n      firstName\n      imageUrl\n      isHidden\n      lastName\n      uid\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
