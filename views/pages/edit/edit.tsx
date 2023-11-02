@@ -21,7 +21,7 @@ const DEFAULT_DATA: WisherSearchData = {
 }
 
 export const EditWisherPage = () => {
-  const { navigateAndSetRedirect } = useNavigateWithRedirect()
+  const { navigateWithRedirect } = useNavigateWithRedirect()
 
   const dispatch = useDispatch()
 
@@ -32,7 +32,7 @@ export const EditWisherPage = () => {
   const onSaveClick = (value: WisherSearchData) => {
     dispatch(setWisher({ ...data, ...value }))
 
-    navigateAndSetRedirect("/wisher/wisher-add")
+    navigateWithRedirect("/wisher/wisher-add")
   }
 
   return (

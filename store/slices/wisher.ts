@@ -23,6 +23,9 @@ export const wisherSlice = createSlice({
     setWisher(store, { payload }: PayloadAction<WisherSearchData>) {
       store.data = payload
     },
+    setWisherCollections: (state, { payload }: PayloadAction<string[]>) => {
+      state.data.input.collections = payload
+    },
     resetWisher: (state) => {
       state.data = null
     }
@@ -34,6 +37,7 @@ export const wisherSlice = createSlice({
   }
 })
 
-export const { setWisher, resetWisher } = wisherSlice.actions
+export const { setWisher, resetWisher, setWisherCollections } =
+  wisherSlice.actions
 
 export default wisherSlice.reducer

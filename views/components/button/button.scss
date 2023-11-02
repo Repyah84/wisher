@@ -67,4 +67,10 @@
 
     cursor: default;
   }
+
+  &--stroke[is-disabled="true"] {
+    color: var(--extensions-mode-color-grey);
+
+    cursor: default;
+  }
 }

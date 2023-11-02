@@ -14,14 +14,14 @@ import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 export const AddWisherPage = () => {
   const { navigate, navigateAndSetRedirect } = useNavigateWithRedirect()
 
+  const { data, isSuccess, isError, canceled, invalidate, cancel } =
+    useParsUrl()
+
   const dispatch = useDispatch()
 
   const user = useSelector(({ user: { data } }: RootState) => data)
 
   const { loading, addItem } = useItemMutate()
-
-  const { data, isSuccess, isError, canceled, invalidate, cancel } =
-    useParsUrl()
 
   const { loading: itemsLoading, getItems } = useGetItemsLazy()
 
@@ -59,6 +59,7 @@ export const AddWisherPage = () => {
         </LoaderLayout>
       ) : data || isSuccess ? (
         <WisherLayout
+          user={user}
           data={data}
           isLoading={loading || itemsLoading}
           onSaveClick={onSaveClick}

@@ -17,6 +17,7 @@ import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useAutoScroll } from "~views/hooks/auto-scroll"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
+import { useSelectCollection } from "~views/hooks/select-collection"
 
 import { CollectionSettingsSelect } from "../collection-settings-select/collection-settings-select"
 import { ItemCollection } from "../item-collections/item-collections"
@@ -43,9 +44,15 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
 
   const [edit, setEdit] = useState<ItemInput>(data.input)
 
-  const [selectedCollections, setSelectedCollections] = useState<string[]>(
-    edit.collections || []
+  const { selectedCollections, onSelectCollection } = useSelectCollection(
+    edit.collections
   )
+
+  const errorValidator = () => {
+    const value = edit.title
+
+    return value === null || value === undefined || value.trim() === ""
+  }
 
   const [imageUpload, setImageUpload] = useState<File | null>(
     data.imageUpload ?? null
@@ -68,16 +75,6 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
       ...wisher,
       hasMessage: "collection-list-short"
     }))
-  }
-
-  const onSelectCollection = (collectionName: string) => {
-    setSelectedCollections((collections) => {
-      if (selectedCollections.includes(collectionName)) {
-        return collections.filter((name) => name !== collectionName)
-      }
-
-      return [...collections, collectionName]
-    })
   }
 
   const onPopupWithCollectionClose = () => {
@@ -110,7 +107,12 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
               <ArrowLeftSvgIcon />
             </Button>
 
-            <Button type="submit" size="md" btnType="stroke" btnColor="primary">
+            <Button
+              disable={errorValidator()}
+              type="submit"
+              size="md"
+              btnType="stroke"
+              btnColor="primary">
               <span>SAVE</span>
             </Button>
           </div>
@@ -136,6 +138,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
 
             <Input
               value={edit.title}
+              errorMessage={errorValidator() && "Title is required"}
               onChangeValue={(value) => change({ title: value })}
               placeholder="Add gift title (required)"
               title="Wish title*"
@@ -184,7 +187,11 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
         </div>
 
         <div className="extensions-wisher-edit-form__action">
-          <Button size="md" type="submit" btnColor="primary">
+          <Button
+            disable={errorValidator()}
+            size="md"
+            type="submit"
+            btnColor="primary">
             <div className="extensions-wisher-edit-form__action-content">
               <span>SAVE</span>
 

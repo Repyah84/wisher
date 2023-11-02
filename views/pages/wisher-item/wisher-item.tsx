@@ -1,7 +1,7 @@
 import getSymbolFromCurrency from "currency-symbol-map"
 import circleSvg from "data-base64:~assets/circle.svg"
 import noteSvg from "data-base64:~assets/note.svg"
-import { useContext, useMemo, useState } from "react"
+import { useContext, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
@@ -21,6 +21,7 @@ import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useItemRootData } from "~views/hooks/item-root-data"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
+import { useSelectCollection } from "~views/hooks/select-collection"
 import { CollectionSettingsSelect } from "~views/widgets/collection-settings-select/collection-settings-select"
 import { Header } from "~views/widgets/header/header"
 import { ItemCollection } from "~views/widgets/item-collections/item-collections"
@@ -54,9 +55,8 @@ export const WisherItemPage = () => {
     collections
   } = useItemRootData()
 
-  const [selectedCollections, setSelectedCollections] = useState<string[]>(
-    collections || []
-  )
+  const { selectedCollections, onSelectCollection } =
+    useSelectCollection(collections)
 
   const priceValue = useMemo(
     () => `${getSymbolFromCurrency(currency)}${price}`,
@@ -82,16 +82,6 @@ export const WisherItemPage = () => {
     }))
   }
 
-  const onSelectCollection = (collectionName: string) => {
-    setSelectedCollections((collections) => {
-      if (selectedCollections.includes(collectionName)) {
-        return collections.filter((name) => name !== collectionName)
-      }
-
-      return [...collections, collectionName]
-    })
-  }
-
   const onPopupWithCollectionClose = () => {
     setWisherState((wisher) => ({
       ...wisher,
@@ -99,7 +89,7 @@ export const WisherItemPage = () => {
     }))
 
     if (
-      !collections ||
+      collections !== null &&
       collections.toString() === selectedCollections.toString()
     ) {
       return
