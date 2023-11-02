@@ -1,5 +1,6 @@
 import { useContext } from "react"
 
+import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
 import { CrossSvgIcon } from "~views/components/icons/cross/cross"
 import { LogoSvgIcon } from "~views/components/icons/logo/logo"
@@ -14,7 +15,9 @@ export const Header = () => {
 
   return (
     <div className="extensions-wisher-header">
-      <LogoSvgIcon />
+      <ButtonNav link="/wisher/wishes/wishes-all">
+        <LogoSvgIcon />
+      </ButtonNav>
 
       <Button btnType="icon" onClickFn={updateWisher}>
         <CrossSvgIcon />

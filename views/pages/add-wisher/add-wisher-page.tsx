@@ -1,3 +1,4 @@
+import { useContext } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { useParsUrl } from "~api/hooks/pars-url"
@@ -5,6 +6,7 @@ import { useItemMutate } from "~gql/hooks/item.mutate"
 import { useGetItemsLazy } from "~gql/hooks/items"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
 import type { RootState } from "~store/wisher.store"
+import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { ErrorLayout } from "~views/widgets/error-layout/error-layout"
 import { LoaderLayout } from "~views/widgets/loader-layout/loader-layout"
@@ -12,6 +14,8 @@ import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-d
 import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 
 export const AddWisherPage = () => {
+  const { setWisherState } = useContext(WisherStateContext)
+
   const { navigate, navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const { data, isSuccess, isError, canceled, invalidate, cancel } =
@@ -35,6 +39,15 @@ export const AddWisherPage = () => {
     if (loading || itemsLoading) {
       return
     }
+
+    setWisherState((wisher) => ({
+      ...wisher,
+      isShow: false,
+      snackbar: {
+        title: "Perfect! We've saved your wish securely in the wishlist.",
+        action: true
+      }
+    }))
 
     addItem({ input: data.input, image: data.imageUpload })
       .then(() => {

@@ -8,6 +8,7 @@ import { MemoryRouter } from "react-router-dom"
 import { WisherRoutes } from "~routes/wisher.router"
 import { wisherStore } from "~store/wisher.store"
 import { OverLay } from "~views/components/overlay/overlay"
+import { Snackbar } from "~views/components/snackbar/snackbar"
 import { WisherContext } from "~views/context/wisher/wisher.context"
 
 export const config: PlasmoCSConfig = {
@@ -40,6 +41,8 @@ const Context = () => {
           <MemoryRouter>
             <WisherRoutes />
           </MemoryRouter>
+
+          <Snackbar />
         </WisherContext>
       </ApolloProvider>
     </Provider>

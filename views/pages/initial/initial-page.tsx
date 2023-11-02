@@ -11,8 +11,6 @@ import { Loader } from "~views/components/loader/loader"
 import { Header } from "~views/widgets/header/header"
 
 export const InitialPage = () => {
-  const storage = new Storage({ area: "local" })
-
   const { getUser } = useGetUserLazy()
 
   const { getItems } = useGetItemsLazy()
@@ -20,6 +18,8 @@ export const InitialPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    const storage = new Storage({ area: "local" })
+
     storage
       .get<StoreJWT>("JWT")
       .then((jwt) => {
