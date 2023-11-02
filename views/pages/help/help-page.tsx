@@ -1,9 +1,17 @@
 import iconSvg from "data-base64:~assets/arrow-uot.svg"
 
 import { Button } from "~views/components/button/button"
+import { useAsyncStoreDataWithContext } from "~views/hooks/async-store-data"
 import { HeaderNav } from "~views/widgets/header-nav/header-nav"
 
 export const HelpPage = () => {
+  const { setStoreDataDetailsHelp, setStoreDataIsCreateCollectionHelp } =
+    useAsyncStoreDataWithContext()
+
+  const onResetDataToStore = () => {
+    setStoreDataDetailsHelp(true), setStoreDataIsCreateCollectionHelp(true)
+  }
+
   return (
     <div className="extensions-wisher-help-page">
       <HeaderNav>
@@ -11,7 +19,7 @@ export const HelpPage = () => {
       </HeaderNav>
 
       <div className="extensions-wisher-help-page__content">
-        <Button btnType="stroke">
+        <Button onClickFn={onResetDataToStore} btnType="stroke">
           <span>Tips and tricks on how to use app</span>
         </Button>
 

@@ -24,7 +24,7 @@ interface WisherStateContextType {
   snackbar: {
     title: string
     action: boolean
-  }
+  } | null
   //TODO move in to async store
   isCreateCollectionHelp: boolean
   //

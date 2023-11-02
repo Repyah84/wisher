@@ -1,4 +1,3 @@
-import { useContext } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Outlet, useNavigate } from "react-router-dom"
 
@@ -12,7 +11,7 @@ import { updateUserCollections } from "~store/slices/user"
 import type { RootState } from "~store/wisher.store"
 import { Help } from "~views/components/help/help"
 import { Popup } from "~views/components/popup/popup"
-import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useAsyncStoreDataWithContext } from "~views/hooks/async-store-data"
 import { AddForm } from "~views/widgets/add-form/add-form"
 import { Dialog } from "~views/widgets/dialog/dialog"
 import { Footer } from "~views/widgets/footer/footer"
@@ -25,8 +24,9 @@ export const WisherPage = () => {
 
   const {
     wisherSate: { isCreateCollectionHelp, hasMessage },
-    setWisherState
-  } = useContext(WisherStateContext)
+    setWisherState,
+    setStoreDataIsCreateCollectionHelp
+  } = useAsyncStoreDataWithContext()
 
   const { loading, addCollection } = useCollectionsMutate()
 
@@ -38,7 +38,7 @@ export const WisherPage = () => {
   )
 
   const onMessageClosed = () => {
-    setWisherState((wisher) => ({ ...wisher, isCreateCollectionHelp: false }))
+    setStoreDataIsCreateCollectionHelp(false)
   }
 
   const onPopupClose = () => {

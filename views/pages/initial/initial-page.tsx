@@ -8,26 +8,30 @@ import { useGetItemsLazy } from "~gql/hooks/items"
 import type { StoreJWT } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
 import { Loader } from "~views/components/loader/loader"
+import { useAsyncStoreDataWithContext } from "~views/hooks/async-store-data"
 import { Header } from "~views/widgets/header/header"
 
 export const InitialPage = () => {
-  const { getUser } = useGetUserLazy()
-
-  const { getItems } = useGetItemsLazy()
-
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const storage = new Storage({ area: "local" })
+  const { getUser } = useGetUserLazy()
+  const { getItems } = useGetItemsLazy()
 
-    storage
-      .get<StoreJWT>("JWT")
+  const { initialDataByStore } = useAsyncStoreDataWithContext()
+
+  useEffect(() => {
+    initialDataByStore()
+      .then(() => {
+        return new Storage({ area: "local" }).get<StoreJWT>("JWT")
+      })
       .then((jwt) => {
         if (!jwt) {
           navigate("/login")
+
+          return
         }
 
-        console.log(jwt)
+        console.log("##############", jwt)
 
         return Promise.all([getUser(), getItems()])
       })

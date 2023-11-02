@@ -1,9 +1,8 @@
-import { useContext } from "react"
 import { useSelector } from "react-redux"
 
 import type { RootState } from "~store/wisher.store"
 import { Help } from "~views/components/help/help"
-import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useAsyncStoreDataWithContext } from "~views/hooks/async-store-data"
 import { DetailsOptions } from "~views/widgets/details-options/details-options"
 import { UserPanel } from "~views/widgets/user-panel/user-panel"
 
@@ -12,11 +11,11 @@ export const DetailsPage = () => {
 
   const {
     wisherSate: { isDetailsHelp },
-    setWisherState
-  } = useContext(WisherStateContext)
+    setStoreDataDetailsHelp
+  } = useAsyncStoreDataWithContext()
 
   const messageClosed = () => {
-    setWisherState((wisher) => ({ ...wisher, isDetailsHelp: false }))
+    setStoreDataDetailsHelp(false)
   }
 
   return (
