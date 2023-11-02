@@ -31,7 +31,7 @@ export const WisherPage = () => {
   const { loading, addCollection } = useCollectionsMutate()
 
   const collections: string[] | undefined = useSelector(
-    ({ user: { data } }: RootState) => data.collections || []
+    ({ user: { data } }: RootState) => data?.collections || []
   )
   const collectionName = useSelector(
     ({ collection: { data } }: RootState) => data.name
