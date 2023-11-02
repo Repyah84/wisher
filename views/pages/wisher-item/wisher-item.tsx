@@ -52,7 +52,8 @@ export const WisherItemPage = () => {
     faviconUrl,
     marketplace,
     price,
-    collections
+    collections,
+    url
   } = useItemRootData()
 
   const { selectedCollections, onSelectCollection } =
@@ -110,6 +111,26 @@ export const WisherItemPage = () => {
     })
   }
 
+  const onShopClick = () => {
+    const params = new URLSearchParams()
+
+    params.set("params_url", url)
+
+    window.open(`https://tds.wishr-click.com/redrct?${params}`, "_blank")
+  }
+
+  const onShareIconClick = async () => {
+    await window.navigator.clipboard.writeText(url)
+
+    setWisherState((wisher) => ({
+      ...wisher,
+      snackbar: {
+        title: "The URL has been copied",
+        action: false
+      }
+    }))
+  }
+
   return (
     <>
       <div className="extension-wisher-item">
@@ -152,7 +173,7 @@ export const WisherItemPage = () => {
                 <span>{marketplace || "Domain without icon"}</span>
               </div>
 
-              <Button size="md" btnType="icon" onClickFn={() => undefined}>
+              <Button size="md" btnType="icon" onClickFn={onShareIconClick}>
                 <ShareSvgIcon />
               </Button>
             </div>
@@ -184,7 +205,7 @@ export const WisherItemPage = () => {
                 <span>View notes</span>
               </div>
 
-              <Button btnType="stroke" onClickFn={() => undefined}>
+              <Button btnType="stroke" onClickFn={onShareIconClick}>
                 <div className="extension-wisher-item__link">
                   <span>Share</span>
 
@@ -210,7 +231,7 @@ export const WisherItemPage = () => {
         </main>
 
         <footer className="extension-wisher-item__footer">
-          <Button size="md" btnColor="primary" onClickFn={() => undefined}>
+          <Button size="md" btnColor="primary" onClickFn={onShopClick}>
             <span>SHOP NOW</span>
           </Button>
         </footer>

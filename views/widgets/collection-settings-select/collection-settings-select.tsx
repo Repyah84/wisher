@@ -1,3 +1,4 @@
+import svgIcon from "data-base64:~assets/wisher-collection.svg"
 import { useSelector } from "react-redux"
 
 import type { RootState } from "~store/wisher.store"
@@ -32,22 +33,32 @@ export const CollectionSettingsSelect = ({
         </div>
       )}
 
-      <div
-        is-hide={isLoad.toString()}
-        className="extensions-wisher-collection-settings-select__items">
-        {collections.map((collectionName) => (
-          <div
-            className="extensions-wisher-collection-settings-select__item"
-            onClick={() => onSelectCollection(collectionName)}
-            key={collectionName}>
-            <WisherCollectionShort
-              key={collectionName}
-              collectionName={collectionName}
-              isSelected={collectionSelected.includes(collectionName)}
-            />
-          </div>
-        ))}
-      </div>
+      {!collections || collections.length === 0 ? (
+        <div className="extensions-wisher-collection-settings-select__empty">
+          <img width={104} height={104} src={svgIcon} alt="empty" />
+
+          <h3 className="extensions-wisher-collection-settings-select__title">
+            No collections
+          </h3>
+        </div>
+      ) : (
+        <div
+          is-hide={isLoad.toString()}
+          className="extensions-wisher-collection-settings-select__items">
+          {collections.map((collectionName) => (
+            <div
+              className="extensions-wisher-collection-settings-select__item"
+              onClick={() => onSelectCollection(collectionName)}
+              key={collectionName}>
+              <WisherCollectionShort
+                key={collectionName}
+                collectionName={collectionName}
+                isSelected={collectionSelected.includes(collectionName)}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

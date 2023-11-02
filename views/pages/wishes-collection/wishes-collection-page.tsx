@@ -81,6 +81,7 @@ export const CollectionPage = () => {
 
       return
     }
+
     setSelectItem((state) => [...state, id])
   }
 

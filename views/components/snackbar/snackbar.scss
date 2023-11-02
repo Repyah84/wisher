@@ -29,10 +29,14 @@
   &__content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
 
     row-gap: 8px;
+
+    & .__extensions-wisher-btn__ {
+      margin-top: auto;
+    }
   }
 
   &__description {
