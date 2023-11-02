@@ -30,7 +30,8 @@ export const WisherItemPage = () => {
 
   const { loading: itemLoading, addItem } = useItemMutate()
 
-  const { navigate, navigateWithRedirect } = useNavigateWithRedirect()
+  const { navigateAndSetRedirect, navigateWithRedirect } =
+    useNavigateWithRedirect()
 
   const loading = useSelector(({ loading: { data } }: RootState) => data)
 
@@ -203,7 +204,9 @@ export const WisherItemPage = () => {
             </div>
 
             <div
-              onClick={() => navigate(`/wisher-item-edit`)}
+              onClick={() =>
+                navigateAndSetRedirect(`/wisher-item-edit`, "notes")
+              }
               className="extension-wisher-item__notes">
               <div className="extension-wisher-item__notes-header">
                 <span>NOTES</span>

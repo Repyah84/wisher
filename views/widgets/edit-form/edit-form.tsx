@@ -1,10 +1,11 @@
-import { useContext, useMemo, useState } from "react"
+import { useContext, useMemo, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 
 import type { ItemInput } from "~gql/types/graphql"
 import type { WisherSearchData } from "~store/slices/wisher"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
+import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
 import { ImageUploader } from "~views/components/image-upload/image-upload"
 import { Input } from "~views/components/input/input"
 import { Loader } from "~views/components/loader/loader"
@@ -14,6 +15,8 @@ import { Select } from "~views/components/select/select"
 import { Textarea } from "~views/components/textarea/textarea"
 import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useAutoScroll } from "~views/hooks/auto-scroll"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import { CollectionSettingsSelect } from "../collection-settings-select/collection-settings-select"
 import { ItemCollection } from "../item-collections/item-collections"
@@ -29,6 +32,12 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
     wisherSate: { hasMessage },
     setWisherState
   } = useContext(WisherStateContext)
+
+  const { navigateWithRedirect } = useNavigateWithRedirect()
+
+  const ref = useRef(null)
+
+  useAutoScroll(ref)
 
   const user = useSelector(({ user: data }: RootState) => data)
 
@@ -80,16 +89,32 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
     change({ collections: selectedCollections })
   }
 
+  const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (loading) {
+      return
+    }
+
+    onSaveClick({ ...data, imageUpload, input: edit })
+  }
+
   return (
     <>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-
-          onSaveClick({ ...data, imageUpload, input: edit })
-        }}
-        className="extensions-wisher-edit-form">
+      <form onSubmit={onSubmitForm} className="extensions-wisher-edit-form">
         <div className="extensions-wisher-edit-form__content">
+          <div className="extensions-wisher-edit-form__nav">
+            <Button
+              btnType="icon"
+              onClickFn={() => navigateWithRedirect("/wisher-item")}>
+              <ArrowLeftSvgIcon />
+            </Button>
+
+            <Button type="submit" size="md" btnType="stroke" btnColor="primary">
+              <span>SAVE</span>
+            </Button>
+          </div>
+
           <div className="extensions-wisher-edit-form__item-image">
             <WishImage image={uploadImage} />
 
@@ -147,21 +172,19 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
               title="url"
             />
 
-            <Textarea
-              title="Notes"
-              placeholder="Size, color, amount, etc."
-              value={edit.note || ""}
-              onValueChange={(value) => change({ note: value })}
-            />
+            <div ref={ref} className="extensions-wisher-edit-form__wrapper">
+              <Textarea
+                title="Notes"
+                placeholder="Size, color, amount, etc."
+                value={edit.note || ""}
+                onValueChange={(value) => change({ note: value })}
+              />
+            </div>
           </div>
         </div>
 
         <div className="extensions-wisher-edit-form__action">
-          <Button
-            size="md"
-            type="submit"
-            btnColor="primary"
-            onClickFn={() => undefined}>
+          <Button size="md" type="submit" btnColor="primary">
             <div className="extensions-wisher-edit-form__action-content">
               <span>SAVE</span>
 

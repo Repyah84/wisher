@@ -32,8 +32,6 @@
   &__items {
     grid-area: 1/1 / 2/2;
 
-    display: grid;
-
     &[is-hide="true"] {
       opacity: 0;
     }

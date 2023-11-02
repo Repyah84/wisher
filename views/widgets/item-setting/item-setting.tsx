@@ -12,7 +12,7 @@ import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 export const ItemSetting = () => {
   const dispatch = useDispatch()
 
-  const { navigate } = useNavigateWithRedirect()
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const { addItem } = useItemMutate()
 
@@ -23,7 +23,7 @@ export const ItemSetting = () => {
   const onEditClick = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
-    navigate(`/wisher-item-edit`)
+    navigateAndSetRedirect(`/wisher-item-edit`)
   }
 
   const onDeleteClick = () => {

@@ -20,6 +20,20 @@
     z-index: 3;
   }
 
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 8px 20px 8px 10px;
+
+    & .__extensions-wisher-btn__ {
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+
   &__content {
     overflow: auto;
 
@@ -40,6 +54,10 @@
 
       border-radius: 3px;
     }
+  }
+
+  &__wrapper {
+    display: grid;
   }
 
   &__collections {
@@ -75,12 +93,12 @@
     gap: 0 8px;
   }
 
-  & .__extensions-wisher-btn__ {
-    width: 100%;
-  }
-
   &__action {
     padding: 24px 16px;
+
+    & .__extensions-wisher-btn__ {
+      width: 100%;
+    }
   }
 
   &__action-content {

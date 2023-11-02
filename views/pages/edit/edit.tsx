@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
 
 import { setWisher, type WisherSearchData } from "~store/slices/wisher"
 import type { RootState } from "~store/wisher.store"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { EditForm } from "~views/widgets/edit-form/edit-form"
 import { Header } from "~views/widgets/header/header"
 
@@ -21,7 +21,7 @@ const DEFAULT_DATA: WisherSearchData = {
 }
 
 export const EditWisherPage = () => {
-  const navigate = useNavigate()
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const dispatch = useDispatch()
 
@@ -32,10 +32,8 @@ export const EditWisherPage = () => {
   const onSaveClick = (value: WisherSearchData) => {
     dispatch(setWisher({ ...data, ...value }))
 
-    navigate("/wisher/wisher-add")
+    navigateAndSetRedirect("/wisher/wisher-add")
   }
-
-  console.log(data)
 
   return (
     <div className="extensions-wisher-edit-page">

@@ -1,16 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom"
 
 export const useNavigateWithRedirect = () => {
-  const nav = useNavigate()
+  const navigate = useNavigate()
 
   const { pathname, search } = useLocation()
 
-  const navigateAndSetRedirect = (link: string) => {
+  const navigateAndSetRedirect = (link: string, hash?: string) => {
     const searchParams = new URLSearchParams(search)
 
-    searchParams.set("redirect", pathname)
+    searchParams.set("redirect", `${pathname}${search}`)
 
-    nav(`${link}?${searchParams}`)
+    navigate(`${link}?${searchParams}#${hash}`)
   }
 
   const navigateWithRedirect = (link: string) => {
@@ -20,13 +20,7 @@ export const useNavigateWithRedirect = () => {
 
     const linkWithRedirect = redirectLink || link
 
-    nav(linkWithRedirect)
-  }
-
-  const navigate = (link: string) => {
-    const searchParams = new URLSearchParams(search)
-
-    nav(`${link}?${searchParams.toString()}`)
+    navigate(linkWithRedirect)
   }
 
   return { navigate, navigateAndSetRedirect, navigateWithRedirect }

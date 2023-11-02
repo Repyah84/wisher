@@ -1,17 +1,20 @@
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 
 import { useParsUrl } from "~api/hooks/pars-url"
 import { useItemMutate } from "~gql/hooks/item.mutate"
 import { useGetItemsLazy } from "~gql/hooks/items"
+import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
 import type { RootState } from "~store/wisher.store"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { ErrorLayout } from "~views/widgets/error-layout/error-layout"
 import { LoaderLayout } from "~views/widgets/loader-layout/loader-layout"
 import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-data"
 import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 
 export const AddWisherPage = () => {
-  const navigate = useNavigate()
+  const { navigate, navigateAndSetRedirect } = useNavigateWithRedirect()
+
+  const dispatch = useDispatch()
 
   const user = useSelector(({ user: { data } }: RootState) => data)
 
@@ -24,7 +27,7 @@ export const AddWisherPage = () => {
 
   const onSaveClick = () => {
     if (user === null) {
-      navigate("/login")
+      navigateAndSetRedirect("/login")
 
       return
     }
@@ -38,12 +41,14 @@ export const AddWisherPage = () => {
         return getItems(10, true)
       })
       .then(() => {
+        dispatch(resetCollectionsWithImages())
+
         navigate("/wisher/wishes/wishes-all")
       })
   }
 
   const onEditClick = () => {
-    navigate("/wisher-edit")
+    navigateAndSetRedirect("/wisher-edit")
   }
 
   return (
