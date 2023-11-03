@@ -1,4 +1,6 @@
 import aboutSvg from "data-base64:~assets/about.svg"
+import appleStore from "data-base64:~assets/apple-badge.png"
+import googleStore from "data-base64:~assets/google-badge.png"
 import helpSvg from "data-base64:~assets/help.svg"
 import settingsSvg from "data-base64:~assets/settings.svg"
 import shortArrow from "data-base64:~assets/short-arrow-right.svg"
@@ -51,6 +53,22 @@ export const DetailsOptions = () => {
 
         <span>Tell friends about Wisher app</span>
       </a>
+
+      <div className="extensions-wisher-details-options__store-links">
+        <a
+          className="extensions-wisher-details-options__store-link"
+          href="https://play.google.com/store/apps/details?id=com.wisherandgiftapp"
+          target="_blank">
+          <img width={188} height={56} src={googleStore} alt="Google store" />
+        </a>
+
+        <a
+          className="extensions-wisher-details-options__store-link"
+          href="https://apps.apple.com/us/app/ai-registry-wishlist-wisher/id1624451253"
+          target="_blank">
+          <img width={188} height={56} src={appleStore} alt="Apple store" />
+        </a>
+      </div>
     </div>
   )
 }

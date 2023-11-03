@@ -65,7 +65,7 @@ export const WisherLayout = ({
   return (
     <>
       <div className="extensions-wisher-layout">
-        {imageUpload || images === null ? (
+        {imageUpload || !images || images.length === 0 ? (
           <img
             style={{
               objectFit: "cover"

@@ -1,4 +1,5 @@
 import svgIcon from "data-base64:~assets/wisher-collection.svg"
+import { useMemo } from "react"
 import { useSelector } from "react-redux"
 
 import type { RootState } from "~store/wisher.store"
@@ -15,15 +16,21 @@ export const CollectionSettingsSelect = ({
   collectionSelected,
   onSelectCollection
 }: Props) => {
-  const collections = useSelector(
-    ({ user: { data } }: RootState) => data.collections
+  const collectionsData = useSelector(
+    ({ user: { data } }: RootState) => data?.collections
   )
 
   const collectionWithImages = useSelector(
     ({ collectionWithImages: { data } }: RootState) => data
   )
 
-  const isLoad = collectionWithImages.length !== collections.length
+  const collections = useMemo(() => {
+    return collectionsData || []
+  }, [collectionsData])
+
+  const isLoad = useMemo(() => {
+    return collectionWithImages.length !== collections.length
+  }, [collectionWithImages, collections])
 
   return (
     <div className="extensions-wisher-collection-settings-select">
@@ -33,7 +40,7 @@ export const CollectionSettingsSelect = ({
         </div>
       )}
 
-      {!collections || collections.length === 0 ? (
+      {collections.length === 0 ? (
         <div className="extensions-wisher-collection-settings-select__empty">
           <img width={104} height={104} src={svgIcon} alt="empty" />
 

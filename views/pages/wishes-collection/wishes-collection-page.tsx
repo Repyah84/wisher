@@ -1,5 +1,6 @@
 import addSvgIcon from "data-base64:~assets/circle-croos.svg"
 import sortSvgIcon from "data-base64:~assets/sort.svg"
+import svgIcon from "data-base64:~assets/wisher-list.svg"
 import { useContext, useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -230,16 +231,26 @@ export const CollectionPage = () => {
           height="400px"
           repeatWhen={repeatWhen}
           observerEventFn={observerEventAddItems}>
-          <div className="extensions-wisher-collection-page__items">
-            {itemsToAdd.map((wish) => (
-              <WisherSelect
-                key={wish.id}
-                wish={wish}
-                selected={isSelect(wish.id)}
-                onSelectFn={onSelectItem}
-              />
-            ))}
-          </div>
+          {itemsToAdd.length === 0 ? (
+            <div className="extensions-wisher-collection-page__empty-add">
+              <img width={104} height={104} src={svgIcon} alt="empty" />
+
+              <h3 className="extensions-wisher-collection-page__title">
+                Your wish list is empty :(
+              </h3>
+            </div>
+          ) : (
+            <div className="extensions-wisher-collection-page__items">
+              {itemsToAdd.map((wish) => (
+                <WisherSelect
+                  key={wish.id}
+                  wish={wish}
+                  selected={isSelect(wish.id)}
+                  onSelectFn={onSelectItem}
+                />
+              ))}
+            </div>
+          )}
         </InfiniteScroll>
 
         <div className="extensions-wisher-collection-page__action">

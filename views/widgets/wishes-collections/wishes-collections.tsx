@@ -35,10 +35,12 @@ export const WishesCollections = ({ collections }: Props) => {
   }
 
   const onPopupClose = () => {
+    //TODO
     // setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
   }
 
   const onReorderClick = () => {
+    //TODO
     // setWisherState((wisher) => ({ ...wisher, hasMessage: "collections-dnd" }))
   }
 
