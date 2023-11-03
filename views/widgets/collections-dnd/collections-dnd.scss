@@ -1,0 +1,16 @@
+.extensions-wisher-collections-dnd {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    padding: 8px 16px;
+
+    min-height: 48px;
+
+    display: grid;
+  }
+
+  &__item {
+    padding: 12px 16px;
+  }
+}

@@ -5,6 +5,7 @@ import { useContext, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
+import { OpenShop } from "~helpers/open-shop"
 import { updateItemCollection } from "~store/actions/update-item-collections"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
 import { toggleUpdateItemCollection } from "~store/slices/loading"
@@ -105,30 +106,26 @@ export const WisherItemPage = () => {
       }
 
       dispatch(updateItemCollection(data))
-
       dispatch(resetCollectionsWithImages())
+
       dispatch(toggleUpdateItemCollection(false))
     })
   }
 
   const onShopClick = () => {
-    const params = new URLSearchParams()
-
-    params.set("params_url", url)
-
-    window.open(`https://tds.wishr-click.com/redrct?${params}`, "_blank")
+    OpenShop(url)
   }
 
-  const onShareIconClick = async () => {
-    await window.navigator.clipboard.writeText(url)
-
-    setWisherState((wisher) => ({
-      ...wisher,
-      snackbar: {
-        title: "The URL has been copied",
-        action: false
-      }
-    }))
+  const onShareIconClick = () => {
+    window.navigator.clipboard.writeText(url).then(() => {
+      setWisherState((wisher) => ({
+        ...wisher,
+        snackbar: {
+          title: "The URL has been copied",
+          action: false
+        }
+      }))
+    })
   }
 
   return (

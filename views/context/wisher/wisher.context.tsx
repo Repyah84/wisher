@@ -12,6 +12,7 @@ export type WisherMessage =
   | "collection-list-short"
   | "wishes-sort"
   | "delete-user"
+  | "collections-dnd"
   | null
 
 interface Props {
@@ -25,12 +26,8 @@ interface WisherStateContextType {
     title: string
     action: boolean
   } | null
-  //TODO move in to async store
   isCreateCollectionHelp: boolean
-  //
-  //TODO move in to async store
   isDetailsHelp: boolean
-  //
 }
 
 interface ContextState {
@@ -45,11 +42,8 @@ export const WisherContext = ({ children }: Props) => {
     isShow: false,
     hasMessage: null,
     snackbar: null,
-    //TODO move in to async store
     isCreateCollectionHelp: true,
-    //TODO move in to async store
     isDetailsHelp: true
-    //
   })
 
   return (
