@@ -1,7 +1,9 @@
 import optionSvgIcon from "data-base64:~assets/option-bar.svg"
-import { useContext, useMemo } from "react"
-import { useSelector } from "react-redux"
+import { useContext, useMemo, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 
+import { useCollectionsMutate } from "~gql/hooks/collections.mutate"
+import { updateUserCollections } from "~store/slices/user"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { FileSvgIcon } from "~views/components/icons/file/file"
@@ -17,31 +19,46 @@ interface Props {
 }
 
 export const WishesCollections = ({ collections }: Props) => {
+  const dispatch = useDispatch()
+
+  const { loading: collectionUpdateLoading, addCollection } =
+    useCollectionsMutate()
+
   const {
     wisherSate: { hasMessage },
     setWisherState
   } = useContext(WisherStateContext)
 
+  const [newCollectionSate, setNewCollectionSate] = useState([])
   const collectionsWithImage = useSelector(
     ({ collectionWithImages: { data } }: RootState) => data
   )
 
   const loading = useMemo(() => {
-    return collections.length !== collectionsWithImage.length
-  }, [collectionsWithImage, collections])
+    return (
+      collections.length !== collectionsWithImage.length ||
+      collectionUpdateLoading
+    )
+  }, [collectionsWithImage, collectionUpdateLoading, collections])
 
   const onAddCollectionClick = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: "create-collection" }))
   }
 
   const onPopupClose = () => {
-    //TODO
-    // setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+
+    if (collections.toString() === newCollectionSate.toString() || loading) {
+      return
+    }
+
+    addCollection(newCollectionSate).then(() => {
+      dispatch(updateUserCollections(newCollectionSate))
+    })
   }
 
   const onReorderClick = () => {
-    //TODO
-    // setWisherState((wisher) => ({ ...wisher, hasMessage: "collections-dnd" }))
+    setWisherState((wisher) => ({ ...wisher, hasMessage: "collections-dnd" }))
   }
 
   return (
@@ -78,7 +95,9 @@ export const WishesCollections = ({ collections }: Props) => {
         hasPopup={hasMessage === "collections-dnd"}
         title="Reorder"
         onCloseClick={onPopupClose}>
-        <CollectionsDnd collections={collections}></CollectionsDnd>
+        <CollectionsDnd
+          collections={collections}
+          collectionsDrag={setNewCollectionSate}></CollectionsDnd>
       </Popup>
     </>
   )

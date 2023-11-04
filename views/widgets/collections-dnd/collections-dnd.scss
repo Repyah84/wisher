@@ -2,15 +2,49 @@
   display: flex;
   flex-direction: column;
 
+  max-height: 400px;
+
+  overflow-y: auto;
+
+  overscroll-behavior-y: contain;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--extensions-mode-color-grey);
+
+    border-radius: 3px;
+  }
+
   &__item {
+    overflow: hidden;
+
     padding: 8px 16px;
 
     min-height: 48px;
 
-    display: grid;
-  }
+    transition-property: transform, background-color;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.2s;
 
-  &__item {
-    padding: 12px 16px;
+    &:active > :first-child {
+      transform: scale(1.05);
+    }
+
+    &--dragging {
+      background-color: var(--extensions-wisher-primary-light);
+
+      cursor: grabbing;
+
+      & > :first-child {
+        transform: scale(1.05);
+      }
+    }
   }
 }
