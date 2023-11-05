@@ -2,11 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { ParserUrlService } from "~api/parser-url/parser-url.service"
-import {
-  resetWisher,
-  setWisher,
-  type WisherSearchData
-} from "~store/slices/wisher"
+import { setWisher, type WisherSearchData } from "~store/slices/wisher"
 import type { RootState } from "~store/wisher.store"
 
 interface ParsUrlInputData {
@@ -47,7 +43,8 @@ export const useParsUrl = () => {
             price: price ?? 0,
             title: description ?? "",
             url: window.location.href
-          }
+          },
+          imageUpload: undefined
         }
 
         dispatch(setWisher(data))
@@ -66,18 +63,10 @@ export const useParsUrl = () => {
     const url = window.location.href
     const signal = controller.signal
 
-    if (data === null) {
-      mutate({ url, signal })
-
-      return
-    }
-
-    if (data.input.url !== url) {
-      dispatch(resetWisher())
-
+    if (data === null || data.input.url !== url) {
       mutate({ url, signal })
     }
-  }, [controller])
+  }, [controller, data])
 
   const invalidate = () => {
     setController(new AbortController())

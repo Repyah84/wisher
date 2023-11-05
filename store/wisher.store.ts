@@ -23,7 +23,11 @@ const reducer = combineReducers({
 })
 
 export const wisherStore = configureStore({
-  reducer
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false
+    })
 })
 
 export type RootState = ReturnType<typeof wisherStore.getState>
