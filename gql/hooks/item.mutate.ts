@@ -8,6 +8,7 @@ import type { ItemInput, ItemMutation } from "~gql/types/graphql"
 import { CompareDate } from "~helpers/compare-date"
 import { errorResponse } from "~store/actions/error"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
@@ -20,6 +21,8 @@ export const useItemMutate = () => {
   const logout = useLogout()
 
   const dispatch = useDispatch()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const [mutate, { data, error, loading }] = useMutation(itemInput)
 
@@ -43,6 +46,8 @@ export const useItemMutate = () => {
       },
       onError: () => {
         dispatch(errorResponse)
+
+        navigateAndSetRedirect("/error")
       }
     })
   }

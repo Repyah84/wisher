@@ -8,6 +8,7 @@ import type { UserInput } from "~gql/types/graphql"
 import { CompareDate } from "~helpers/compare-date"
 import { setUserSate } from "~store/slices/user"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
@@ -15,6 +16,8 @@ export const useUserUpdate = () => {
   const logout = useLogout()
 
   const dispatch = useDispatch()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const [mutate, { data, error, loading }] = useMutation(updateUserGQL)
 
@@ -39,6 +42,9 @@ export const useUserUpdate = () => {
       },
       onCompleted: ({ user }) => {
         dispatch(setUserSate(user))
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }

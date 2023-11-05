@@ -5,11 +5,14 @@ import { Storage } from "@plasmohq/storage"
 import { addItemsToCollection } from "~gql/schema/input-item-to-collection"
 import { CompareDate } from "~helpers/compare-date"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
 export const useAddItemsToCollection = () => {
   const logout = useLogout()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const [mutate, { data, error, loading }] = useMutation(addItemsToCollection)
 
@@ -31,6 +34,9 @@ export const useAddItemsToCollection = () => {
         headers: {
           Authorization: `Bearer ${token}`
         }
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }

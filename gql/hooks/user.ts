@@ -5,6 +5,7 @@ import { Storage } from "@plasmohq/storage"
 
 import { user } from "~gql/schema/user"
 import { setUserSate } from "~store/slices/user"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
@@ -12,6 +13,8 @@ const storage = new Storage({ area: "local" })
 
 export const useGetUserLazy = () => {
   const dispatch = useDispatch()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const [mutate, { data, loading, error }] = useLazyQuery(user, {
     defaultOptions: {
@@ -30,6 +33,9 @@ export const useGetUserLazy = () => {
       },
       onCompleted: (data) => {
         dispatch(setUserSate(data.user))
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }

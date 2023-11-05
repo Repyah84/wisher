@@ -9,11 +9,14 @@ import { SortData } from "~models/sort-data"
 import { resetCollection, setCollection } from "~store/slices/collection"
 import type { RootState } from "~store/wisher.store"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
 export const useGetCollectionItems = () => {
   const logout = useLogout()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const sortParam = useSelector(({ sort: { data } }: RootState) => data)
 
@@ -59,6 +62,9 @@ export const useGetCollectionItems = () => {
         }
 
         dispatch(setCollection({ count, items, name: collections }))
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }

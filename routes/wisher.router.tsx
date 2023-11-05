@@ -6,6 +6,7 @@ import { AddWisherPage } from "~views/pages/add-wisher/add-wisher-page"
 import { AllWishesPage } from "~views/pages/all-wishes/all-wishes-page"
 import { DetailsPage } from "~views/pages/details/details-page"
 import { EditWisherPage } from "~views/pages/edit/edit"
+import { ErrorPage } from "~views/pages/error/error-page"
 import { HelpPage } from "~views/pages/help/help-page"
 import { InitialPage } from "~views/pages/initial/initial-page"
 import { ItemEditPage } from "~views/pages/item-edit/item-edit-page"
@@ -71,6 +72,8 @@ export const WisherRoutes = () => {
         <Route path="login" element={<LoginPage />} />
 
         <Route path="initial" element={<InitialPage />} />
+
+        <Route path="error" element={<ErrorPage />} />
       </Route>
     </Routes>
   )

@@ -7,6 +7,7 @@ import { search } from "~gql/schema/search"
 import { CompareDate } from "~helpers/compare-date"
 import { resetSearchItems, setSearchItems } from "~store/slices/search"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
@@ -14,6 +15,8 @@ export const useItemSearch = () => {
   const logout = useLogout()
 
   const dispatch = useDispatch()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const [mutate, { data, error, loading }] = useLazyQuery(search, {
     defaultOptions: {
@@ -59,6 +62,9 @@ export const useItemSearch = () => {
         dispatch(
           setSearchItems({ count: searchItems.count, items: searchItems.rows })
         )
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }

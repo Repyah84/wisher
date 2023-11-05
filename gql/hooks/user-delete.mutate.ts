@@ -5,11 +5,14 @@ import { Storage } from "@plasmohq/storage"
 import { userDeleteGQL } from "~gql/schema/input-user-delete"
 import { CompareDate } from "~helpers/compare-date"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
 export const useUserDelete = () => {
   const logout = useLogout()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const [mutate, { data, error, loading }] = useMutation(userDeleteGQL)
 
@@ -27,6 +30,9 @@ export const useUserDelete = () => {
         headers: {
           Authorization: `Bearer ${token}`
         }
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }

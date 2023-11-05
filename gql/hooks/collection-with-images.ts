@@ -7,6 +7,7 @@ import { items } from "~gql/schema/items"
 import { CompareDate } from "~helpers/compare-date"
 import { setCollectionWithImages } from "~store/slices/collections-with-images"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
@@ -14,6 +15,8 @@ export const useCollectionWithImages = () => {
   const logout = useLogout()
 
   const dispatch = useDispatch()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const [mutate, { data, error, loading }] = useLazyQuery(items, {
     defaultOptions: {
@@ -48,6 +51,9 @@ export const useCollectionWithImages = () => {
             count: data.items.count
           })
         )
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }

@@ -7,6 +7,7 @@ import { collectionUpdate } from "~gql/schema/input-collection"
 import { CompareDate } from "~helpers/compare-date"
 import { updateCollectionWithImagesName } from "~store/slices/collections-with-images"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
@@ -19,6 +20,8 @@ export const useCollectionUpdate = () => {
   const logout = useLogout()
 
   const dispatch = useDispatch()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const [mutate, { data, error, loading }] = useMutation(collectionUpdate)
 
@@ -50,6 +53,9 @@ export const useCollectionUpdate = () => {
             updateCollectionWithImagesName({ oldCollection, newCollection })
           )
         }
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }

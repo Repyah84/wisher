@@ -6,11 +6,14 @@ import { deleteItemGql } from "~gql/schema/delete-item"
 import type { UserCollectionsAddMutation } from "~gql/types/graphql"
 import { CompareDate } from "~helpers/compare-date"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
 export const useItemDelete = () => {
   const logout = useLogout()
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const [mutate, { data, error, loading }] = useMutation(deleteItemGql)
 
@@ -33,6 +36,9 @@ export const useItemDelete = () => {
         headers: {
           Authorization: `Bearer ${token}`
         }
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }

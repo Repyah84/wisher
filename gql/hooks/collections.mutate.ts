@@ -6,6 +6,7 @@ import { collectionInput } from "~gql/schema/input-collections"
 import type { UserCollectionsAddMutation } from "~gql/types/graphql"
 import { CompareDate } from "~helpers/compare-date"
 import { useLogout } from "~views/hooks/logout"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
@@ -13,6 +14,8 @@ export const useCollectionsMutate = () => {
   const logout = useLogout()
 
   const [mutate, { data, error, loading }] = useMutation(collectionInput)
+
+  const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
   const addCollection = async (
     collections: string[]
@@ -35,6 +38,9 @@ export const useCollectionsMutate = () => {
         headers: {
           Authorization: `Bearer ${token}`
         }
+      },
+      onError: () => {
+        navigateAndSetRedirect("/error")
       }
     })
   }
