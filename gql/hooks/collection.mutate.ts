@@ -4,7 +4,9 @@ import { useDispatch } from "react-redux"
 import { Storage } from "@plasmohq/storage"
 
 import { collectionUpdate } from "~gql/schema/input-collection"
+import { CompareDate } from "~helpers/compare-date"
 import { updateCollectionWithImagesName } from "~store/slices/collections-with-images"
+import { useLogout } from "~views/hooks/logout"
 
 import type { StoreJWT } from "./signin"
 
@@ -14,7 +16,7 @@ export interface UpdateCollectionName {
 }
 
 export const useCollectionUpdate = () => {
-  const storage = new Storage({ area: "local" })
+  const logout = useLogout()
 
   const dispatch = useDispatch()
 
@@ -24,7 +26,13 @@ export const useCollectionUpdate = () => {
     oldCollection,
     newCollection
   }: UpdateCollectionName) => {
-    const { token } = await storage.get<StoreJWT>("JWT")
+    const storage = new Storage({ area: "local" })
+
+    const { token, exp } = await storage.get<StoreJWT>("JWT")
+
+    if (CompareDate(exp)) {
+      logout()
+    }
 
     return mutate({
       variables: {

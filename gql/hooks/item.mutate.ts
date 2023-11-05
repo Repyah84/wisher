@@ -5,7 +5,9 @@ import { Storage } from "@plasmohq/storage"
 
 import { itemInput } from "~gql/schema/input-item"
 import type { ItemInput, ItemMutation } from "~gql/types/graphql"
+import { CompareDate } from "~helpers/compare-date"
 import { errorResponse } from "~store/actions/error"
+import { useLogout } from "~views/hooks/logout"
 
 import type { StoreJWT } from "./signin"
 
@@ -15,7 +17,7 @@ export interface ItemAddInputData {
 }
 
 export const useItemMutate = () => {
-  const storage = new Storage({ area: "local" })
+  const logout = useLogout()
 
   const dispatch = useDispatch()
 
@@ -24,7 +26,13 @@ export const useItemMutate = () => {
   const addItem = async (
     variables: ItemAddInputData
   ): Promise<FetchResult<ItemMutation>> => {
-    const { token } = await storage.get<StoreJWT>("JWT")
+    const storage = new Storage({ area: "local" })
+
+    const { token, exp } = await storage.get<StoreJWT>("JWT")
+
+    if (CompareDate(exp)) {
+      logout()
+    }
 
     return mutate({
       variables,

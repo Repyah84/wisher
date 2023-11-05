@@ -5,19 +5,27 @@ import { Storage } from "@plasmohq/storage"
 
 import { updateUserGQL } from "~gql/schema/input-user"
 import type { UserInput } from "~gql/types/graphql"
+import { CompareDate } from "~helpers/compare-date"
 import { setUserSate } from "~store/slices/user"
+import { useLogout } from "~views/hooks/logout"
 
 import type { StoreJWT } from "./signin"
 
 export const useUserUpdate = () => {
-  const storage = new Storage({ area: "local" })
+  const logout = useLogout()
 
   const dispatch = useDispatch()
 
   const [mutate, { data, error, loading }] = useMutation(updateUserGQL)
 
   const updateUser = async (input: UserInput, image?: File) => {
-    const { token } = await storage.get<StoreJWT>("JWT")
+    const storage = new Storage({ area: "local" })
+
+    const { token, exp } = await storage.get<StoreJWT>("JWT")
+
+    if (CompareDate(exp)) {
+      logout()
+    }
 
     return mutate({
       variables: {

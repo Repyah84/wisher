@@ -4,12 +4,14 @@ import { useDispatch } from "react-redux"
 import { Storage } from "@plasmohq/storage"
 
 import { search } from "~gql/schema/search"
+import { CompareDate } from "~helpers/compare-date"
 import { resetSearchItems, setSearchItems } from "~store/slices/search"
+import { useLogout } from "~views/hooks/logout"
 
 import type { StoreJWT } from "./signin"
 
 export const useItemSearch = () => {
-  const storage = new Storage({ area: "local" })
+  const logout = useLogout()
 
   const dispatch = useDispatch()
 
@@ -29,8 +31,13 @@ export const useItemSearch = () => {
     if (!search) {
       return
     }
+    const storage = new Storage({ area: "local" })
 
-    const { token } = await storage.get<StoreJWT>("JWT")
+    const { token, exp } = await storage.get<StoreJWT>("JWT")
+
+    if (CompareDate(exp)) {
+      logout()
+    }
 
     return mutate({
       variables: {

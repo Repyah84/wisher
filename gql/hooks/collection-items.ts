@@ -4,14 +4,16 @@ import { useDispatch, useSelector } from "react-redux"
 import { Storage } from "@plasmohq/storage"
 
 import { items } from "~gql/schema/items"
+import { CompareDate } from "~helpers/compare-date"
 import { SortData } from "~models/sort-data"
 import { resetCollection, setCollection } from "~store/slices/collection"
 import type { RootState } from "~store/wisher.store"
+import { useLogout } from "~views/hooks/logout"
 
 import type { StoreJWT } from "./signin"
 
 export const useGetCollectionItems = () => {
-  const storage = new Storage({ area: "local" })
+  const logout = useLogout()
 
   const sortParam = useSelector(({ sort: { data } }: RootState) => data)
 
@@ -29,7 +31,13 @@ export const useGetCollectionItems = () => {
     resetStore = false,
     startAfterItemId?: string
   ) => {
-    const { token } = await storage.get<StoreJWT>("JWT")
+    const storage = new Storage({ area: "local" })
+
+    const { token, exp } = await storage.get<StoreJWT>("JWT")
+
+    if (CompareDate(exp)) {
+      logout()
+    }
 
     const sort = SortData.getSortParma(sortParam)
 

@@ -4,18 +4,26 @@ import { Storage } from "@plasmohq/storage"
 
 import { collectionInput } from "~gql/schema/input-collections"
 import type { UserCollectionsAddMutation } from "~gql/types/graphql"
+import { CompareDate } from "~helpers/compare-date"
+import { useLogout } from "~views/hooks/logout"
 
 import type { StoreJWT } from "./signin"
 
 export const useCollectionsMutate = () => {
-  const storage = new Storage({ area: "local" })
+  const logout = useLogout()
 
   const [mutate, { data, error, loading }] = useMutation(collectionInput)
 
   const addCollection = async (
     collections: string[]
   ): Promise<FetchResult<UserCollectionsAddMutation>> => {
-    const { token } = await storage.get<StoreJWT>("JWT")
+    const storage = new Storage({ area: "local" })
+
+    const { token, exp } = await storage.get<StoreJWT>("JWT")
+
+    if (CompareDate(exp)) {
+      logout()
+    }
 
     return mutate({
       variables: {

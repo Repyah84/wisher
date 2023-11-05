@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Outlet } from "react-router-dom"
 
 import { useItemDelete } from "~gql/hooks/item-delete.mutate"
-import { useUserDelete } from "~gql/hooks/user-delte.mutate"
+import { useUserDelete } from "~gql/hooks/user-delete.mutate"
 import { deleteItem } from "~store/actions/delete-item"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
 import type { RootState } from "~store/wisher.store"
