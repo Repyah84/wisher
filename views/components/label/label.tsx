@@ -4,7 +4,7 @@ interface Props {
   loading?: boolean
   title: string
   labelType?: "default" | "active" | "primary"
-  onLabelClick?: () => void
+  onLabelClick?: (value: string) => void
 }
 
 export const Label = ({
@@ -15,7 +15,7 @@ export const Label = ({
 }: Props) => {
   return (
     <div
-      onClick={onLabelClick}
+      onClick={() => onLabelClick(title)}
       className={`extensions-wisher-label extensions-wisher-label--${labelType}`}>
       <div className="extensions-wisher-label__loader">
         <Loader size={4} isLoading={loading} />

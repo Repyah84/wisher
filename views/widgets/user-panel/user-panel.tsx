@@ -12,8 +12,6 @@ export const UserPanel = () => {
 
   const user = useSelector(({ user: { data } }: RootState) => data)
 
-  console.log("!!!!!!!!!!!!!!!", user)
-
   return (
     <div className="extensions-wisher-user-panel">
       <div className="extensions-wisher-user-panel__user">
@@ -48,9 +46,7 @@ export const UserPanel = () => {
           btnType="stroke"
           btnColor="primary"
           onClickFn={() =>
-            navigateAndSetRedirect(
-              user === null ? "/login" : "/wisher/details-account-settings"
-            )
+            navigateAndSetRedirect(user === null ? "/login" : "/personal-info")
           }>
           {user === null ? (
             <span>SING UP</span>

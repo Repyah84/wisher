@@ -13,6 +13,7 @@ import { Help } from "~views/components/help/help"
 import { Popup } from "~views/components/popup/popup"
 import { useAsyncStoreDataWithContext } from "~views/hooks/async-store-data"
 import { AddForm } from "~views/widgets/add-form/add-form"
+import { CollectionsLabel } from "~views/widgets/collections-label/collections-label"
 import { Dialog } from "~views/widgets/dialog/dialog"
 import { Footer } from "~views/widgets/footer/footer"
 import { Header } from "~views/widgets/header/header"
@@ -23,7 +24,11 @@ export const WisherPage = () => {
   const dispatch = useDispatch()
 
   const {
-    wisherSate: { isCreateCollectionHelp, hasMessage },
+    wisherSate: {
+      isCreateCollectionHelp,
+      hasMessage,
+      collectionName: defCollectionName
+    },
     setWisherState,
     setStoreDataIsCreateCollectionHelp
   } = useAsyncStoreDataWithContext()
@@ -42,7 +47,11 @@ export const WisherPage = () => {
   }
 
   const onPopupClose = () => {
-    setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+    setWisherState((wisher) => ({
+      ...wisher,
+      hasMessage: null,
+      collectionName: ""
+    }))
   }
 
   const onCreateCollectionClick = (collection: string) => {
@@ -59,10 +68,14 @@ export const WisherPage = () => {
 
       dispatch(initialStateWithName(collection))
 
-      setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
+      onPopupClose()
 
       navigate(`/wisher/wishes-collection`)
     })
+  }
+
+  const onCollectionLabelClick = (name: string) => {
+    setWisherState((wisher) => ({ ...wisher, collectionName: name }))
   }
 
   const onAcceptDeleteCollection = () => {
@@ -112,8 +125,16 @@ export const WisherPage = () => {
             Tip: don’t forget to share your collections with friends and family!
           </Help>
 
+          <div className="extensions-wisher-page__labels">
+            <CollectionsLabel
+              type="wrap"
+              onLabelClick={onCollectionLabelClick}
+            />
+          </div>
+
           <AddForm
             btnTitle="create"
+            defCollectionName={defCollectionName}
             collections={collections}
             loading={loading}
             onSubmitFn={onCreateCollectionClick}

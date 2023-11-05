@@ -36,8 +36,6 @@ export const LoginPage = () => {
   }, [wisherJWT])
 
   const onGoogleLoginClick = () => {
-    console.log("LOGIN")
-
     if (isLoading || appleLoading) {
       return
     }

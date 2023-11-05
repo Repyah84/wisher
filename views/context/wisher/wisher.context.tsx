@@ -22,6 +22,7 @@ interface Props {
 interface WisherStateContextType {
   isShow: boolean
   hasMessage: WisherMessage
+  collectionName: string
   snackbar: {
     title: string
     action: boolean
@@ -41,6 +42,7 @@ export const WisherContext = ({ children }: Props) => {
   const [wisherSate, setWisherState] = useState<WisherStateContextType>({
     isShow: false,
     hasMessage: null,
+    collectionName: "",
     snackbar: null,
     isCreateCollectionHelp: true,
     isDetailsHelp: true

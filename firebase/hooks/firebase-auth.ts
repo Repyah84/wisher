@@ -33,8 +33,6 @@ export const useFirebaseAuth = () => {
   const onAppleLogin = async () => {
     setIsLoading(true)
 
-    console.log("onAppleLogin")
-
     const provider = new OAuthProvider("apple.com")
 
     try {
@@ -66,14 +64,10 @@ export const useFirebaseAuth = () => {
   useEffect(() => {
     getRedirectResult(auth).then((user) => {
       setIsLoading(false)
-
-      console.log("getRedirectResult", user)
     })
 
     onAuthStateChanged(auth, (user) => {
       setIsLoading(false)
-
-      console.log("onAuthStateChanged", user)
 
       setUser(user)
     })

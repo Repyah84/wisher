@@ -42,11 +42,7 @@ export const AddWisherPage = () => {
 
     setWisherState((wisher) => ({
       ...wisher,
-      isShow: false,
-      snackbar: {
-        title: "Perfect! We've saved your wish securely in the wishlist.",
-        action: true
-      }
+      isShow: false
     }))
 
     addItem({ input: data.input, image: data.imageUpload })
@@ -55,6 +51,14 @@ export const AddWisherPage = () => {
       })
       .then(() => {
         dispatch(resetCollectionsWithImages())
+
+        setWisherState((wisher) => ({
+          ...wisher,
+          snackbar: {
+            title: "Perfect! We've saved your wish securely in the wishlist.",
+            action: true
+          }
+        }))
 
         navigate("/wisher/wishes/wishes-all")
       })

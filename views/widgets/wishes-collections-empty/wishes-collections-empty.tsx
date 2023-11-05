@@ -8,6 +8,8 @@ import { FileSvgIcon } from "~views/components/icons/file/file"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
+import { CollectionsLabel } from "../collections-label/collections-label"
+
 export const WishesCollectionsEmpty = () => {
   const user = useSelector(({ user: { data } }: RootState) => data)
 
@@ -23,6 +25,11 @@ export const WishesCollectionsEmpty = () => {
     }
 
     setWisherState((wisher) => ({ ...wisher, hasMessage: "create-collection" }))
+  }
+
+  const onCollectionLabelClick = (name: string) => {
+    setWisherState((wisher) => ({ ...wisher, collectionName: name }))
+    onAddCollectionClick()
   }
 
   return (
@@ -49,7 +56,9 @@ export const WishesCollectionsEmpty = () => {
         Here are some collection ideas for you to get started:
       </p>
 
-      <div className="extensions-wisher-wishes-collections-empty__ideas"></div>
+      <div className="extensions-wisher-wishes-collections-empty__ideas">
+        <CollectionsLabel type="wrap" onLabelClick={onCollectionLabelClick} />
+      </div>
     </div>
   )
 }

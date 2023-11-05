@@ -31,8 +31,6 @@ export const InitialPage = () => {
           return
         }
 
-        console.log("##############", jwt)
-
         return Promise.all([getUser(), getItems()])
       })
       .then(() => {

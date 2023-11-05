@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import type { User, UserInput } from "~gql/types/graphql"
 import { Button } from "~views/components/button/button"
@@ -24,12 +24,6 @@ export const EditUserForm = ({ user, onSubmitFn, isLoading }: Props) => {
   }
 
   const [editUser, setEditUser] = useState<UserInput>(parsEditDate(user))
-
-  // useEffect(() => {
-  //   console.log("useEffect", editUser)
-
-  //   // editUser.birthday.
-  // }, [editUser])
 
   const partial = (data: UserInput, value: Partial<UserInput>) => {
     return { ...data, ...value }

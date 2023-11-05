@@ -1,0 +1,13 @@
+.extensions-wisher-collections-label {
+  display: flex;
+
+  &--row {
+    column-gap: 16px;
+  }
+
+  &--wrap {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+}
