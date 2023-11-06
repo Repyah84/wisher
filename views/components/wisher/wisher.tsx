@@ -6,7 +6,7 @@ import type { Item } from "~gql/types/graphql"
 
 import { WishDate } from "../date/date"
 import { Label } from "../label/label"
-import { Rating } from "../rating/rating"
+import { WisherRating } from "../rating/rating"
 
 interface Props {
   wish: Item
@@ -68,7 +68,7 @@ export const Wisher = ({
           <span className="extensions-wisher-item__price">{priceValue}</span>
         )}
 
-        <Rating itemWidth={20} rating={personalRating} />
+        <WisherRating size={20} rating={personalRating} />
       </div>
     </div>
   )

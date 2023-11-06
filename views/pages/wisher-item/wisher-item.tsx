@@ -17,7 +17,7 @@ import { OptionsSvgIcon } from "~views/components/icons/options/options"
 import { ShareSvgIcon } from "~views/components/icons/share/share"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
-import { Rating } from "~views/components/rating/rating"
+import { WisherRating } from "~views/components/rating/rating"
 import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useItemRootData } from "~views/hooks/item-root-data"
@@ -180,7 +180,7 @@ export const WisherItemPage = () => {
             <div className="extension-wisher-item__create-info">
               <WishDate date={createdAt} />
 
-              <Rating itemWidth={20} rating={personalRating} />
+              <WisherRating size={20} rating={personalRating} />
             </div>
 
             <div className="extension-wisher-item__collections">

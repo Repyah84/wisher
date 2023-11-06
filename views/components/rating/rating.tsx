@@ -1,70 +1,118 @@
-import { useMemo, type ReactNode } from "react"
+import { useEffect, useMemo, useState, type ReactNode } from "react"
+
+import { StarIcon } from "../icons/star/star"
 
 interface Props {
-  rating?: number
+  rating: number
+  count?: number
   children?: ReactNode
-  maxRange?: number
-  itemWidth?: number
+  size?: number
   onRatingChange?: (rating: number) => void
 }
 
-export const Rating = ({
-  maxRange = 3,
-  rating = 0,
-  itemWidth = 32,
+export const WisherRating = ({
+  rating,
+  count = 3,
+  size = 32,
   children,
   onRatingChange
 }: Props) => {
-  const ratingData = useMemo(() => {
-    let r = rating + 1
+  const [offSetFillSelected, setOffSetFillSelected] = useState<
+    [number, number][]
+  >([])
+  const [offSetFill, setOffsetFill] = useState<[number, number][] | null>(null)
 
-    return new Array(maxRange).fill(null).map(() => (r -= 1))
-  }, [maxRange, rating])
+  const initialFillState = () => {
+    const offsetList = []
 
-  const onItemClick = (value: number) => {
-    if (onRatingChange === undefined) {
-      return
+    const limit = count * 2
+    const data = Array(rating * 2).fill(1)
+
+    for (let i = 0; i < limit; i += 2) {
+      offsetList.push([data[i] ?? 0, data[i + 1] ?? 0])
     }
 
-    let r = rating
+    return offsetList
+  }
 
-    if (value <= 0) {
-      r++
-    } else {
-      r--
+  const fillData = useMemo(() => {
+    return offSetFill || offSetFillSelected
+  }, [offSetFill, offSetFillSelected])
+
+  useEffect(() => {
+    setOffSetFillSelected(initialFillState())
+  }, [])
+
+  const setOffsetData = (
+    index: number,
+    value: [number, number]
+  ): [number, number][] => {
+    const data: [number, number][] = offSetFillSelected.map(
+      (_item, itemIndex) => {
+        if (itemIndex < index) {
+          return [1, 1]
+        }
+
+        if (itemIndex === index) {
+          return value
+        }
+
+        return [0, 0]
+      }
+    )
+
+    return data
+  }
+
+  const getRating = (value: [number, number][] | [number, number]): number => {
+    let rating = 0
+
+    const getSum = (value: [number, number][] | [number, number]) => {
+      for (let item of value) {
+        if (Array.isArray(item)) {
+          getSum(item)
+        } else {
+          rating += item
+        }
+      }
     }
 
-    if (r > maxRange || r < 0) {
-      return
-    }
+    getSum(value)
 
-    onRatingChange(r)
+    return rating * 0.5
+  }
+
+  const onPointerEnter = (index: number, value: [number, number]) => {
+    setOffsetFill(setOffsetData(index, value))
+  }
+
+  const onPointerClick = (index: number, value: [number, number]) => {
+    const data = setOffsetData(index, value)
+
+    setOffSetFillSelected(data)
+
+    onRatingChange(getRating(data))
+  }
+
+  const onPointerLeave = () => {
+    setOffsetFill(null)
   }
 
   return (
     <div className="extensions-wisher-rating">
       {children}
       <div className="extensions-wisher-rating__items">
-        {ratingData.map((item, index) => (
-          <svg
-            style={{
-              maxWidth: `${itemWidth}px`,
-              minWidth: `${itemWidth}px`,
-              cursor: `${onRatingChange === undefined ? "auto" : "pointer"}`
-            }}
+        {fillData.map((item, index) => (
+          <StarIcon
+            readonly={onRatingChange === undefined}
+            index={index}
             key={index}
-            onClick={() => onItemClick(item)}
-            xmlns="http://www.w3.org/2000/svg"
-            fill={item > 0 ? "#000" : "none"}
-            viewBox="0 0 32 32">
-            <path
-              stroke="#000"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1.5"
-              d="m16.55 23.84 6.3 4c.81.5 1.81-.25 1.57-1.2l-1.82-7.16a1.1 1.1 0 0 1 .36-1.1l5.65-4.71c.74-.62.36-1.86-.6-1.92l-7.38-.48a1.05 1.05 0 0 1-.9-.66l-2.76-6.94a1.04 1.04 0 0 0-1.94 0l-2.76 6.94a1.05 1.05 0 0 1-.9.66l-7.38.48c-.96.06-1.34 1.3-.6 1.92l5.65 4.7a1.1 1.1 0 0 1 .36 1.11l-1.7 6.65c-.28 1.12.92 2.04 1.89 1.42l5.86-3.7a1.03 1.03 0 0 1 1.1 0v0Z"
-            />
-          </svg>
+            data={item}
+            size={size}
+            onPointerEnter={onPointerEnter}
+            onPointerClick={onPointerClick}
+            onPointerLeave={onPointerLeave}
+          />
         ))}
       </div>
     </div>

@@ -12,7 +12,7 @@ import { Button } from "~views/components/button/button"
 import { Label } from "~views/components/label/label"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
-import { Rating } from "~views/components/rating/rating"
+import { WisherRating } from "~views/components/rating/rating"
 import { Slider } from "~views/components/slider/slider"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useSelectCollection } from "~views/hooks/select-collection"
@@ -79,11 +79,11 @@ export const WisherLayout = ({
           <Slider images={images} />
         )}
 
-        <Rating rating={personalRating}>
+        <WisherRating rating={personalRating}>
           <span className="extensions-wisher-layout__rating-title">
             Personal Rating
           </span>
-        </Rating>
+        </WisherRating>
 
         <Label
           title="All"

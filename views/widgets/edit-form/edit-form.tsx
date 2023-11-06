@@ -10,7 +10,7 @@ import { ImageUploader } from "~views/components/image-upload/image-upload"
 import { Input } from "~views/components/input/input"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
-import { Rating } from "~views/components/rating/rating"
+import { WisherRating } from "~views/components/rating/rating"
 import { Select } from "~views/components/select/select"
 import { Textarea } from "~views/components/textarea/textarea"
 import { WishImage } from "~views/components/wish-image/wish-image"
@@ -144,13 +144,13 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
               title="Wish title*"
             />
 
-            <Rating
+            <WisherRating
               rating={edit.personalRating}
               onRatingChange={(value) => change({ personalRating: value })}>
               <span className="extensions-wisher-edit-form__item-title">
                 Personal rating
               </span>
-            </Rating>
+            </WisherRating>
 
             <div className="extensions-wisher-edit-form__price">
               <Input
