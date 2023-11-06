@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react"
 
-import { StarIcon } from "../icons/star/star"
+import { StarIcon } from "../star/star"
 
 interface Props {
   rating: number
