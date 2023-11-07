@@ -11,6 +11,7 @@ import { useUserDelete } from "~gql/hooks/user-delete.mutate"
 import { IsPartners } from "~helpers/is-partners"
 import { deleteItem } from "~store/actions/delete-item"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
+import { resetWisher } from "~store/slices/wisher"
 import type { RootState } from "~store/wisher.store"
 import { Popup } from "~views/components/popup/popup"
 import { ItemSetting } from "~views/widgets/item-setting/item-setting"
@@ -68,7 +69,11 @@ export const Root = () => {
 
   useEffect(() => {
     initDataByBackground()
-  }, [])
+
+    if (isShow) {
+      dispatch(resetWisher())
+    }
+  }, [isShow])
 
   useEffect(() => {
     if (wisherJWT === null) {

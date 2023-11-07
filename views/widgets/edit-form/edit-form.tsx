@@ -59,7 +59,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
   )
 
   const uploadImage = useMemo(() => {
-    return imageUpload ? URL.createObjectURL(imageUpload) : data.input.imageUrl
+    return imageUpload ? URL.createObjectURL(imageUpload) : edit.imageUrl
   }, [imageUpload, data])
 
   const change = (value: Partial<ItemInput>) => {

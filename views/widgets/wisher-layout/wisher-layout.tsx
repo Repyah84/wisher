@@ -30,7 +30,7 @@ interface Props {
 export const WisherLayout = ({
   data: {
     imageUpload,
-    input: { title, currency, price, personalRating, collections },
+    input: { title, currency, price, personalRating, collections, imageUrl },
     images
   },
   isLoading,
@@ -67,13 +67,17 @@ export const WisherLayout = ({
       <div className="extensions-wisher-layout">
         {imageUpload || !images || images.length === 0 ? (
           <img
-            style={{
-              objectFit: "cover"
-            }}
-            src={imageUpload ? URL.createObjectURL(imageUpload) : imageGarage}
+            src={
+              imageUpload
+                ? URL.createObjectURL(imageUpload)
+                : imageUrl || imageGarage
+            }
             width={192}
             height={192}
             alt="Garage"
+            style={{
+              objectFit: "contain"
+            }}
           />
         ) : (
           <Slider images={images} />

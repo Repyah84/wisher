@@ -1,7 +1,5 @@
 import "@plasmohq/messaging/background"
 
-import { match } from "assert"
-
 import { startHub } from "@plasmohq/messaging/pub-sub"
 import { Storage } from "@plasmohq/storage"
 

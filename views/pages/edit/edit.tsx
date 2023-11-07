@@ -25,12 +25,12 @@ export const EditWisherPage = () => {
 
   const dispatch = useDispatch()
 
-  const data = useSelector(({ wisher: { data } }: RootState) => {
-    return data === null ? DEFAULT_DATA : data
+  const wisher = useSelector(({ wisher: { data } }: RootState) => {
+    return data || DEFAULT_DATA
   })
 
   const onSaveClick = (value: WisherSearchData) => {
-    dispatch(setWisher({ ...data, ...value }))
+    dispatch(setWisher({ ...wisher, ...value }))
 
     navigateWithRedirect("/wisher/wisher-add")
   }
@@ -39,7 +39,7 @@ export const EditWisherPage = () => {
     <div className="extensions-wisher-edit-page">
       <Header />
 
-      <EditForm data={data} onSaveClick={onSaveClick} />
+      <EditForm data={wisher} onSaveClick={onSaveClick} />
     </div>
   )
 }
