@@ -16,7 +16,7 @@ export const Header = () => {
   const updateWisher = () => {
     dispatch(resetWisher())
 
-    setWisherState((wisher) => ({ ...wisher, isShow: false }))
+    setWisherState((wisher) => ({ ...wisher, isShow: false, hasMessage: null }))
   }
 
   return (

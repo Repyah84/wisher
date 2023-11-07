@@ -9,8 +9,6 @@ import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
-const storage = new Storage({ area: "local" })
-
 export const useGetUserLazy = () => {
   const dispatch = useDispatch()
 
@@ -23,6 +21,8 @@ export const useGetUserLazy = () => {
   })
 
   const getUser = async () => {
+    const storage = new Storage({ area: "local" })
+
     const { token } = await storage.get<StoreJWT>("JWT")
 
     return mutate({

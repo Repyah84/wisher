@@ -42,7 +42,8 @@ export const AddWisherPage = () => {
 
     setWisherState((wisher) => ({
       ...wisher,
-      isShow: false
+      isShow: false,
+      hasMessage: null
     }))
 
     addItem({ input: data.input, image: data.imageUpload })

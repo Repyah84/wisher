@@ -81,7 +81,11 @@ export const Root = () => {
       return
     }
 
-    setWisherState((wisher) => ({ ...wisher, isShow: !wisher.isShow }))
+    setWisherState((wisher) => ({
+      ...wisher,
+      isShow: !wisher.isShow,
+      hasMessage: null
+    }))
 
     setExtensionAction(null)
   }, [extensionAction])

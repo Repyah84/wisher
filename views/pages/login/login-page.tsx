@@ -23,7 +23,7 @@ export const LoginPage = () => {
   const { getItems } = useGetItemsLazy()
 
   useEffect(() => {
-    if (wisherJWT === null) {
+    if (wisherJWT === null || wisherJWT === undefined) {
       return
     }
 

@@ -18,7 +18,7 @@ export const OverLay = () => {
   const onOverLayClick = () => {
     dispatch(resetWisher())
 
-    setWisherSate((wisher) => ({ ...wisher, isShow: false }))
+    setWisherSate((wisher) => ({ ...wisher, isShow: false, hasMessage: null }))
   }
 
   return (
