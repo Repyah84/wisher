@@ -19,5 +19,11 @@
 
   background-color: var(--extensions-wisher-primary);
 
+  transition: background-color 200ms;
+
   cursor: pointer;
+
+  &:hover {
+    background-color: var(--extension-wisher-primary-strong);
+  }
 }

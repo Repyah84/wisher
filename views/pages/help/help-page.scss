@@ -8,6 +8,12 @@
   }
 
   & .__extensions-wisher-btn__ {
+    transition: background-color 150ms;
+
+    &:hover {
+      background-color: var(--extensions-wisher-primary-light);
+    }
+
     width: 100%;
 
     padding: 12px 16px;

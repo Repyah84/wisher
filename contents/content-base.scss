@@ -40,7 +40,13 @@
   font-size: 14px;
   line-height: 20px;
 
+  transition: background-color 150ms;
+
   cursor: pointer;
+
+  &:hover {
+    background-color: var(--extensions-wisher-primary-light);
+  }
 
   & > [alt="Arrow"] {
     margin-left: auto;
