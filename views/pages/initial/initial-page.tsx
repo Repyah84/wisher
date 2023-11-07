@@ -7,6 +7,7 @@ import { Storage } from "@plasmohq/storage"
 import { useGetItemsLazy } from "~gql/hooks/items"
 import type { StoreJWT } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
+import { IsPartners } from "~helpers/is-partners"
 import { Loader } from "~views/components/loader/loader"
 import { useAsyncStoreDataWithContext } from "~views/hooks/async-store-data"
 import { Header } from "~views/widgets/header/header"
@@ -32,6 +33,12 @@ export const InitialPage = () => {
         }
 
         Promise.all([getUser(), getItems()]).then(() => {
+          if (IsPartners()) {
+            navigate("/wisher/wisher-add")
+
+            return
+          }
+
           navigate("/wisher/wishes/wishes-all")
         })
       })
