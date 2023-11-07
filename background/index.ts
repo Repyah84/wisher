@@ -16,10 +16,4 @@ chrome.action.onClicked.addListener(({ id }) => {
   void storage.set("action-ai", data)
 })
 
-storage.watch({
-  "action-ai": (c) => {
-    console.log(c.newValue)
-  }
-})
-
 startHub()

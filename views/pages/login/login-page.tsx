@@ -45,7 +45,6 @@ export const LoginPage = () => {
   }
 
   const onAppleLoginClock = () => {
-    console.log("Apple login")
     // if (isLoading || appleLoading) {
     //   return
     // }
