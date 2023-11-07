@@ -37,6 +37,7 @@ export const StarIcon = ({
     if (readonly) {
       return
     }
+
     onPointerLeave()
   }
 
@@ -44,6 +45,7 @@ export const StarIcon = ({
     if (readonly) {
       return
     }
+
     onPointerClick(index, getData(offset))
   }
 

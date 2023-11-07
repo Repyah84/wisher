@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react"
+import { useMemo, useState, type ReactNode } from "react"
 
 import { StarIcon } from "../star/star"
 
@@ -17,11 +17,6 @@ export const WisherRating = ({
   children,
   onRatingChange
 }: Props) => {
-  const [offSetFillSelected, setOffSetFillSelected] = useState<
-    [number, number][]
-  >([])
-  const [offSetFill, setOffsetFill] = useState<[number, number][] | null>(null)
-
   const initialFillState = () => {
     const offsetList = []
 
@@ -34,14 +29,6 @@ export const WisherRating = ({
 
     return offsetList
   }
-
-  const fillData = useMemo(() => {
-    return offSetFill || offSetFillSelected
-  }, [offSetFill, offSetFillSelected])
-
-  useEffect(() => {
-    setOffSetFillSelected(initialFillState())
-  }, [])
 
   const setOffsetData = (
     index: number,
@@ -82,8 +69,22 @@ export const WisherRating = ({
     return rating * 0.5
   }
 
+  const [offSetFillSelected, setOffSetFillSelected] = useState<
+    [number, number][]
+  >(initialFillState())
+
+  const [offSetFill, setOffsetFill] = useState<[number, number][] | null>(null)
+
+  const fillData = useMemo(() => {
+    return offSetFill || offSetFillSelected
+  }, [offSetFill, offSetFillSelected])
+
   const onPointerEnter = (index: number, value: [number, number]) => {
     setOffsetFill(setOffsetData(index, value))
+  }
+
+  const onPointerLeave = () => {
+    setOffsetFill(null)
   }
 
   const onPointerClick = (index: number, value: [number, number]) => {
@@ -92,10 +93,6 @@ export const WisherRating = ({
     setOffSetFillSelected(data)
 
     onRatingChange(getRating(data))
-  }
-
-  const onPointerLeave = () => {
-    setOffsetFill(null)
   }
 
   return (

@@ -20,6 +20,7 @@ interface Props {
 }
 
 interface WisherStateContextType {
+  tabId: string | null
   isShow: boolean
   hasMessage: WisherMessage
   collectionName: string
@@ -40,6 +41,7 @@ export const WisherStateContext = createContext<ContextState>(null)
 
 export const WisherContext = ({ children }: Props) => {
   const [wisherSate, setWisherState] = useState<WisherStateContextType>({
+    tabId: null,
     isShow: false,
     hasMessage: null,
     collectionName: "",

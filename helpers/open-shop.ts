@@ -1,4 +1,4 @@
-export const OpenShop = (param: string) => {
+export const OpenShop = (param: string): void => {
   const params = new URLSearchParams()
 
   params.set("params_url", param)

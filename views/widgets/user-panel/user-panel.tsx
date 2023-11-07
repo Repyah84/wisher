@@ -49,7 +49,7 @@ export const UserPanel = () => {
             navigateAndSetRedirect(user === null ? "/login" : "/personal-info")
           }>
           {user === null ? (
-            <span>SING UP</span>
+            <span>SING IN</span>
           ) : (
             <img width={24} height={24} src={svgProfile} alt="Profile" />
           )}

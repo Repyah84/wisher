@@ -92,7 +92,7 @@ export const LoginPage = () => {
                 alt="google-logo"
               />
 
-              <span>SIGN UP WITH GOOGLE</span>
+              <span>SIGN IN WITH GOOGLE</span>
 
               <Loader size={5.5} isLoading={isLoading} />
             </div>

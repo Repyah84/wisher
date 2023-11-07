@@ -1,11 +1,20 @@
 import { useContext } from "react"
 
+import { sendToBackground } from "@plasmohq/messaging"
 import { Storage } from "@plasmohq/storage"
 
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
 export const useAsyncStoreDataWithContext = () => {
   const { wisherSate, setWisherState } = useContext(WisherStateContext)
+
+  const initDataByBackground = async () => {
+    const tabId = await sendToBackground<any, string>({
+      name: "tabId"
+    })
+
+    setWisherState((wisher) => ({ ...wisher, tabId }))
+  }
 
   const initialDataByStore = async () => {
     const storage = new Storage()
@@ -29,7 +38,7 @@ export const useAsyncStoreDataWithContext = () => {
   }
 
   const setStoreDataDetailsHelp = (value: boolean) => {
-    const storage = new Storage()
+    const storage = new Storage({ area: "local" })
 
     storage.set("isDetailsHelp", value).then(() => {
       setWisherState((wisher) => ({ ...wisher, isDetailsHelp: value }))
@@ -37,7 +46,7 @@ export const useAsyncStoreDataWithContext = () => {
   }
 
   const setStoreDataIsCreateCollectionHelp = (value: boolean) => {
-    const storage = new Storage()
+    const storage = new Storage({ area: "local" })
 
     storage.set("isCreateCollectionHelp", value).then(() => {
       setWisherState((wisher) => ({ ...wisher, isCreateCollectionHelp: value }))
@@ -48,6 +57,7 @@ export const useAsyncStoreDataWithContext = () => {
     wisherSate,
     setWisherState,
     initialDataByStore,
+    initDataByBackground,
     setStoreDataDetailsHelp,
     setStoreDataIsCreateCollectionHelp
   }
