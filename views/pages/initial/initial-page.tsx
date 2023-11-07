@@ -27,12 +27,13 @@ export const InitialPage = () => {
       .then((jwt) => {
         if (!jwt) {
           navigate("/login")
+
+          return
         }
 
-        return Promise.all([getUser(), getItems()])
-      })
-      .then(() => {
-        navigate("/wisher/wishes/wishes-all")
+        Promise.all([getUser(), getItems()]).then(() => {
+          navigate("/wisher/wishes/wishes-all")
+        })
       })
   }, [])
 
