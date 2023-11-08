@@ -69,47 +69,46 @@ export const Root = () => {
   }
 
   return (
-    state && (
-      <div
-        className="extensions-wisher-root"
-        onAnimationEnd={animationEnd}
-        is-show={isShow.toString()}
-        is-visible={isPartner.toString()}>
-        <Badge />
+    <div
+      is-show={isShow.toString()}
+      is-exists={state.toString()}
+      is-visible={isPartner.toString()}
+      onTransitionEnd={animationEnd}
+      className="extensions-wisher-root">
+      <Badge />
 
-        <Outlet></Outlet>
+      <Outlet></Outlet>
 
-        <Popup
-          title="Item settings"
-          hasPopup={hasMessage === "item-setting"}
-          onCloseClick={onPopupClose}>
-          <ItemSetting />
-        </Popup>
+      <Popup
+        title="Item settings"
+        hasPopup={hasMessage === "item-setting"}
+        onCloseClick={onPopupClose}>
+        <ItemSetting />
+      </Popup>
 
-        <Popup
-          hasPopup={hasMessage === "wisher-item-delete"}
-          onCloseClick={onPopupClose}>
-          <Dialog
-            title="Delete the wish ?"
-            description="You won’t be able to restore the wish"
-            loading={loading}
-            onAcceptClick={onAcceptClickDeleteItem}
-            onCancelClick={onPopupClose}
-          />
-        </Popup>
+      <Popup
+        hasPopup={hasMessage === "wisher-item-delete"}
+        onCloseClick={onPopupClose}>
+        <Dialog
+          title="Delete the wish ?"
+          description="You won’t be able to restore the wish"
+          loading={loading}
+          onAcceptClick={onAcceptClickDeleteItem}
+          onCancelClick={onPopupClose}
+        />
+      </Popup>
 
-        <Popup
-          hasPopup={hasMessage === "delete-user"}
-          onCloseClick={onPopupClose}>
-          <Dialog
-            title="Delete your account?"
-            description="You won’t be able to restore the account"
-            loading={deleteUserLoading}
-            onAcceptClick={onAcceptDeleteUser}
-            onCancelClick={onPopupClose}
-          />
-        </Popup>
-      </div>
-    )
+      <Popup
+        hasPopup={hasMessage === "delete-user"}
+        onCloseClick={onPopupClose}>
+        <Dialog
+          title="Delete your account?"
+          description="You won’t be able to restore the account"
+          loading={deleteUserLoading}
+          onAcceptClick={onAcceptDeleteUser}
+          onCancelClick={onPopupClose}
+        />
+      </Popup>
+    </div>
   )
 }
