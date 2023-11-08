@@ -30,7 +30,7 @@ export const useParsUrl = () => {
         setIsLoading(false)
         setIsSuccess(true)
 
-        const { image, priceCurrency, price, description, icon } = res
+        const { image, priceCurrency, price, name, icon } = res
 
         const data: WisherSearchData = {
           images: image ?? null,
@@ -41,7 +41,7 @@ export const useParsUrl = () => {
             note: "",
             personalRating: 0,
             price: price ?? 0,
-            title: description ?? "",
+            title: name ?? "",
             url: window.location.href
           },
           imageUpload: undefined
