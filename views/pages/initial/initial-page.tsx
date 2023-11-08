@@ -18,10 +18,11 @@ export const InitialPage = () => {
   const { getUser } = useGetUserLazy()
   const { getItems } = useGetItemsLazy()
 
-  const { initialDataByStore } = useAsyncStoreDataWithContext()
+  const { initialDataByStore, initDataByBackground } =
+    useAsyncStoreDataWithContext()
 
   useEffect(() => {
-    initialDataByStore()
+    Promise.all([initialDataByStore(), initDataByBackground()])
       .then(() => {
         return new Storage({ area: "local" }).get<StoreJWT>("JWT")
       })

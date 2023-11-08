@@ -40,12 +40,6 @@ export const useHandleApp = () => {
     setWisherState
   } = useContext(WisherStateContext)
 
-  const { initDataByBackground } = useAsyncStoreDataWithContext()
-
-  useEffect(() => {
-    initDataByBackground()
-  }, [])
-
   useEffect(() => {
     if (isShow) {
       dispatch(resetWisher())
