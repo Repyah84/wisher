@@ -1,7 +1,12 @@
 .extensions-wisher-root {
   position: fixed;
 
-  top: 120px;
+  top: 10px;
+
+  @media (min-height: 900px) {
+    top: 120px;
+  }
+
   right: 0;
 
   width: var(--extensions-wisher-width);
