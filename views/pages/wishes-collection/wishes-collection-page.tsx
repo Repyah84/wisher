@@ -203,7 +203,9 @@ export const CollectionPage = () => {
         </div>
 
         <div className="extensions-wisher-collection-page__info">
-          <h2 className="extensions-wisher-collection-page__title">{name}</h2>
+          <h2 className="extensions-wisher-collection-page__collection-name">
+            {name}
+          </h2>
 
           <div className="extensions-wisher-collection-page__details">
             <span>{count} Items</span>

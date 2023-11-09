@@ -4,10 +4,7 @@ import { useContext } from "react"
 import { useDispatch } from "react-redux"
 
 import type { User } from "~gql/types/graphql"
-import {
-  setWisherCollections,
-  type WisherSearchData
-} from "~store/slices/wisher"
+import { patchWisherState, type WisherSearchData } from "~store/slices/wisher"
 import { Button } from "~views/components/button/button"
 import { Label } from "~views/components/label/label"
 import { Loader } from "~views/components/loader/loader"
@@ -52,7 +49,11 @@ export const WisherLayout = ({
   const onPopupClose = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
-    dispatch(setWisherCollections(selectedCollections))
+    dispatch(patchWisherState({ collections: selectedCollections }))
+  }
+
+  const onRatingChange = (personalRating: number) => {
+    dispatch(patchWisherState({ personalRating }))
   }
 
   const onAlCollectionClick = () => {
@@ -83,7 +84,7 @@ export const WisherLayout = ({
           <Slider images={images} />
         )}
 
-        <WisherRating rating={personalRating}>
+        <WisherRating rating={personalRating} onRatingChange={onRatingChange}>
           <span className="extensions-wisher-layout__rating-title">
             Personal Rating
           </span>

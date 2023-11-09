@@ -1,5 +1,21 @@
 .extensions-wisher-wishes-collections-page {
   display: grid;
 
-  overflow: hidden;
+  overflow: auto;
+
+  overscroll-behavior-y: contain;
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--extensions-mode-color-grey);
+
+    border-radius: 3px;
+  }
 }

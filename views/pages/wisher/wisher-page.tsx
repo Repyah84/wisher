@@ -125,12 +125,7 @@ export const WisherPage = () => {
             Tip: don’t forget to share your collections with friends and family!
           </Help>
 
-          <div className="extensions-wisher-page__labels">
-            <CollectionsLabel
-              type="wrap"
-              onLabelClick={onCollectionLabelClick}
-            />
-          </div>
+          <CollectionsLabel type="wrap" onLabelClick={onCollectionLabelClick} />
 
           <AddForm
             btnTitle="create"

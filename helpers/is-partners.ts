@@ -1210,7 +1210,9 @@ const PARTNERS = [
   "wondershare.com",
   "yarden.com",
   "zaful.com",
-  "zchocolat.com"
+  "zchocolat.com",
+  "amazon",
+  "aliexpress"
 ]
 
 export const IsPartners = (): boolean => {

@@ -13,6 +13,7 @@ import { WisherContext } from "~views/context/wisher/wisher.context"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"],
+  // matches: ["https://www.amazon.com/*", "https://ek.ua/ua/*"],
   css: ["font.css"]
 }
 
