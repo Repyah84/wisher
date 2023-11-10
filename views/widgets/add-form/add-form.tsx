@@ -35,9 +35,10 @@ export const AddForm = ({
     return inputValue === "" || inputValue === null || inputValue === undefined
   }
 
-  const errorValidator = () => {
+  const errorValidator = useMemo(() => {
     return collections !== null && collections.includes(inputValue)
-  }
+  }, [inputValue])
+
   const onResetClick = () => {
     setInputValue("")
 
@@ -45,7 +46,7 @@ export const AddForm = ({
   }
 
   const onSubmitClick = () => {
-    if (requiredValidator() || errorValidator() || loading) {
+    if (requiredValidator() || errorValidator || loading) {
       return
     }
 
@@ -62,7 +63,7 @@ export const AddForm = ({
       <Input
         title="collection name*"
         errorMessage={
-          errorValidator() && "You already have a collection with this name"
+          errorValidator && "You already have a collection with this name"
         }
         value={inputValue}
         onChangeValue={(value) => setInputValue(value)}>
@@ -72,7 +73,7 @@ export const AddForm = ({
       </Input>
 
       <Button
-        disable={requiredValidator() || errorValidator()}
+        disable={requiredValidator() || errorValidator}
         btnColor="primary"
         type="submit"
         size="md">
