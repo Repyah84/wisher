@@ -2,7 +2,11 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { ParserUrlService } from "~api/parser-url/parser-url.service"
-import { setWisher, type WisherSearchData } from "~store/slices/wisher"
+import {
+  resetWisher,
+  setWisher,
+  type WisherSearchData
+} from "~store/slices/wisher"
 import type { RootState } from "~store/wisher.store"
 
 interface ParsUrlInputData {
@@ -69,6 +73,8 @@ export const useParsUrl = () => {
   }, [controller, data])
 
   const invalidate = () => {
+    dispatch(resetWisher())
+
     setController(new AbortController())
   }
 

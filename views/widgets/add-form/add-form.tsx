@@ -1,6 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react"
 
 import { Button } from "~views/components/button/button"
+import { CrossCircleSvgIcon } from "~views/components/icons/cross-circle/cross-circle"
 import { Input } from "~views/components/input/input"
 import { Loader } from "~views/components/loader/loader"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
@@ -64,9 +65,11 @@ export const AddForm = ({
           errorValidator() && "You already have a collection with this name"
         }
         value={inputValue}
-        onChangeValue={(value) => setInputValue(value)}
-        onResetValue={onResetClick}
-      />
+        onChangeValue={(value) => setInputValue(value)}>
+        <Button btnType="icon" onClickFn={onResetClick}>
+          <CrossCircleSvgIcon />
+        </Button>
+      </Input>
 
       <Button
         disable={requiredValidator() || errorValidator()}

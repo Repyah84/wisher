@@ -1,5 +1,5 @@
 import svgIcon from "data-base64:~assets/wisher-collection.svg"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { Storage } from "@plasmohq/storage"
@@ -7,12 +7,14 @@ import { Storage } from "@plasmohq/storage"
 import { useGetItemsLazy } from "~gql/hooks/items"
 import type { StoreJWT } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
-import { IsPartners } from "~helpers/is-partners"
 import { Loader } from "~views/components/loader/loader"
+import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useAsyncStoreDataWithContext } from "~views/hooks/async-store-data"
 import { Header } from "~views/widgets/header/header"
 
 export const InitialPage = () => {
+  const { setWisherState } = useContext(WisherStateContext)
+
   const navigate = useNavigate()
 
   const { getUser } = useGetUserLazy()
@@ -30,15 +32,13 @@ export const InitialPage = () => {
         if (!jwt) {
           navigate("/login")
 
+          setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
+
           return
         }
 
         Promise.all([getUser(), getItems()]).then(() => {
-          if (IsPartners()) {
-            navigate("/wisher/wisher-add")
-
-            return
-          }
+          setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
 
           navigate("/wisher/wishes/wishes-all")
         })

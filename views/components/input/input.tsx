@@ -1,11 +1,10 @@
-import { Button } from "../button/button"
-import { CrossCircleSvgIcon } from "../icons/cross-circle/cross-circle"
+import type { ReactNode } from "react"
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   title?: string
   onChangeValue: (value: string) => void
-  onResetValue?: () => void
   errorMessage?: string
+  children?: ReactNode
 }
 
 export const Input = ({
@@ -14,18 +13,22 @@ export const Input = ({
   type = "text",
   placeholder,
   onChangeValue,
-  onResetValue,
-  errorMessage
+  errorMessage,
+  children
 }: Props) => {
   return (
     <div className="extensions-wisher-input">
-    {title &&   <div className="extensions-wisher-input__header">
-        <span className="extensions-wisher-input__title">{title}</span>
+      {title && (
+        <div className="extensions-wisher-input__header">
+          <span className="extensions-wisher-input__title">{title}</span>
 
-        {errorMessage && (
-          <span className="extensions-wisher-input__error">{errorMessage}</span>
-        )}
-      </div>}
+          {errorMessage && (
+            <span className="extensions-wisher-input__error">
+              {errorMessage}
+            </span>
+          )}
+        </div>
+      )}
 
       <label className="extensions-wisher-input__label">
         <input
@@ -38,10 +41,8 @@ export const Input = ({
           placeholder={placeholder}
         />
 
-        {onResetValue && (
-          <Button btnType="icon" onClickFn={onResetValue}>
-            <CrossCircleSvgIcon />
-          </Button>
+        {children && (
+          <div className="extensions-wisher-input__children">{children}</div>
         )}
       </label>
     </div>

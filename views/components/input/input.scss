@@ -57,4 +57,12 @@
 
     font-size: 14px;
   }
+
+  &__children {
+    min-width: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

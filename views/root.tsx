@@ -18,7 +18,7 @@ import { useNavigateWithRedirect } from "./hooks/navigate-with-redirect"
 import { Dialog } from "./widgets/dialog/dialog"
 
 export const Root = () => {
-  const { isShow, hasMessage, dispatch, setWisherState, logout } =
+  const { isShow, hasMessage, hasBadge, dispatch, setWisherState, logout } =
     useHandleApp()
 
   const itemId = useSelector(({ item: { data } }: RootState) => data?.id)
@@ -70,12 +70,13 @@ export const Root = () => {
 
   return (
     <div
+      has-badge={hasBadge.toString()}
       is-show={isShow.toString()}
       is-exists={state.toString()}
       is-visible={isPartner.toString()}
       onTransitionEnd={animationEnd}
       className="extensions-wisher-root">
-      <Badge />
+      <Badge isShow={hasBadge} />
 
       <Outlet></Outlet>
 

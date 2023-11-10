@@ -1,5 +1,5 @@
 .extensions-wisher-badge {
-  --extensions-wisher-badge-size: 64px;
+  --extensions-wisher-badge-size: 48px;
 
   position: absolute;
 
@@ -15,7 +15,7 @@
   width: var(--extensions-wisher-badge-size);
   height: var(--extensions-wisher-badge-size);
 
-  border-radius: 16px 0 0 16px;
+  border-radius: 12px 0 0 12px;
 
   background-color: var(--extensions-wisher-primary);
 
@@ -25,5 +25,16 @@
 
   &:hover {
     background-color: var(--extension-wisher-primary-strong);
+  }
+
+  animation: extensions-wisher-badge-show 200ms forwards ease-in;
+}
+
+@keyframes extensions-wisher-badge-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

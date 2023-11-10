@@ -1,7 +1,7 @@
 import appleLogoSvg from "data-base64:~assets/apple.svg"
 import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 import { useGetItemsLazy } from "~gql/hooks/items"
 import { useSignInMutate } from "~gql/hooks/signin"
@@ -9,11 +9,14 @@ import { useGetUserLazy } from "~gql/hooks/user"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
+import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { Header } from "~views/widgets/header/header"
 
 export const LoginPage = () => {
   const { navigateWithRedirect } = useNavigateWithRedirect()
+
+  const { setWisherState } = useContext(WisherStateContext)
 
   const [appleLoading, setAppleLoading] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -30,6 +33,8 @@ export const LoginPage = () => {
     Promise.all([getUser(), getItems()]).then(() => {
       setIsLoading(false)
       setAppleLoading(false)
+
+      setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
 
       navigateWithRedirect("/wisher/wishes/wishes-all")
     })

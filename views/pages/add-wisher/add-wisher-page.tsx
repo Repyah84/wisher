@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { useParsUrl } from "~api/hooks/pars-url"
@@ -14,7 +14,10 @@ import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-d
 import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 
 export const AddWisherPage = () => {
-  const { setWisherState } = useContext(WisherStateContext)
+  const {
+    wisherSate: { isShow },
+    setWisherState
+  } = useContext(WisherStateContext)
 
   const { navigate, navigateAndSetRedirect } = useNavigateWithRedirect()
 
@@ -28,6 +31,14 @@ export const AddWisherPage = () => {
   const { loading, addItem } = useItemMutate()
 
   const { loading: itemsLoading, getItems } = useGetItemsLazy()
+
+  useEffect(() => {
+    if (data === null || isShow) {
+      return
+    }
+
+    setWisherState((wisher) => ({ ...wisher, isShow: true }))
+  }, [data])
 
   const onSaveClick = () => {
     if (user === null) {
@@ -65,6 +76,10 @@ export const AddWisherPage = () => {
       })
   }
 
+  const onHidePopup = () => {
+    setWisherState((wisher) => ({ ...wisher, isShow: false }))
+  }
+
   const onEditClick = () => {
     navigateAndSetRedirect("/wisher-edit")
   }
@@ -72,8 +87,10 @@ export const AddWisherPage = () => {
   return (
     <div className="extensions-wisher-add-wisher-page">
       {data === null && !canceled && !isError ? (
-        <LoaderLayout cancelFn={cancel}>
-          Importing data from domain.com <br /> Please wait.
+        <LoaderLayout cancelFn={cancel} hideFn={onHidePopup}>
+          Importing data from domain.com <br />
+          Kindly wait. Alternatively, you can close this dialog, and we'll
+          notify you once the process is complete.
         </LoaderLayout>
       ) : data || isSuccess ? (
         <WisherLayout

@@ -22,6 +22,7 @@ interface Props {
 interface WisherStateContextType {
   tabId: string | null
   isShow: boolean
+  hasBadge: boolean
   hasMessage: WisherMessage
   collectionName: string
   snackbar: {
@@ -44,6 +45,7 @@ export const WisherContext = ({ children }: Props) => {
     tabId: null,
     isShow: false,
     hasMessage: null,
+    hasBadge: false,
     collectionName: "",
     snackbar: null,
     isCreateCollectionHelp: true,

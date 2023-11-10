@@ -9,6 +9,8 @@ import { MessageItem } from "~views/components/message-item/message-item"
 import { MessageOverlay } from "~views/components/message/message"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
+import { BtnReloadOrNav } from "../btn-reload-or-nav/btn-reload-or-nav"
+
 export const Footer = () => {
   const {
     wisherSate: { hasMessage },
@@ -34,9 +36,9 @@ export const Footer = () => {
       </ButtonNav>
 
       <MessageItem hasItem={hasMessage === "create-wisher"}>
-        <ButtonNav rootLink="wisher-add" link="/wisher/wisher-add">
+        <BtnReloadOrNav rootLink="wisher-add" link="/wisher/wisher-add">
           <AddSvgIcon />
-        </ButtonNav>
+        </BtnReloadOrNav>
       </MessageItem>
 
       <ButtonNav rootLink="details" link="/wisher/details">

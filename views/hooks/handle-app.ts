@@ -5,10 +5,8 @@ import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import type { StoreJWT } from "~gql/hooks/signin"
-import { resetWisher } from "~store/slices/wisher"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
-import { useAsyncStoreDataWithContext } from "./async-store-data"
 import { useLogout } from "./logout"
 
 export const useHandleApp = () => {
@@ -36,15 +34,9 @@ export const useHandleApp = () => {
   )
 
   const {
-    wisherSate: { hasMessage, isShow, tabId },
+    wisherSate: { hasMessage, isShow, tabId, hasBadge },
     setWisherState
   } = useContext(WisherStateContext)
-
-  useEffect(() => {
-    if (isShow) {
-      dispatch(resetWisher())
-    }
-  }, [isShow])
 
   useEffect(() => {
     if (wisherJWT === null) {
@@ -66,5 +58,5 @@ export const useHandleApp = () => {
     setExtensionAction(null)
   }, [extensionAction])
 
-  return { isShow, hasMessage, dispatch, setWisherState, logout }
+  return { isShow, hasMessage, hasBadge, dispatch, setWisherState, logout }
 }

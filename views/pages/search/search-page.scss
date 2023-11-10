@@ -47,4 +47,8 @@
 
     font-size: 12px;
   }
+
+  & .extensions-wisher-loader {
+    --extensions-wisher-loader-color: var(--extensions-mode-text-secondary);
+  }
 }

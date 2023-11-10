@@ -8,8 +8,10 @@ import { resetSearchItems } from "~store/slices/search"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { ArrowLeftSvgIcon } from "~views/components/icons/arrow-left/arrow-left"
+import { CrossCircleSvgIcon } from "~views/components/icons/cross-circle/cross-circle"
 import { InfiniteScroll } from "~views/components/infinite-scroll/infinite-scroll"
 import { Input } from "~views/components/input/input"
+import { Loader } from "~views/components/loader/loader"
 import { Header } from "~views/widgets/header/header"
 import { Wishes } from "~views/widgets/wishes/wishes"
 
@@ -37,7 +39,7 @@ export const SearchPage = () => {
 
     timer = setTimeout(() => {
       getItems(searchValue, offset, 10, true).then(() => {})
-    }, 1000)
+    }, 500)
 
     return () => {
       clearTimeout(timer)
@@ -78,11 +80,15 @@ export const SearchPage = () => {
           <ArrowLeftSvgIcon />
         </Button>
 
-        <Input
-          value={searchValue}
-          onChangeValue={onSearchValueChange}
-          onResetValue={onSearchValueReset}
-        />
+        <Input value={searchValue} onChangeValue={onSearchValueChange}>
+          {loading ? (
+            <Loader size={5} isLoading={true} />
+          ) : (
+            <Button btnType="icon" onClickFn={onSearchValueReset}>
+              <CrossCircleSvgIcon />
+            </Button>
+          )}
+        </Input>
       </div>
 
       {searchData.items.length === 0 ? (
@@ -99,7 +105,7 @@ export const SearchPage = () => {
             Count: {searchData.count}
           </span>
 
-          <InfiniteScroll loading={loading} observerEventFn={onObserverEventFn}>
+          <InfiniteScroll observerEventFn={onObserverEventFn}>
             <Wishes wishes={searchData.items} />
           </InfiniteScroll>
         </div>

@@ -56,7 +56,7 @@ export const WisherLayout = ({
     dispatch(patchWisherState({ personalRating }))
   }
 
-  const onAlCollectionClick = () => {
+  const onAllCollectionClick = () => {
     setWisherState((wisher) => ({
       ...wisher,
       hasMessage: "collection-list-short"
@@ -93,12 +93,14 @@ export const WisherLayout = ({
         <Label
           title="All"
           labelType="active"
-          onLabelClick={onAlCollectionClick}
+          onLabelClick={onAllCollectionClick}
         />
 
         <p className="extensions-wisher-layout__name">{title}</p>
 
-        <span className="extensions-wisher-layout__price">{priceValue}</span>
+        {priceValue && (
+          <span className="extensions-wisher-layout__price">{priceValue}</span>
+        )}
 
         <div className="extensions-wisher-layout__action">
           <Button size="md" onClickFn={onEditClick}>
