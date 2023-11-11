@@ -292,6 +292,7 @@ export const CollectionPage = () => {
         <div className="extensions-wisher-collection-page__form">
           <AddForm
             btnTitle="rename"
+            defCollectionName={name}
             loading={updateCollectionLoading}
             collections={collections}
             onSubmitFn={onUpdateCollectionName}

@@ -14,7 +14,7 @@ export interface StoreJWT {
 }
 
 export const useSignInMutate = () => {
-  const { user, isLoading, onLogin, onAppleLogin } = useFirebaseAuth()
+  const { user, isLoading, onLogin } = useFirebaseAuth()
 
   const [wisherJWT, setWisherJWT] = useStorage<StoreJWT | null>(
     {
@@ -54,7 +54,6 @@ export const useSignInMutate = () => {
     error,
     isSuccess,
     isLoading,
-    onLogin,
-    onAppleLogin
+    onLogin
   }
 }

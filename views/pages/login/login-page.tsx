@@ -1,4 +1,3 @@
-import appleLogoSvg from "data-base64:~assets/apple.svg"
 import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
 import { useContext, useEffect, useState } from "react"
@@ -18,10 +17,9 @@ export const LoginPage = () => {
 
   const { setWisherState } = useContext(WisherStateContext)
 
-  const [appleLoading, setAppleLoading] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const { wisherJWT, onLogin, onAppleLogin } = useSignInMutate()
+  const { wisherJWT, onLogin } = useSignInMutate()
   const { getUser } = useGetUserLazy()
   const { getItems } = useGetItemsLazy()
 
@@ -32,7 +30,6 @@ export const LoginPage = () => {
 
     Promise.all([getUser(), getItems()]).then(() => {
       setIsLoading(false)
-      setAppleLoading(false)
 
       setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
 
@@ -41,7 +38,7 @@ export const LoginPage = () => {
   }, [wisherJWT])
 
   const onGoogleLoginClick = () => {
-    if (isLoading || appleLoading) {
+    if (isLoading) {
       return
     }
 
@@ -49,13 +46,8 @@ export const LoginPage = () => {
     onLogin()
   }
 
-  const onAppleLoginClock = () => {
-    // if (isLoading || appleLoading) {
-    //   return
-    // }
-    // setAppleLoading(true)
-    // onAppleLogin()
-  }
+  // const onAppleLoginClock = () => {
+  // }
 
   return (
     <div className="extensions-wisher-login-page">

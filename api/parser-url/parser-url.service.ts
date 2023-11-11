@@ -8,6 +8,10 @@ export interface ParserUrl {
   price: number | null
   priceCurrency: string
   success: boolean
+  error?: {
+    info: string
+    type: string
+  }
 }
 
 export class ParserUrlService {

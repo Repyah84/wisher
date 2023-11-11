@@ -80,7 +80,10 @@ export const SearchPage = () => {
           <ArrowLeftSvgIcon />
         </Button>
 
-        <Input value={searchValue} onChangeValue={onSearchValueChange}>
+        <Input
+          lazyAutofocus={50}
+          value={searchValue}
+          onChangeValue={onSearchValueChange}>
           {loading ? (
             <Loader size={5} isLoading={true} />
           ) : (

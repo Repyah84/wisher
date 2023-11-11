@@ -23,7 +23,7 @@ export const AddForm = ({
 }: Props) => {
   const { setWisherState } = useContext(WisherStateContext)
 
-  const [inputValue, setInputValue] = useState("")
+  const [inputValue, setInputValue] = useState(defCollectionName)
 
   useEffect(() => {
     if (defCollectionName) {
@@ -62,6 +62,7 @@ export const AddForm = ({
       className="extensions-wisher-add-form">
       <Input
         title="collection name*"
+        lazyAutofocus={250}
         errorMessage={
           errorValidator && "You already have a collection with this name"
         }

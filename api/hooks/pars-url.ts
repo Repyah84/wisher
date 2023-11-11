@@ -32,6 +32,13 @@ export const useParsUrl = () => {
     ParserUrlService.getDataByUrl(url, signal)
       .then((res) => {
         setIsLoading(false)
+
+        if (res.error) {
+          setIsError(new Error(`${res.error.info}`))
+
+          return
+        }
+
         setIsSuccess(true)
 
         const { image, priceCurrency, price, name, icon } = res

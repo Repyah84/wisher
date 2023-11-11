@@ -2,11 +2,9 @@ import {
   browserLocalPersistence,
   getRedirectResult,
   GoogleAuthProvider,
-  OAuthProvider,
   onAuthStateChanged,
   setPersistence,
   signInWithCredential,
-  signInWithRedirect,
   type User
 } from "firebase/auth"
 import { useEffect, useState } from "react"
@@ -27,18 +25,6 @@ export const useFirebaseAuth = () => {
 
     if (user) {
       await auth.signOut()
-    }
-  }
-
-  const onAppleLogin = async () => {
-    setIsLoading(true)
-
-    const provider = new OAuthProvider("apple.com")
-
-    try {
-      signInWithRedirect(auth, provider)
-    } catch (error) {
-      console.error()
     }
   }
 
@@ -77,7 +63,6 @@ export const useFirebaseAuth = () => {
     isLoading,
     user,
     onLogin,
-    onLogout,
-    onAppleLogin
+    onLogout
   }
 }
