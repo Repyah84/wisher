@@ -1,6 +1,5 @@
 import {
   browserLocalPersistence,
-  getRedirectResult,
   GoogleAuthProvider,
   onAuthStateChanged,
   setPersistence,
@@ -48,10 +47,6 @@ export const useFirebaseAuth = () => {
   }
 
   useEffect(() => {
-    getRedirectResult(auth).then((user) => {
-      setIsLoading(false)
-    })
-
     onAuthStateChanged(auth, (user) => {
       setIsLoading(false)
 
