@@ -38,6 +38,12 @@
     text-align: center;
   }
 
+  &__collections {
+    max-width: calc(var(--extensions-wisher-width) - 16px * 2 - 3px);
+
+    overflow: hidden;
+  }
+
   &__price {
     font-size: 20px;
     font-weight: 500;

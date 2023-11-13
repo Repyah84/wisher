@@ -130,6 +130,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
             {user !== null && (
               <div className="extensions-wisher-edit-form__collections">
                 <ItemCollection
+                  actionTitle="Add to collection"
                   collections={selectedCollections}
                   onAddClickFn={onLabelAllCollectionClick}
                 />

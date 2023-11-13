@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux"
 import type { User } from "~gql/types/graphql"
 import { patchWisherState, type WisherSearchData } from "~store/slices/wisher"
 import { Button } from "~views/components/button/button"
-import { Label } from "~views/components/label/label"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
 import { WisherRating } from "~views/components/rating/rating"
@@ -15,6 +14,7 @@ import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useSelectCollection } from "~views/hooks/select-collection"
 
 import { CollectionSettingsSelect } from "../collection-settings-select/collection-settings-select"
+import { ItemCollection } from "../item-collections/item-collections"
 
 interface Props {
   user: User
@@ -41,7 +41,7 @@ export const WisherLayout = ({
 
   const dispatch = useDispatch()
 
-  const priceValue = `${getSymbolFromCurrency(currency)}${price}`
+  const priceValue = price ? `${getSymbolFromCurrency(currency)}${price}` : null
 
   const { selectedCollections, onSelectCollection } =
     useSelectCollection(collections)
@@ -90,17 +90,18 @@ export const WisherLayout = ({
           </span>
         </WisherRating>
 
-        <Label
-          title="All"
-          labelType="active"
-          onLabelClick={onAllCollectionClick}
-        />
+        <div className="extensions-wisher-layout__collections">
+          <ItemCollection
+            actionTitle="All"
+            labelType="active"
+            onAddClickFn={onAllCollectionClick}
+            collections={selectedCollections}
+          />
+        </div>
 
         <p className="extensions-wisher-layout__name">{title}</p>
 
-        {priceValue && (
-          <span className="extensions-wisher-layout__price">{priceValue}</span>
-        )}
+        <span className="extensions-wisher-layout__price">{priceValue}</span>
 
         <div className="extensions-wisher-layout__action">
           <Button size="md" onClickFn={onEditClick}>

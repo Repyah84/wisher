@@ -1,9 +1,11 @@
 import { Loader } from "../loader/loader"
 
+export type LabelType = "default" | "active" | "primary"
+
 interface Props {
   loading?: boolean
   title: string
-  labelType?: "default" | "active" | "primary"
+  labelType?: LabelType
   onLabelClick?: (value: string) => void
 }
 

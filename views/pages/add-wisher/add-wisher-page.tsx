@@ -14,6 +14,8 @@ import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-d
 import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 
 export const AddWisherPage = () => {
+  const domain = window.location.host
+
   const {
     wisherSate: { isShow },
     setWisherState
@@ -88,7 +90,7 @@ export const AddWisherPage = () => {
     <div className="extensions-wisher-add-wisher-page">
       {data === null && !canceled && !isError ? (
         <LoaderLayout cancelFn={cancel} hideFn={onHidePopup}>
-          Importing data from domain.com <br />
+          Importing data from {domain} <br />
           Kindly wait. Alternatively, you can close this dialog, and we'll
           notify you once the process is complete.
         </LoaderLayout>

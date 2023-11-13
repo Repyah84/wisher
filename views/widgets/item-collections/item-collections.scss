@@ -1,11 +1,13 @@
 .extensions-wisher-item-collections {
+  padding-bottom: 4px;
+
   overflow: auto;
 
   display: flex;
 
   column-gap: 8px;
 
-  overscroll-behavior-y: contain;
+  overscroll-behavior: contain;
 
   &::-webkit-scrollbar {
     height: 3px;
@@ -17,7 +19,6 @@
 
   &::-webkit-scrollbar-thumb {
     background: var(--extensions-mode-color-grey);
-
     border-radius: 3px;
   }
 }

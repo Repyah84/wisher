@@ -1,23 +1,27 @@
-import { Label } from "~views/components/label/label"
-import { Loader } from "~views/components/loader/loader"
+import { Label, type LabelType } from "~views/components/label/label"
 
 interface Props {
-  loading?: boolean
+  actionTitle: string
   collections: string[]
   onAddClickFn: () => void
+  labelType?: LabelType
+  loading?: boolean
 }
 
 export const ItemCollection = ({
+  actionTitle,
   collections,
   onAddClickFn,
+  labelType = "default",
   loading = false
 }: Props) => {
   return (
     <div className="extensions-wisher-item-collections">
       <Label
+        labelType={labelType}
         loading={loading}
         onLabelClick={onAddClickFn}
-        title="Add to collection"
+        title={actionTitle}
       />
 
       {collections &&

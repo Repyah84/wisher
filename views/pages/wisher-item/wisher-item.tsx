@@ -185,6 +185,7 @@ export const WisherItemPage = () => {
 
             <div className="extension-wisher-item__collections">
               <ItemCollection
+                actionTitle="Add to collection"
                 loading={itemLoading}
                 collections={collections}
                 onAddClickFn={onLabelAllCollectionClick}
