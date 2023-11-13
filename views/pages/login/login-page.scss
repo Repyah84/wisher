@@ -47,11 +47,11 @@
       }
     }
 
-    // &#{&} > :first-child {
-    //   background-color: #000000;
+    &#{&} > :first-child {
+      background-color: #000000;
 
-    //   color: white;
-    // }
+      color: white;
+    }
 
     & > :last-child {
       font-size: 10px;

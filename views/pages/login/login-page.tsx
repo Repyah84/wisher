@@ -2,6 +2,8 @@ import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
 import { useContext, useEffect, useState } from "react"
 
+import { sendToBackground } from "@plasmohq/messaging"
+
 import { useGetItemsLazy } from "~gql/hooks/items"
 import { useSignInMutate } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
@@ -22,6 +24,14 @@ export const LoginPage = () => {
   const { wisherJWT, onLogin } = useSignInMutate()
   const { getUser } = useGetUserLazy()
   const { getItems } = useGetItemsLazy()
+
+  useEffect(() => {
+    window.addEventListener("message", function (event) {
+      var message = event
+
+      console.log("#################", message)
+    })
+  }, [])
 
   useEffect(() => {
     if (wisherJWT === null || wisherJWT === undefined) {
@@ -46,8 +56,13 @@ export const LoginPage = () => {
     onLogin()
   }
 
-  // const onAppleLoginClock = () => {
-  // }
+  const onAppleLoginClock = async () => {
+    const win = await sendToBackground<any, Window>({
+      name: "authPage"
+    })
+
+    console.log(win)
+  }
 
   return (
     <div className="extensions-wisher-login-page">
@@ -69,15 +84,16 @@ export const LoginPage = () => {
         </p>
 
         <div className="extensions-wisher-login-page__action">
-          {/* <Button size="md" onClickFn={onAppleLoginClock}>
+          <Button size="md" onClickFn={onAppleLoginClock}>
             <div className="extensions-wisher-login-page__apple-login">
-              <img width={24} height={24} src={appleLogoSvg} alt="apple-logo" />
+              {/* <img width={24} height={24} src={appleLogoSvg} alt="apple-logo" /> */}
+              <div></div>
 
               <span>SIGN UP WITH APPLE</span>
 
-              <Loader size={5.5} isLoading={appleLoading} />
+              <Loader size={5.5} isLoading={false} />
             </div>
-          </Button> */}
+          </Button>
 
           <Button size="md" onClickFn={onGoogleLoginClick}>
             <div className="extensions-wisher-login-page__google-login">
