@@ -26,17 +26,11 @@ export const LoginPage = () => {
   const { getItems } = useGetItemsLazy()
 
   useEffect(() => {
-    window.addEventListener("message", function (event) {
-      var message = event
-
-      console.log("#################", message)
-    })
-  }, [])
-
-  useEffect(() => {
     if (wisherJWT === null || wisherJWT === undefined) {
       return
     }
+
+    console.log("JWT", wisherJWT)
 
     Promise.all([getUser(), getItems()]).then(() => {
       setIsLoading(false)
@@ -89,7 +83,7 @@ export const LoginPage = () => {
               {/* <img width={24} height={24} src={appleLogoSvg} alt="apple-logo" /> */}
               <div></div>
 
-              <span>SIGN UP WITH APPLE</span>
+              <span>LOG IN</span>
 
               <Loader size={5.5} isLoading={false} />
             </div>

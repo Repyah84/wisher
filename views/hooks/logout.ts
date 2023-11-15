@@ -15,7 +15,10 @@ export const useLogout = () => {
     auth.signOut().then(() => {
       const storage = new Storage({ area: "local" })
 
-      storage.set("JWT", null).then(() => {
+      Promise.all([
+        storage.set("GOOGLE_AUTH_TOKEN", null),
+        storage.set("JWT", null)
+      ]).then(() => {
         dispatch(logout())
 
         navigate("/login")

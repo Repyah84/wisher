@@ -16,6 +16,14 @@ export interface StoreJWT {
 export const useSignInMutate = () => {
   const { user, isLoading, onLogin } = useFirebaseAuth()
 
+  const [token] = useStorage<string | null>(
+    {
+      key: "GOOGLE_AUTH_TOKEN",
+      instance: new Storage({ area: "local" })
+    },
+    null
+  )
+
   const [wisherJWT, setWisherJWT] = useStorage<StoreJWT | null>(
     {
       key: "JWT",
@@ -27,27 +35,43 @@ export const useSignInMutate = () => {
   const [mutate, { data: isSuccess, error }] = useMutation(signIn)
 
   useEffect(() => {
+    console.log("#############", token)
+
+    if (token === null) {
+      return
+    }
+
+    rec(token)
+  }, [token])
+
+  useEffect(() => {
     if (user === null) {
       return
     }
 
     if ("accessToken" in user) {
-      mutate({
-        variables: {
-          idToken: user.accessToken as string
-        },
-        onCompleted: (data) => {
-          const token = data.signIn.token
-
-          const decoder = jwt_decode(token)
-
-          if (typeof decoder === "object" && "exp" in decoder) {
-            setWisherJWT({ exp: decoder.exp as number, token })
-          }
-        }
-      })
+      rec(user.accessToken as string)
     }
   }, [user])
+
+  const rec = (accessToken: string) => {
+    console.log("@@@@@@@@@", accessToken)
+
+    mutate({
+      variables: {
+        idToken: accessToken as string
+      },
+      onCompleted: (data) => {
+        const token = data.signIn.token
+
+        const decoder = jwt_decode(token)
+
+        if (typeof decoder === "object" && "exp" in decoder) {
+          setWisherJWT({ exp: decoder.exp as number, token })
+        }
+      }
+    })
+  }
 
   return {
     wisherJWT,

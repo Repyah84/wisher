@@ -25,6 +25,8 @@ export const useGetUserLazy = () => {
 
     const { token } = await storage.get<StoreJWT>("JWT")
 
+    console.log("getUser", token)
+
     return mutate({
       context: {
         headers: {

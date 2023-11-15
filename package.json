@@ -56,7 +56,8 @@
     ],
     "permissions": [
       "tabs",
-      "identity"
+      "identity",
+      "scripting"
     ],
     "oauth2": {
       "client_id": "$PLASMO_PUBLIC_FIREBASE_CLIENT_ID",
@@ -64,6 +65,12 @@
         "https://www.googleapis.com/auth/userinfo.email",
         "https://www.googleapis.com/auth/userinfo.profile"
       ]
+    },
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "addon@example.com",
+        "strict_min_version": "42.0"
+      }
     }
   }
 }

@@ -5,6 +5,8 @@ import type { PlasmoCSConfig } from "plasmo"
 import { Provider } from "react-redux"
 import { MemoryRouter } from "react-router-dom"
 
+import { relayMessage } from "@plasmohq/messaging"
+
 import { WisherRoutes } from "~routes/wisher.router"
 import { wisherStore } from "~store/wisher.store"
 import { OverLay } from "~views/components/overlay/overlay"
