@@ -22,7 +22,21 @@ export const WisherCollectionShort = ({
       return
     }
 
-    return collectionImageData.images.slice(0, 3).map((image, key) => (
+    const imagesList = []
+
+    for (let i = 0; i < 3; i++) {
+      let image = ""
+
+      if (collectionImageData.images[i]) {
+        image = collectionImageData.images[i]
+      } else {
+        image = emptyImage
+      }
+
+      imagesList.push(image)
+    }
+
+    return imagesList.map((image, key) => (
       <img
         width={32}
         height={32}
@@ -31,7 +45,7 @@ export const WisherCollectionShort = ({
         }}
         className="extensions-wisher-collection-wisher-short__image"
         key={key}
-        src={image || emptyImage}
+        src={image}
         alt="Collection Images"
       />
     ))
