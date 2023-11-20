@@ -105,6 +105,7 @@ export const WisherLayout = ({
             actionTitle="All"
             labelType="active"
             onAddClickFn={onAllCollectionClick}
+            onCollectionItemClick={onAllCollectionClick}
             collections={selectedCollections}
           />
         </div>

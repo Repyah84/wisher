@@ -6,6 +6,7 @@ interface Props {
   onAddClickFn: () => void
   labelType?: LabelType
   loading?: boolean
+  onCollectionItemClick?: () => void
 }
 
 export const ItemCollection = ({
@@ -13,7 +14,8 @@ export const ItemCollection = ({
   collections,
   onAddClickFn,
   labelType = "default",
-  loading = false
+  loading = false,
+  onCollectionItemClick
 }: Props) => {
   return (
     <div className="extensions-wisher-item-collections">
@@ -27,7 +29,12 @@ export const ItemCollection = ({
       {collections &&
         collections.length > 0 &&
         collections.map((name) => (
-          <Label labelType="active" key={name} title={name} />
+          <Label
+            onLabelClick={onCollectionItemClick}
+            labelType="active"
+            key={name}
+            title={name}
+          />
         ))}
     </div>
   )
