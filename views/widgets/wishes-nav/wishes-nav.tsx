@@ -12,7 +12,7 @@ export const WishesNav = () => {
   }
 
   const activeLink = (link: string): BtnColor => {
-    return location.pathname.includes(link) ? "primary" : "default"
+    return location.pathname.includes(link) ? "primary" : "exchange"
   }
 
   return (
@@ -22,7 +22,7 @@ export const WishesNav = () => {
         onClickFn={() => {
           onNavClick("/wisher/wishes/wishes-all")
         }}>
-        <span>All Wishes</span>
+        <span>All wishes</span>
       </Button>
 
       <Button
@@ -30,7 +30,7 @@ export const WishesNav = () => {
         onClickFn={() => {
           onNavClick("/wisher/wishes/wishes-collections")
         }}>
-        <span>Collection</span>
+        <span>Collections</span>
       </Button>
     </div>
   )

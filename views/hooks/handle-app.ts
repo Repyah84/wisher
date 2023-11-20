@@ -12,7 +12,7 @@ import { useLogout } from "./logout"
 export const useHandleApp = () => {
   const dispatch = useDispatch()
 
-  const logout = useLogout()
+  const { logoutWithNavigate } = useLogout()
 
   const [wisherJWT] = useStorage<StoreJWT | null | boolean>(
     {
@@ -40,7 +40,7 @@ export const useHandleApp = () => {
 
   useEffect(() => {
     if (wisherJWT === null) {
-      logout()
+      logoutWithNavigate()
     }
   }, [wisherJWT])
 
@@ -58,5 +58,12 @@ export const useHandleApp = () => {
     setExtensionAction(null)
   }, [extensionAction])
 
-  return { isShow, hasMessage, hasBadge, dispatch, setWisherState, logout }
+  return {
+    isShow,
+    hasMessage,
+    hasBadge,
+    dispatch,
+    setWisherState,
+    logoutWithNavigate
+  }
 }

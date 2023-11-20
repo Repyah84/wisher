@@ -90,9 +90,10 @@ export const AddWisherPage = () => {
     <div className="extensions-wisher-add-wisher-page">
       {data === null && !canceled && !isError ? (
         <LoaderLayout cancelFn={cancel} hideFn={onHidePopup}>
+          {/* TODO remove br */}
           Importing data from {domain} <br />
-          Kindly wait. Alternatively, you can close this dialog, and we'll
-          notify you once the process is complete.
+          Kindly wait. Alternatively, you can close this dialog, <br />
+          and we'll notify you once the process is complete.
         </LoaderLayout>
       ) : data || isSuccess ? (
         <WisherLayout

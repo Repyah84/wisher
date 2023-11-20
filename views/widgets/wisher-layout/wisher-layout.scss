@@ -10,6 +10,8 @@
   row-gap: 24px;
 
   &__name {
+    max-width: calc(var(--extensions-wisher-width) - 16px * 2 - 3px);
+
     overflow: hidden;
 
     display: -webkit-box;

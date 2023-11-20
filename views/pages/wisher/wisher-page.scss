@@ -9,4 +9,27 @@
   &__popup {
     padding: 0 16px;
   }
+
+  &__collections {
+    padding: 4px;
+
+    max-width: calc(var(--extensions-wisher-width) - 16px * 2 - 3px);
+
+    overflow: auto;
+
+    overscroll-behavior: contain;
+
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--extensions-mode-color-grey);
+      border-radius: 3px;
+    }
+  }
 }

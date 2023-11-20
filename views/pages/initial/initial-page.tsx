@@ -30,6 +30,8 @@ export const InitialPage = () => {
       })
       .then((jwt) => {
         if (!jwt) {
+          console.log("InitialPage", jwt)
+
           navigate("/login")
 
           setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
@@ -37,11 +39,15 @@ export const InitialPage = () => {
           return
         }
 
-        Promise.all([getUser(), getItems()]).then(() => {
-          setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
+        return getUser()
+          .then(() => {
+            return getItems()
+          })
+          .then(() => {
+            setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
 
-          navigate("/wisher/wishes/wishes-all")
-        })
+            navigate("/wisher/wishes/wishes-all")
+          })
       })
   }, [])
 

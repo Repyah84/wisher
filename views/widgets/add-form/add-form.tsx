@@ -31,12 +31,20 @@ export const AddForm = ({
     }
   }, [defCollectionName])
 
-  const requiredValidator = (): boolean => {
-    return inputValue === "" || inputValue === null || inputValue === undefined
-  }
+  const requiredValidator = useMemo((): boolean => {
+    return (
+      inputValue.trim() === "" ||
+      inputValue === null ||
+      inputValue === undefined
+    )
+  }, [inputValue])
 
   const errorValidator = useMemo(() => {
     return collections !== null && collections.includes(inputValue)
+  }, [inputValue])
+
+  const validatorMaxLength = useMemo(() => {
+    return inputValue.length > 120
   }, [inputValue])
 
   const onResetClick = () => {
@@ -46,7 +54,7 @@ export const AddForm = ({
   }
 
   const onSubmitClick = () => {
-    if (requiredValidator() || errorValidator || loading) {
+    if (requiredValidator || errorValidator || loading) {
       return
     }
 
@@ -61,20 +69,23 @@ export const AddForm = ({
       }}
       className="extensions-wisher-add-form">
       <Input
-        title="collection name*"
+        title="title"
         lazyAutofocus={250}
         errorMessage={
-          errorValidator && "You already have a collection with this name"
+          (errorValidator && "You already have a collection with this name") ||
+          (validatorMaxLength && "Max collection name length is 50 symbols")
         }
         value={inputValue}
         onChangeValue={(value) => setInputValue(value)}>
-        <Button btnType="icon" onClickFn={onResetClick}>
-          <CrossCircleSvgIcon />
-        </Button>
+        {!requiredValidator && (
+          <Button btnType="icon" onClickFn={onResetClick}>
+            <CrossCircleSvgIcon />
+          </Button>
+        )}
       </Input>
 
       <Button
-        disable={requiredValidator() || errorValidator}
+        disable={requiredValidator || errorValidator || validatorMaxLength}
         btnColor="primary"
         type="submit"
         size="md">

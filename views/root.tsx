@@ -18,8 +18,14 @@ import { useNavigateWithRedirect } from "./hooks/navigate-with-redirect"
 import { Dialog } from "./widgets/dialog/dialog"
 
 export const Root = () => {
-  const { isShow, hasMessage, hasBadge, dispatch, setWisherState, logout } =
-    useHandleApp()
+  const {
+    isShow,
+    hasMessage,
+    hasBadge,
+    dispatch,
+    setWisherState,
+    logoutWithNavigate
+  } = useHandleApp()
 
   const itemId = useSelector(({ item: { data } }: RootState) => data?.id)
 
@@ -63,7 +69,7 @@ export const Root = () => {
       onPopupClose()
 
       if (res.data.deleteUser.status) {
-        logout()
+        logoutWithNavigate()
       }
     })
   }

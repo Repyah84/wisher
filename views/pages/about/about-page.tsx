@@ -14,7 +14,7 @@ export const AboutPage = () => {
           href="https://www.wishr.app/terms"
           target="_blanc"
           className={`__extensions-wisher-details-option__ extensions-wisher-about-page__link`}>
-          <span>Terms and conditions </span>
+          <span>Terms and conditions</span>
 
           <img width={16} height={16} src={iconSvg} alt="outside" />
         </a>
@@ -23,7 +23,7 @@ export const AboutPage = () => {
           href="https://www.wishr.app/privacy-policy"
           target="_blanc"
           className={`__extensions-wisher-details-option__ extensions-wisher-about-page__link`}>
-          <span>Terms and conditions</span>
+          <span>Privacy policy</span>
 
           <img width={16} height={16} src={iconSvg} alt="outside" />
         </a>
@@ -32,7 +32,7 @@ export const AboutPage = () => {
           href="https://www.wishr.app/contact-us"
           target="_blanc"
           className={`__extensions-wisher-details-option__ extensions-wisher-about-page__link`}>
-          <span>Contact us </span>
+          <span>Contact us</span>
 
           <img width={16} height={16} src={iconSvg} alt="outside" />
         </a>

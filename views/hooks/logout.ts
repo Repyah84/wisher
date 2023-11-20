@@ -11,7 +11,7 @@ export const useLogout = () => {
 
   const navigate = useNavigate()
 
-  return () => {
+  const logoutWithNavigate = () => {
     auth.signOut().then(() => {
       const storage = new Storage({ area: "local" })
 
@@ -22,4 +22,16 @@ export const useLogout = () => {
       })
     })
   }
+
+  const logoutUser = () => {
+    auth.signOut().then(() => {
+      const storage = new Storage({ area: "local" })
+
+      storage.set("JWT", null).then(() => {
+        dispatch(logout())
+      })
+    })
+  }
+
+  return { logoutUser, logoutWithNavigate }
 }

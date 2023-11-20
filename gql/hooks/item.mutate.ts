@@ -18,7 +18,7 @@ export interface ItemAddInputData {
 }
 
 export const useItemMutate = () => {
-  const logout = useLogout()
+  const { logoutWithNavigate } = useLogout()
 
   const dispatch = useDispatch()
 
@@ -34,7 +34,9 @@ export const useItemMutate = () => {
     const { token, exp } = await storage.get<StoreJWT>("JWT")
 
     if (CompareDate(exp)) {
-      logout()
+      logoutWithNavigate()
+
+      return
     }
 
     return mutate({

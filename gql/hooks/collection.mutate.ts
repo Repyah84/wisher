@@ -17,7 +17,7 @@ export interface UpdateCollectionName {
 }
 
 export const useCollectionUpdate = () => {
-  const logout = useLogout()
+  const { logoutWithNavigate } = useLogout()
 
   const dispatch = useDispatch()
 
@@ -34,7 +34,9 @@ export const useCollectionUpdate = () => {
     const { token, exp } = await storage.get<StoreJWT>("JWT")
 
     if (CompareDate(exp)) {
-      logout()
+      logoutWithNavigate()
+
+      return
     }
 
     return mutate({

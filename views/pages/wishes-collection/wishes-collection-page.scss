@@ -18,6 +18,8 @@
   }
 
   &__info {
+    overflow: hidden;
+
     padding: 10px 0;
 
     margin: 0 16px 16px 16px;
@@ -32,6 +34,9 @@
   }
 
   &__collection-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+
     margin: 0;
 
     font-size: 34px;

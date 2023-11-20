@@ -19,6 +19,12 @@
     border-radius: 30px;
   }
 
+  &--default#{&}-color--exchange {
+    color: var(--extension-mode-text-light);
+
+    box-shadow: 0 0 0 2px inset hsla(0, 0%, 0%, 0.12);
+  }
+
   &--default#{&}-color--default {
     color: var(--extensions-wisher-primary);
 

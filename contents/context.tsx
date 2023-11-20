@@ -12,7 +12,14 @@ import { Snackbar } from "~views/components/snackbar/snackbar"
 import { WisherContext } from "~views/context/wisher/wisher.context"
 
 export const config: PlasmoCSConfig = {
-  matches: ["<all_urls>"],
+  // matches: ["<all_urls>"],
+  matches: [
+    "https://www.amazon.com/*",
+    "https://driffle.com/*",
+    "https://www.google.com/*",
+    "https://www.bogner.com/*",
+    "https://www.wishr.app/*"
+  ],
   css: ["font.css"]
 }
 

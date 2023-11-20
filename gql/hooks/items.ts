@@ -14,7 +14,7 @@ import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import type { StoreJWT } from "./signin"
 
 export const useGetItemsLazy = () => {
-  const logout = useLogout()
+  const { logoutWithNavigate } = useLogout()
 
   const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
@@ -39,7 +39,9 @@ export const useGetItemsLazy = () => {
     const { token, exp } = await storage.get<StoreJWT>("JWT")
 
     if (CompareDate(exp)) {
-      logout()
+      logoutWithNavigate()
+
+      return
     }
 
     const sort = SortData.getSortParma(sortParam)
@@ -63,7 +65,8 @@ export const useGetItemsLazy = () => {
 
         dispatch(setItems({ count, items }))
       },
-      onError: () => {
+      onError: (error) => {
+        console.log("getItemsERROR", error)
         navigateAndSetRedirect("/error")
       }
     })

@@ -12,7 +12,7 @@ import { EditForm } from "~views/widgets/edit-form/edit-form"
 import { Header } from "~views/widgets/header/header"
 
 export const ItemEditPage = () => {
-  const { navigate } = useNavigateWithRedirect()
+  const { navigateWithRedirect } = useNavigateWithRedirect()
 
   const dispatch = useDispatch()
 
@@ -38,7 +38,7 @@ export const ItemEditPage = () => {
 
       dispatch(resetCollectionsWithImages())
 
-      navigate(`/wisher-item`)
+      navigateWithRedirect(`/wisher-item`)
     })
   }
 

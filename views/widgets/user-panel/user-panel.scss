@@ -2,11 +2,14 @@
   padding: 8px 16px;
 
   display: grid;
+  gap: 0 15px;
   align-items: center;
 
   grid-template-columns: auto 1fr;
 
   &__user {
+    overflow: hidden;
+
     grid-area: 1/1 / 2/2;
 
     display: flex;
@@ -15,6 +18,8 @@
   }
 
   &__user-info {
+    overflow: hidden;
+
     display: flex;
     flex-direction: column;
     row-gap: 8px;
@@ -28,6 +33,10 @@
     color: var(--extension-mode-text-light);
 
     font-size: 16px;
+
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__auth-message {
@@ -42,6 +51,10 @@
 
   &__user-email {
     font-size: 12px;
+
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     color: var(--extensions-wisher-primary);
   }

@@ -10,7 +10,7 @@ import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import type { StoreJWT } from "./signin"
 
 export const useUserDelete = () => {
-  const logout = useLogout()
+  const { logoutWithNavigate } = useLogout()
 
   const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
@@ -22,7 +22,9 @@ export const useUserDelete = () => {
     const { token, exp } = await storage.get<StoreJWT>("JWT")
 
     if (CompareDate(exp)) {
-      logout()
+      logoutWithNavigate()
+
+      return
     }
 
     return mutate({

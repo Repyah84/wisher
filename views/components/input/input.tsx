@@ -55,12 +55,12 @@ export const Input = ({
 
       <label className="extensions-wisher-input__label">
         <input
+          className="extensions-wisher-input__content"
           ref={ref}
           onChange={(e) => {
             onChangeValue(e.target.value)
           }}
           value={value}
-          className="extensions-wisher-input__content"
           type={type}
           placeholder={placeholder}
         />

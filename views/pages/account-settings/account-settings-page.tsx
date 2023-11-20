@@ -8,7 +8,7 @@ import { useLogout } from "~views/hooks/logout"
 import { HeaderNav } from "~views/widgets/header-nav/header-nav"
 
 export const AccountSettingsPage = () => {
-  const logout = useLogout()
+  const { logoutWithNavigate } = useLogout()
 
   const { setWisherState } = useContext(WisherStateContext)
 
@@ -29,7 +29,7 @@ export const AccountSettingsPage = () => {
           <span>Delete my account</span>
         </Button>
 
-        <Button btnType="stroke" onClickFn={logout}>
+        <Button btnType="stroke" onClickFn={logoutWithNavigate}>
           <img width={24} height={24} src={svgPawerIcon} alt="Pawer" />
 
           <span>Log out</span>

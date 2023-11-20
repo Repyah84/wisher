@@ -1,11 +1,10 @@
 import "@plasmohq/messaging/background"
 
-import { startHub } from "@plasmohq/messaging/pub-sub"
 import { Storage } from "@plasmohq/storage"
 
-const storage = new Storage({ area: "local" })
-
 chrome.action.onClicked.addListener(({ id }) => {
+  const storage = new Storage({ area: "local" })
+
   const data = {
     tabId: id,
     messageId: Math.random()
@@ -13,5 +12,3 @@ chrome.action.onClicked.addListener(({ id }) => {
 
   void storage.set("action-ai", data)
 })
-
-startHub()

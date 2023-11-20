@@ -141,7 +141,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
               value={edit.title}
               errorMessage={errorValidator() && "Title is required"}
               onChangeValue={(value) => change({ title: value })}
-              placeholder="Add gift title (required)"
+              placeholder="Add gift title"
               title="Wish title*"
             />
 

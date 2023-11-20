@@ -9,10 +9,13 @@ import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { Header } from "~views/widgets/header/header"
 
 export const LoginPage = () => {
+  const { logoutUser } = useLogout()
+
   const { navigateWithRedirect } = useNavigateWithRedirect()
 
   const { setWisherState } = useContext(WisherStateContext)
@@ -24,17 +27,25 @@ export const LoginPage = () => {
   const { getItems } = useGetItemsLazy()
 
   useEffect(() => {
+    logoutUser()
+  }, [])
+
+  useEffect(() => {
     if (wisherJWT === null || wisherJWT === undefined) {
       return
     }
 
-    Promise.all([getUser(), getItems()]).then(() => {
-      setIsLoading(false)
+    getUser()
+      .then(() => {
+        return getItems()
+      })
+      .then(() => {
+        setIsLoading(false)
 
-      setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
+        setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
 
-      navigateWithRedirect("/wisher/wishes/wishes-all")
-    })
+        navigateWithRedirect("/wisher/wishes/wishes-all")
+      })
   }, [wisherJWT])
 
   const onGoogleLoginClick = () => {

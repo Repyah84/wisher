@@ -56,6 +56,8 @@ export const CollectionPage = () => {
   )
 
   const itemsToAdd = useMemo(() => {
+    console.log(itemsData)
+
     return itemsData.items.filter(
       ({ collections }) => collections === null || !collections.includes(name)
     )
@@ -271,7 +273,7 @@ export const CollectionPage = () => {
       </Popup>
 
       <Popup
-        title="collection-settings"
+        title="Collection settings"
         hasPopup={hasMessage === "collection-settings"}
         onCloseClick={onPopupClose}>
         <div className="extensions-wisher-collection-page__settings">

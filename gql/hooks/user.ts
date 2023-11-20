@@ -34,7 +34,9 @@ export const useGetUserLazy = () => {
       onCompleted: (data) => {
         dispatch(setUserSate(data.user))
       },
-      onError: () => {
+      onError: (error) => {
+        console.log("ERROR", error)
+
         navigateAndSetRedirect("/error")
       }
     })

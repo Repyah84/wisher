@@ -74,7 +74,7 @@ export const useParsUrl = () => {
     const url = window.location.href
     const signal = controller.signal
 
-    if (data === null || data.input.url !== url) {
+    if (data === null) {
       mutate({ url, signal })
     }
   }, [controller, data])

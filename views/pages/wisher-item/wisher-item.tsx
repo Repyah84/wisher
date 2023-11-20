@@ -178,7 +178,9 @@ export const WisherItemPage = () => {
 
           <div className="extension-wisher-item__pudding-wrap">
             <div className="extension-wisher-item__create-info">
-              <WishDate date={createdAt} />
+              <WishDate clear={true} date={createdAt}>
+                <span>Saved: </span>
+              </WishDate>
 
               <WisherRating size={20} rating={personalRating} />
             </div>

@@ -122,10 +122,16 @@ export const WisherPage = () => {
             My Little Black Dress <br />
             My top sneakers <br />
             For parents <br />
+            <br />
             Tip: don’t forget to share your collections with friends and family!
           </Help>
 
-          <CollectionsLabel type="wrap" onLabelClick={onCollectionLabelClick} />
+          <div className="extensions-wisher-page__collections">
+            <CollectionsLabel
+              type="row"
+              onLabelClick={onCollectionLabelClick}
+            />
+          </div>
 
           <AddForm
             btnTitle="create"
