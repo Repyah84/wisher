@@ -66,7 +66,6 @@ export const useGetItemsLazy = () => {
         dispatch(setItems({ count, items }))
       },
       onError: (error) => {
-        console.log("getItemsERROR", error)
         navigateAndSetRedirect("/error")
       }
     })

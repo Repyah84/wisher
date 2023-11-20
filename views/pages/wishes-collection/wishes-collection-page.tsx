@@ -56,8 +56,6 @@ export const CollectionPage = () => {
   )
 
   const itemsToAdd = useMemo(() => {
-    console.log(itemsData)
-
     return itemsData.items.filter(
       ({ collections }) => collections === null || !collections.includes(name)
     )

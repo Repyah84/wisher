@@ -18,7 +18,8 @@ export const config: PlasmoCSConfig = {
   //   "https://driffle.com/*",
   //   "https://www.google.com/*",
   //   "https://www.bogner.com/*",
-  //   "https://www.wishr.app/*"
+  //   "https://www.wishr.app/*",
+  //   "https://rozetka.com.ua/*"
   // ],
   css: ["font.css"]
 }

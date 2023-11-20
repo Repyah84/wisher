@@ -30,8 +30,6 @@ export const InitialPage = () => {
       })
       .then((jwt) => {
         if (!jwt) {
-          console.log("InitialPage", jwt)
-
           navigate("/login")
 
           setWisherState((wisher) => ({ ...wisher, hasBadge: true }))

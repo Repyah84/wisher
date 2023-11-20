@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
 
+import { WISHER_REDIRECT } from "~const/wisher-redirect"
 import type { StoreJWT } from "~gql/hooks/signin"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 
@@ -38,9 +39,16 @@ export const useHandleApp = () => {
     setWisherState
   } = useContext(WisherStateContext)
 
+  /**
+   * Handle multi tabs auth
+   */
   useEffect(() => {
     if (wisherJWT === null) {
       logoutWithNavigate()
+    }
+
+    if (window.location.href === WISHER_REDIRECT) {
+      setWisherState((wisher) => ({ ...wisher, isShow: true }))
     }
   }, [wisherJWT])
 
