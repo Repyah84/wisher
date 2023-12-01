@@ -2,24 +2,31 @@ import optionSvgIcon from "data-base64:~assets/option-bar.svg"
 import { useContext, useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
+import { useCollections } from "~gql/hooks/collections"
 import { useCollectionsMutate } from "~gql/hooks/collections.mutate"
-import { updateUserCollections } from "~store/slices/user"
+import type { Collection } from "~gql/types/graphql"
+import { setCollections } from "~store/slices/collections"
 import type { RootState } from "~store/wisher.store"
 import { Button } from "~views/components/button/button"
 import { FileSvgIcon } from "~views/components/icons/file/file"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useCollectionsState } from "~views/hooks/collections"
 import { WishesCollection } from "~views/widgets/wishes-collection/wishes-collection"
 
 import { CollectionsDnd } from "../collections-dnd/collections-dnd"
 
 interface Props {
-  collections: string[]
+  collections: Collection[]
 }
 
 export const WishesCollections = ({ collections }: Props) => {
   const dispatch = useDispatch()
+
+  const { collectionIds, getCollectionById } = useCollectionsState()
+
+  const { loading: loadingCollection, getCollections } = useCollections()
 
   const { loading: collectionUpdateLoading, addCollection } =
     useCollectionsMutate()
@@ -29,7 +36,7 @@ export const WishesCollections = ({ collections }: Props) => {
     setWisherState
   } = useContext(WisherStateContext)
 
-  const [newCollectionSate, setNewCollectionSate] = useState([])
+  const [newCollectionState, setNewCollectionState] = useState([])
   const collectionsWithImage = useSelector(
     ({ collectionWithImages: { data } }: RootState) => data
   )
@@ -37,9 +44,15 @@ export const WishesCollections = ({ collections }: Props) => {
   const loading = useMemo(() => {
     return (
       collections.length !== collectionsWithImage.length ||
-      collectionUpdateLoading
+      collectionUpdateLoading ||
+      loadingCollection
     )
-  }, [collectionsWithImage, collectionUpdateLoading, collections])
+  }, [
+    collectionUpdateLoading,
+    collectionsWithImage,
+    loadingCollection,
+    collections
+  ])
 
   const onAddCollectionClick = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: "create-collection" }))
@@ -48,12 +61,18 @@ export const WishesCollections = ({ collections }: Props) => {
   const onPopupClose = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
-    if (collections.toString() === newCollectionSate.toString() || loading) {
+    if (collectionIds.toString() === newCollectionState.toString() || loading) {
       return
     }
 
-    addCollection(newCollectionSate).then(() => {
-      dispatch(updateUserCollections(newCollectionSate))
+    const collectionDND = newCollectionState.map(
+      (id) => getCollectionById(id)?.title
+    )
+
+    addCollection(collectionDND).then(() => {
+      getCollections().then(({ data: { collections } }) => {
+        dispatch(setCollections(collections))
+      })
     })
   }
 
@@ -85,8 +104,8 @@ export const WishesCollections = ({ collections }: Props) => {
         </div>
 
         <div className="extensions-wisher-wishes-collection__scroll-bar">
-          {collections.map((name) => (
-            <WishesCollection key={name} collectionName={name} />
+          {collections.map((collection) => (
+            <WishesCollection key={collection.id} collection={collection} />
           ))}
         </div>
       </div>
@@ -96,8 +115,8 @@ export const WishesCollections = ({ collections }: Props) => {
         title="Reorder"
         onCloseClick={onPopupClose}>
         <CollectionsDnd
-          collections={collections}
-          collectionsDrag={setNewCollectionSate}></CollectionsDnd>
+          collectionIds={collectionIds}
+          collectionsDrag={setNewCollectionState}></CollectionsDnd>
       </Popup>
     </>
   )

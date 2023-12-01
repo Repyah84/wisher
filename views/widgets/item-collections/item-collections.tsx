@@ -1,8 +1,9 @@
 import { Label, type LabelType } from "~views/components/label/label"
+import { useCollectionsState } from "~views/hooks/collections"
 
 interface Props {
   actionTitle: string
-  collections: string[]
+  collectionsIds: string[]
   onAddClickFn: () => void
   labelType?: LabelType
   loading?: boolean
@@ -11,12 +12,14 @@ interface Props {
 
 export const ItemCollection = ({
   actionTitle,
-  collections,
+  collectionsIds,
   onAddClickFn,
   labelType = "default",
   loading = false,
   onCollectionItemClick
 }: Props) => {
+  const { getCollectionById } = useCollectionsState()
+
   return (
     <div className="extensions-wisher-item-collections">
       <Label
@@ -26,14 +29,14 @@ export const ItemCollection = ({
         title={actionTitle}
       />
 
-      {collections &&
-        collections.length > 0 &&
-        collections.map((name) => (
+      {collectionsIds &&
+        collectionsIds.length > 0 &&
+        collectionsIds.map((id) => (
           <Label
             onLabelClick={onCollectionItemClick}
             labelType="active"
-            key={name}
-            title={name}
+            key={id}
+            title={getCollectionById(id)?.title || "Invalidate"}
           />
         ))}
     </div>

@@ -27,7 +27,7 @@ interface Props {
 export const WisherLayout = ({
   data: {
     imageUpload,
-    input: { title, currency, price, personalRating, collections, imageUrl },
+    input: { title, currency, price, personalRating, collectionIds, imageUrl },
     images
   },
   isLoading,
@@ -42,12 +42,12 @@ export const WisherLayout = ({
   const dispatch = useDispatch()
 
   const { selectedCollections, onSelectCollection } =
-    useSelectCollection(collections)
+    useSelectCollection(collectionIds)
 
   const onPopupClose = () => {
     setWisherState((wisher) => ({ ...wisher, hasMessage: null }))
 
-    dispatch(patchWisherState({ collections: selectedCollections }))
+    dispatch(patchWisherState({ collectionIds: selectedCollections }))
   }
 
   const priceValue = useMemo(() => {
@@ -106,7 +106,7 @@ export const WisherLayout = ({
             labelType="active"
             onAddClickFn={onAllCollectionClick}
             onCollectionItemClick={onAllCollectionClick}
-            collections={selectedCollections}
+            collectionsIds={selectedCollections}
           />
         </div>
 

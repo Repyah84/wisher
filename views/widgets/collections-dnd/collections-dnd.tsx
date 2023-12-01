@@ -4,12 +4,12 @@ import { useEffect, useState } from "react"
 import { WisherCollectionShort } from "../wishes-collection-short/wishes-collection-short"
 
 interface Props {
-  collections: string[]
+  collectionIds: string[]
   collectionsDrag: (value: string[]) => void
 }
 
-export const CollectionsDnd = ({ collections, collectionsDrag }: Props) => {
-  const [items, setItems] = useState(collections || [])
+export const CollectionsDnd = ({ collectionIds, collectionsDrag }: Props) => {
+  const [items, setItems] = useState(collectionIds || [])
   const [draggingItem, setDraggingItem] = useState(null)
 
   const handleDragStart = (
@@ -50,18 +50,18 @@ export const CollectionsDnd = ({ collections, collectionsDrag }: Props) => {
 
   return (
     <div className="extensions-wisher-collections-dnd">
-      {items.map((name) => (
+      {items.map((id) => (
         <div
-          key={name}
+          key={id}
           className={`extensions-wisher-collections-dnd__item ${
-            draggingItem === name &&
+            draggingItem === id &&
             "extensions-wisher-collections-dnd__item--dragging"
           }`}
           draggable={true}
-          onDragStart={(e) => handleDragStart(e, name)}
-          onDragOver={(e) => handleDragOver(e, name)}
+          onDragStart={(e) => handleDragStart(e, id)}
+          onDragOver={(e) => handleDragOver(e, id)}
           onDragEnd={handleDragEnd}>
-          <WisherCollectionShort collectionName={name}>
+          <WisherCollectionShort collectionsId={id}>
             <img width={24} height={24} src={groupIcon} alt="Group" />
           </WisherCollectionShort>
         </div>

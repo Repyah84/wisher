@@ -3,28 +3,29 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
-import { items } from "~gql/schema/items"
+import { collectionsGQL } from "~gql/schema/collections"
+import type { CollectionsOptions } from "~gql/types/graphql"
 import { CompareDate } from "~helpers/compare-date"
-import { setCollectionWithImages } from "~store/slices/collections-with-images"
+import { setCollections } from "~store/slices/collections"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
 import type { StoreJWT } from "./signin"
 
-export const useCollectionWithImages = () => {
+export const useCollections = () => {
   const { logoutWithNavigate } = useLogout()
 
   const dispatch = useDispatch()
 
   const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
-  const [mutate, { data, error, loading }] = useLazyQuery(items, {
+  const [mutate, { data, error, loading }] = useLazyQuery(collectionsGQL, {
     defaultOptions: {
       fetchPolicy: "network-only"
     }
   })
 
-  const getCollectionWithImages = async (collectionId: string, limit = 5) => {
+  const getCollections = async () => {
     const storage = new Storage({ area: "local" })
 
     const { token, exp } = await storage.get<StoreJWT>("JWT")
@@ -35,24 +36,17 @@ export const useCollectionWithImages = () => {
       return
     }
 
+    const options: CollectionsOptions = { collectionIds: null }
+
     return mutate({
-      variables: {
-        collectionId,
-        limit
-      },
+      variables: { options },
       context: {
         headers: {
           Authorization: `Bearer ${token}`
         }
       },
-      onCompleted: (data) => {
-        dispatch(
-          setCollectionWithImages({
-            collectionId,
-            images: data.items.rows.map(({ imageUrl }) => imageUrl),
-            count: data.items.count
-          })
-        )
+      onCompleted: ({ collections }) => {
+        dispatch(setCollections(collections))
       },
       onError: () => {
         navigateAndSetRedirect("/error")
@@ -60,5 +54,5 @@ export const useCollectionWithImages = () => {
     })
   }
 
-  return { data, error, loading, getCollectionWithImages }
+  return { data, error, loading, getCollections }
 }

@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 
 import wisherCollectionReducer from "./slices/collection"
+import collectionReducer from "./slices/collections"
 import collectionWithImagesReducer from "./slices/collections-with-images"
 import itemReducer from "./slices/item"
 import userItemsReducer from "./slices/items"
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   items: userItemsReducer,
   wisher: wisherReducer,
   collection: wisherCollectionReducer,
+  collections: collectionReducer,
   collectionWithImages: collectionWithImagesReducer,
   loading: loadingReducer,
   sort: sortReducer,

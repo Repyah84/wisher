@@ -53,12 +53,12 @@ export const WisherItemPage = () => {
     faviconUrl,
     marketplace,
     price,
-    collections,
+    collectionIds,
     url
   } = useItemRootData()
 
   const { selectedCollections, onSelectCollection } =
-    useSelectCollection(collections)
+    useSelectCollection(collectionIds)
 
   const priceValue = useMemo(
     () => `${getSymbolFromCurrency(currency)}${price}`,
@@ -91,18 +91,18 @@ export const WisherItemPage = () => {
     }))
 
     if (
-      collections !== null &&
-      collections.toString() === selectedCollections.toString()
+      collectionIds !== null &&
+      collectionIds.toString() === selectedCollections.toString()
     ) {
       return
     }
 
     dispatch(toggleUpdateItemCollection(true))
 
-    addItem({ input: { id, collections: selectedCollections } }).then(() => {
+    addItem({ input: { id, collectionIds: selectedCollections } }).then(() => {
       const data = {
         itemId: id,
-        collections: selectedCollections
+        collectionIds: selectedCollections
       }
 
       dispatch(updateItemCollection(data))
@@ -189,7 +189,7 @@ export const WisherItemPage = () => {
               <ItemCollection
                 actionTitle="Add to collection"
                 loading={itemLoading}
-                collections={collections}
+                collectionsIds={collectionIds}
                 onAddClickFn={onLabelAllCollectionClick}
               />
             </div>

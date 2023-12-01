@@ -63,7 +63,7 @@ export const Wisher = ({
         </span>
 
         {isPurchased ? (
-          <Label labelType="primary" title="Purchased"></Label>
+          <Label labelType="primary" title="Purchased" />
         ) : (
           <span className="extensions-wisher-item__price">{priceValue}</span>
         )}

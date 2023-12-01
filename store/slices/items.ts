@@ -62,7 +62,7 @@ export const itemsState = createSlice({
           return
         }
 
-        state.data.items[itemsIndex].collections = payload.collections
+        state.data.items[itemsIndex].collectionIds = payload.collectionIds
       })
       .addCase(updateItemPurchase, (state, { payload }) => {
         const itemIndex = state.data.items.findIndex(

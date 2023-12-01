@@ -16,17 +16,13 @@ export const CollectionSettingsSelect = ({
   collectionSelected,
   onSelectCollection
 }: Props) => {
-  const collectionsData = useSelector(
-    ({ user: { data } }: RootState) => data?.collections
+  const collections = useSelector(
+    ({ collections: { data } }: RootState) => data
   )
 
   const collectionWithImages = useSelector(
     ({ collectionWithImages: { data } }: RootState) => data
   )
-
-  const collections = useMemo(() => {
-    return collectionsData || []
-  }, [collectionsData])
 
   const isLoad = useMemo(() => {
     return collectionWithImages.length !== collections.length
@@ -52,15 +48,14 @@ export const CollectionSettingsSelect = ({
         <div
           is-hide={isLoad.toString()}
           className="extensions-wisher-collection-settings-select__items">
-          {collections.map((collectionName) => (
+          {collections.map(({ id }) => (
             <div
               className="extensions-wisher-collection-settings-select__item"
-              onClick={() => onSelectCollection(collectionName)}
-              key={collectionName}>
+              onClick={() => onSelectCollection(id)}
+              key={id}>
               <WisherCollectionShort
-                key={collectionName}
-                collectionName={collectionName}
-                isSelected={collectionSelected.includes(collectionName)}
+                collectionsId={id}
+                isSelected={collectionSelected.includes(id)}
               />
             </div>
           ))}

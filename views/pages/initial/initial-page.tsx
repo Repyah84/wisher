@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 import { Storage } from "@plasmohq/storage"
 
+import { useCollections } from "~gql/hooks/collections"
 import { useGetItemsLazy } from "~gql/hooks/items"
 import type { StoreJWT } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
@@ -19,6 +20,7 @@ export const InitialPage = () => {
 
   const { getUser } = useGetUserLazy()
   const { getItems } = useGetItemsLazy()
+  const { getCollections } = useCollections()
 
   const { initialDataByStore, initDataByBackground } =
     useAsyncStoreDataWithContext()
@@ -37,15 +39,11 @@ export const InitialPage = () => {
           return
         }
 
-        return getUser()
-          .then(() => {
-            return getItems()
-          })
-          .then(() => {
-            setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
+        Promise.all([getUser(), getItems(), getCollections()]).then(() => {
+          setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
 
-            navigate("/wisher/wishes/wishes-all")
-          })
+          navigate("/wisher/wishes/wishes-all")
+        })
       })
   }, [])
 

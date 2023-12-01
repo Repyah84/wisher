@@ -29,7 +29,7 @@ export const useGetCollectionItems = () => {
   })
 
   const getCollectionItems = async (
-    collections: string,
+    collectionId: string,
     limit = 10,
     resetStore = false,
     startAfterItemId?: string
@@ -48,7 +48,7 @@ export const useGetCollectionItems = () => {
 
     return mutate({
       variables: {
-        collections,
+        collectionId,
         limit,
         startAfterItemId,
         sort
@@ -63,7 +63,7 @@ export const useGetCollectionItems = () => {
           dispatch(resetCollection())
         }
 
-        dispatch(setCollection({ count, items, name: collections }))
+        dispatch(setCollection({ count, items, collectionId }))
       },
       onError: () => {
         navigateAndSetRedirect("/error")

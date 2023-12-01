@@ -10,6 +10,7 @@ import { updateItemPurchase } from "~store/actions/update-item-purchase"
 interface SearchData {
   count: number
   items: Item[]
+  param: string
 }
 
 export interface SearchDataState {
@@ -19,7 +20,8 @@ export interface SearchDataState {
 const initialState: SearchDataState = {
   data: {
     count: 0,
-    items: []
+    items: [],
+    param: ""
   }
 }
 
@@ -30,6 +32,7 @@ const searchSlice = createSlice({
     setSearchItems: (state, { payload }: PayloadAction<SearchData>) => {
       state.data.count = payload.count
       state.data.items = [...state.data.items, ...payload.items]
+      state.data.param = payload.param
     },
     resetSearchItems: (state) => {
       state.data = initialState.data
@@ -59,7 +62,7 @@ const searchSlice = createSlice({
           return
         }
 
-        state.data.items[itemsIndex].collections = payload.collections
+        state.data.items[itemsIndex].collectionIds = payload.collectionIds
       })
       .addCase(updateItemPurchase, (state, { payload }) => {
         const itemIndex = state.data.items.findIndex(

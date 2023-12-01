@@ -1,18 +1,8 @@
 import { graphql } from "~gql/types"
 
 export const search = graphql(`
-  query SearchItems(
-    $search: String
-    $collections: [String]
-    $limit: Int
-    $offset: Int
-  ) {
-    searchItems(
-      search: $search
-      collections: $collections
-      limit: $limit
-      offset: $offset
-    ) {
+  query SearchItems($search: String, $limit: Int, $offset: Int) {
+    searchItems(search: $search, limit: $limit, offset: $offset) {
       count
       rows {
         url
@@ -24,10 +14,10 @@ export const search = graphql(`
         marketplace
         imageUrl
         id
+        collectionIds
         faviconUrl
         currency
         createdAt
-        collections
         isPurchased
       }
     }

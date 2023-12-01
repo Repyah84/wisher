@@ -32,7 +32,7 @@ export const useGetItemsLazy = () => {
     limit = 10,
     resetStore = false,
     startAfterItemId?: string,
-    collections?: string | [string]
+    collectionId?: string
   ) => {
     const storage = new Storage({ area: "local" })
 
@@ -48,9 +48,9 @@ export const useGetItemsLazy = () => {
 
     return mutate({
       variables: {
+        collectionId,
         limit,
         sort,
-        collections,
         startAfterItemId
       },
       context: {

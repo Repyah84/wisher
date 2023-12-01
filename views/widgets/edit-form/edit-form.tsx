@@ -45,7 +45,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
   const [edit, setEdit] = useState<ItemInput>(data.input)
 
   const { selectedCollections, onSelectCollection } = useSelectCollection(
-    edit.collections
+    edit.collectionIds
   )
 
   const errorValidator = () => {
@@ -83,7 +83,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
       hasMessage: null
     }))
 
-    change({ collections: selectedCollections })
+    change({ collectionIds: selectedCollections })
   }
 
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -131,7 +131,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
               <div className="extensions-wisher-edit-form__collections">
                 <ItemCollection
                   actionTitle="Add to collection"
-                  collections={selectedCollections}
+                  collectionsIds={selectedCollections}
                   onAddClickFn={onLabelAllCollectionClick}
                 />
               </div>

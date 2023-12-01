@@ -9,6 +9,8 @@
   border-bottom-left-radius: var(--extensions-mode-border-radius);
   border-bottom-right-radius: var(--extensions-mode-border-radius);
 
+  background-color: white;
+
   & .extensions-wisher-ripple {
     --extensions-wisher-ripple-color: var(--extensions-wishes-accept);
   }

@@ -12,10 +12,10 @@ export const itemInput = graphql(`
       marketplace
       imageUrl
       id
+      collectionIds
       faviconUrl
       currency
       createdAt
-      collections
       isPurchased
     }
   }

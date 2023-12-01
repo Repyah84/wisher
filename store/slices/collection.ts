@@ -3,7 +3,6 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 import type { Item } from "~gql/types/graphql"
 import { deleteItem } from "~store/actions/delete-item"
 import { logout } from "~store/actions/logout"
-import { updateCollectionNameState } from "~store/actions/update-collection-name"
 import { updateItem } from "~store/actions/update-item"
 import { updateItemCollection } from "~store/actions/update-item-collections"
 import { updateItemPurchase } from "~store/actions/update-item-purchase"
@@ -11,7 +10,7 @@ import { updateItemPurchase } from "~store/actions/update-item-purchase"
 interface CollectionItemData {
   count: number
   items: Item[]
-  name: string
+  collectionId: string | null
 }
 
 export interface CollectionItem {
@@ -22,7 +21,7 @@ const initialState: CollectionItem = {
   data: {
     count: 0,
     items: [],
-    name: ""
+    collectionId: null
   }
 }
 
@@ -37,12 +36,12 @@ const collectionSlice = createSlice({
       state.data = {
         count,
         items,
-        name: payload.name
+        collectionId: payload.collectionId
       }
     },
     initialStateWithName: (state, { payload }: PayloadAction<string>) => {
       const data: CollectionItemData = {
-        name: payload,
+        collectionId: payload,
         items: [],
         count: 0
       }
@@ -77,8 +76,8 @@ const collectionSlice = createSlice({
           return
         }
 
-        if (payload.collections.includes(state.data.name)) {
-          state.data.items[itemsIndex].collections = payload.collections
+        if (payload.collectionIds.includes(state.data.collectionId)) {
+          state.data.items[itemsIndex].collectionIds = payload.collectionIds
 
           return
         }
@@ -107,16 +106,6 @@ const collectionSlice = createSlice({
 
         state.data.items.splice(itemIndex, 1, payload)
       })
-      .addCase(
-        updateCollectionNameState,
-        (state, { payload: { oldCollection, newCollection } }) => {
-          if (oldCollection !== state.data.name) {
-            return
-          }
-
-          state.data.name = newCollection
-        }
-      )
   }
 })
 

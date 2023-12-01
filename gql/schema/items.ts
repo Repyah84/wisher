@@ -2,16 +2,16 @@ import { graphql } from "~gql/types"
 
 export const items = graphql(`
   query Items(
+    $collectionId: String
     $limit: Int
     $startAfterItemId: String
     $sort: Sort
-    $collections: [String]
   ) {
     items(
+      collectionId: $collectionId
       limit: $limit
       startAfterItemId: $startAfterItemId
       sort: $sort
-      collections: $collections
     ) {
       count
       rows {
@@ -22,12 +22,12 @@ export const items = graphql(`
         personalRating
         note
         marketplace
+        collectionIds
         imageUrl
         id
         faviconUrl
         currency
         createdAt
-        collections
         isPurchased
       }
     }

@@ -24,21 +24,21 @@ export const SearchPage = () => {
 
   const { loading, getItems } = useItemSearch()
 
-  const [searchValue, setSearchValue] = useState("")
-
   const searchData = useSelector(({ search: { data } }: RootState) => data)
+
+  const [searchValue, setSearchValue] = useState(searchData.param)
 
   const offset = useMemo(() => {
     return searchData.items.length
   }, [searchData])
 
   useEffect(() => {
-    if (!searchValue) {
+    if (!searchValue || searchValue === searchData.param) {
       return
     }
 
     timer = setTimeout(() => {
-      getItems(searchValue, offset, 10, true).then(() => {})
+      void getItems(searchValue, 0, 10, true)
     }, 500)
 
     return () => {
@@ -62,7 +62,7 @@ export const SearchPage = () => {
       return
     }
 
-    getItems(searchValue, offset)
+    void getItems(searchValue, offset, 10)
   }
 
   const onBackClick = () => {

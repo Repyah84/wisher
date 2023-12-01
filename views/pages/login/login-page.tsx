@@ -2,6 +2,7 @@ import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
 import { useEffect, useState } from "react"
 
+import { useCollections } from "~gql/hooks/collections"
 import { useGetItemsLazy } from "~gql/hooks/items"
 import { useSignInMutate } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
@@ -22,6 +23,7 @@ export const LoginPage = () => {
   const { wisherJWT, onLogin } = useSignInMutate()
   const { getUser } = useGetUserLazy()
   const { getItems } = useGetItemsLazy()
+  const { getCollections } = useCollections()
 
   useEffect(() => {
     logoutUser()
@@ -32,15 +34,11 @@ export const LoginPage = () => {
       return
     }
 
-    getUser()
-      .then(() => {
-        return getItems()
-      })
-      .then(() => {
-        setIsLoading(false)
+    Promise.all([getUser(), getItems(), getCollections()]).then(() => {
+      setIsLoading(false)
 
-        navigateWithRedirect("/wisher/wishes/wishes-all")
-      })
+      navigateWithRedirect("/wisher/wishes/wishes-all")
+    })
   }, [wisherJWT])
 
   const onGoogleLoginClick = () => {
@@ -51,9 +49,6 @@ export const LoginPage = () => {
     setIsLoading(true)
     onLogin()
   }
-
-  // const onAppleLoginClock = () => {
-  // }
 
   return (
     <div className="extensions-wisher-login-page">
@@ -75,16 +70,6 @@ export const LoginPage = () => {
         </p>
 
         <div className="extensions-wisher-login-page__action">
-          {/* <Button size="md" onClickFn={onAppleLoginClock}>
-            <div className="extensions-wisher-login-page__apple-login">
-              <img width={24} height={24} src={appleLogoSvg} alt="apple-logo" />
-
-              <span>SIGN UP WITH APPLE</span>
-
-              <Loader size={5.5} isLoading={appleLoading} />
-            </div>
-          </Button> */}
-
           <Button size="md" onClickFn={onGoogleLoginClick}>
             <div className="extensions-wisher-login-page__google-login">
               <img

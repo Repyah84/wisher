@@ -28,12 +28,12 @@ export const useItemSearch = () => {
     search: string,
     offset = 0,
     limit = 10,
-    resetData = false,
-    collections?: string | [string]
+    resetData = false
   ) => {
     if (!search) {
       return
     }
+
     const storage = new Storage({ area: "local" })
 
     const { token, exp } = await storage.get<StoreJWT>("JWT")
@@ -48,8 +48,7 @@ export const useItemSearch = () => {
       variables: {
         search,
         limit,
-        offset,
-        collections
+        offset
       },
       context: {
         headers: {
@@ -62,7 +61,11 @@ export const useItemSearch = () => {
         }
 
         dispatch(
-          setSearchItems({ count: searchItems.count, items: searchItems.rows })
+          setSearchItems({
+            count: searchItems.count,
+            items: searchItems.rows,
+            param: search
+          })
         )
       },
       onError: () => {

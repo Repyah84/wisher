@@ -2,20 +2,23 @@ import emptyImage from "data-base64:~assets/garage.png"
 import { useMemo, type ReactNode } from "react"
 
 import { CheckSvg } from "~views/components/icons/check/check"
+import { useCollectionsState } from "~views/hooks/collections"
 import { useLoadCollectionWithImages } from "~views/hooks/load-collection-with-images"
 
 interface Props {
-  collectionName: string
+  collectionsId: string
   isSelected?: boolean
   children?: ReactNode
 }
 
 export const WisherCollectionShort = ({
   isSelected,
-  collectionName,
+  collectionsId,
   children
 }: Props) => {
-  const { collectionImageData } = useLoadCollectionWithImages(collectionName)
+  const { collectionImageData } = useLoadCollectionWithImages(collectionsId)
+
+  const { getCollectionById } = useCollectionsState()
 
   const images = useMemo(() => {
     if (collectionImageData === undefined) {
@@ -59,7 +62,7 @@ export const WisherCollectionShort = ({
         </div>
 
         <span className="extensions-wisher-collection-wisher-short__name">
-          {collectionImageData.title}
+          {getCollectionById(collectionsId)?.title}
         </span>
 
         {isSelected && <CheckSvg />}

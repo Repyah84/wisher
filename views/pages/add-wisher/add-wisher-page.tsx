@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParsUrl } from "~api/hooks/pars-url"
 import { useItemMutate } from "~gql/hooks/item.mutate"
 import { useGetItemsLazy } from "~gql/hooks/items"
+import { resetCollection } from "~store/slices/collection"
 import { resetCollectionsWithImages } from "~store/slices/collections-with-images"
 import type { RootState } from "~store/wisher.store"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
@@ -14,8 +15,6 @@ import { WisherEmptyData } from "~views/widgets/wisher-empty-data/wisher-empty-d
 import { WisherLayout } from "~views/widgets/wisher-layout/wisher-layout"
 
 export const AddWisherPage = () => {
-  const domain = window.location.host
-
   const {
     wisherSate: { isShow },
     setWisherState
@@ -65,6 +64,7 @@ export const AddWisherPage = () => {
       })
       .then(() => {
         dispatch(resetCollectionsWithImages())
+        dispatch(resetCollection())
 
         setWisherState((wisher) => ({
           ...wisher,
@@ -91,7 +91,7 @@ export const AddWisherPage = () => {
       {data === null && !canceled && !isError ? (
         <LoaderLayout cancelFn={cancel} hideFn={onHidePopup}>
           {/* TODO remove br */}
-          Importing data from {domain} <br />
+          Importing data from {window.location.host} <br />
           Kindly wait. Alternatively, you can close this dialog, <br />
           and we'll notify you once the process is complete.
         </LoaderLayout>

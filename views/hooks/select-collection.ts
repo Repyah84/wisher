@@ -1,19 +1,19 @@
 import { useState } from "react"
 
 export const useSelectCollection = (
-  collections: string[] | null | undefined
+  collectionIds: string[] | null | undefined
 ) => {
   const [selectedCollections, setSelectedCollections] = useState<string[]>(
-    collections || []
+    collectionIds || []
   )
 
-  const onSelectCollection = (collectionName: string) => {
+  const onSelectCollection = (collectionId: string) => {
     setSelectedCollections((collections) => {
-      if (selectedCollections.includes(collectionName)) {
-        return collections.filter((name) => name !== collectionName)
+      if (selectedCollections.includes(collectionId)) {
+        return collections.filter((name) => name !== collectionId)
       }
 
-      return [...collections, collectionName]
+      return [...collections, collectionId]
     })
   }
 

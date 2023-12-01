@@ -1,17 +1,15 @@
 import { useDispatch, useSelector } from "react-redux"
 import { Outlet, useNavigate } from "react-router-dom"
 
+import { useCollections } from "~gql/hooks/collections"
 import { useCollectionsMutate } from "~gql/hooks/collections.mutate"
 import { initialStateWithName } from "~store/slices/collection"
-import {
-  deleteCollectionWithImages,
-  setCollectionWithImages
-} from "~store/slices/collections-with-images"
-import { updateUserCollections } from "~store/slices/user"
+import { deleteCollectionWithImages } from "~store/slices/collections-with-images"
 import type { RootState } from "~store/wisher.store"
 import { Help } from "~views/components/help/help"
 import { Popup } from "~views/components/popup/popup"
 import { useAsyncStoreDataWithContext } from "~views/hooks/async-store-data"
+import { useCollectionsState } from "~views/hooks/collections"
 import { AddForm } from "~views/widgets/add-form/add-form"
 import { CollectionsLabel } from "~views/widgets/collections-label/collections-label"
 import { Dialog } from "~views/widgets/dialog/dialog"
@@ -35,11 +33,12 @@ export const WisherPage = () => {
 
   const { loading, addCollection } = useCollectionsMutate()
 
-  const collections: string[] | undefined = useSelector(
-    ({ user: { data } }: RootState) => data?.collections || []
-  )
-  const collectionName = useSelector(
-    ({ collection: { data } }: RootState) => data.name
+  const { loading: collectionLoading, getCollections } = useCollections()
+
+  const { collectionNames, getCollectionById } = useCollectionsState()
+
+  const collectionId = useSelector(
+    ({ collection: { data } }: RootState) => data.collectionId
   )
 
   const onMessageClosed = () => {
@@ -55,22 +54,22 @@ export const WisherPage = () => {
   }
 
   const onCreateCollectionClick = (collection: string) => {
-    if (loading || collections === undefined) {
+    if (loading || collectionLoading || collectionNames === undefined) {
       return
     }
 
-    addCollection([...collections, collection]).then(({ data: { user } }) => {
-      dispatch(updateUserCollections(user.collections))
+    addCollection([...collectionNames, collection]).then(() => {
+      getCollections().then(({ data: { collections } }) => {
+        const collectionId = collections.find(
+          ({ title }) => title === collection
+        ).id
 
-      dispatch(
-        setCollectionWithImages({ title: collection, images: [], count: 0 })
-      )
+        dispatch(initialStateWithName(collectionId))
 
-      dispatch(initialStateWithName(collection))
+        onPopupClose()
 
-      onPopupClose()
-
-      navigate(`/wisher/wishes-collection`)
+        navigate(`/wisher/wishes-collection`)
+      })
     })
   }
 
@@ -79,23 +78,25 @@ export const WisherPage = () => {
   }
 
   const onAcceptDeleteCollection = () => {
-    if (loading || collections === undefined) {
+    if (loading || collectionLoading || collectionNames === undefined) {
       return
     }
 
-    const newCollectionList = collections.filter(
-      (name) => name !== collectionName
+    const newCollectionList = collectionNames.filter(
+      (name) => name !== getCollectionById(collectionId)?.title
     )
 
-    addCollection(newCollectionList).then(() => {
-      dispatch(deleteCollectionWithImages(collectionName))
+    addCollection(newCollectionList)
+      .then(() => {
+        return getCollections()
+      })
+      .then(() => {
+        dispatch(deleteCollectionWithImages(collectionId))
 
-      dispatch(updateUserCollections(newCollectionList))
+        navigate("/wisher/wishes/wishes-collections")
 
-      navigate("/wisher/wishes/wishes-collections")
-
-      onPopupClose()
-    })
+        onPopupClose()
+      })
   }
 
   return (
@@ -136,8 +137,8 @@ export const WisherPage = () => {
           <AddForm
             btnTitle="create"
             defCollectionName={defCollectionName}
-            collections={collections}
-            loading={loading}
+            collections={collectionNames}
+            loading={loading || collectionLoading}
             onSubmitFn={onCreateCollectionClick}
           />
         </div>
@@ -149,7 +150,7 @@ export const WisherPage = () => {
         <Dialog
           title="Delete the collection ?"
           description="You won’t be able to restore the collection"
-          loading={loading}
+          loading={loading || collectionLoading}
           onAcceptClick={onAcceptDeleteCollection}
           onCancelClick={onPopupClose}
         />

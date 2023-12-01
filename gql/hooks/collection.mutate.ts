@@ -1,11 +1,9 @@
 import { useMutation } from "@apollo/client"
-import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
 import { collectionUpdate } from "~gql/schema/input-collection"
 import { CompareDate } from "~helpers/compare-date"
-import { updateCollectionWithImagesName } from "~store/slices/collections-with-images"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 
@@ -18,8 +16,6 @@ export interface UpdateCollectionName {
 
 export const useCollectionUpdate = () => {
   const { logoutWithNavigate } = useLogout()
-
-  const dispatch = useDispatch()
 
   const { navigateAndSetRedirect } = useNavigateWithRedirect()
 
@@ -47,13 +43,6 @@ export const useCollectionUpdate = () => {
       context: {
         headers: {
           Authorization: `Bearer ${token}`
-        }
-      },
-      onCompleted: ({ renameCollection: { status } }) => {
-        if (status) {
-          dispatch(
-            updateCollectionWithImagesName({ oldCollection, newCollection })
-          )
         }
       },
       onError: () => {
