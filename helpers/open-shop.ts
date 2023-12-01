@@ -3,5 +3,5 @@ export const OpenShop = (param: string): void => {
 
   params.set("params_url", param)
 
-  window.open(`https://tds.wishr-click.com/redrct?${params}`, "_blank")
+  window.open(`https://tds.wishr-click.com/e1?${params}`, "_blank")
 }
