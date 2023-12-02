@@ -1,7 +1,6 @@
-import getSymbolFromCurrency from "currency-symbol-map"
 import circleSvg from "data-base64:~assets/circle.svg"
 import noteSvg from "data-base64:~assets/note.svg"
-import { useContext, useMemo } from "react"
+import { useContext } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
@@ -20,6 +19,7 @@ import { Popup } from "~views/components/popup/popup"
 import { WisherRating } from "~views/components/rating/rating"
 import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useItemPrice } from "~views/hooks/item-price"
 import { useItemRootData } from "~views/hooks/item-root-data"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { useSelectCollection } from "~views/hooks/select-collection"
@@ -60,10 +60,7 @@ export const WisherItemPage = () => {
   const { selectedCollections, onSelectCollection } =
     useSelectCollection(collectionIds)
 
-  const priceValue = useMemo(
-    () => `${getSymbolFromCurrency(currency)}${price}`,
-    [price, currency]
-  )
+  const priceValue = useItemPrice(price, currency)
 
   const onSettingClick = () => {
     if (loading.marcUsPurchased) {

@@ -73,7 +73,7 @@ export const AddForm = ({
         lazyAutofocus={250}
         errorMessage={
           (errorValidator && "You already have a collection with this name") ||
-          (validatorMaxLength && "Max collection name length is 50 symbols")
+          (validatorMaxLength && "Max collection name length is 120 symbols")
         }
         value={inputValue}
         onChangeValue={(value) => setInputValue(value)}>

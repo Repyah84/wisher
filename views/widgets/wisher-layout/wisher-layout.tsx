@@ -1,6 +1,5 @@
-import getSymbolFromCurrency from "currency-symbol-map"
 import imageGarage from "data-base64:~assets/garage.png"
-import { useContext, useMemo } from "react"
+import { useContext } from "react"
 import { useDispatch } from "react-redux"
 
 import type { User } from "~gql/types/graphql"
@@ -11,6 +10,7 @@ import { Popup } from "~views/components/popup/popup"
 import { WisherRating } from "~views/components/rating/rating"
 import { Slider } from "~views/components/slider/slider"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useItemPrice } from "~views/hooks/item-price"
 import { useSelectCollection } from "~views/hooks/select-collection"
 
 import { CollectionSettingsSelect } from "../collection-settings-select/collection-settings-select"
@@ -50,17 +50,7 @@ export const WisherLayout = ({
     dispatch(patchWisherState({ collectionIds: selectedCollections }))
   }
 
-  const priceValue = useMemo(() => {
-    if (!price) {
-      return null
-    }
-
-    if (!currency || currency === "null") {
-      return price
-    }
-
-    return `${getSymbolFromCurrency(currency)}${price}`
-  }, [currency, price])
+  const priceValue = useItemPrice(price, currency)
 
   const onRatingChange = (personalRating: number) => {
     dispatch(patchWisherState({ personalRating }))

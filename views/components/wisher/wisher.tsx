@@ -1,8 +1,8 @@
-import getSymbolFromCurrency from "currency-symbol-map"
 import circleSvg from "data-base64:~assets/circle.svg"
 import emptyImage from "data-base64:~assets/garage.png"
 
 import type { Item } from "~gql/types/graphql"
+import { useItemPrice } from "~views/hooks/item-price"
 
 import { WishDate } from "../date/date"
 import { Label } from "../label/label"
@@ -25,7 +25,7 @@ export const Wisher = ({
     isPurchased
   }
 }: Props) => {
-  const priceValue = `${getSymbolFromCurrency(currency)}${price}`
+  const priceValue = useItemPrice(price, currency)
 
   return (
     <div className="extensions-wisher-item">

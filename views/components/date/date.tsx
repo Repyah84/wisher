@@ -1,4 +1,3 @@
-import getUserLocale from "get-user-locale"
 import type { ReactNode } from "react"
 
 import { FormatDate } from "~helpers/date-pars"
@@ -14,9 +13,7 @@ export const WishDate = ({ date, clear = false, children }: Props) => {
   return (
     <span>
       {children}
-      {clear
-        ? FormDataClear(getUserLocale(), date)
-        : FormatDate(getUserLocale(), date)}
+      {clear ? FormDataClear("en", date) : FormatDate("en", date)}
     </span>
   )
 }
