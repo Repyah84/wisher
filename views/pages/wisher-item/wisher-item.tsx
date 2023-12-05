@@ -1,6 +1,6 @@
 import circleSvg from "data-base64:~assets/circle.svg"
 import noteSvg from "data-base64:~assets/note.svg"
-import { useContext } from "react"
+import { useContext, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 import { useItemMutate } from "~gql/hooks/item.mutate"
@@ -61,6 +61,14 @@ export const WisherItemPage = () => {
     useSelectCollection(collectionIds)
 
   const priceValue = useItemPrice(price, currency)
+
+  const noteValue = useMemo(() => {
+    return note.split("\n").map((not, index) => (
+      <p key={index} className="extension-wisher-item__note">
+        {not}
+      </p>
+    ))
+  }, [note])
 
   const onSettingClick = () => {
     if (loading.marcUsPurchased) {
@@ -212,17 +220,17 @@ export const WisherItemPage = () => {
             </div>
 
             <div
+              className="extension-wisher-item__notes"
               onClick={() =>
                 navigateAndSetRedirect(`/wisher-item-edit`, "notes")
-              }
-              className="extension-wisher-item__notes">
+              }>
               <div className="extension-wisher-item__notes-header">
                 <span>NOTES</span>
 
                 <span>(CLICK TO EDIT)</span>
               </div>
 
-              <p className="extension-wisher-item__note">{note || "..."}</p>
+              <div>{noteValue}</div>
             </div>
           </div>
         </main>

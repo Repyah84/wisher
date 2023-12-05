@@ -21,15 +21,19 @@ export const AddForm = ({
   onSubmitFn,
   defCollectionName = ""
 }: Props) => {
+  const [validator, setValidator] = useState(null)
+
   const { setWisherState } = useContext(WisherStateContext)
 
   const [inputValue, setInputValue] = useState(defCollectionName)
 
   useEffect(() => {
-    if (defCollectionName) {
-      setInputValue(defCollectionName)
+    if (validator === null) {
+      return
     }
-  }, [defCollectionName])
+
+    setValidator(null)
+  }, [inputValue])
 
   const requiredValidator = useMemo((): boolean => {
     return (
@@ -39,7 +43,7 @@ export const AddForm = ({
     )
   }, [inputValue])
 
-  const errorValidator = useMemo(() => {
+  const collectionNameValidator = useMemo(() => {
     return collections !== null && collections.includes(inputValue)
   }, [inputValue])
 
@@ -54,7 +58,25 @@ export const AddForm = ({
   }
 
   const onSubmitClick = () => {
-    if (requiredValidator || errorValidator || loading) {
+    if (requiredValidator) {
+      setValidator("Field is required")
+
+      return
+    }
+
+    if (collectionNameValidator) {
+      setValidator("You already have a collection with this name")
+
+      return
+    }
+
+    if (validatorMaxLength) {
+      setValidator("Max collection name length is 120 symbols")
+
+      return
+    }
+
+    if (loading) {
       return
     }
 
@@ -65,16 +87,14 @@ export const AddForm = ({
     <form
       onSubmit={(e) => {
         e.preventDefault()
+
         onSubmitClick()
       }}
       className="extensions-wisher-add-form">
       <Input
         title="title"
         lazyAutofocus={250}
-        errorMessage={
-          (errorValidator && "You already have a collection with this name") ||
-          (validatorMaxLength && "Max collection name length is 120 symbols")
-        }
+        errorMessage={validator}
         value={inputValue}
         onChangeValue={(value) => setInputValue(value)}>
         {!requiredValidator && (
@@ -84,11 +104,7 @@ export const AddForm = ({
         )}
       </Input>
 
-      <Button
-        disable={requiredValidator || errorValidator || validatorMaxLength}
-        btnColor="primary"
-        type="submit"
-        size="md">
+      <Button btnColor="primary" type="submit" size="md">
         <div className="extensions-wisher-add-form__action">
           <span>{btnTitle}</span>
 

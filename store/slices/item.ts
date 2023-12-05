@@ -28,6 +28,10 @@ const itemSlice = createSlice({
         return initialState
       })
       .addCase(updateItemCollection, (state, { payload }) => {
+        if (state.data === null) {
+          return
+        }
+
         if (state.data.id !== payload.itemId) {
           return
         }
@@ -35,6 +39,10 @@ const itemSlice = createSlice({
         state.data.collectionIds = payload.collectionIds
       })
       .addCase(updateItemPurchase, (state, { payload }) => {
+        if (state.data === null) {
+          return
+        }
+
         if (state.data.id !== payload.itemsId) {
           return
         }

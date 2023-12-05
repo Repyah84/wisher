@@ -18,6 +18,9 @@
   &__wrapper {
     grid-area: 1/1 / 2/2;
 
+    //TODO hrd padding change then images size change
+    padding: 16px 0 0 30px;
+
     width: 104px;
     height: 104px;
 

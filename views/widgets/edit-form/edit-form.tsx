@@ -48,11 +48,17 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
     edit.collectionIds
   )
 
-  const errorValidator = () => {
+  const requiredValidator = useMemo(() => {
     const value = edit.title
 
     return value === null || value === undefined || value.trim() === ""
-  }
+  }, [edit.title])
+
+  const minValidator = useMemo(() => {
+    const value = edit.price
+
+    return value <= 0 || value === undefined || value === null
+  }, [edit.price])
 
   const [imageUpload, setImageUpload] = useState<File | null>(
     data.imageUpload ?? null
@@ -89,7 +95,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (loading) {
+    if (loading || requiredValidator || minValidator) {
       return
     }
 
@@ -108,7 +114,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
             </Button>
 
             <Button
-              disable={errorValidator()}
+              disable={requiredValidator}
               type="submit"
               size="md"
               btnType="stroke"
@@ -139,7 +145,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
 
             <Input
               value={edit.title}
-              errorMessage={errorValidator() && "Title is required"}
+              errorMessage={requiredValidator && "Title is required"}
               onChangeValue={(value) => change({ title: value })}
               placeholder="Add gift title"
               title="Wish title*"
@@ -157,7 +163,10 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
               <Input
                 value={edit.price}
                 type="number"
-                onChangeValue={(value) => change({ price: parseFloat(value) })}
+                errorMessage={minValidator && "Value must be greater than zero"}
+                onChangeValue={(value) =>
+                  change({ price: parseFloat(value === "" ? "0" : value) })
+                }
                 placeholder="Add item price"
                 title="price"
               />
@@ -189,7 +198,7 @@ export const EditForm = ({ data, onSaveClick, loading = false }: Props) => {
 
         <div className="extensions-wisher-edit-form__action">
           <Button
-            disable={errorValidator()}
+            disable={requiredValidator || minValidator}
             size="md"
             type="submit"
             btnColor="primary">
