@@ -44,7 +44,6 @@
     "typescript": "5.2.2"
   },
   "manifest": {
-    "key": "$CRX_PUBLIC_KEY",
     "host_permissions": [
       "https://*/*"
     ],
