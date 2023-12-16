@@ -1,7 +1,3 @@
 export const OpenShop = (param: string): void => {
-  const params = new URLSearchParams()
-
-  params.set("params_url", param)
-
-  window.open(`https://tds.wishr-click.com/e1?${params}`, "_blank")
+  window.open(`https://tds.wishr-click.com/e1?params_url=${param}`, "_blank")
 }
