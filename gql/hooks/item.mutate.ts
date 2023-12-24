@@ -3,14 +3,13 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { itemInput } from "~gql/schema/input-item"
 import type { ItemInput, ItemMutation } from "~gql/types/graphql"
 import { CompareDate } from "~helpers/compare-date"
 import { errorResponse } from "~store/actions/error"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
-
-import type { StoreJWT } from "./signin"
 
 export interface ItemAddInputData {
   input: ItemInput

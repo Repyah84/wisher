@@ -12,7 +12,7 @@
   }
 
   &__welcome {
-    margin: 32px 0;
+    margin: 32px 0 92px;
   }
 
   &__title {
@@ -34,52 +34,10 @@
   }
 
   &__action {
-    padding: 20px 16px;
-
-    display: grid;
-    row-gap: 24px;
-
-    font-size: 14px;
-
-    & {
-      .__extensions-wisher-btn__ {
-        padding: 0 7px;
-      }
-    }
-
-    & > :last-child {
-      font-size: 10px;
-      font-weight: 500;
-
-      color: hsla(0, 0%, 0%, 0.6);
-    }
-  }
-
-  &__apple-login {
-    flex: 1;
+    padding: 24px 16px;
 
     display: grid;
 
-    grid-template-columns: auto 1fr 27px;
-    align-items: center;
-    justify-content: center;
-
-    & .extensions-wisher-loader {
-      --extensions-wisher-loader-color: white;
-    }
-  }
-
-  &__google-login {
-    flex: 1;
-
-    display: grid;
-
-    grid-template-columns: auto 1fr 27px;
-    align-items: center;
-    justify-content: center;
-
-    color: hsla(0, 0%, 0%, 1);
-
-    font-weight: 500;
+    gap: 24px;
   }
 }

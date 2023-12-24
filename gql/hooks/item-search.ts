@@ -3,13 +3,12 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { search } from "~gql/schema/search"
 import { CompareDate } from "~helpers/compare-date"
 import { resetSearchItems, setSearchItems } from "~store/slices/search"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
-
-import type { StoreJWT } from "./signin"
 
 export const useItemSearch = () => {
   const { logoutWithNavigate } = useLogout()

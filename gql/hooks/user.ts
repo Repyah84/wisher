@@ -3,11 +3,10 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { user } from "~gql/schema/user"
 import { setUserSate } from "~store/slices/user"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
-
-import type { StoreJWT } from "./signin"
 
 export const useGetUserLazy = () => {
   const dispatch = useDispatch()

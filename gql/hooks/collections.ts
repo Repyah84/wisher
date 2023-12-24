@@ -3,14 +3,13 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { collectionsGQL } from "~gql/schema/collections"
 import type { CollectionsOptions } from "~gql/types/graphql"
 import { CompareDate } from "~helpers/compare-date"
 import { setCollections } from "~store/slices/collections"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
-
-import type { StoreJWT } from "./signin"
 
 export const useCollections = () => {
   const { logoutWithNavigate } = useLogout()

@@ -2,12 +2,11 @@ import { useMutation } from "@apollo/client"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { collectionUpdate } from "~gql/schema/input-collection"
 import { CompareDate } from "~helpers/compare-date"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
-
-import type { StoreJWT } from "./signin"
 
 export interface UpdateCollectionName {
   oldCollection: string

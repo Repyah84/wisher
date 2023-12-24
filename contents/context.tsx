@@ -12,15 +12,20 @@ import { Snackbar } from "~views/components/snackbar/snackbar"
 import { WisherContext } from "~views/context/wisher/wisher.context"
 
 export const config: PlasmoCSConfig = {
-  matches: ["<all_urls>"],
-  // matches: [
-  //   "https://www.amazon.com/*",
-  //   "https://driffle.com/*",
-  //   "https://www.google.com/*",
-  //   "https://www.bogner.com/*",
-  //   "https://www.wishr.app/*",
-  //   "https://rozetka.com.ua/*"
-  // ],
+  // matches: ["<all_urls>"],
+  exclude_matches: [
+    "https://auth.wishr.app/*",
+    "https://accounts.google.com/*",
+    "https://iwish-c82a4.firebaseapp.com/*"
+  ],
+  matches: [
+    "https://www.amazon.com/*",
+    "https://driffle.com/*",
+    "https://www.google.com/*",
+    "https://www.bogner.com/*",
+    "https://www.wishr.app/*",
+    "https://rozetka.com.ua/*"
+  ],
   css: ["font.css"]
 }
 

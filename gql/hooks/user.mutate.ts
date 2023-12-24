@@ -3,14 +3,13 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { updateUserGQL } from "~gql/schema/input-user"
 import type { UserInput } from "~gql/types/graphql"
 import { CompareDate } from "~helpers/compare-date"
 import { setUserSate } from "~store/slices/user"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
-
-import type { StoreJWT } from "./signin"
 
 export const useUserUpdate = () => {
   const { logoutWithNavigate } = useLogout()

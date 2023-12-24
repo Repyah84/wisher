@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { items } from "~gql/schema/items"
 import { CompareDate } from "~helpers/compare-date"
 import { SortData } from "~models/sort-data"
@@ -10,8 +11,6 @@ import { resetCollection, setCollection } from "~store/slices/collection"
 import type { RootState } from "~store/wisher.store"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
-
-import type { StoreJWT } from "./signin"
 
 export const useGetCollectionItems = () => {
   const { logoutWithNavigate } = useLogout()

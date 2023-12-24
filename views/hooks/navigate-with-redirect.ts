@@ -23,5 +23,21 @@ export const useNavigateWithRedirect = () => {
     navigate(linkWithRedirect)
   }
 
-  return { navigate, navigateAndSetRedirect, navigateWithRedirect }
+  const navigateAndSaveRedirect = (link: string) => {
+    const searchParams = new URLSearchParams(search)
+
+    const redirectParam = searchParams.get("redirect")
+
+    const href =
+      redirectParam === null ? link : `${link}?redirect=${redirectParam}`
+
+    navigate(href)
+  }
+
+  return {
+    navigate,
+    navigateAndSetRedirect,
+    navigateWithRedirect,
+    navigateAndSaveRedirect
+  }
 }

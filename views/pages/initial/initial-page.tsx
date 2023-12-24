@@ -1,22 +1,22 @@
 import svgIcon from "data-base64:~assets/wisher-collection.svg"
 import { useContext, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { useCollections } from "~gql/hooks/collections"
 import { useGetItemsLazy } from "~gql/hooks/items"
-import type { StoreJWT } from "~gql/hooks/signin"
 import { useGetUserLazy } from "~gql/hooks/user"
 import { Loader } from "~views/components/loader/loader"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useAsyncStoreDataWithContext } from "~views/hooks/async-store-data"
+import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { Header } from "~views/widgets/header/header"
 
 export const InitialPage = () => {
   const { setWisherState } = useContext(WisherStateContext)
 
-  const navigate = useNavigate()
+  const { navigate, navigateWithRedirect } = useNavigateWithRedirect()
 
   const { getUser } = useGetUserLazy()
   const { getItems } = useGetItemsLazy()
@@ -42,7 +42,7 @@ export const InitialPage = () => {
         Promise.all([getUser(), getItems(), getCollections()]).then(() => {
           setWisherState((wisher) => ({ ...wisher, hasBadge: true }))
 
-          navigate("/wisher/wishes/wishes-all")
+          navigateWithRedirect("/wisher/wishes/wishes-all")
         })
       })
   }, [])

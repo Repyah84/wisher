@@ -3,13 +3,12 @@ import { useDispatch } from "react-redux"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { items } from "~gql/schema/items"
 import { CompareDate } from "~helpers/compare-date"
 import { setCollectionWithImages } from "~store/slices/collections-with-images"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
-
-import type { StoreJWT } from "./signin"
 
 export const useCollectionWithImages = () => {
   const { logoutWithNavigate } = useLogout()

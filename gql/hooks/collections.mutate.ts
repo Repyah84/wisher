@@ -2,13 +2,12 @@ import { useMutation, type FetchResult } from "@apollo/client"
 
 import { Storage } from "@plasmohq/storage"
 
+import type { StoreJWT } from "~background/messages/auth"
 import { collectionInput } from "~gql/schema/input-collections"
 import type { UserCollectionsAddMutation } from "~gql/types/graphql"
 import { CompareDate } from "~helpers/compare-date"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
-
-import type { StoreJWT } from "./signin"
 
 export const useCollectionsMutate = () => {
   const { logoutWithNavigate } = useLogout()

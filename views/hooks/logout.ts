@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 
 import { Storage } from "@plasmohq/storage"
 
-import { auth } from "~firebase"
 import { logout } from "~store/actions/logout"
 
 export const useLogout = () => {
@@ -12,24 +11,20 @@ export const useLogout = () => {
   const navigate = useNavigate()
 
   const logoutWithNavigate = () => {
-    auth.signOut().then(() => {
-      const storage = new Storage({ area: "local" })
+    const storage = new Storage({ area: "local" })
 
-      storage.set("JWT", null).then(() => {
-        dispatch(logout())
+    storage.set("JWT", null).then(() => {
+      dispatch(logout())
 
-        navigate("/login")
-      })
+      navigate("/login")
     })
   }
 
   const logoutUser = () => {
-    auth.signOut().then(() => {
-      const storage = new Storage({ area: "local" })
+    const storage = new Storage({ area: "local" })
 
-      storage.set("JWT", null).then(() => {
-        dispatch(logout())
-      })
+    storage.set("JWT", null).then(() => {
+      dispatch(logout())
     })
   }
 

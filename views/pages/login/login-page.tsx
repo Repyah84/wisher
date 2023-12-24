@@ -1,14 +1,13 @@
-import googleLogoSvg from "data-base64:~assets/logo-google.svg"
 import welcomeImage from "data-base64:~assets/wisher-auth.png"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
-import { useCollections } from "~gql/hooks/collections"
-import { useGetItemsLazy } from "~gql/hooks/items"
-import { useSignInMutate } from "~gql/hooks/signin"
-import { useGetUserLazy } from "~gql/hooks/user"
+import { sendToBackground } from "@plasmohq/messaging"
+import { Storage } from "@plasmohq/storage"
+import { useStorage } from "@plasmohq/storage/hook"
+
+import type { StoreJWT } from "~background/messages/auth"
 import { ButtonNav } from "~views/components/button-nav/button-nav"
 import { Button } from "~views/components/button/button"
-import { Loader } from "~views/components/loader/loader"
 import { useLogout } from "~views/hooks/logout"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
 import { Header } from "~views/widgets/header/header"
@@ -16,14 +15,15 @@ import { Header } from "~views/widgets/header/header"
 export const LoginPage = () => {
   const { logoutUser } = useLogout()
 
-  const { navigateWithRedirect } = useNavigateWithRedirect()
+  const [wisherJWT] = useStorage<StoreJWT | null>(
+    {
+      key: "JWT",
+      instance: new Storage({ area: "local" })
+    },
+    null
+  )
 
-  const [isLoading, setIsLoading] = useState(false)
-
-  const { wisherJWT, onLogin } = useSignInMutate()
-  const { getUser } = useGetUserLazy()
-  const { getItems } = useGetItemsLazy()
-  const { getCollections } = useCollections()
+  const { navigateAndSaveRedirect } = useNavigateWithRedirect()
 
   useEffect(() => {
     logoutUser()
@@ -34,20 +34,13 @@ export const LoginPage = () => {
       return
     }
 
-    Promise.all([getUser(), getItems(), getCollections()]).then(() => {
-      setIsLoading(false)
-
-      navigateWithRedirect("/wisher/wishes/wishes-all")
-    })
+    navigateAndSaveRedirect("/initial")
   }, [wisherJWT])
 
-  const onGoogleLoginClick = () => {
-    if (isLoading) {
-      return
-    }
-
-    setIsLoading(true)
-    onLogin()
+  const onLoginClick = () => {
+    void sendToBackground({
+      name: "auth"
+    })
   }
 
   return (
@@ -70,19 +63,8 @@ export const LoginPage = () => {
         </p>
 
         <div className="extensions-wisher-login-page__action">
-          <Button size="md" onClickFn={onGoogleLoginClick}>
-            <div className="extensions-wisher-login-page__google-login">
-              <img
-                width={27}
-                height={27}
-                src={googleLogoSvg}
-                alt="google-logo"
-              />
-
-              <span>SIGN IN WITH GOOGLE</span>
-
-              <Loader size={5.5} isLoading={isLoading} />
-            </div>
+          <Button btnColor="primary" size="md" onClickFn={onLoginClick}>
+            <span>LOGIN IN</span>
           </Button>
 
           <ButtonNav link="/wisher/wishes/wishes-all">DO IT LATER</ButtonNav>
