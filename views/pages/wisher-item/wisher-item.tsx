@@ -19,6 +19,7 @@ import { Popup } from "~views/components/popup/popup"
 import { WisherRating } from "~views/components/rating/rating"
 import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
+import { useClipboard } from "~views/hooks/clipboard"
 import { useItemPrice } from "~views/hooks/item-price"
 import { useItemRootData } from "~views/hooks/item-root-data"
 import { useNavigateWithRedirect } from "~views/hooks/navigate-with-redirect"
@@ -29,6 +30,8 @@ import { ItemCollection } from "~views/widgets/item-collections/item-collections
 
 export const WisherItemPage = () => {
   const dispatch = useDispatch()
+
+  const { onClipboard } = useClipboard()
 
   const { loading: itemLoading, addItem } = useItemMutate()
 
@@ -122,15 +125,7 @@ export const WisherItemPage = () => {
   }
 
   const onShareIconClick = () => {
-    window.navigator.clipboard.writeText(url).then(() => {
-      setWisherState((wisher) => ({
-        ...wisher,
-        snackbar: {
-          title: "The URL has been copied",
-          action: false
-        }
-      }))
-    })
+    onClipboard(url, "The URL has been copied")
   }
 
   return (

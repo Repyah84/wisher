@@ -16,7 +16,8 @@ export const config: PlasmoCSConfig = {
   exclude_matches: [
     "https://auth.wishr.app/*",
     "https://accounts.google.com/*",
-    "https://iwish-c82a4.firebaseapp.com/*"
+    "https://iwish-c82a4.firebaseapp.com/*",
+    "https://appleid.apple.com/auth/*"
   ],
   // matches: [
   //   "https://www.amazon.com/*",

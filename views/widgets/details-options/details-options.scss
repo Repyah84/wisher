@@ -9,4 +9,11 @@
     display: flex;
     justify-content: space-between;
   }
+
+  &__external-link {
+    [alt="outside"] {
+      margin-left: auto;
+      margin-right: 5px;
+    }
+  }
 }
