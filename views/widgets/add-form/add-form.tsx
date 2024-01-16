@@ -25,7 +25,7 @@ export const AddForm = ({
 
   const { setWisherState } = useContext(WisherStateContext)
 
-  const [inputValue, setInputValue] = useState(defCollectionName)
+  const [inputValue, setInputValue] = useState("")
 
   useEffect(() => {
     if (validator === null) {
@@ -34,6 +34,14 @@ export const AddForm = ({
 
     setValidator(null)
   }, [inputValue])
+
+  useEffect(() => {
+    if (!defCollectionName) {
+      return
+    }
+
+    setInputValue(defCollectionName)
+  }, [defCollectionName])
 
   const requiredValidator = useMemo((): boolean => {
     return (

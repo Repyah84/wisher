@@ -98,6 +98,7 @@ export type Item = {
   isPurchased?: Maybe<Scalars['Boolean']['output']>;
   marketplace?: Maybe<Scalars['String']['output']>;
   note?: Maybe<Scalars['String']['output']>;
+  notifications?: Maybe<Array<Maybe<Notification>>>;
   personalRating?: Maybe<Scalars['Float']['output']>;
   price?: Maybe<Scalars['Float']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -114,6 +115,7 @@ export type ItemInput = {
   isHideWishFromSharedCollection?: InputMaybe<Scalars['Boolean']['input']>;
   isPurchased?: InputMaybe<Scalars['Boolean']['input']>;
   note?: InputMaybe<Scalars['String']['input']>;
+  notifications?: InputMaybe<Array<InputMaybe<NotificationInput>>>;
   personalRating?: InputMaybe<Scalars['Float']['input']>;
   price?: InputMaybe<Scalars['Float']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -148,6 +150,8 @@ export type Mutation = {
   item?: Maybe<Item>;
   languages?: Maybe<Array<Maybe<Language>>>;
   markAllGiftIdeasCategoryAsRead?: Maybe<Scalars['Boolean']['output']>;
+  readAllNotifications?: Maybe<Scalars['Boolean']['output']>;
+  readNotification?: Maybe<Scalars['Boolean']['output']>;
   registerVisitLink?: Maybe<Scalars['Boolean']['output']>;
   renameCollection?: Maybe<Status>;
   setOneSignal?: Maybe<Scalars['Boolean']['output']>;
@@ -185,6 +189,11 @@ export type MutationLanguagesArgs = {
 };
 
 
+export type MutationReadNotificationArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type MutationRegisterVisitLinkArgs = {
   input: RegisterVisitLink;
 };
@@ -217,6 +226,42 @@ export type MutationUserArgs = {
   input: UserInput;
 };
 
+export type Notification = {
+  __typename?: 'Notification';
+  date?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  repeatability?: Maybe<NotificationDateRepeatabilityTypeEnum>;
+  type?: Maybe<NotificationType>;
+};
+
+export enum NotificationDateRepeatabilityTypeEnum {
+  Month = 'MONTH',
+  None = 'NONE',
+  Week = 'WEEK',
+  Year = 'YEAR'
+}
+
+export type NotificationInput = {
+  date?: InputMaybe<Scalars['DateTime']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  repeatability?: InputMaybe<NotificationDateRepeatabilityTypeEnum>;
+  type?: InputMaybe<NotificationType>;
+};
+
+export type NotificationItem = {
+  __typename?: 'NotificationItem';
+  id?: Maybe<Scalars['String']['output']>;
+  relatedEntity?: Maybe<Item>;
+  sentAt?: Maybe<Scalars['DateTime']['output']>;
+  type?: Maybe<NotificationType>;
+};
+
+export type NotificationItemsList = {
+  __typename?: 'NotificationItemsList';
+  count?: Maybe<Scalars['Int']['output']>;
+  rows?: Maybe<Array<Maybe<NotificationItem>>>;
+};
+
 export type NotificationSetting = {
   __typename?: 'NotificationSetting';
   birthdayRemind?: Maybe<Scalars['Boolean']['output']>;
@@ -227,6 +272,10 @@ export type NotificationSettingInput = {
   birthdayRemind?: InputMaybe<Scalars['Boolean']['input']>;
   newsAndUpdates?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
+export enum NotificationType {
+  Date = 'DATE'
+}
 
 export type Page = {
   __typename?: 'Page';
@@ -263,6 +312,7 @@ export type Query = {
   getGiftIdeasCategory?: Maybe<Array<Maybe<CategoryInfo>>>;
   getGiftIdeasWishesByCategoryId?: Maybe<Array<Maybe<Wish>>>;
   getPopularGiftIdeas?: Maybe<Array<Maybe<MostPopularWishes>>>;
+  getUnreadNotifications?: Maybe<NotificationItemsList>;
   getVisitedUsers?: Maybe<VisitedUsersListType>;
   getWishesFromUsers: WishesFromUsersResponse;
   hasNewGiftIdeasCategory?: Maybe<Scalars['Boolean']['output']>;
@@ -301,6 +351,12 @@ export type QueryGetGiftIdeasWishesByCategoryIdArgs = {
 export type QueryGetPopularGiftIdeasArgs = {
   limit: Scalars['Int']['input'];
   offset: Scalars['Int']['input'];
+};
+
+
+export type QueryGetUnreadNotificationsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  startAfterItemId?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -539,13 +595,6 @@ export type SearchItemsQueryVariables = Exact<{
 
 export type SearchItemsQuery = { __typename?: 'Query', searchItems?: { __typename?: 'listItem', count?: number | null, rows?: Array<{ __typename?: 'Item', url?: string | null, updatedAt?: any | null, title?: string | null, price?: number | null, personalRating?: number | null, note?: string | null, marketplace?: string | null, imageUrl?: string | null, id?: string | null, collectionIds?: Array<string> | null, faviconUrl?: string | null, currency?: string | null, createdAt?: any | null, isPurchased?: boolean | null } | null> | null } | null };
 
-export type SignInMutationVariables = Exact<{
-  idToken: Scalars['String']['input'];
-}>;
-
-
-export type SignInMutation = { __typename?: 'Mutation', signIn?: { __typename?: 'UserAndToken', token?: string | null } | null };
-
 export type UserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -563,5 +612,4 @@ export const DeleteUserDocument = {"kind":"Document","definitions":[{"kind":"Ope
 export const UserUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserInput"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"image"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Upload"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}},{"kind":"Argument","name":{"kind":"Name","value":"image"},"value":{"kind":"Variable","name":{"kind":"Name","value":"image"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"birthday"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isHidden"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}}]}}]}}]} as unknown as DocumentNode<UserUpdateMutation, UserUpdateMutationVariables>;
 export const ItemsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Items"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"collectionId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startAfterItemId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"collectionId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"collectionId"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"startAfterItemId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startAfterItemId"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"rows"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"personalRating"}},{"kind":"Field","name":{"kind":"Name","value":"note"}},{"kind":"Field","name":{"kind":"Name","value":"marketplace"}},{"kind":"Field","name":{"kind":"Name","value":"collectionIds"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"faviconUrl"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"isPurchased"}}]}}]}}]}}]} as unknown as DocumentNode<ItemsQuery, ItemsQueryVariables>;
 export const SearchItemsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"SearchItems"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"search"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"searchItems"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"search"},"value":{"kind":"Variable","name":{"kind":"Name","value":"search"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"count"}},{"kind":"Field","name":{"kind":"Name","value":"rows"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"personalRating"}},{"kind":"Field","name":{"kind":"Name","value":"note"}},{"kind":"Field","name":{"kind":"Name","value":"marketplace"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"collectionIds"}},{"kind":"Field","name":{"kind":"Name","value":"faviconUrl"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"isPurchased"}}]}}]}}]}}]} as unknown as DocumentNode<SearchItemsQuery, SearchItemsQueryVariables>;
-export const SignInDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SignIn"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"idToken"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"signIn"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"idToken"},"value":{"kind":"Variable","name":{"kind":"Name","value":"idToken"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}}]}}]}}]} as unknown as DocumentNode<SignInMutation, SignInMutationVariables>;
 export const UserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"User"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"birthday"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isHidden"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"uid"}}]}}]}}]} as unknown as DocumentNode<UserQuery, UserQueryVariables>;

@@ -38,7 +38,7 @@ export const AboutPage = () => {
         </a>
 
         <span className="extensions-wisher-about-page__version">
-          Version: 1.0.0
+          Version: 1.0.1
         </span>
       </div>
     </div>
