@@ -1,7 +1,7 @@
 {
   "name": "wisher",
   "displayName": "Wisher: Save shopping in wish list registry",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create Your Ideal Wishlist with Registry & Wishlist: Wisher",
   "author": "Nikolay <repyah84@gmail.com>",
   "scripts": {
@@ -22,7 +22,7 @@
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
     "jwt-decode": "^3.1.2",
-    "plasmo": "0.84.0",
+    "plasmo": "0.86.3",
     "react": "18.2.0",
     "react-datepicker": "^4.21.0",
     "react-dom": "18.2.0",
