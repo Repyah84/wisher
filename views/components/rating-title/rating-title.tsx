@@ -16,7 +16,7 @@ const getLabelForRating = (rating: number) => {
 }
 
 export const RatingTitle = ({ rating }: { rating: number }) => {
-  return (
-    <span className="extensions-rating-title">{getLabelForRating(rating)}</span>
-  )
+  const title = getLabelForRating(Math.trunc(rating))
+
+  return <span className="extensions-rating-title">{title}</span>
 }
