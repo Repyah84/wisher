@@ -16,7 +16,8 @@ import { OptionsSvgIcon } from "~views/components/icons/options/options"
 import { ShareSvgIcon } from "~views/components/icons/share/share"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
-import { WisherRating } from "~views/components/rating/rating"
+import { RatingSimple } from "~views/components/rating-simple/rating-simple"
+import { RatingTitle } from "~views/components/rating-title/rating-title"
 import { WishImage } from "~views/components/wish-image/wish-image"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useClipboard } from "~views/hooks/clipboard"
@@ -178,11 +179,15 @@ export const WisherItemPage = () => {
 
           <div className="extension-wisher-item__pudding-wrap">
             <div className="extension-wisher-item__create-info">
+              <div className="extension-wisher-item__rating">
+                <RatingSimple size={16} rating={personalRating} />
+
+                <RatingTitle rating={personalRating} />
+              </div>
+
               <WishDate clear={true} date={createdAt}>
                 <span>Saved: </span>
               </WishDate>
-
-              <WisherRating size={20} rating={personalRating} />
             </div>
 
             <div className="extension-wisher-item__collections">

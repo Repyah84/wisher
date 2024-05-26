@@ -6,7 +6,8 @@ import { useItemPrice } from "~views/hooks/item-price"
 
 import { WishDate } from "../date/date"
 import { Label } from "../label/label"
-import { WisherRating } from "../rating/rating"
+import { RatingSimple } from "../rating-simple/rating-simple"
+import { RatingTitle } from "../rating-title/rating-title"
 
 interface Props {
   wish: Item
@@ -68,7 +69,11 @@ export const Wisher = ({
           <span className="extensions-wisher-item__price">{priceValue}</span>
         )}
 
-        <WisherRating size={20} rating={personalRating} />
+        <div className="extensions-wisher-item__rating">
+          <RatingSimple rating={personalRating} size={16} />
+
+          <RatingTitle rating={personalRating} />
+        </div>
       </div>
     </div>
   )

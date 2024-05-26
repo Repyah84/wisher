@@ -1,17 +1,25 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Button } from "../button/button"
 import { ArrowLeftSvgIcon } from "../icons/arrow-left/arrow-left"
 import { ArrowRightSvgIcon } from "../icons/arrow-right/arrow-right"
 
 interface Props {
+  image: string
   images: string[]
+  onImageChange: (index: number) => void
 }
 
-export const Slider = ({ images }: Props) => {
-  const [imageIndex, setImageIndex] = useState(0)
+export const Slider = ({ image, images, onImageChange }: Props) => {
+  const index = images.findIndex((imageFromList) => imageFromList === image)
+
+  const [imageIndex, setImageIndex] = useState(index === -1 ? 0 : index)
 
   const isSlider = images.length > 1
+
+  useEffect(() => {
+    onImageChange(imageIndex)
+  }, [imageIndex])
 
   const onNext = () => {
     setImageIndex((index) => {

@@ -8,6 +8,10 @@
 
   padding: 0 16px;
 
+  &__rating {
+    display: grid;
+  }
+
   &__rating-title {
     margin-bottom: 8px;
 

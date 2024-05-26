@@ -13,12 +13,6 @@ import { WisherContext } from "~views/context/wisher/wisher.context"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"],
-  exclude_matches: [
-    "https://auth.wishr.app/*",
-    "https://accounts.google.com/*",
-    "https://iwish-c82a4.firebaseapp.com/*",
-    "https://appleid.apple.com/auth/*"
-  ],
   // matches: [
   //   "https://www.amazon.com/*",
   //   "https://driffle.com/*",
@@ -27,6 +21,12 @@ export const config: PlasmoCSConfig = {
   //   "https://www.wishr.app/*",
   //   "https://rozetka.com.ua/*"
   // ],
+  exclude_matches: [
+    "https://auth.wishr.app/*",
+    "https://accounts.google.com/*",
+    "https://iwish-c82a4.firebaseapp.com/*",
+    "https://appleid.apple.com/auth/*"
+  ],
   css: ["font.css"]
 }
 

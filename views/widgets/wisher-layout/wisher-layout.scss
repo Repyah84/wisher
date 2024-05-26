@@ -30,6 +30,10 @@
     -webkit-box-orient: vertical;
   }
 
+  &__rating {
+    display: grid;
+  }
+
   &__rating-title {
     margin-bottom: 8px;
 

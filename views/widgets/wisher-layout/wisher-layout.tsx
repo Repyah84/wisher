@@ -7,7 +7,7 @@ import { patchWisherState, type WisherSearchData } from "~store/slices/wisher"
 import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
-import { WisherRating } from "~views/components/rating/rating"
+import { RatingSimple } from "~views/components/rating-simple/rating-simple"
 import { Slider } from "~views/components/slider/slider"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useItemPrice } from "~views/hooks/item-price"
@@ -50,6 +50,10 @@ export const WisherLayout = ({
     dispatch(patchWisherState({ collectionIds: selectedCollections }))
   }
 
+  const onImageChange = (index: number) => {
+    dispatch(patchWisherState({ imageUrl: images[index] }))
+  }
+
   const priceValue = useItemPrice(price, currency)
 
   const onRatingChange = (personalRating: number) => {
@@ -81,14 +85,23 @@ export const WisherLayout = ({
             }}
           />
         ) : (
-          <Slider images={images} />
+          <Slider
+            image={imageUrl}
+            images={images}
+            onImageChange={onImageChange}
+          />
         )}
 
-        <WisherRating rating={personalRating} onRatingChange={onRatingChange}>
+        <div className="extensions-wisher-layout__rating">
           <span className="extensions-wisher-layout__rating-title">
-            Personal Rating
+            Level of desire
           </span>
-        </WisherRating>
+
+          <RatingSimple
+            rating={personalRating}
+            onRatingChange={onRatingChange}
+          />
+        </div>
 
         <div className="extensions-wisher-layout__collections">
           <ItemCollection

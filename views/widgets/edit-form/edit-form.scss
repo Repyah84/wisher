@@ -34,6 +34,16 @@
     }
   }
 
+  &__raring {
+    display: grid;
+    gap: 4px;
+  }
+
+  &__item-title-description {
+    display: inline-block;
+    padding: 0 8px;
+  }
+
   &__content {
     overflow: auto;
 

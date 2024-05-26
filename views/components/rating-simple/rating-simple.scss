@@ -1,0 +1,17 @@
+.extension-rating-simple {
+  display: inline-flex;
+
+  &__element {
+    display: inline-flex;
+
+    &[attr-readonly="false"] {
+      cursor: pointer;
+    }
+
+    & > svg {
+      path {
+        transition: fill 150ms ease-in-out;
+      }
+    }
+  }
+}

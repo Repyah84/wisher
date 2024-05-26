@@ -23,6 +23,12 @@ export type Scalars = {
   Upload: { input: any; output: any; }
 };
 
+export type Category = {
+  __typename?: 'Category';
+  id?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
 export type CategoryInfo = {
   __typename?: 'CategoryInfo';
   countInFavorite?: Maybe<Scalars['Int']['output']>;
@@ -36,13 +42,34 @@ export type CategoryInfo = {
   wishes?: Maybe<Array<Maybe<Wish>>>;
 };
 
+export type CategoryWithShops = {
+  __typename?: 'CategoryWithShops';
+  category?: Maybe<Category>;
+  shops?: Maybe<Array<Maybe<Shop>>>;
+};
+
+export type CategoryWithShopsCount = {
+  __typename?: 'CategoryWithShopsCount';
+  category?: Maybe<Category>;
+  count?: Maybe<Scalars['Int']['output']>;
+};
+
 export type Collection = {
   __typename?: 'Collection';
   authorId: Scalars['ID']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
+  isDreamBoardEnabled?: Maybe<Scalars['Boolean']['output']>;
   isSharedByLink?: Maybe<Scalars['Boolean']['output']>;
+  notifications?: Maybe<Array<Maybe<Notification>>>;
   sort?: Maybe<Scalars['Int']['output']>;
   title: Scalars['String']['output'];
+};
+
+export type CollectionWithSortedWishes = {
+  __typename?: 'CollectionWithSortedWishes';
+  collection?: Maybe<Collection>;
+  images?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
 export type CollectionsAndCountResponse = {
@@ -65,7 +92,9 @@ export type ContactPublicCollection = {
   __typename?: 'ContactPublicCollection';
   collectionId?: Maybe<Scalars['String']['output']>;
   collectionName?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   imagesUrls?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  isDreamBoardEnabled?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type ContactPublicCollectionList = {
@@ -78,6 +107,41 @@ export type Currency = {
   __typename?: 'Currency';
   code: Scalars['String']['output'];
   name: Scalars['String']['output'];
+};
+
+export type DreamBoardCollection = {
+  __typename?: 'DreamBoardCollection';
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  owner?: Maybe<DreamBordUserOwner>;
+  title?: Maybe<Scalars['String']['output']>;
+  wishes?: Maybe<Array<Maybe<DreamBordItem>>>;
+};
+
+export type DreamBordItem = {
+  __typename?: 'DreamBordItem';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  currency?: Maybe<Scalars['String']['output']>;
+  faviconUrl?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  imageUrl?: Maybe<Scalars['String']['output']>;
+  isPurchased?: Maybe<Scalars['Boolean']['output']>;
+  marketplace?: Maybe<Scalars['String']['output']>;
+  note?: Maybe<Scalars['String']['output']>;
+  personalRating?: Maybe<Scalars['Float']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+export type DreamBordUserOwner = {
+  __typename?: 'DreamBordUserOwner';
+  birthday?: Maybe<Scalars['Date']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  imageUrl?: Maybe<Scalars['String']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
 };
 
 export type GetContactPublicCollections = {
@@ -142,6 +206,7 @@ export type MostPopularWishes = {
 export type Mutation = {
   __typename?: 'Mutation';
   addItemsToCollection?: Maybe<Status>;
+  addToFav?: Maybe<Scalars['Boolean']['output']>;
   createTempToken?: Maybe<Scalars['String']['output']>;
   deleteItem?: Maybe<Status>;
   deleteOneSignal?: Maybe<Scalars['Boolean']['output']>;
@@ -153,6 +218,7 @@ export type Mutation = {
   readAllNotifications?: Maybe<Scalars['Boolean']['output']>;
   readNotification?: Maybe<Scalars['Boolean']['output']>;
   registerVisitLink?: Maybe<Scalars['Boolean']['output']>;
+  removeFromFav?: Maybe<Scalars['Boolean']['output']>;
   renameCollection?: Maybe<Status>;
   setOneSignal?: Maybe<Scalars['Boolean']['output']>;
   signIn?: Maybe<UserAndToken>;
@@ -164,6 +230,11 @@ export type Mutation = {
 export type MutationAddItemsToCollectionArgs = {
   collection: Scalars['String']['input'];
   ids: Array<InputMaybe<Scalars['ID']['input']>>;
+};
+
+
+export type MutationAddToFavArgs = {
+  shopId: Scalars['String']['input'];
 };
 
 
@@ -196,6 +267,11 @@ export type MutationReadNotificationArgs = {
 
 export type MutationRegisterVisitLinkArgs = {
   input: RegisterVisitLink;
+};
+
+
+export type MutationRemoveFromFavArgs = {
+  shopId: Scalars['String']['input'];
 };
 
 
@@ -250,8 +326,10 @@ export type NotificationInput = {
 
 export type NotificationItem = {
   __typename?: 'NotificationItem';
+  app_url?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['String']['output']>;
-  relatedEntity?: Maybe<Item>;
+  isRead?: Maybe<Scalars['Boolean']['output']>;
+  relatedEntity?: Maybe<RelatedEntity>;
   sentAt?: Maybe<Scalars['DateTime']['output']>;
   type?: Maybe<NotificationType>;
 };
@@ -305,13 +383,18 @@ export type PopularGiftWishesResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  collectionWithSortedWishes?: Maybe<DreamBoardCollection>;
   collections?: Maybe<Array<Maybe<Collection>>>;
   collectionsWithImages?: Maybe<Array<Maybe<CollectionsWithImages>>>;
   currencies?: Maybe<Array<Maybe<Currency>>>;
+  getCategoriesWithShopCount?: Maybe<Array<Maybe<CategoryWithShopsCount>>>;
+  getCategoryWithShops?: Maybe<CategoryWithShops>;
   getContactPublicCollections?: Maybe<ContactPublicCollectionList>;
+  getFavShops?: Maybe<ShopWithCount>;
   getGiftIdeasCategory?: Maybe<Array<Maybe<CategoryInfo>>>;
   getGiftIdeasWishesByCategoryId?: Maybe<Array<Maybe<Wish>>>;
   getPopularGiftIdeas?: Maybe<Array<Maybe<MostPopularWishes>>>;
+  getShops?: Maybe<ShopWithCount>;
   getUnreadNotifications?: Maybe<NotificationItemsList>;
   getVisitedUsers?: Maybe<VisitedUsersListType>;
   getWishesFromUsers: WishesFromUsersResponse;
@@ -328,13 +411,29 @@ export type Query = {
 };
 
 
+export type QueryCollectionWithSortedWishesArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+
 export type QueryCollectionsArgs = {
   options: CollectionsOptions;
 };
 
 
+export type QueryGetCategoryWithShopsArgs = {
+  id?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type QueryGetContactPublicCollectionsArgs = {
   input?: InputMaybe<GetContactPublicCollections>;
+};
+
+
+export type QueryGetFavShopsArgs = {
+  limit: Scalars['Int']['input'];
+  offset: Scalars['Int']['input'];
 };
 
 
@@ -351,6 +450,13 @@ export type QueryGetGiftIdeasWishesByCategoryIdArgs = {
 export type QueryGetPopularGiftIdeasArgs = {
   limit: Scalars['Int']['input'];
   offset: Scalars['Int']['input'];
+};
+
+
+export type QueryGetShopsArgs = {
+  limit: Scalars['Int']['input'];
+  offset: Scalars['Int']['input'];
+  search?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -422,6 +528,29 @@ export type RegisterVisitLink = {
   userId: Scalars['ID']['input'];
 };
 
+export type RelatedEntity = {
+  __typename?: 'RelatedEntity';
+  collectionWithImages?: Maybe<CollectionsWithImages>;
+  wish?: Maybe<Item>;
+};
+
+export type Shop = {
+  __typename?: 'Shop';
+  affiliateNetwork?: Maybe<Scalars['String']['output']>;
+  domainUrl?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  isFav?: Maybe<Scalars['Boolean']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  shopId?: Maybe<Scalars['String']['output']>;
+  shopImgUrl?: Maybe<Scalars['String']['output']>;
+};
+
+export type ShopWithCount = {
+  __typename?: 'ShopWithCount';
+  count?: Maybe<Scalars['Int']['output']>;
+  rows?: Maybe<Array<Maybe<Shop>>>;
+};
+
 export type Sort = {
   field?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<SortType>;
@@ -438,8 +567,11 @@ export type Status = {
 };
 
 export type UpdateCollection = {
+  description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
+  isDreamBoardEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   isSharedByLink?: InputMaybe<Scalars['Boolean']['input']>;
+  notifications?: InputMaybe<Array<InputMaybe<NotificationInput>>>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 

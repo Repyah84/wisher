@@ -2,7 +2,7 @@ import imageGarage from "data-base64:~assets/garage.png"
 
 import { Button } from "~views/components/button/button"
 import { ReloadSvgIcon } from "~views/components/icons/reload/reload"
-import { WisherRating } from "~views/components/rating/rating"
+import { RatingSimple } from "~views/components/rating-simple/rating-simple"
 
 interface Props {
   retryFn: () => void
@@ -14,11 +14,13 @@ export const WisherEmptyData = ({ retryFn, onEditClick }: Props) => {
     <div className="extensions-wisher-wisher-empty-data">
       <img src={imageGarage} width={192} height={192} alt="Garage" />
 
-      <WisherRating rating={0}>
+      <div className="extensions-wisher-wisher-empty-data__rating">
         <span className="extensions-wisher-wisher-empty-data__rating-title">
-          Personal Rating
+          Level of desire
         </span>
-      </WisherRating>
+
+        <RatingSimple rating={0} />
+      </div>
 
       <p className="extensions-wisher-wisher-empty-data__description">
         Sorry, we couldn’t find any data about the wish :( <br /> Please tap the

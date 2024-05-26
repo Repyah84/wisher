@@ -126,15 +126,20 @@
     color: #000000;
   }
 
+  &__rating {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+  }
+
   &__price {
     font-size: 14px;
     font-weight: 500;
   }
 
   &__create-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    gap: 8px;
 
     font-size: 12px;
 
