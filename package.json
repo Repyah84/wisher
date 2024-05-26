@@ -8,7 +8,8 @@
     "dev": "plasmo dev",
     "build": "plasmo build",
     "package": "plasmo package",
-    "gql:codegen": "graphql-codegen --watch"
+    "gql:codegen": "graphql-codegen --watch",
+    "build:zip:pack": "npm run build -- --zip && npm run build -- --zip --target=edge-mv3"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
