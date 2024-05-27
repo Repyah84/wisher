@@ -15,9 +15,17 @@ export const Label = ({
   onLabelClick,
   loading = false
 }: Props) => {
+  const onClick = () => {
+    if (onLabelClick === undefined) {
+      return
+    }
+
+    onLabelClick(title)
+  }
+
   return (
     <div
-      onClick={() => (onLabelClick ? onLabelClick(title) : undefined)}
+      onClick={onClick}
       className={`extensions-wisher-label extensions-wisher-label--${labelType}`}>
       <div className="extensions-wisher-label__loader">
         <Loader size={4} isLoading={loading} />

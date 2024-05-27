@@ -1,3 +1,5 @@
+import { useMemo } from "react"
+
 import { Label, type LabelType } from "~views/components/label/label"
 import { useCollectionsState } from "~views/hooks/collections"
 
@@ -20,6 +22,35 @@ export const ItemCollection = ({
 }: Props) => {
   const { getCollectionById } = useCollectionsState()
 
+  const collectionsLabels = useMemo(() => {
+    if (collectionsIds === undefined || collectionsIds === null) {
+      return <></>
+    }
+
+    const collections = collectionsIds.reduce((acc, id) => {
+      const collection = getCollectionById(id)
+
+      if (collection) {
+        acc.push(collection)
+      }
+
+      return acc
+    }, [])
+
+    if (collections.length === 0) {
+      return <></>
+    }
+
+    return collections.map(({ id, title }) => (
+      <Label
+        onLabelClick={onCollectionItemClick}
+        labelType="active"
+        key={id}
+        title={title}
+      />
+    ))
+  }, [collectionsIds])
+
   return (
     <div className="extensions-wisher-item-collections">
       <Label
@@ -29,16 +60,7 @@ export const ItemCollection = ({
         title={actionTitle}
       />
 
-      {collectionsIds &&
-        collectionsIds.length > 0 &&
-        collectionsIds.map((id) => (
-          <Label
-            onLabelClick={onCollectionItemClick}
-            labelType="active"
-            key={id}
-            title={getCollectionById(id)?.title || "Invalidate"}
-          />
-        ))}
+      {collectionsLabels}
     </div>
   )
 }
