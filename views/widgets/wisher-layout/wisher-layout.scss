@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  row-gap: 24px;
+  row-gap: 16px;
 
   &__name {
     max-width: calc(var(--extensions-wisher-width) - 16px * 2 - 3px);
@@ -32,6 +32,19 @@
 
   &__rating {
     display: grid;
+  }
+
+  &__title-wrapper {
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__default-rating-title {
+    font-size: 12px;
+    line-height: 16px;
+
+    color: var(--extensions-mode-color-grey);
   }
 
   &__rating-title {

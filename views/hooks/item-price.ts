@@ -7,11 +7,13 @@ export const useItemPrice = (price: number, currency: string) => {
       return null
     }
 
-    if (!currency || currency === "null") {
+    const symbol = getSymbolFromCurrency(currency)
+
+    if (!currency || currency === "null" || symbol === undefined) {
       return price
     }
 
-    return `${getSymbolFromCurrency(currency)}${price}`
+    return `${symbol}${price}`
   }, [currency, price])
 
   return priceValue

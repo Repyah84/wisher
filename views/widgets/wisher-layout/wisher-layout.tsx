@@ -8,6 +8,7 @@ import { Button } from "~views/components/button/button"
 import { Loader } from "~views/components/loader/loader"
 import { Popup } from "~views/components/popup/popup"
 import { RatingSimple } from "~views/components/rating-simple/rating-simple"
+import { RatingTitle } from "~views/components/rating-title/rating-title"
 import { Slider } from "~views/components/slider/slider"
 import { WisherStateContext } from "~views/context/wisher/wisher.context"
 import { useItemPrice } from "~views/hooks/item-price"
@@ -101,6 +102,16 @@ export const WisherLayout = ({
             rating={personalRating}
             onRatingChange={onRatingChange}
           />
+
+          <div className="extensions-wisher-layout__title-wrapper">
+            {personalRating === 0 ? (
+              <span className="extensions-wisher-layout__default-rating-title">
+                Tap to specify your desired strength
+              </span>
+            ) : (
+              <RatingTitle rating={personalRating} />
+            )}
+          </div>
         </div>
 
         <div className="extensions-wisher-layout__collections">

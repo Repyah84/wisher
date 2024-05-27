@@ -19,7 +19,8 @@ export const config: PlasmoCSConfig = {
   //   "https://www.google.com/*",
   //   "https://www.bogner.com/*",
   //   "https://www.wishr.app/*",
-  //   "https://rozetka.com.ua/*"
+  //   "https://rozetka.com.ua/*",
+  //   "https://modelistam.com.ua/*"
   // ],
   exclude_matches: [
     "https://auth.wishr.app/*",
