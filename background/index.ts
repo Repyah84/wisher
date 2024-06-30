@@ -6,8 +6,9 @@ import { WISHER_REDIRECT } from "~const/wisher-redirect"
 
 const ignore = [
   "chrome://extensions",
+  "https://app.netlify.com/",
   "edge://extensions/",
-  "https://auth.wishr.app",
+  `${process.env.PLASMO_PUBLIC_AUTH_APP}`,
   "https://accounts.google.com",
   "https://iwish-c82a4.firebaseapp.com",
   "https://appleid.apple.com/auth"

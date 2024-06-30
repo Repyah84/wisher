@@ -1,7 +1,7 @@
 {
   "name": "wisher",
   "displayName": "Wisher: Save shopping in wish list registry",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Create Your Ideal Wishlist with Registry & Wishlist: Wisher",
   "author": "Nikolay <repyah84@gmail.com>",
   "scripts": {

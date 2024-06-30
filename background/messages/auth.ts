@@ -51,7 +51,7 @@ const auth: PlasmoMessaging.MessageHandler = async () => {
   }
 
   const widow = await chrome.windows.create({
-    url: "https://auth.wishr.app",
+    url: process.env.PLASMO_PUBLIC_AUTH_APP,
     focused: true,
     type: "popup",
     top: 100,

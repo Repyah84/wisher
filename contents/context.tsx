@@ -23,10 +23,11 @@ export const config: PlasmoCSConfig = {
   //   "https://modelistam.com.ua/*"
   // ],
   exclude_matches: [
-    "https://auth.wishr.app/*",
+    `${process.env.PLASMO_PUBLIC_AUTH_APP}/*`,
     "https://accounts.google.com/*",
     "https://iwish-c82a4.firebaseapp.com/*",
-    "https://appleid.apple.com/auth/*"
+    "https://appleid.apple.com/auth/*",
+    "https://app.netlify.com/*"
   ],
   css: ["font.css"]
 }
