@@ -64,7 +64,7 @@ export const LoginPage = () => {
 
         <div className="extensions-wisher-login-page__action">
           <Button btnColor="primary" size="md" onClickFn={onLoginClick}>
-            <span>LOG IN</span>
+            <span>SIGN IN</span>
           </Button>
 
           <ButtonNav link="/wisher/wishes/wishes-all">DO IT LATER</ButtonNav>
